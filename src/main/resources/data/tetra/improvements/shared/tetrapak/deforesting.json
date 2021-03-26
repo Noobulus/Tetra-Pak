@@ -1,0 +1,9 @@
+[
+  {
+    "key": "tetrapak/deforesting",
+    "level": 1,
+    "effects": {
+      "tetrapak:deforesting": 1
+    }
+  }
+]

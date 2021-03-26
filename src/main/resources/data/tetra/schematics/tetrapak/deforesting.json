@@ -1,0 +1,21 @@
+{
+  "replace": true,
+  "slots": ["sword/hilt"],
+  "materialSlotCount": 1,
+  "glyph": {
+    "textureLocation": "examplemod:textures/gui/glyphs.png",
+    "textureX": 0
+  },
+  "displayType": "improvement",
+  "outcomes": [
+    {
+      "material": {
+        "item": "minecraft:feather"
+      },
+      "experienceCost": 3,
+      "improvements": {
+        "tetrapak/deforesting": 1
+      }
+    }
+  ]
+}
