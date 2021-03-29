@@ -1,0 +1,7 @@
+{
+  "tetra.material.refined_radiance": "Refined Radiance",
+  "tetra.material.refined_radiance.prefix": "Refined Radiance",
+
+  "tetra.improvement.tetrapak/deforesting.name": "Deforesting",
+  "tetra.improvement.tetrapak/deforesting.description": "The latent energy of Refined Radiance allows this tool to fell trees with ease."
+}

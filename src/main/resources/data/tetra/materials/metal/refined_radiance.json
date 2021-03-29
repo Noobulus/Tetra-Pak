@@ -4,15 +4,15 @@
   "primary": "5.8",
   "secondary": "2.8",
   "tertiary": "3.5",
-  "durability": "876",
+  "durability": "1024",
   "integrityCost": "2",
   "integrityGain": "6",
-  "magicCapacity": "124",
+  "magicCapacity": "120",
   "toolLevel": "4",
   "toolEfficiency": "7",
   "tints": {
-    "glyph":"ffffff",
-    "texture":"c8ceff"
+    "glyph":"fff0ff",
+    "texture":"fff0ff"
   },
   "textures": [
     "metal",
@@ -20,9 +20,6 @@
   ],
   "material": {
     "item":"create:refined_radiance"
-  },
-  "effects": {
-    "stabilizing":8
   },
   "improvements": {
     "tetrapak/deforesting": 1

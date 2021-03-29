@@ -74,3 +74,11 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mollis lacinia magn
     versionRange="[mc1.16.3_v0.3e,)"
     ordering="NONE"
     side="BOTH"
+
+# coming soon!
+#[[dependencies.tetrapak]]
+#    modId="druidcraft"
+#    mandatory=true
+#    versionRange="[0.4.52,)"
+#    ordering="NONE"
+#    side="BOTH"

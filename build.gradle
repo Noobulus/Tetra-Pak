@@ -132,6 +132,7 @@ dependencies {
     implementation fg.deobf("curse.maven:tetra-289712:3232294")
     implementation fg.deobf("curse.maven:mgui-351914:3104239")
     implementation fg.deobf("curse.maven:create-328085:3167531")
+    implementation fg.deobf("curse.maven:druidcraft-340991:3177267")
     runtimeOnly fg.deobf("curse.maven:openloader-354339:3198395")
 
     // You may put jars on which you depend on in ./libs or you may define them like so..
@@ -160,7 +161,7 @@ jar {
         attributes([
             "Specification-Title": "tetrapak",
             "Specification-Vendor": "Noobulus",
-            "Specification-Version": "1", // We are version 1 of ourselves
+            "Specification-Version": "0.1", // We are version 1 of ourselves
             "Implementation-Title": project.name,
             "Implementation-Version": "${version}",
             "Implementation-Vendor" :"Noobulus",
