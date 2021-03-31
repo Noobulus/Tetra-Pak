@@ -22,7 +22,7 @@ repositories {
     }
 }
 
-version = '1.0'
+version = '0.1'
 group = 'mod.noobulus.tetrapak' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'tetrapak'
 
