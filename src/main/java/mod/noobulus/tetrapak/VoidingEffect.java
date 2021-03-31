@@ -1,6 +1,7 @@
 package mod.noobulus.tetrapak;
 
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
@@ -33,7 +34,7 @@ public class VoidingEffect {
     @SubscribeEvent
     public static void onDeath(LivingExperienceDropEvent event) {
         LivingEntity user = event.getAttackingPlayer();
-        if (!(event.getEntity() instanceof PlayerEntity) || user == null)
+        if ((event.getEntity() instanceof PlayerEntity) || user == null)
             return;
         ItemStack heldItem = user.getHeldItemMainhand();
         if (!(heldItem.getItem() instanceof ModularItem))
@@ -42,7 +43,7 @@ public class VoidingEffect {
         ModularItem heldModularitem = (ModularItem) heldItem.getItem();
         int level = heldModularitem.getEffectLevel(heldItem, voiding);
         if (level > 0) {
-            int levelLooting = heldModularitem.getEnchantmentLevelFromImprovements(heldItem, Enchantments.LOOTING);
+            int levelLooting = EnchantmentHelper.getEnchantmentLevel(Enchantments.LOOTING, heldItem);
             float modifier = 2 + (5f * levelLooting);
             event.setDroppedExperience((int) (event.getDroppedExperience() * modifier));
         }
