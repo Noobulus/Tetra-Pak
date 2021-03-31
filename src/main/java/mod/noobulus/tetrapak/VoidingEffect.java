@@ -44,7 +44,7 @@ public class VoidingEffect {
         int level = heldModularitem.getEffectLevel(heldItem, voiding);
         if (level > 0) {
             int levelLooting = EnchantmentHelper.getEnchantmentLevel(Enchantments.LOOTING, heldItem);
-            float modifier = 2 + (5f * levelLooting);
+            float modifier = 2 + (0.25f * levelLooting);
             event.setDroppedExperience((int) (event.getDroppedExperience() * modifier));
         }
     }
