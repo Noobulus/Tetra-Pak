@@ -1,7 +1,11 @@
 {
   "tetra.material.refined_radiance": "Refined Radiance",
   "tetra.material.refined_radiance.prefix": "Refined Radiance",
+  "tetra.material.shadow_steel": "Shadow Steel",
+  "tetra.material.shadow_steel.prefix": "Shadow Steel",
 
   "tetra.improvement.tetrapak/deforesting.name": "Deforesting",
-  "tetra.improvement.tetrapak/deforesting.description": "The latent energy of Refined Radiance allows this tool to fell trees with ease."
+  "tetra.improvement.tetrapak/deforesting.description": "The latent energy of Refined Radiance allows this tool to fell trees with ease.",
+  "tetra.improvement.tetrapak/voiding.name": "Voiding",
+  "tetra.improvement.tetrapak/voiding.description": "The void powers infused into Shadow Steel give this item incredible power at the cost of nullifying drops. (Currently does nothing on blocks)"
 }

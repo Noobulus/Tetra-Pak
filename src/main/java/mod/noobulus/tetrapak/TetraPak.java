@@ -10,5 +10,6 @@ public class TetraPak {
         MinecraftForge.EVENT_BUS.register(this);
         //MinecraftForge.EVENT_BUS.register(new DeforestEffect());
         MinecraftForge.EVENT_BUS.register(DeforestEffect.class);
+        MinecraftForge.EVENT_BUS.register(VoidingEffect.class);
     }
 }

@@ -1,0 +1,30 @@
+{
+  "key": "shadow_steel",
+  "category": "metal",
+  "primary": "9.5",
+  "secondary": "3.0",
+  "tertiary": "2.1",
+  "durability": "2303",
+  "integrityCost": "2",
+  "integrityGain": "5",
+  "magicCapacity": "100",
+  "toolLevel": "5",
+  "toolEfficiency": "15",
+  "tints": {
+    "glyph":"342e41",
+    "texture":"342e41"
+  },
+  "textures": [
+    "metal",
+    "default"
+  ],
+  "material": {
+    "item":"create:shadow_steel"
+  },
+  "improvements": {
+    "tetrapak/voiding": 1
+  },
+  "requiredTools":{
+    "hammer":4
+  }
+}

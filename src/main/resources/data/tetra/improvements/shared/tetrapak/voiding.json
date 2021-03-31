@@ -1,0 +1,9 @@
+[
+  {
+    "key": "tetrapak/voiding",
+    "level": 1,
+    "effects": {
+      "tetrapak:voiding": 1
+    }
+  }
+]
