@@ -1,0 +1,11 @@
+{
+    "type": "tetrapak:voiding",
+    "conditions": [
+    {
+        "condition": "minecraft:match_tool",
+        "predicate": {
+        "tag": "tetrapak:modular_items"
+        }
+    }
+    ]
+}

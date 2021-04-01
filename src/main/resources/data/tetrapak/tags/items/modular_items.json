@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "tetra:modular_sword",
+    "tetra:modular_double",
+    "tetra:modular_single",
+    "tetra:modular_shield",
+    "tetra:modular_toolbelt"
+  ]
+}

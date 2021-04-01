@@ -7,5 +7,5 @@
   "tetra.improvement.tetrapak/deforesting.name": "Deforesting",
   "tetra.improvement.tetrapak/deforesting.description": "The latent energy of Refined Radiance allows this tool to fell trees with ease.",
   "tetra.improvement.tetrapak/voiding.name": "Voiding",
-  "tetra.improvement.tetrapak/voiding.description": "The void powers infused into Shadow Steel give this item incredible power at the cost of nullifying drops. (Currently does nothing on blocks)"
+  "tetra.improvement.tetrapak/voiding.description": "The void powers infused into Shadow Steel give this tool incredible power at the cost of converting ALL drops to experience. Fortune and Looting both increase dropped experience."
 }
