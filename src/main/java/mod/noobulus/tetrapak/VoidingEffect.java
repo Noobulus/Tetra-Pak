@@ -1,38 +1,68 @@
 package mod.noobulus.tetrapak;
 
-import com.simibubi.create.content.curiosities.tools.DeforesterItem;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.AbstractArrowEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.Property;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.util.LazyValue;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraft.entity.*;
 
+import javax.annotation.Nullable;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import se.mickelus.tetra.effect.ItemEffect;
 import se.mickelus.tetra.items.modular.ModularItem;
 
 
 public class VoidingEffect {
     private static final ItemEffect voiding = ItemEffect.get("tetrapak:voiding");
+    private static final LazyValue<Method> arrowStackGetter = new LazyValue<>(() -> ObfuscationReflectionHelper.findMethod(AbstractArrowEntity.class, "func_184550_j"));
+
+    @Nullable
+    private static ItemStack getThrownItemStack(@Nullable Entity e) { // grimmauld magic
+        if (!(e instanceof AbstractArrowEntity))
+            return null;
+        Method lookup = ObfuscationReflectionHelper.findMethod(AbstractArrowEntity.class, "func_184550_j");
+        lookup.setAccessible(true);
+        Object result;
+        try {
+            result = lookup.invoke(e);
+        } catch (IllegalAccessException | InvocationTargetException ignored) {
+            return null;
+        }
+        if (!(result instanceof ItemStack))
+            return null;
+        return ((ItemStack) result);
+    }
 
     @SubscribeEvent
     public static void onDeath(LivingDropsEvent event) {
         if (event.getSource().getTrueSource() != null && event.getSource().getTrueSource() instanceof LivingEntity && !(event.getEntity() instanceof PlayerEntity)) {
             LivingEntity user = (LivingEntity) event.getSource().getTrueSource();
             ItemStack heldItem = user.getHeldItemMainhand();
-            if (!(heldItem.getItem() instanceof ModularItem))
+            ItemStack thrownItem = getThrownItemStack(event.getSource().getImmediateSource());
+            if (heldItem.getItem() instanceof ModularItem) {
+                ModularItem heldModularitem = (ModularItem) heldItem.getItem();
+                int level = heldModularitem.getEffectLevel(heldItem, voiding);
+                if (level > 0) {
+                    event.getDrops().clear();
+                }
                 return;
-            ModularItem heldModularitem = (ModularItem) heldItem.getItem();
-            int level = heldModularitem.getEffectLevel(heldItem, voiding);
-            if (level > 0) {
-                event.getDrops().clear();
+            }
+            if (thrownItem.getItem() instanceof ModularItem) {
+                ModularItem thrownModularitem = (ModularItem) thrownItem.getItem();
+                int level = thrownModularitem.getEffectLevel(thrownItem, voiding);
+                if (level > 0) {
+                    event.getDrops().clear();
+                }
             }
         }
     }
