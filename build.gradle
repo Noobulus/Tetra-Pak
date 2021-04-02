@@ -44,7 +44,7 @@ minecraft {
     mappings channel: 'snapshot', version: '20201028-1.16.3'
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 
-    // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     // Default run configurations.
     // These can be tweaked, removed, or duplicated as needed.
@@ -132,7 +132,7 @@ dependencies {
     implementation fg.deobf("curse.maven:tetra-289712:3232294")
     implementation fg.deobf("curse.maven:mgui-351914:3104239")
     implementation fg.deobf("curse.maven:create-328085:3167531")
-    implementation fg.deobf("curse.maven:druidcraft-340991:3177267")
+    runtimeOnly fg.deobf("curse.maven:druidcraft-340991:3177267")
     runtimeOnly fg.deobf("curse.maven:openloader-354339:3198395")
 
     // You may put jars on which you depend on in ./libs or you may define them like so..

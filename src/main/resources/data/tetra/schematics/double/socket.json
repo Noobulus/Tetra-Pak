@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "slots": [
+    "double/binding"
+  ],
+  "materialSlotCount": 1,
+  "displayType": "minor",
+  "glyph": {
+    "textureX": 80,
+    "textureY": 16
+  },
+  "outcomes": [
+    {
+      "material": {
+        "item": "create:polished_rose_quartz"
+      },
+      "experienceCost": 3,
+      "moduleKey": "double/socket",
+      "moduleVariant": "double_socket/rose_quartz"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "replace": false,
+  "slots": ["sword/guard"],
+  "type": "tetra:basic_module",
+  "renderLayer": "higher",
+  "variants": [
+    {
+      "key": "sword_socket/rose_quartz",
+      "category": "gem",
+      "durability": 40,
+      "integrity": -1,
+      "attributes": {
+        "forge:reach_distance": 2.0
+      },
+      "glyph": {
+        "tint": "ec7276",
+        "textureX": 80,
+        "textureY": 16
+      },
+      "models": [{
+        "location": "tetra:items/module/sword/guard/socket/pristine",
+        "tint": "ec7276"
+      }]
+    }
+  ]
+}

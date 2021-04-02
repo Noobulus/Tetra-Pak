@@ -1,0 +1,26 @@
+{
+  "replace": false,
+  "type": "tetra:basic_module",
+  "slots": ["single/binding"],
+  "renderLayer": "higher",
+  "variants": [
+    {
+      "key": "single_socket/rose_quartz",
+      "category": "gem",
+      "durability": 40,
+      "integrity": -1,
+      "attributes": {
+        "forge:reach_distance": 2.0
+      },
+      "glyph": {
+        "tint": "ec7276",
+        "textureX": 80,
+        "textureY": 16
+      },
+      "models": [{
+        "location": "tetra:items/module/single/binding/socket/pristine",
+        "tint": "ec7276"
+      }]
+    }
+  ]
+}
