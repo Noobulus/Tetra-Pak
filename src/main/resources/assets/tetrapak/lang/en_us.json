@@ -26,11 +26,11 @@
   "tetra.improvement.tetrapak/voiding.description": "The void powers infused into Shadow Steel give this tool incredible power at the cost of converting ALL drops to experience. Fortune and Looting both increase dropped experience.",
 
   "tetrapak.stats.voiding": "Voiding",
-  "tetrapak.stats.voiding.tooltip": "This tool will void the drops of blocks mined and mobs killed with it in exchange for experience.",
+  "tetrapak.stats.voiding.tooltip": "This tool will void the drops of blocks mined and mobs killed with it in exchange for experience. Scales with fortune and looting.",
 
   "tetrapak.stats.deforesting": "Deforesting",
   "tetrapak.stats.deforesting.tooltip": "This tool will chop down any tree in a single swing.",
 
   "tetrapak.stats.nullifying": "Nullifying",
-  "tetrapak.stats.nullifying.tooltip": "Wearing this belt will reduce gravity experienced the wearer by \u00a7e%s\u00a7r."
+  "tetrapak.stats.nullifying.tooltip": "Wearing this belt will reduce gravity experienced the wearer by \u00a7e%s\u00a7r"
 }
