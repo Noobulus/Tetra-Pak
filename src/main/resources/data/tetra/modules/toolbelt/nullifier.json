@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "type": "tetra:toolbelt_module",
+  "slots": ["toolbelt/slot1", "toolbelt/slot2", "toolbelt/slot3"],
+  "slotSuffixes": ["_slot1", "_slot2", "_slot3"],
+  "variants": [
+    {
+      "key": "nullifier/refined_radiance",
+      "integrity": -4,
+      "glyph": {
+        "tint": "ffffff",
+        "textureX": 240
+      },
+      "effects": {
+        "tetrapak:nullifying": 1
+      }
+    }
+  ]
+}

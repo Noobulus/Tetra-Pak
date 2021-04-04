@@ -22,7 +22,7 @@
     "item":"create:refined_radiance"
   },
   "improvements": {
-    "tetrapak/deforesting": 1
+    "tetrapak/radiant": 1
   },
   "requiredTools":{
     "hammer":4

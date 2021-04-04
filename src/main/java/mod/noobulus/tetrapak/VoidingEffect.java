@@ -4,11 +4,11 @@ import net.minecraft.enchantment.Enchantments;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.CombatEntry;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.LazyValue;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.entity.living.LootingLevelEvent;
@@ -19,17 +19,31 @@ import net.minecraft.entity.*;
 import javax.annotation.Nullable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.List;
 
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import se.mickelus.tetra.blocks.workbench.gui.WorkbenchStatsGui;
 import se.mickelus.tetra.effect.ItemEffect;
+import se.mickelus.tetra.gui.statbar.GuiStatBar;
+import se.mickelus.tetra.gui.statbar.getter.*;
 import se.mickelus.tetra.items.modular.ModularItem;
+import se.mickelus.tetra.items.modular.impl.holo.gui.craft.HoloStatsGui;
 
 
 public class VoidingEffect {
     private static final ItemEffect voiding = ItemEffect.get("tetrapak:voiding");
     private static final LazyValue<Method> arrowStackGetter = new LazyValue<>(() -> ObfuscationReflectionHelper.findMethod(AbstractArrowEntity.class, "func_184550_j"));
     private static DamageSource lastActiveDamageSource = null;
+
+    @OnlyIn(Dist.CLIENT)
+    public static void clientInit() {
+        final IStatGetter voidingGetter = new StatGetterEffectLevel(voiding, 1, 0);
+        final GuiStatBar voidingBar = new GuiStatBar(0, 0, 59, "tetrapak.stats.voiding",
+                0, 1, false, voidingGetter, LabelGetterBasic.integerLabel,
+                new TooltipGetterInteger("tetrapak.stats.voiding.tooltip", voidingGetter));
+
+        WorkbenchStatsGui.addBar(voidingBar);
+        HoloStatsGui.addBar(voidingBar);
+    }
 
     @Nullable
     private static ItemStack getThrownItemStack(@Nullable Entity e) { // some grimm magic to make javelins work
@@ -49,7 +63,7 @@ public class VoidingEffect {
     }
 
     @SubscribeEvent
-    public static void onDeath(LivingDropsEvent event) {
+    public static void voidingKillNullDrops(LivingDropsEvent event) {
         if (shouldVoidingAffect(event.getSource(), event.getEntity())) {
             event.getDrops().clear();
         }
@@ -61,7 +75,7 @@ public class VoidingEffect {
     }
 
     @SubscribeEvent
-    public static void onDeath(LivingExperienceDropEvent event) {
+    public static void voidingKillMultiplyExp(LivingExperienceDropEvent event) {
         LivingEntity target = event.getEntityLiving();
         if (shouldVoidingAffect(lastActiveDamageSource, target)) {
             int levelLooting = EnchantmentHelper.getEnchantmentLevel(Enchantments.LOOTING, event.getAttackingPlayer().getHeldItemMainhand());
@@ -71,7 +85,7 @@ public class VoidingEffect {
     }
 
     @SubscribeEvent
-    public static void onBlockDestroyed(BlockEvent.BreakEvent event) {
+    public static void voidingMineBlock(BlockEvent.BreakEvent event) {
         ItemStack heldItemMainhand = event.getPlayer().getHeldItemMainhand();
         if (!(heldItemMainhand.getItem() instanceof ModularItem))
             return;

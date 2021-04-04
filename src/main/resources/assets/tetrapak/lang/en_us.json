@@ -15,8 +15,22 @@
   "tetra.variant.sword_socket/rose_quartz": "Socket [\u00a7cRose Quartz\u00a7r]",
   "tetra.variant.sword_socket/rose_quartz.description": "A gem, fitted onto the sword where the blade meets the hilt. The gem is enchanted and grants the wielder additional reach.",
 
-  "tetra.improvement.tetrapak/deforesting.name": "Deforesting",
-  "tetra.improvement.tetrapak/deforesting.description": "The latent energy of Refined Radiance allows this tool to fell trees with ease.",
+  "tetra/schematic/toolbelt/nullifier.slot1": "Material",
+  "tetra/schematic/toolbelt/nullifier.name": "Nullifier",
+  "tetra/schematic/toolbelt/nullifier.description": "Attach a gravity nullification unit, which lowers the gravity experienced by the belt's wearer. As a side-effect of this, fall damage is also completely nullified.",
+  "tetra.variant.nullifier/refined_radiance": "Gravity nullifier",
+
+  "tetra.improvement.tetrapak/radiant.name": "Radiant",
+  "tetra.improvement.tetrapak/radiant.description": "The latent energy of Refined Radiance allows this tool to harvest many blocks at a time depending upon the tool's function.",
   "tetra.improvement.tetrapak/voiding.name": "Voiding",
-  "tetra.improvement.tetrapak/voiding.description": "The void powers infused into Shadow Steel give this tool incredible power at the cost of converting ALL drops to experience. Fortune and Looting both increase dropped experience."
+  "tetra.improvement.tetrapak/voiding.description": "The void powers infused into Shadow Steel give this tool incredible power at the cost of converting ALL drops to experience. Fortune and Looting both increase dropped experience.",
+
+  "tetrapak.stats.voiding": "Voiding",
+  "tetrapak.stats.voiding.tooltip": "This tool will void the drops of blocks mined and mobs killed with it in exchange for experience.",
+
+  "tetrapak.stats.deforesting": "Deforesting",
+  "tetrapak.stats.deforesting.tooltip": "This tool will chop down any tree in a single swing.",
+
+  "tetrapak.stats.nullifying": "Nullifying",
+  "tetrapak.stats.nullifying.tooltip": "Wearing this belt will reduce gravity experienced the wearer by \u00a7e%s\u00a7r."
 }
