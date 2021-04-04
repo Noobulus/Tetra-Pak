@@ -1,3 +1,10 @@
+Version 0.1.1
+    Changes in this version:
+        Refined Radiance tools now have the 'Radiant' trait, which does different things depending on the tool. As of now, only Deforesting is implemented.
+        Added a new secret module, the Nullifier! Try seeing what you can do with a belt while holding Create materials.
+        Added stat bars for Deforesting, Voiding, and Nullifying!
+    Known issues: Deforesting and Voiding synergy is still broken. Nullifiers also behave strangely with things that modify fall speed.
+
 Version 0.1
     First release!
     Adds support for Create's materials:
