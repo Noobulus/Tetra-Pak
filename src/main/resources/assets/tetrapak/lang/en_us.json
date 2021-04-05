@@ -17,6 +17,20 @@
   "tetra.variant.sword_socket/rose_quartz": "Socket [\u00a7cRose Quartz\u00a7r]",
   "tetra.variant.sword_socket/rose_quartz.description": "A gem, fitted onto the sword where the blade meets the hilt. The gem is enchanted and grants the wielder additional reach.",
 
+  "tetra.variant.double_socket/fiery_glass": "Socket [\u00a76Fiery Glass\u00a7r]",
+  "tetra.variant.double_socket/fiery_glass.description": "A gem, fitted onto the side of the tool head. The gem is enchanted and will scorch anything the tool touches.",
+  "tetra.variant.single_socket/fiery_glass": "Socket [\u00a76Fiery Glass\u00a7r]",
+  "tetra.variant.single_socket/fiery_glass.description": "A gem, attached where the head meets the handle. The gem is enchanted and will scorch anything the tool touches.",
+  "tetra.variant.sword_socket/fiery_glass": "Socket [\u00a76Fiery Glass\u00a7r]",
+  "tetra.variant.sword_socket/fiery_glass.description": "A gem, fitted onto the sword where the blade meets the hilt. The gem is enchanted and will scorch anything the sword touches.",
+
+  "tetra.variant.double_socket/moonstone": "Socket [\u00a7bMoonstone\u00a7r]",
+  "tetra.variant.double_socket/moonstone.description": "A gem, fitted onto the side of the tool head. The gem is enchanted and grants the tool increased damage and efficiency depending on moon phase.",
+  "tetra.variant.single_socket/moonstone": "Socket [\u00a7bMoonstone\u00a7r]",
+  "tetra.variant.single_socket/moonstone.description": "A gem, attached where the head meets the handle. The gem is enchanted and grants the tool increased damage and efficiency depending on moon phase.",
+  "tetra.variant.sword_socket/moonstone": "Socket [\u00a7bMoonstone\u00a7r]",
+  "tetra.variant.sword_socket/moonstone.description": "A gem, fitted onto the sword where the blade meets the hilt. The gem is enchanted and grants the sword increased damage depending on moon phase.",
+
   "tetra/schematic/toolbelt/nullifier.slot1": "Material",
   "tetra/schematic/toolbelt/nullifier.name": "Nullifier",
   "tetra/schematic/toolbelt/nullifier.description": "Attach a gravity nullification unit, which lowers the gravity experienced by the belt's wearer. As a side-effect of this, fall damage is also completely nullified.",

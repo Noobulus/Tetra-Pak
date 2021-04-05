@@ -17,6 +17,22 @@
       "experienceCost": 3,
       "moduleKey": "double/socket",
       "moduleVariant": "double_socket/rose_quartz"
+    },
+    {
+      "material": {
+        "item": "druidcraft:fiery_glass"
+      },
+      "experienceCost": 3,
+      "moduleKey": "double/socket",
+      "moduleVariant": "double_socket/fiery_glass"
+    },
+    {
+      "material": {
+        "item": "druidcraft:moonstone"
+      },
+      "experienceCost": 3,
+      "moduleKey": "double/socket",
+      "moduleVariant": "double_socket/moonstone"
     }
   ]
 }

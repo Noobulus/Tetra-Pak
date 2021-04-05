@@ -10,14 +10,14 @@
     "key": "tetrapak/moonstrike",
     "level": 2,
     "effects": {
-      "tetrapak:moonstrike": [1, 20]
+      "tetrapak:moonstrike": [2, 20]
     }
   },
   {
     "key": "tetrapak/moonstrike",
-    "level": 2,
+    "level": 3,
     "effects": {
-      "tetrapak:moonstrike": [1, 30]
+      "tetrapak:moonstrike": [3, 30]
     }
   }
 ]

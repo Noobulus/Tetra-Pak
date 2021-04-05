@@ -21,6 +21,42 @@
         "location": "tetra:items/module/sword/guard/socket/pristine",
         "tint": "ec7276"
       }]
+    },
+    {
+      "key": "sword_socket/fiery_glass",
+      "category": "gem",
+      "durability": 20,
+      "integrity": -1,
+      "effects": {
+        "tetrapak:scorching": 1
+      },
+      "glyph": {
+        "tint": "bd5718",
+        "textureX": 80,
+        "textureY": 16
+      },
+      "models": [{
+        "location": "tetra:items/module/sword/guard/socket/pristine",
+        "tint": "bd5718"
+      }]
+    },
+    {
+      "key": "sword_socket/moonstone",
+      "category": "gem",
+      "durability": 100,
+      "integrity": -1,
+      "effects": {
+        "tetrapak:moonstrike": [1, 10]
+      },
+      "glyph": {
+        "tint": "7bd1f6",
+        "textureX": 80,
+        "textureY": 16
+      },
+      "models": [{
+        "location": "tetra:items/module/sword/guard/socket/pristine",
+        "tint": "7bd1f6"
+      }]
     }
   ]
 }

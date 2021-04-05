@@ -14,10 +14,10 @@ import se.mickelus.tetra.items.modular.ModularItem;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public class ShadowSteelVoidingModifier extends LootModifier {
+public class ShadowSteelVoidingLootModifier extends LootModifier {
     private static final ItemEffect voiding = ItemEffect.get("tetrapak:voiding");
 
-    public ShadowSteelVoidingModifier(ILootCondition[] conditionsIn) {
+    public ShadowSteelVoidingLootModifier(ILootCondition[] conditionsIn) {
         super(conditionsIn);
     }
 
@@ -37,15 +37,15 @@ public class ShadowSteelVoidingModifier extends LootModifier {
     }
 
     // JSON serializer stuff for loot modifiers
-    public static class Serializer extends GlobalLootModifierSerializer<ShadowSteelVoidingModifier> {
+    public static class Serializer extends GlobalLootModifierSerializer<ShadowSteelVoidingLootModifier> {
 
         @Override
-        public ShadowSteelVoidingModifier read(ResourceLocation name, JsonObject object, ILootCondition[] conditionsIn) {
-            return new ShadowSteelVoidingModifier(conditionsIn);
+        public ShadowSteelVoidingLootModifier read(ResourceLocation name, JsonObject object, ILootCondition[] conditionsIn) {
+            return new ShadowSteelVoidingLootModifier(conditionsIn);
         }
 
         @Override
-        public JsonObject write(ShadowSteelVoidingModifier instance) {
+        public JsonObject write(ShadowSteelVoidingLootModifier instance) {
             return null;
         }
     }

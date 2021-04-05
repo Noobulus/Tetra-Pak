@@ -28,9 +28,13 @@ public class TetraPak {
 
     // loot modifier tomfoolery
     public static void registerLootModifiers(RegistryEvent.Register<GlobalLootModifierSerializer<?>> event) {
-        GlobalLootModifierSerializer<ShadowSteelVoidingModifier> voiding = new ShadowSteelVoidingModifier.Serializer();
+        GlobalLootModifierSerializer<ShadowSteelVoidingLootModifier> voiding = new ShadowSteelVoidingLootModifier.Serializer();
         voiding.setRegistryName(new ResourceLocation("tetrapak", "voiding"));
         event.getRegistry().register(voiding);
+
+        GlobalLootModifierSerializer<FieryGlassSmeltingLootModifier> scorching = new FieryGlassSmeltingLootModifier.Serializer();
+        scorching.setRegistryName(new ResourceLocation("tetrapak", "scorching"));
+        event.getRegistry().register(scorching);
     }
 
     @SubscribeEvent
