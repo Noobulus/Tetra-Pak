@@ -1,0 +1,31 @@
+{
+  "key": "moonstone",
+  "category": "gem",
+  "primary": "7.2",
+  "secondary": "2.9",
+  "tertiary": "0",
+  "durability": "1921",
+  "integrityCost": "2",
+  "integrityGain": "2",
+  "magicCapacity": "100",
+  "toolLevel": "5",
+  "toolEfficiency": "8",
+  "tints": {
+    "glyph": "7bd1f6",
+    "texture": "7bd1f6"
+  },
+  "textures": [
+    "shiny",
+    "crude"
+  ],
+  "material": {
+    "item": "druidcraft:moonstone"
+  },
+  "improvements": {
+    "arrested": 0,
+    "tetrapak/moonstrike": 1
+  },
+  "requiredTools": {
+    "hammer": 4
+  }
+}

@@ -5,5 +5,12 @@
     "effects": {
       "tetrapak:voiding": 1
     }
+  },
+  {
+    "key": "tetrapak/voiding",
+    "level": 2,
+    "effects": {
+      "tetrapak:voiding": 1
+    }
   }
 ]

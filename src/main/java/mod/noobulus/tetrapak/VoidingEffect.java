@@ -63,7 +63,7 @@ public class VoidingEffect {
     }
 
     @SubscribeEvent
-    public static void voidingKillNullDrops(LivingDropsEvent event) {
+    public static void voidingKillsRemoveDrops(LivingDropsEvent event) {
         if (shouldVoidingAffect(event.getSource(), event.getEntity())) {
             event.getDrops().clear();
         }
@@ -75,7 +75,7 @@ public class VoidingEffect {
     }
 
     @SubscribeEvent
-    public static void voidingKillMultiplyExp(LivingExperienceDropEvent event) {
+    public static void voidingKillsMultiplyExp(LivingExperienceDropEvent event) {
         LivingEntity target = event.getEntityLiving();
         if (shouldVoidingAffect(lastActiveDamageSource, target)) {
             int levelLooting = EnchantmentHelper.getEnchantmentLevel(Enchantments.LOOTING, event.getAttackingPlayer().getHeldItemMainhand());
@@ -85,7 +85,7 @@ public class VoidingEffect {
     }
 
     @SubscribeEvent
-    public static void voidingMineBlock(BlockEvent.BreakEvent event) {
+    public static void voidingRemovesBlockDrops(BlockEvent.BreakEvent event) {
         ItemStack heldItemMainhand = event.getPlayer().getHeldItemMainhand();
         if (!(heldItemMainhand.getItem() instanceof ModularItem))
             return;

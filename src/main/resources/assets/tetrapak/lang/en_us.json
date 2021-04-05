@@ -7,6 +7,8 @@
   "tetra.material.andesite_alloy.prefix": "Andesite Alloy",
   "tetra.material.brass": "Brass",
   "tetra.material.brass.prefix": "Brass",
+  "tetra.material.moonstone": "Moonstone",
+  "tetra.material.moonstone.prefix": "Moonstone",
 
   "tetra.variant.double_socket/rose_quartz": "Socket [\u00a7cRose Quartz\u00a7r]",
   "tetra.variant.double_socket/rose_quartz.description": "A gem, fitted onto the side of the tool head. The gem is enchanted and grants the wielder additional reach.",
@@ -24,6 +26,8 @@
   "tetra.improvement.tetrapak/radiant.description": "The latent energy of Refined Radiance allows this tool to harvest many blocks at a time depending upon the tool's function.",
   "tetra.improvement.tetrapak/voiding.name": "Voiding",
   "tetra.improvement.tetrapak/voiding.description": "The void powers infused into Shadow Steel give this tool incredible power at the cost of converting ALL drops to experience. Fortune and Looting both increase dropped experience.",
+  "tetra.improvement.tetrapak/moonstrike.name": "Moonstrike",
+  "tetra.improvement.tetrapak/moonstrike.description": "The moonstone used to make this tool gains strength based on moon phase.",
 
   "tetrapak.stats.voiding": "Voiding",
   "tetrapak.stats.voiding.tooltip": "This tool will void the drops of blocks mined and mobs killed with it in exchange for experience. Scales with fortune and looting.",
@@ -32,5 +36,8 @@
   "tetrapak.stats.deforesting.tooltip": "This tool will chop down any tree in a single swing.",
 
   "tetrapak.stats.nullifying": "Nullifying",
-  "tetrapak.stats.nullifying.tooltip": "Wearing this belt will reduce gravity experienced the wearer by \u00a7e%s\u00a7r"
+  "tetrapak.stats.nullifying.tooltip": "Wearing this belt will reduce gravity experienced the wearer by \u00a7e%s\u00a7r",
+
+  "tetrapak.stats.moonstrike": "Moonstrike",
+  "tetrapak.stats.moonstrike.tooltip": "This tool will deal \u00a7e%s%%\u00a7r bonus damage and break blocks \u00a7e%s%%\u00a7r faster on a full moon. Lesser bonuses apply for intermediate moon phases."
 }
