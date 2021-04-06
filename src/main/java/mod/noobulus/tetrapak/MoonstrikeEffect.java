@@ -87,10 +87,9 @@ public class MoonstrikeEffect {
         PlayerEntity player = (PlayerEntity)source.getTrueSource();
         ItemStack heldItemMainhand = player.getHeldItemMainhand();
         ModularItem heldItem = (ModularItem) heldItemMainhand.getItem(); */
-        DamageSource source = event.getSource();
-        if (shouldMoonstrikeAffect(source)) {
+        if (shouldMoonstrikeAffect(lastActiveDamageSource)) {
             IWorld moonPhaseWorld = Objects.requireNonNull(event.getSource().getImmediateSource()).getEntityWorld();
-            float efficiency = getMoonstrikeEfficiency(source);
+            float efficiency = getMoonstrikeEfficiency(lastActiveDamageSource);
             event.setAmount(event.getAmount() * getMoonFactor(moonPhaseWorld, efficiency));
         }
     }
@@ -101,6 +100,8 @@ public class MoonstrikeEffect {
     }
 
     private static boolean shouldMoonstrikeAffect(@Nullable DamageSource source) {
+        if (source == null)
+            return false;
         if (source.getTrueSource() instanceof LivingEntity) {
             LivingEntity user = (LivingEntity) source.getTrueSource();
             ItemStack heldItem = user.getHeldItemMainhand();
