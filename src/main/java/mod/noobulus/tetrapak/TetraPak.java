@@ -18,6 +18,7 @@ public class TetraPak {
         MinecraftForge.EVENT_BUS.register(VoidingEffect.class);
         MinecraftForge.EVENT_BUS.register(NullifyingEffect.class);
         MinecraftForge.EVENT_BUS.register(MoonstrikeEffect.class);
+        MinecraftForge.EVENT_BUS.register(RegrowthEffect.class);
 
         IEventBus modEventBus = FMLJavaModLoadingContext.get()
                 .getModEventBus();
@@ -43,5 +44,6 @@ public class TetraPak {
         DeforestingEffect.clientInit();
         NullifyingEffect.clientInit();
         MoonstrikeEffect.clientInit();
+        RegrowthEffect.clientInit();
     }
 }

@@ -33,6 +33,14 @@
       "experienceCost": 3,
       "moduleKey": "sword/socket",
       "moduleVariant": "sword_socket/moonstone"
+    },
+    {
+      "material": {
+        "item": "druidcraft:rockroot"
+      },
+      "experienceCost": 3,
+      "moduleKey": "sword/socket",
+      "moduleVariant": "sword_socket/rockroot"
     }
   ]
 }

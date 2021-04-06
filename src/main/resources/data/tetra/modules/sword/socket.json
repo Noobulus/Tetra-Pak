@@ -57,6 +57,24 @@
         "location": "tetra:items/module/sword/guard/socket/pristine",
         "tint": "7bd1f6"
       }]
+    },
+    {
+      "key": "sword_socket/rockroot",
+      "category": "gem",
+      "durability": 5,
+      "integrity": -1,
+      "effects": {
+        "tetrapak:regrowth": [1, 360]
+      },
+      "glyph": {
+        "tint": "605852",
+        "textureX": 80,
+        "textureY": 16
+      },
+      "models": [{
+        "location": "tetra:items/module/sword/guard/socket/default",
+        "tint": "605852"
+      }]
     }
   ]
 }

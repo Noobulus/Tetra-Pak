@@ -79,13 +79,13 @@ public class VoidingEffect {
         LivingEntity target = event.getEntityLiving();
         if (shouldVoidingAffect(lastActiveDamageSource, target)) {
             int levelLooting = EnchantmentHelper.getEnchantmentLevel(Enchantments.LOOTING, event.getAttackingPlayer().getHeldItemMainhand());
-            float modifier = 2 + (0.25f * levelLooting); // double exp, then add 25% more of the original exp for each level of looting
+            float modifier = 2 + (getVoidingLevel(lastActiveDamageSource, target) * levelLooting); // double exp, then add 25% (configurable!) more of the original exp for each level of looting
             event.setDroppedExperience((int) (event.getDroppedExperience() * modifier));
         }
     }
 
     @SubscribeEvent
-    public static void voidingRemovesBlockDrops(BlockEvent.BreakEvent event) {
+    public static void voidingHardBlocksGivesExp(BlockEvent.BreakEvent event) {
         ItemStack heldItemMainhand = event.getPlayer().getHeldItemMainhand();
         if (!(heldItemMainhand.getItem() instanceof ModularItem))
             return;
@@ -93,7 +93,7 @@ public class VoidingEffect {
         int level = heldItem.getEffectLevel(heldItemMainhand, voiding);
         if (level > 0) {
             int levelFortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, heldItemMainhand);
-            float modifier = 2 + (0.25f * levelFortune);
+            float modifier = 2 + ((float)heldItem.getEffectEfficiency(heldItemMainhand, voiding) * levelFortune);
             float hardness = event.getState().getBlockHardness(event.getWorld(), event.getPos());
             float hardnessExp = 0;
             if (hardness > 3.1) // free exp for mining stone is a little bit much
@@ -122,5 +122,45 @@ public class VoidingEffect {
             }
         }
         return false;
+    }
+
+    private static float getVoidingLevel(@Nullable DamageSource source, Entity target) {
+        if (source == null)
+            return 0;
+        if (source.getTrueSource() instanceof LivingEntity && !(target instanceof PlayerEntity)) {
+            LivingEntity user = (LivingEntity) source.getTrueSource();
+            ItemStack heldItem = user.getHeldItemMainhand();
+
+            if (heldItem.getItem() instanceof ModularItem) {
+                ModularItem heldModularitem = (ModularItem) heldItem.getItem();
+                return (float)heldModularitem.getEffectEfficiency(heldItem, voiding);
+            }
+            ItemStack thrownItem = getThrownItemStack(source.getImmediateSource());
+            if (thrownItem != null && thrownItem.getItem() instanceof ModularItem) {
+                ModularItem thrownModularItem = (ModularItem) thrownItem.getItem();
+                return (float)thrownModularItem.getEffectEfficiency(thrownItem, voiding);
+            }
+        }
+        return 0;
+    }
+
+    private static float getVoidingEfficiency(@Nullable DamageSource source) {
+        if (source == null)
+            return 0;
+        if (source.getTrueSource() instanceof LivingEntity) {
+            LivingEntity user = (LivingEntity) source.getTrueSource();
+            ItemStack heldItem = user.getHeldItemMainhand();
+
+            if (heldItem.getItem() instanceof ModularItem) {
+                ModularItem heldModularitem = (ModularItem) heldItem.getItem();
+                return (float)heldModularitem.getEffectEfficiency(heldItem, voiding);
+            }
+            ItemStack thrownItem = getThrownItemStack(source.getImmediateSource());
+            if (thrownItem != null && thrownItem.getItem() instanceof ModularItem) {
+                ModularItem thrownModularItem = (ModularItem) thrownItem.getItem();
+                return (float)thrownModularItem.getEffectEfficiency(thrownItem, voiding);
+            }
+        }
+        return 0;
     }
 }

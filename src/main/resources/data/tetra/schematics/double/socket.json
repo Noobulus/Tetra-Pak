@@ -33,6 +33,14 @@
       "experienceCost": 3,
       "moduleKey": "double/socket",
       "moduleVariant": "double_socket/moonstone"
+    },
+    {
+      "material": {
+        "item": "druidcraft:rockroot"
+      },
+      "experienceCost": 3,
+      "moduleKey": "double/socket",
+      "moduleVariant": "double_socket/rockroot"
     }
   ]
 }

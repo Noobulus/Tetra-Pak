@@ -18,7 +18,7 @@
         "textureY": 16
       },
       "models": [{
-        "location": "tetra:items/module/single/binding/socket/pristine",
+        "location": "tetra:items/module/double/binding/socket/pristine",
         "tint": "ec7276"
       }]
     },
@@ -36,7 +36,7 @@
         "textureY": 16
       },
       "models": [{
-        "location": "tetra:items/module/single/binding/socket/pristine",
+        "location": "tetra:items/module/double/binding/socket/pristine",
         "tint": "bd5718"
       }]
     },
@@ -54,8 +54,26 @@
         "textureY": 16
       },
       "models": [{
-        "location": "tetra:items/module/single/binding/socket/pristine",
+        "location": "tetra:items/module/double/binding/socket/pristine",
         "tint": "7bd1f6"
+      }]
+    },
+    {
+      "key": "double_socket/rockroot",
+      "category": "gem",
+      "durability": 5,
+      "integrity": -1,
+      "effects": {
+        "tetrapak:regrowth": [1, 360]
+      },
+      "glyph": {
+        "tint": "605852",
+        "textureX": 80,
+        "textureY": 16
+      },
+      "models": [{
+        "location": "tetra:items/module/double/binding/socket/default",
+        "tint": "605852"
       }]
     }
   ]
