@@ -2,6 +2,7 @@
   "replace": false,
   "entries": [
     "tetrapak:void_shadow_steel_tool_drops",
-    "tetrapak:smelt_fiery_glass_socket_drops"
+    "tetrapak:smelt_fiery_glass_socket_block_drops",
+    "tetrapak:smelt_fiery_glass_socket_entity_drops"
   ]
 }

@@ -33,9 +33,13 @@ public class TetraPak {
         voiding.setRegistryName(new ResourceLocation("tetrapak", "voiding"));
         event.getRegistry().register(voiding);
 
-        GlobalLootModifierSerializer<FieryGlassSmeltingLootModifier> scorching = new FieryGlassSmeltingLootModifier.Serializer();
-        scorching.setRegistryName(new ResourceLocation("tetrapak", "scorching"));
-        event.getRegistry().register(scorching);
+        GlobalLootModifierSerializer<FieryGlassScorchBlockDropsModifier> scorchingblocks = new FieryGlassScorchBlockDropsModifier.Serializer();
+        scorchingblocks.setRegistryName(new ResourceLocation("tetrapak", "scorchingblocks"));
+        event.getRegistry().register(scorchingblocks);
+
+        GlobalLootModifierSerializer<FieryGlassScorchEntityDropsModifier> scorchingitems = new FieryGlassScorchEntityDropsModifier.Serializer();
+        scorchingitems.setRegistryName(new ResourceLocation("tetrapak", "scorchingitems"));
+        event.getRegistry().register(scorchingitems);
     }
 
     @SubscribeEvent
@@ -45,5 +49,7 @@ public class TetraPak {
         NullifyingEffect.clientInit();
         MoonstrikeEffect.clientInit();
         RegrowthEffect.clientInit();
+        CollapsingEffect.clientInit();
+        ScorchingEffect.clientInit();
     }
 }

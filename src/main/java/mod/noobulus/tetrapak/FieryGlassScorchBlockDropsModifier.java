@@ -19,10 +19,10 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FieryGlassSmeltingLootModifier extends LootModifier {
+public class FieryGlassScorchBlockDropsModifier extends LootModifier {
     private static final ItemEffect scorching = ItemEffect.get("tetrapak:scorching");
 
-    public FieryGlassSmeltingLootModifier(ILootCondition[] conditionsIn) {
+    public FieryGlassScorchBlockDropsModifier(ILootCondition[] conditionsIn) {
         super(conditionsIn);
     }
 
@@ -32,7 +32,8 @@ public class FieryGlassSmeltingLootModifier extends LootModifier {
         if (context.has(LootParameters.BLOCK_ENTITY)) // trying to smelt TEs probably won't work but you can never be too sure
             return generatedLoot;
         ItemStack heldItem = context.get(LootParameters.TOOL);
-        assert heldItem != null; // NPE-B-GONE
+        if (heldItem == null)
+            return generatedLoot;
         ModularItem heldModularitem = (ModularItem) heldItem.getItem();
         int level = heldModularitem.getEffectLevel(heldItem, scorching);
         if (level > 0) {
@@ -52,15 +53,15 @@ public class FieryGlassSmeltingLootModifier extends LootModifier {
     }
 
     // JSON serializer stuff for loot modifiers
-    public static class Serializer extends GlobalLootModifierSerializer<FieryGlassSmeltingLootModifier> {
+    public static class Serializer extends GlobalLootModifierSerializer<FieryGlassScorchBlockDropsModifier> {
 
         @Override
-        public FieryGlassSmeltingLootModifier read(ResourceLocation name, JsonObject object, ILootCondition[] conditionsIn) {
-            return new FieryGlassSmeltingLootModifier(conditionsIn);
+        public FieryGlassScorchBlockDropsModifier read(ResourceLocation name, JsonObject object, ILootCondition[] conditionsIn) {
+            return new FieryGlassScorchBlockDropsModifier(conditionsIn);
         }
 
         @Override
-        public JsonObject write(FieryGlassSmeltingLootModifier instance) {
+        public JsonObject write(FieryGlassScorchBlockDropsModifier instance) {
             return null;
         }
     }

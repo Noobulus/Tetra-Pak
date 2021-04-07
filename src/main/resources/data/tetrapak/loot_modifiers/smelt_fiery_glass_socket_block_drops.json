@@ -1,5 +1,5 @@
 {
-  "type": "tetrapak:scorching",
+  "type": "tetrapak:scorchingblocks",
   "conditions": [
     {
       "condition": "minecraft:match_tool",

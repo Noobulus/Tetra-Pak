@@ -79,7 +79,7 @@ public class VoidingEffect {
         LivingEntity target = event.getEntityLiving();
         if (shouldVoidingAffect(lastActiveDamageSource, target)) {
             int levelLooting = EnchantmentHelper.getEnchantmentLevel(Enchantments.LOOTING, event.getAttackingPlayer().getHeldItemMainhand());
-            float modifier = 2 + (getVoidingLevel(lastActiveDamageSource, target) * levelLooting); // double exp, then add 25% (configurable!) more of the original exp for each level of looting
+            float modifier = 2 + (getVoidingEfficiency(lastActiveDamageSource) * levelLooting); // double exp, then add 25% (configurable!) more of the original exp for each level of looting
             event.setDroppedExperience((int) (event.getDroppedExperience() * modifier));
         }
     }
@@ -97,7 +97,7 @@ public class VoidingEffect {
             float hardness = event.getState().getBlockHardness(event.getWorld(), event.getPos());
             float hardnessExp = 0;
             if (hardness > 3.1) // free exp for mining stone is a little bit much
-                hardnessExp = (0.2f * (hardness * (1 + (0.25f * levelFortune)))); // give exp based on broken block hardness, needs tweaking
+                hardnessExp = (0.2f * (hardness * (1 + (getVoidingEfficiency(lastActiveDamageSource) * levelFortune)))); // give exp based on broken block hardness, needs tweaking
             event.setExpToDrop((int) ((event.getExpToDrop() * modifier) + hardnessExp));
         }
     }
@@ -124,7 +124,7 @@ public class VoidingEffect {
         return false;
     }
 
-    private static float getVoidingLevel(@Nullable DamageSource source, Entity target) {
+    /* private static float getVoidingLevel(@Nullable DamageSource source, Entity target) {
         if (source == null)
             return 0;
         if (source.getTrueSource() instanceof LivingEntity && !(target instanceof PlayerEntity)) {
@@ -142,7 +142,7 @@ public class VoidingEffect {
             }
         }
         return 0;
-    }
+    } */
 
     private static float getVoidingEfficiency(@Nullable DamageSource source) {
         if (source == null)
