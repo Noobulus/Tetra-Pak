@@ -1,5 +1,6 @@
 package mod.noobulus.tetrapak;
 
+import net.minecraft.client.resources.I18n;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
@@ -37,9 +38,14 @@ public class VoidingEffect {
     @OnlyIn(Dist.CLIENT)
     public static void clientInit() {
         final IStatGetter voidingGetter = new StatGetterEffectLevel(voiding, 1, 0);
+        final IStatGetter voidingEffGetter = new StatGetterEffectEfficiency(voiding, 1);
+        final IStatGetter voidingLootingGetter = new StatGetterEnchantmentLevel(Enchantments.LOOTING, 1.0D);
+        final IStatGetter voidingFortuneGetter = new StatGetterEnchantmentLevel(Enchantments.FORTUNE, 1.0D);
         final GuiStatBar voidingBar = new GuiStatBar(0, 0, 59, "tetrapak.stats.voiding",
                 0, 1, false, voidingGetter, LabelGetterBasic.integerLabel,
-                new TooltipGetterInteger("tetrapak.stats.voiding.tooltip", voidingGetter));
+                (player, itemStack) -> I18n.format("tetrapak.stats.voiding.tooltip",
+                1 + (voidingEffGetter.getValue(player, itemStack)*(voidingLootingGetter.getValue(player, itemStack) + 2))
+                        , 1 + (voidingEffGetter.getValue(player, itemStack)*(voidingFortuneGetter.getValue(player, itemStack) + 2))));
 
         WorkbenchStatsGui.addBar(voidingBar);
         HoloStatsGui.addBar(voidingBar);
@@ -79,7 +85,7 @@ public class VoidingEffect {
         LivingEntity target = event.getEntityLiving();
         if (shouldVoidingAffect(lastActiveDamageSource, target)) {
             int levelLooting = EnchantmentHelper.getEnchantmentLevel(Enchantments.LOOTING, event.getAttackingPlayer().getHeldItemMainhand());
-            float modifier = 2 + (getVoidingEfficiency(lastActiveDamageSource) * levelLooting); // double exp, then add 25% (configurable!) more of the original exp for each level of looting
+            float modifier = 1 + (getVoidingEfficiency(lastActiveDamageSource) * (levelLooting + 2));
             event.setDroppedExperience((int) (event.getDroppedExperience() * modifier));
         }
     }
@@ -93,11 +99,11 @@ public class VoidingEffect {
         int level = heldItem.getEffectLevel(heldItemMainhand, voiding);
         if (level > 0) {
             int levelFortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, heldItemMainhand);
-            float modifier = 2 + ((float)heldItem.getEffectEfficiency(heldItemMainhand, voiding) * levelFortune);
+            float modifier = 1 + (getVoidingEfficiency(lastActiveDamageSource) * (levelFortune + 2));
             float hardness = event.getState().getBlockHardness(event.getWorld(), event.getPos());
             float hardnessExp = 0;
             if (hardness > 3.1) // free exp for mining stone is a little bit much
-                hardnessExp = (0.2f * (hardness * (1 + (getVoidingEfficiency(lastActiveDamageSource) * levelFortune)))); // give exp based on broken block hardness, needs tweaking
+                hardnessExp = (0.1f * (hardness * (1 + (getVoidingEfficiency(lastActiveDamageSource) * levelFortune)))); // give exp based on broken block hardness, needs tweaking
             event.setExpToDrop((int) ((event.getExpToDrop() * modifier) + hardnessExp));
         }
     }
@@ -124,7 +130,7 @@ public class VoidingEffect {
         return false;
     }
 
-    /* private static float getVoidingLevel(@Nullable DamageSource source, Entity target) {
+    private static int getVoidingLevel(@Nullable DamageSource source, Entity target) {
         if (source == null)
             return 0;
         if (source.getTrueSource() instanceof LivingEntity && !(target instanceof PlayerEntity)) {
@@ -133,16 +139,16 @@ public class VoidingEffect {
 
             if (heldItem.getItem() instanceof ModularItem) {
                 ModularItem heldModularitem = (ModularItem) heldItem.getItem();
-                return (float)heldModularitem.getEffectEfficiency(heldItem, voiding);
+                return heldModularitem.getEffectLevel(heldItem, voiding);
             }
             ItemStack thrownItem = getThrownItemStack(source.getImmediateSource());
             if (thrownItem != null && thrownItem.getItem() instanceof ModularItem) {
                 ModularItem thrownModularItem = (ModularItem) thrownItem.getItem();
-                return (float)thrownModularItem.getEffectEfficiency(thrownItem, voiding);
+                return thrownModularItem.getEffectLevel(thrownItem, voiding);
             }
         }
         return 0;
-    } */
+    }
 
     private static float getVoidingEfficiency(@Nullable DamageSource source) {
         if (source == null)

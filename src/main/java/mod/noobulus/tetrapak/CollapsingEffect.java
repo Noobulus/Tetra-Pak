@@ -18,7 +18,7 @@ import se.mickelus.tetra.items.modular.impl.holo.gui.craft.HoloStatsGui;
 public class CollapsingEffect {
     private static final ItemEffect collapsing = ItemEffect.get("tetrapak:collapsing");
 
-    @OnlyIn(Dist.CLIENT)
+    /*@OnlyIn(Dist.CLIENT)
     public static void clientInit() {
         final IStatGetter collapsingGetter = new StatGetterEffectLevel(collapsing, 1, 0);
         final GuiStatBar collapsingBar = new GuiStatBar(0, 0, 59, "tetrapak.stats.collapsing",
@@ -27,7 +27,7 @@ public class CollapsingEffect {
 
         WorkbenchStatsGui.addBar(collapsingBar);
         HoloStatsGui.addBar(collapsingBar);
-    }
+    }*/
 
     @SubscribeEvent
     public static void collapseWhenBlockBroken(BlockEvent.BreakEvent event) {

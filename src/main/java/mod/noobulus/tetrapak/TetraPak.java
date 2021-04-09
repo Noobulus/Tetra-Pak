@@ -49,7 +49,7 @@ public class TetraPak {
         NullifyingEffect.clientInit();
         MoonstrikeEffect.clientInit();
         RegrowthEffect.clientInit();
-        CollapsingEffect.clientInit();
+        // CollapsingEffect.clientInit();
         ScorchingEffect.clientInit();
     }
 }

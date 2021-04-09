@@ -51,7 +51,7 @@
   "tetra.improvement.tetrapak/moonstrike.description": "The moonstone used to make this tool gains strength based on moon phase.",
 
   "tetrapak.stats.voiding": "Voiding",
-  "tetrapak.stats.voiding.tooltip": "This tool will void the drops of blocks mined and mobs killed with it in exchange for experience. Scales with fortune and looting.",
+  "tetrapak.stats.voiding.tooltip": "This tool will void the drops of blocks mined and mobs killed with it in exchange for experience\n\n\u00a7ex%s \u00a77mob kill experience multiplier\n\u00a7ex%s \u00a77block experience multiplier",
 
   "tetrapak.stats.deforesting": "Deforesting",
   "tetrapak.stats.deforesting.tooltip": "This tool will chop down any tree in a single swing.",
@@ -63,5 +63,8 @@
   "tetrapak.stats.moonstrike.tooltip": "This tool will deal \u00a7e%s%%\u00a7r bonus damage and break blocks \u00a7e%s%%\u00a7r faster on a full moon. Lesser bonuses apply for intermediate moon phases.",
 
   "tetrapak.stats.regrowth": "Regrowth",
-  "tetrapak.stats.regrowth.tooltip": "This tool will repair itself by \u00a7e1%%\u00a7r of the total durability every \u00a7e%s\u00a7r seconds\n\n\u00a77In total, it will take around \u00a7e%s \u00a77minutes for the tool to fully repair"
+  "tetrapak.stats.regrowth.tooltip": "This tool will repair itself by \u00a7e1%%\u00a7r of the total durability every \u00a7e%s\u00a7r seconds\n\n\u00a77In total, it will take around \u00a7e%s \u00a77minutes for the tool to fully repair",
+
+  "tetrapak.stats.scorching": "Scorching",
+  "tetrapak.stats.scorching.tooltip": "This tool will scorch drops, processing them the same way a furnace would. Does not affect unsmeltable items."
 }

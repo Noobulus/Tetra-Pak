@@ -67,16 +67,29 @@ Currently, only Create is supported. Check back soon for more!
     side="BOTH"
 
 [[dependencies.tetrapak]]
+    modId="mgui"
+    mandatory=true
+    versionRange="[3.1.3,)"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.tetrapak]]
+    modId="tetranomicon"
+    mandatory=false
+    versionRange="[1.0,)"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.tetrapak]]
     modId="create"
     mandatory=true
     versionRange="[mc1.16.3_v0.3e,)"
     ordering="NONE"
     side="BOTH"
 
-# coming soon!
-#[[dependencies.tetrapak]]
-#    modId="druidcraft"
-#    mandatory=true
-#    versionRange="[0.4.52,)"
-#    ordering="NONE"
-#    side="BOTH"
+[[dependencies.tetrapak]]
+    modId="druidcraft"
+    mandatory=false
+    versionRange="[0.4.52,)"
+    ordering="NONE"
+    side="BOTH"

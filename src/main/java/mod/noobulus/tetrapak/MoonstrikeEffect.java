@@ -75,7 +75,7 @@ public class MoonstrikeEffect {
         ModularItem item = (ModularItem) heldItemMainhand.getItem();
         int level = item.getEffectLevel(heldItemMainhand, moonstrike);
         if (level > 0) {
-            IWorld moonPhaseWorld = Objects.requireNonNull(event.getPlayer().getEntityWorld());
+            IWorld moonPhaseWorld = event.getPlayer().getEntityWorld();
             float efficiency = (float)item.getEffectEfficiency(heldItemMainhand, moonstrike);
             event.setNewSpeed(event.getOriginalSpeed() * getMoonFactor(moonPhaseWorld, efficiency));
         }
@@ -88,7 +88,10 @@ public class MoonstrikeEffect {
         ItemStack heldItemMainhand = player.getHeldItemMainhand();
         ModularItem heldItem = (ModularItem) heldItemMainhand.getItem(); */
         if (shouldMoonstrikeAffect(lastActiveDamageSource)) {
-            IWorld moonPhaseWorld = Objects.requireNonNull(event.getSource().getImmediateSource()).getEntityWorld();
+            Entity source = event.getSource().getImmediateSource();
+            if (source == null)
+                return;
+            IWorld moonPhaseWorld = source.getEntityWorld();
             float efficiency = getMoonstrikeEfficiency(lastActiveDamageSource);
             event.setAmount(event.getAmount() * getMoonFactor(moonPhaseWorld, efficiency));
         }
