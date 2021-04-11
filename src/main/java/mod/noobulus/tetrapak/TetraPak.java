@@ -12,44 +12,40 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 @Mod("tetrapak")
 public class TetraPak {
-    public TetraPak() {
-        MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.register(DeforestingEffect.class);
-        MinecraftForge.EVENT_BUS.register(VoidingEffect.class);
-        MinecraftForge.EVENT_BUS.register(NullifyingEffect.class);
-        MinecraftForge.EVENT_BUS.register(MoonstrikeEffect.class);
-        MinecraftForge.EVENT_BUS.register(RegrowthEffect.class);
+	public TetraPak() {
+		MinecraftForge.EVENT_BUS.register(this);
+		MinecraftForge.EVENT_BUS.register(DeforestingEffect.class);
+		MinecraftForge.EVENT_BUS.register(VoidingEffect.class);
+		MinecraftForge.EVENT_BUS.register(NullifyingEffect.class);
+		MinecraftForge.EVENT_BUS.register(MoonstrikeEffect.class);
+		MinecraftForge.EVENT_BUS.register(RegrowthEffect.class);
 
-        IEventBus modEventBus = FMLJavaModLoadingContext.get()
-                .getModEventBus();
-        modEventBus.addGenericListener(GlobalLootModifierSerializer.class, TetraPak::registerLootModifiers);
+		IEventBus modEventBus = FMLJavaModLoadingContext.get()
+			.getModEventBus();
+		modEventBus.addGenericListener(GlobalLootModifierSerializer.class, TetraPak::registerLootModifiers);
 
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-    }
+		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+	}
 
-    // loot modifier tomfoolery
-    public static void registerLootModifiers(RegistryEvent.Register<GlobalLootModifierSerializer<?>> event) {
-        GlobalLootModifierSerializer<ShadowSteelVoidingLootModifier> voiding = new ShadowSteelVoidingLootModifier.Serializer();
-        voiding.setRegistryName(new ResourceLocation("tetrapak", "voiding"));
-        event.getRegistry().register(voiding);
+	// loot modifier tomfoolery
+	public static void registerLootModifiers(RegistryEvent.Register<GlobalLootModifierSerializer<?>> event) {
+		GlobalLootModifierSerializer<ShadowSteelVoidingLootModifier> voiding = new ShadowSteelVoidingLootModifier.Serializer();
+		voiding.setRegistryName(new ResourceLocation("tetrapak", "voiding"));
 
-        GlobalLootModifierSerializer<FieryGlassScorchBlockDropsModifier> scorchingblocks = new FieryGlassScorchBlockDropsModifier.Serializer();
-        scorchingblocks.setRegistryName(new ResourceLocation("tetrapak", "scorchingblocks"));
-        event.getRegistry().register(scorchingblocks);
+		GlobalLootModifierSerializer<FieryGlassScorchDropsModifier> scorchingitems = new FieryGlassScorchDropsModifier.Serializer();
+		scorchingitems.setRegistryName(new ResourceLocation("tetrapak", "scorchingitems"));
 
-        GlobalLootModifierSerializer<FieryGlassScorchEntityDropsModifier> scorchingitems = new FieryGlassScorchEntityDropsModifier.Serializer();
-        scorchingitems.setRegistryName(new ResourceLocation("tetrapak", "scorchingitems"));
-        event.getRegistry().register(scorchingitems);
-    }
+		event.getRegistry().registerAll(scorchingitems, voiding);
+	}
 
-    @SubscribeEvent
-    public void setup(FMLClientSetupEvent event) {
-        VoidingEffect.clientInit();
-        DeforestingEffect.clientInit();
-        NullifyingEffect.clientInit();
-        MoonstrikeEffect.clientInit();
-        RegrowthEffect.clientInit();
-        // CollapsingEffect.clientInit();
-        ScorchingEffect.clientInit();
-    }
+	@SubscribeEvent
+	public void setup(FMLClientSetupEvent event) {
+		VoidingEffect.clientInit();
+		DeforestingEffect.clientInit();
+		NullifyingEffect.clientInit();
+		MoonstrikeEffect.clientInit();
+		RegrowthEffect.clientInit();
+		// CollapsingEffect.clientInit();
+		ScorchingEffect.clientInit();
+	}
 }

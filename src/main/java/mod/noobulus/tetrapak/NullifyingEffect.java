@@ -4,7 +4,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -19,7 +18,6 @@ import se.mickelus.tetra.gui.statbar.getter.IStatGetter;
 import se.mickelus.tetra.gui.statbar.getter.LabelGetterBasic;
 import se.mickelus.tetra.gui.statbar.getter.StatGetterEffectLevel;
 import se.mickelus.tetra.gui.statbar.getter.TooltipGetterPercentageDecimal;
-import se.mickelus.tetra.items.modular.ModularItem;
 import se.mickelus.tetra.items.modular.impl.holo.gui.craft.HoloStatsGui;
 import se.mickelus.tetra.items.modular.impl.toolbelt.ToolbeltHelper;
 
@@ -41,19 +39,10 @@ public class NullifyingEffect {
 		HoloStatsGui.addBar(nullifyingBar);
 	}
 
-	public static int getNullifierLevel(ItemStack itemStack) {
-		if (!itemStack.isEmpty() && itemStack.getItem() instanceof ModularItem) {
-			ModularItem item = (ModularItem) itemStack.getItem();
-			return item.getEffectLevel(itemStack, nullifying);
-		} else {
-			return 0;
-		}
-	}
-
 	private static int getNullifierLevel(LivingEntity e) {
 		if (!(e instanceof PlayerEntity))
 			return -1;
-		return getNullifierLevel(ToolbeltHelper.findToolbelt((PlayerEntity) e));
+		return ItemHelper.getEffectLevel(ToolbeltHelper.findToolbelt((PlayerEntity) e), nullifying);
 	}
 
 	@SubscribeEvent
