@@ -40,7 +40,7 @@ public class DeforestingEffect {
         ModularItem item = (ModularItem) heldItemMainhand.getItem();
         int level = item.getEffectLevel(heldItemMainhand, deforesting);
         if (level > 0) {
-            DeforesterItem.destroyTree(heldItemMainhand, event.getWorld(), event.getState(), event.getPos(), event.getPlayer());
+            DeforesterItem.destroyTree(event.getWorld(), event.getState(), event.getPos(), event.getPlayer());
         }
     }
 }

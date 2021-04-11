@@ -78,7 +78,7 @@ public class NullifyingEffect {
 	private static void updateEffect(boolean active, ModifiableAttributeInstance attributeInstance, AttributeModifier modifier) {
 		if (active) {
 			if (!attributeInstance.hasModifier(modifier))
-				attributeInstance.applyNonPersistentModifier(modifier);
+				attributeInstance.addTemporaryModifier(modifier);
 		} else if (attributeInstance.hasModifier(modifier)) {
 			attributeInstance.removeModifier(modifier);
 		}
