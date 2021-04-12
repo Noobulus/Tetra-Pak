@@ -7,7 +7,7 @@ import mod.noobulus.tetrapak.create.VoidingEffect;
 import mod.noobulus.tetrapak.druidcraft.MoonstrikeEffect;
 import mod.noobulus.tetrapak.druidcraft.RegrowthEffect;
 import mod.noobulus.tetrapak.druidcraft.ScorchingEffect;
-import mod.noobulus.tetrapak.util.IClientInit;
+import mod.noobulus.tetrapak.util.IHoloDescription;
 import mod.noobulus.tetrapak.util.ILootModifier;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
@@ -46,9 +46,9 @@ public enum Mods {
 
 	public static void clientSetup(FMLClientSetupEvent event) {
 		getLoadedListenersStream()
-			.filter(IClientInit.class::isInstance)
-			.map(IClientInit.class::cast)
-			.forEach(IClientInit::clientInit);
+			.filter(IHoloDescription.class::isInstance)
+			.map(IHoloDescription.class::cast)
+			.forEach(IHoloDescription::clientInit);
 	}
 
 	public static void registerLootModifiers(RegistryEvent.Register<GlobalLootModifierSerializer<?>> event) {

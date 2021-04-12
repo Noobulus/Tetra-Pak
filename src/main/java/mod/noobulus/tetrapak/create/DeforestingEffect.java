@@ -2,40 +2,21 @@ package mod.noobulus.tetrapak.create;
 
 import com.simibubi.create.content.curiosities.tools.DeforesterItem;
 import mod.noobulus.tetrapak.util.EffectHelper;
-import mod.noobulus.tetrapak.util.IClientInit;
-import mod.noobulus.tetrapak.util.ItemHelper;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import mod.noobulus.tetrapak.util.IHoloDescription;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import se.mickelus.tetra.blocks.workbench.gui.WorkbenchStatsGui;
 import se.mickelus.tetra.effect.ItemEffect;
-import se.mickelus.tetra.gui.statbar.GuiStatBar;
-import se.mickelus.tetra.gui.statbar.getter.IStatGetter;
-import se.mickelus.tetra.gui.statbar.getter.LabelGetterBasic;
-import se.mickelus.tetra.gui.statbar.getter.StatGetterEffectLevel;
-import se.mickelus.tetra.gui.statbar.getter.TooltipGetterInteger;
-import se.mickelus.tetra.items.modular.impl.holo.gui.craft.HoloStatsGui;
 
-public class DeforestingEffect implements IClientInit {
-	public static final ItemEffect DEFORESTING_EFFECT = EffectHelper.get("deforesting");
-
+public class DeforestingEffect implements IHoloDescription {
 	@SubscribeEvent
 	public void deforestWhenBlockBroken(BlockEvent.BreakEvent event) {
-		if (ItemHelper.getEffectLevel(event.getPlayer().getHeldItemMainhand(), DEFORESTING_EFFECT) > 0) {
+		if (hasEffect(event.getPlayer().getHeldItemMainhand())) {
 			DeforesterItem.destroyTree(event.getWorld(), event.getState(), event.getPos(), event.getPlayer());
 		}
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
-	public void clientInit() {
-		final IStatGetter deforestingGetter = new StatGetterEffectLevel(DEFORESTING_EFFECT, 1, 0);
-		final GuiStatBar deforestingBar = new GuiStatBar(0, 0, 59, EffectHelper.getStatsPath(DEFORESTING_EFFECT),
-			0, 1, false, deforestingGetter, LabelGetterBasic.integerLabel,
-			new TooltipGetterInteger(EffectHelper.getTooltipPath(DEFORESTING_EFFECT), deforestingGetter));
-
-		WorkbenchStatsGui.addBar(deforestingBar);
-		HoloStatsGui.addBar(deforestingBar);
+	public ItemEffect getEffect() {
+		return EffectHelper.get("deforesting");
 	}
 }
