@@ -1,4 +1,4 @@
-package mod.noobulus.tetrapak.create;
+package mod.noobulus.tetrapak.create.refined_radiance;
 
 import com.simibubi.create.content.curiosities.tools.DeforesterItem;
 import mod.noobulus.tetrapak.util.EffectHelper;

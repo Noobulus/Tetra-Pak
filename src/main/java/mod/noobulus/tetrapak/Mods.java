@@ -1,7 +1,7 @@
 package mod.noobulus.tetrapak;
 
-import mod.noobulus.tetrapak.create.CollapsingEffect;
-import mod.noobulus.tetrapak.create.DeforestingEffect;
+import mod.noobulus.tetrapak.create.refined_radiance.CollapsingEffect;
+import mod.noobulus.tetrapak.create.refined_radiance.DeforestingEffect;
 import mod.noobulus.tetrapak.create.NullifyingEffect;
 import mod.noobulus.tetrapak.create.VoidingEffect;
 import mod.noobulus.tetrapak.druidcraft.MoonstrikeEffect;
