@@ -1,6 +1,8 @@
-package mod.noobulus.tetrapak;
+package mod.noobulus.tetrapak.create;
 
 import com.simibubi.create.content.curiosities.tools.DeforesterItem;
+import mod.noobulus.tetrapak.util.IClientInit;
+import mod.noobulus.tetrapak.util.ItemHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.world.BlockEvent;
@@ -14,24 +16,25 @@ import se.mickelus.tetra.gui.statbar.getter.StatGetterEffectLevel;
 import se.mickelus.tetra.gui.statbar.getter.TooltipGetterInteger;
 import se.mickelus.tetra.items.modular.impl.holo.gui.craft.HoloStatsGui;
 
-public class DeforestingEffect {
-	private static final ItemEffect deforesting = ItemEffect.get("tetrapak:deforesting");
+public class DeforestingEffect implements IClientInit {
+	public static final ItemEffect DEFORESTING_EFFECT = ItemEffect.get("tetrapak:deforesting");
 
+	@SubscribeEvent
+	public void deforestWhenBlockBroken(BlockEvent.BreakEvent event) {
+		if (ItemHelper.getEffectLevel(event.getPlayer().getHeldItemMainhand(), DEFORESTING_EFFECT) > 0) {
+			DeforesterItem.destroyTree(event.getWorld(), event.getState(), event.getPos(), event.getPlayer());
+		}
+	}
+
+	@Override
 	@OnlyIn(Dist.CLIENT)
-	public static void clientInit() {
-		final IStatGetter deforestingGetter = new StatGetterEffectLevel(deforesting, 1, 0);
+	public void clientInit() {
+		final IStatGetter deforestingGetter = new StatGetterEffectLevel(DEFORESTING_EFFECT, 1, 0);
 		final GuiStatBar deforestingBar = new GuiStatBar(0, 0, 59, "tetrapak.stats.deforesting",
 			0, 1, false, deforestingGetter, LabelGetterBasic.integerLabel,
 			new TooltipGetterInteger("tetrapak.stats.deforesting.tooltip", deforestingGetter));
 
 		WorkbenchStatsGui.addBar(deforestingBar);
 		HoloStatsGui.addBar(deforestingBar);
-	}
-
-	@SubscribeEvent
-	public static void deforestWhenBlockBroken(BlockEvent.BreakEvent event) {
-		if (ItemHelper.getEffectLevel(event.getPlayer().getHeldItemMainhand(), deforesting) > 0) {
-			DeforesterItem.destroyTree(event.getWorld(), event.getState(), event.getPos(), event.getPlayer());
-		}
 	}
 }

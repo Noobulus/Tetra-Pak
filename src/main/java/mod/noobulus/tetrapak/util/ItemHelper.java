@@ -1,10 +1,15 @@
-package mod.noobulus.tetrapak;
+package mod.noobulus.tetrapak.util;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipe;
+import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.util.LazyValue;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import net.minecraftforge.items.ItemHandlerHelper;
 import se.mickelus.tetra.effect.ItemEffect;
 import se.mickelus.tetra.items.modular.ModularItem;
 
@@ -43,5 +48,13 @@ public class ItemHelper {
 		if (!(result instanceof ItemStack))
 			return null;
 		return (ItemStack) result;
+	}
+
+	public static ItemStack smelt(ItemStack stack, World world) { // this is just forge example code switched over to my mappings but we won't talk about that
+		return world.getRecipeManager().getRecipe(IRecipeType.SMELTING, new Inventory(stack), world)
+			.map(FurnaceRecipe::getRecipeOutput)
+			.filter(itemStack -> !itemStack.isEmpty())
+			.map(itemStack -> ItemHandlerHelper.copyStackWithSize(itemStack, stack.getCount() * itemStack.getCount()))
+			.orElse(stack);
 	}
 }

@@ -1,5 +1,8 @@
-package mod.noobulus.tetrapak;
+package mod.noobulus.tetrapak.druidcraft;
 
+import mod.noobulus.tetrapak.util.DamageBufferer;
+import mod.noobulus.tetrapak.util.IClientInit;
+import mod.noobulus.tetrapak.util.ItemHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -9,7 +12,6 @@ import net.minecraft.world.IWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.living.LootingLevelEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import se.mickelus.tetra.blocks.workbench.gui.WorkbenchStatsGui;
@@ -23,27 +25,8 @@ import se.mickelus.tetra.items.modular.impl.holo.gui.craft.HoloStatsGui;
 
 import javax.annotation.Nullable;
 
-public class MoonstrikeEffect {
-	private static final ItemEffect moonstrike = ItemEffect.get("tetrapak:moonstrike");
-	private static DamageSource lastActiveDamageSource = null;
-
-	@OnlyIn(Dist.CLIENT)
-	public static void clientInit() {
-		final IStatGetter moonstrikeGetter = new StatGetterEffectEfficiency(moonstrike, 1);
-		final GuiStatBar moonstrikeBar = new GuiStatBar(0, 0, 59, "tetrapak.stats.moonstrike",
-			0D, 100D, false, moonstrikeGetter, LabelGetterBasic.percentageLabelDecimal,
-			(player, itemStack) -> I18n.format("tetrapak.stats.moonstrike.tooltip",
-				moonstrikeGetter.getValue(player, itemStack), moonstrikeGetter.getValue(player, itemStack)));
-
-		WorkbenchStatsGui.addBar(moonstrikeBar);
-		HoloStatsGui.addBar(moonstrikeBar);
-	}
-
-
-	@SubscribeEvent
-	public static void bufferDamageSourceEvent(LootingLevelEvent event) { // haha event hacks go brrr once more
-		lastActiveDamageSource = event.getDamageSource();
-	}
+public class MoonstrikeEffect implements IClientInit {
+	private static final ItemEffect MOONSTRIKE_EFFECT = ItemEffect.get("tetrapak:moonstrike");
 
 	@SubscribeEvent
 	public static void moonstrikeToolsBreakBlocksFaster(PlayerEvent.BreakSpeed event) {
@@ -51,9 +34,9 @@ public class MoonstrikeEffect {
 		if (!(heldItemMainhand.getItem() instanceof ModularItem))
 			return;
 		ModularItem item = (ModularItem) heldItemMainhand.getItem();
-		if (ItemHelper.getEffectLevel(heldItemMainhand, moonstrike) > 0) {
+		if (ItemHelper.getEffectLevel(heldItemMainhand, MOONSTRIKE_EFFECT) > 0) {
 			IWorld moonPhaseWorld = event.getPlayer().getEntityWorld();
-			float efficiency = (float) item.getEffectEfficiency(heldItemMainhand, moonstrike);
+			float efficiency = (float) item.getEffectEfficiency(heldItemMainhand, MOONSTRIKE_EFFECT);
 			event.setNewSpeed(event.getOriginalSpeed() * getMoonFactor(moonPhaseWorld, efficiency));
 		}
 	}
@@ -64,12 +47,12 @@ public class MoonstrikeEffect {
         PlayerEntity player = (PlayerEntity)source.getTrueSource();
         ItemStack heldItemMainhand = player.getHeldItemMainhand();
         ModularItem heldItem = (ModularItem) heldItemMainhand.getItem(); */
-		if (shouldMoonstrikeAffect(lastActiveDamageSource)) {
+		if (shouldMoonstrikeAffect(DamageBufferer.getLastActiveDamageSource())) {
 			Entity source = event.getSource().getImmediateSource();
 			if (source == null)
 				return;
 			IWorld moonPhaseWorld = source.getEntityWorld();
-			float efficiency = getMoonstrikeEfficiency(lastActiveDamageSource);
+			float efficiency = getMoonstrikeEfficiency(DamageBufferer.getLastActiveDamageSource());
 			event.setAmount(event.getAmount() * getMoonFactor(moonPhaseWorld, efficiency));
 		}
 	}
@@ -85,8 +68,8 @@ public class MoonstrikeEffect {
 		if (source.getTrueSource() instanceof LivingEntity) {
 			LivingEntity user = (LivingEntity) source.getTrueSource();
 
-			return ItemHelper.getEffectLevel(user.getHeldItemMainhand(), moonstrike) > 0 ||
-				ItemHelper.getEffectLevel(ItemHelper.getThrownItemStack(source.getImmediateSource()), moonstrike) > 0;
+			return ItemHelper.getEffectLevel(user.getHeldItemMainhand(), MOONSTRIKE_EFFECT) > 0 ||
+				ItemHelper.getEffectLevel(ItemHelper.getThrownItemStack(source.getImmediateSource()), MOONSTRIKE_EFFECT) > 0;
 		}
 		return false;
 	}
@@ -100,14 +83,27 @@ public class MoonstrikeEffect {
 
 			if (heldItem.getItem() instanceof ModularItem) {
 				ModularItem heldModularitem = (ModularItem) heldItem.getItem();
-				return (float) heldModularitem.getEffectEfficiency(heldItem, moonstrike);
+				return (float) heldModularitem.getEffectEfficiency(heldItem, MOONSTRIKE_EFFECT);
 			}
 			ItemStack thrownItem = ItemHelper.getThrownItemStack(source.getImmediateSource());
 			if (thrownItem != null && thrownItem.getItem() instanceof ModularItem) {
 				ModularItem thrownModularItem = (ModularItem) thrownItem.getItem();
-				return (float) thrownModularItem.getEffectEfficiency(thrownItem, moonstrike);
+				return (float) thrownModularItem.getEffectEfficiency(thrownItem, MOONSTRIKE_EFFECT);
 			}
 		}
 		return 0;
+	}
+
+	@Override
+	@OnlyIn(Dist.CLIENT)
+	public void clientInit() {
+		final IStatGetter moonstrikeGetter = new StatGetterEffectEfficiency(MOONSTRIKE_EFFECT, 1);
+		final GuiStatBar moonstrikeBar = new GuiStatBar(0, 0, 59, "tetrapak.stats.moonstrike",
+			0D, 100D, false, moonstrikeGetter, LabelGetterBasic.percentageLabelDecimal,
+			(player, itemStack) -> I18n.format("tetrapak.stats.moonstrike.tooltip",
+				moonstrikeGetter.getValue(player, itemStack), moonstrikeGetter.getValue(player, itemStack)));
+
+		WorkbenchStatsGui.addBar(moonstrikeBar);
+		HoloStatsGui.addBar(moonstrikeBar);
 	}
 }

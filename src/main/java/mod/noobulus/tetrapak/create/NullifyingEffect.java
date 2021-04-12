@@ -1,5 +1,8 @@
-package mod.noobulus.tetrapak;
+package mod.noobulus.tetrapak.create;
 
+import mod.noobulus.tetrapak.util.EffectHelper;
+import mod.noobulus.tetrapak.util.IClientInit;
+import mod.noobulus.tetrapak.util.ItemHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
@@ -23,53 +26,45 @@ import se.mickelus.tetra.items.modular.impl.toolbelt.ToolbeltHelper;
 
 import java.util.UUID;
 
-public class NullifyingEffect {
+public class NullifyingEffect implements IClientInit {
 	public static final AttributeModifier beltGravityModifier = new AttributeModifier(UUID.fromString("678c7388-ba1d-45c8-9f51-d6e4f1c4e3ac"), "Gravity modifier", 0.25 - 1, AttributeModifier.Operation.MULTIPLY_TOTAL);
 	public static final AttributeModifier beltDoubleGravityModifier = new AttributeModifier(UUID.fromString("778c7388-ba1d-45c8-9f51-d6e4f1c4e3ac"), "Gravity modifier", 0.125 - 1, AttributeModifier.Operation.MULTIPLY_TOTAL);
-	private static final ItemEffect nullifying = ItemEffect.get("tetrapak:nullifying");
-
-	@OnlyIn(Dist.CLIENT)
-	public static void clientInit() {
-		final IStatGetter nullifyingGetter = new StatGetterEffectLevel(nullifying, 12.5, 62.5);
-		final GuiStatBar nullifyingBar = new GuiStatBar(0, 0, 59, "tetrapak.stats.nullifying",
-			0D, 100D, false, nullifyingGetter, LabelGetterBasic.percentageLabelDecimal,
-			new TooltipGetterPercentageDecimal("tetrapak.stats.nullifying.tooltip", nullifyingGetter));
-
-		WorkbenchStatsGui.addBar(nullifyingBar);
-		HoloStatsGui.addBar(nullifyingBar);
-	}
+	public static final ItemEffect NULLIFYING_EFFECT = ItemEffect.get("tetrapak:nullifying");
 
 	private static int getNullifierLevel(LivingEntity e) {
 		if (!(e instanceof PlayerEntity))
 			return -1;
-		return ItemHelper.getEffectLevel(ToolbeltHelper.findToolbelt((PlayerEntity) e), nullifying);
+		return ItemHelper.getEffectLevel(ToolbeltHelper.findToolbelt((PlayerEntity) e), NULLIFYING_EFFECT);
 	}
 
 	@SubscribeEvent
-	public static void nullifierAtrributeModifiers(LivingEvent.LivingUpdateEvent event) {
+	public void nullifierAtrributeModifiers(LivingEvent.LivingUpdateEvent event) {
 		ModifiableAttributeInstance gravityAttribute = event.getEntityLiving().getAttribute(ForgeMod.ENTITY_GRAVITY.get());
 		int nullifierLevel = getNullifierLevel(event.getEntityLiving());
 
 		if (nullifierLevel == -1 || gravityAttribute == null)
 			return;
 
-		updateEffect(nullifierLevel == 1, gravityAttribute, beltGravityModifier);
-		updateEffect(nullifierLevel == 2, gravityAttribute, beltDoubleGravityModifier);
+		EffectHelper.updateEffect(nullifierLevel == 1, gravityAttribute, beltGravityModifier);
+		EffectHelper.updateEffect(nullifierLevel == 2, gravityAttribute, beltDoubleGravityModifier);
 	}
 
 	@SubscribeEvent
-	public static void nullifyingRemovesFallDamage(LivingAttackEvent event) {
+	public void nullifyingRemovesFallDamage(LivingAttackEvent event) {
 		if (event.getSource().damageType.equals(DamageSource.FALL.damageType) && getNullifierLevel(event.getEntityLiving()) > 0) {
 			event.setCanceled(true);
 		}
 	}
 
-	private static void updateEffect(boolean active, ModifiableAttributeInstance attributeInstance, AttributeModifier modifier) {
-		if (active) {
-			if (!attributeInstance.hasModifier(modifier))
-				attributeInstance.addTemporaryModifier(modifier);
-		} else if (attributeInstance.hasModifier(modifier)) {
-			attributeInstance.removeModifier(modifier);
-		}
+	@Override
+	@OnlyIn(Dist.CLIENT)
+	public void clientInit() {
+		final IStatGetter nullifyingGetter = new StatGetterEffectLevel(NULLIFYING_EFFECT, 12.5, 62.5);
+		final GuiStatBar nullifyingBar = new GuiStatBar(0, 0, 59, "tetrapak.stats.nullifying",
+			0D, 100D, false, nullifyingGetter, LabelGetterBasic.percentageLabelDecimal,
+			new TooltipGetterPercentageDecimal("tetrapak.stats.nullifying.tooltip", nullifyingGetter));
+
+		WorkbenchStatsGui.addBar(nullifyingBar);
+		HoloStatsGui.addBar(nullifyingBar);
 	}
 }

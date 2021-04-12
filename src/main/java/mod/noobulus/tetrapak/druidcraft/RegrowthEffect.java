@@ -1,5 +1,7 @@
-package mod.noobulus.tetrapak;
+package mod.noobulus.tetrapak.druidcraft;
 
+import mod.noobulus.tetrapak.util.IClientInit;
+import mod.noobulus.tetrapak.util.ItemHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,21 +23,8 @@ import se.mickelus.tetra.items.modular.impl.holo.gui.craft.HoloStatsGui;
 
 import static java.lang.Math.round;
 
-public class RegrowthEffect {
-	private static final ItemEffect regrowth = ItemEffect.get("tetrapak:regrowth");
-
-	@OnlyIn(Dist.CLIENT)
-	public static void clientInit() {
-		final IStatGetter regrowthGetter = new StatGetterEffectEfficiency(regrowth, 0.05);
-		final IStatGetter regrowthTotalGetter = new StatGetterEffectEfficiency(regrowth, 0.08333);
-		final GuiStatBar regrowthBar = new GuiStatBar(0, 0, 59, "tetrapak.stats.regrowth",
-			0, 60, false, regrowthGetter, LabelGetterBasic.integerLabel,
-			(player, itemStack) -> I18n.format("tetrapak.stats.regrowth.tooltip",
-				regrowthGetter.getValue(player, itemStack), round((float) regrowthTotalGetter.getValue(player, itemStack))));
-
-		WorkbenchStatsGui.addBar(regrowthBar);
-		HoloStatsGui.addBar(regrowthBar);
-	}
+public class RegrowthEffect implements IClientInit {
+	private static final ItemEffect REGROWTH_EFFECT = ItemEffect.get("tetrapak:regrowth");
 
 	@SubscribeEvent
 	public static void onLivingUpdate(LivingEvent.LivingUpdateEvent event) {
@@ -49,10 +38,24 @@ public class RegrowthEffect {
 			if (!(stack.getItem() instanceof ModularItem))
 				continue;
 			ModularItem item = (ModularItem) stack.getItem();
-			if (stack.isDamaged() && ItemHelper.getEffectLevel(stack, regrowth) > 0 && world.getGameTime() % item.getEffectEfficiency(stack, regrowth) == 0) {
+			if (stack.isDamaged() && ItemHelper.getEffectLevel(stack, REGROWTH_EFFECT) > 0 && world.getGameTime() % item.getEffectEfficiency(stack, REGROWTH_EFFECT) == 0) {
 				stack.setDamage(stack.getDamage() - (stack.getMaxDamage() / 100) - 1);
 			}
 		}
 
+	}
+
+	@Override
+	@OnlyIn(Dist.CLIENT)
+	public void clientInit() {
+		final IStatGetter regrowthGetter = new StatGetterEffectEfficiency(REGROWTH_EFFECT, 0.05);
+		final IStatGetter regrowthTotalGetter = new StatGetterEffectEfficiency(REGROWTH_EFFECT, 0.08333);
+		final GuiStatBar regrowthBar = new GuiStatBar(0, 0, 59, "tetrapak.stats.regrowth",
+			0, 60, false, regrowthGetter, LabelGetterBasic.integerLabel,
+			(player, itemStack) -> I18n.format("tetrapak.stats.regrowth.tooltip",
+				regrowthGetter.getValue(player, itemStack), round((float) regrowthTotalGetter.getValue(player, itemStack))));
+
+		WorkbenchStatsGui.addBar(regrowthBar);
+		HoloStatsGui.addBar(regrowthBar);
 	}
 }
