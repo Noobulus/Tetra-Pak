@@ -1,6 +1,7 @@
 package mod.noobulus.tetrapak.create;
 
 import com.simibubi.create.content.curiosities.tools.DeforesterItem;
+import mod.noobulus.tetrapak.util.EffectHelper;
 import mod.noobulus.tetrapak.util.IClientInit;
 import mod.noobulus.tetrapak.util.ItemHelper;
 import net.minecraftforge.api.distmarker.Dist;
@@ -17,7 +18,7 @@ import se.mickelus.tetra.gui.statbar.getter.TooltipGetterInteger;
 import se.mickelus.tetra.items.modular.impl.holo.gui.craft.HoloStatsGui;
 
 public class DeforestingEffect implements IClientInit {
-	public static final ItemEffect DEFORESTING_EFFECT = ItemEffect.get("tetrapak:deforesting");
+	public static final ItemEffect DEFORESTING_EFFECT = EffectHelper.get("deforesting");
 
 	@SubscribeEvent
 	public void deforestWhenBlockBroken(BlockEvent.BreakEvent event) {
@@ -30,9 +31,9 @@ public class DeforestingEffect implements IClientInit {
 	@OnlyIn(Dist.CLIENT)
 	public void clientInit() {
 		final IStatGetter deforestingGetter = new StatGetterEffectLevel(DEFORESTING_EFFECT, 1, 0);
-		final GuiStatBar deforestingBar = new GuiStatBar(0, 0, 59, "tetrapak.stats.deforesting",
+		final GuiStatBar deforestingBar = new GuiStatBar(0, 0, 59, EffectHelper.getStatsPath(DEFORESTING_EFFECT),
 			0, 1, false, deforestingGetter, LabelGetterBasic.integerLabel,
-			new TooltipGetterInteger("tetrapak.stats.deforesting.tooltip", deforestingGetter));
+			new TooltipGetterInteger(EffectHelper.getTooltipPath(DEFORESTING_EFFECT), deforestingGetter));
 
 		WorkbenchStatsGui.addBar(deforestingBar);
 		HoloStatsGui.addBar(deforestingBar);

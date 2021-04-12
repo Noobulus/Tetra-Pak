@@ -1,6 +1,7 @@
 package mod.noobulus.tetrapak.druidcraft;
 
 import mod.noobulus.tetrapak.util.DamageBufferer;
+import mod.noobulus.tetrapak.util.EffectHelper;
 import mod.noobulus.tetrapak.util.IClientInit;
 import mod.noobulus.tetrapak.util.ItemHelper;
 import net.minecraft.client.resources.I18n;
@@ -26,7 +27,7 @@ import se.mickelus.tetra.items.modular.impl.holo.gui.craft.HoloStatsGui;
 import javax.annotation.Nullable;
 
 public class MoonstrikeEffect implements IClientInit {
-	private static final ItemEffect MOONSTRIKE_EFFECT = ItemEffect.get("tetrapak:moonstrike");
+	private static final ItemEffect MOONSTRIKE_EFFECT = EffectHelper.get("moonstrike");
 
 	@SubscribeEvent
 	public static void moonstrikeToolsBreakBlocksFaster(PlayerEvent.BreakSpeed event) {
@@ -43,16 +44,12 @@ public class MoonstrikeEffect implements IClientInit {
 
 	@SubscribeEvent
 	public static void moonstrikeCausesBonusDamage(LivingHurtEvent event) {
-    /*  DamageSource source = event.getSource();
-        PlayerEntity player = (PlayerEntity)source.getTrueSource();
-        ItemStack heldItemMainhand = player.getHeldItemMainhand();
-        ModularItem heldItem = (ModularItem) heldItemMainhand.getItem(); */
 		if (shouldMoonstrikeAffect(DamageBufferer.getLastActiveDamageSource())) {
 			Entity source = event.getSource().getImmediateSource();
 			if (source == null)
 				return;
 			IWorld moonPhaseWorld = source.getEntityWorld();
-			float efficiency = getMoonstrikeEfficiency(DamageBufferer.getLastActiveDamageSource());
+			float efficiency = EffectHelper.getEffectEfficiency(DamageBufferer.getLastActiveDamageSource(), MOONSTRIKE_EFFECT);
 			event.setAmount(event.getAmount() * getMoonFactor(moonPhaseWorld, efficiency));
 		}
 	}
@@ -74,33 +71,13 @@ public class MoonstrikeEffect implements IClientInit {
 		return false;
 	}
 
-	private static float getMoonstrikeEfficiency(@Nullable DamageSource source) {
-		if (source == null)
-			return 0;
-		if (source.getTrueSource() instanceof LivingEntity) {
-			LivingEntity user = (LivingEntity) source.getTrueSource();
-			ItemStack heldItem = user.getHeldItemMainhand();
-
-			if (heldItem.getItem() instanceof ModularItem) {
-				ModularItem heldModularitem = (ModularItem) heldItem.getItem();
-				return (float) heldModularitem.getEffectEfficiency(heldItem, MOONSTRIKE_EFFECT);
-			}
-			ItemStack thrownItem = ItemHelper.getThrownItemStack(source.getImmediateSource());
-			if (thrownItem != null && thrownItem.getItem() instanceof ModularItem) {
-				ModularItem thrownModularItem = (ModularItem) thrownItem.getItem();
-				return (float) thrownModularItem.getEffectEfficiency(thrownItem, MOONSTRIKE_EFFECT);
-			}
-		}
-		return 0;
-	}
-
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void clientInit() {
 		final IStatGetter moonstrikeGetter = new StatGetterEffectEfficiency(MOONSTRIKE_EFFECT, 1);
-		final GuiStatBar moonstrikeBar = new GuiStatBar(0, 0, 59, "tetrapak.stats.moonstrike",
+		final GuiStatBar moonstrikeBar = new GuiStatBar(0, 0, 59, EffectHelper.getStatsPath(MOONSTRIKE_EFFECT),
 			0D, 100D, false, moonstrikeGetter, LabelGetterBasic.percentageLabelDecimal,
-			(player, itemStack) -> I18n.format("tetrapak.stats.moonstrike.tooltip",
+			(player, itemStack) -> I18n.format(EffectHelper.getTooltipPath(MOONSTRIKE_EFFECT),
 				moonstrikeGetter.getValue(player, itemStack), moonstrikeGetter.getValue(player, itemStack)));
 
 		WorkbenchStatsGui.addBar(moonstrikeBar);

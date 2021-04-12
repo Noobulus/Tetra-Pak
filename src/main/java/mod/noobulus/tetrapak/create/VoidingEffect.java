@@ -1,9 +1,6 @@
 package mod.noobulus.tetrapak.create;
 
-import mod.noobulus.tetrapak.util.DamageBufferer;
-import mod.noobulus.tetrapak.util.IClientInit;
-import mod.noobulus.tetrapak.util.ILootModifier;
-import mod.noobulus.tetrapak.util.ItemHelper;
+import mod.noobulus.tetrapak.util.*;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -24,13 +21,12 @@ import se.mickelus.tetra.blocks.workbench.gui.WorkbenchStatsGui;
 import se.mickelus.tetra.effect.ItemEffect;
 import se.mickelus.tetra.gui.statbar.GuiStatBar;
 import se.mickelus.tetra.gui.statbar.getter.*;
-import se.mickelus.tetra.items.modular.ModularItem;
 import se.mickelus.tetra.items.modular.impl.holo.gui.craft.HoloStatsGui;
 
 import javax.annotation.Nullable;
 
 public class VoidingEffect implements IClientInit, ILootModifier<VoidingLootModifier> {
-	public static final ItemEffect VOIDING_EFFECT = ItemEffect.get("tetrapak:voiding");
+	public static final ItemEffect VOIDING_EFFECT = EffectHelper.get("voiding");
 
 	@SubscribeEvent
 	public void voidingKillsRemoveDrops(LivingDropsEvent event) {
@@ -44,7 +40,7 @@ public class VoidingEffect implements IClientInit, ILootModifier<VoidingLootModi
 		LivingEntity target = event.getEntityLiving();
 		if (shouldVoidingAffect(DamageBufferer.getLastActiveDamageSource(), target)) {
 			int levelLooting = EnchantmentHelper.getEnchantmentLevel(Enchantments.LOOTING, event.getAttackingPlayer().getHeldItemMainhand());
-			float modifier = 1 + (getVoidingEfficiency(DamageBufferer.getLastActiveDamageSource()) * (levelLooting + 2));
+			float modifier = 1 + (EffectHelper.getEffectEfficiency(DamageBufferer.getLastActiveDamageSource(), VOIDING_EFFECT) * (levelLooting + 2));
 			event.setDroppedExperience((int) (event.getDroppedExperience() * modifier));
 		}
 	}
@@ -54,11 +50,12 @@ public class VoidingEffect implements IClientInit, ILootModifier<VoidingLootModi
 		ItemStack heldItemMainhand = event.getPlayer().getHeldItemMainhand();
 		if (ItemHelper.getEffectLevel(heldItemMainhand, VOIDING_EFFECT) > 0) {
 			int levelFortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, heldItemMainhand);
-			float modifier = 1 + (getVoidingEfficiency(DamageBufferer.getLastActiveDamageSource()) * (levelFortune + 2));
+			float efficiency = EffectHelper.getEffectEfficiency(DamageBufferer.getLastActiveDamageSource(), VOIDING_EFFECT);
+			float modifier = 1 + efficiency * (levelFortune + 2);
 			float hardness = event.getState().getBlockHardness(event.getWorld(), event.getPos());
 			float hardnessExp = 0;
 			if (hardness > 3.1) // free exp for mining stone is a little bit much
-				hardnessExp = (0.1f * (hardness * (1 + (getVoidingEfficiency(DamageBufferer.getLastActiveDamageSource()) * levelFortune)))); // give exp based on broken block hardness, needs tweaking
+				hardnessExp = (0.1f * (hardness * (1 + efficiency * levelFortune))); // give exp based on broken block hardness, needs tweaking
 			event.setExpToDrop((int) ((event.getExpToDrop() * modifier) + hardnessExp));
 		}
 	}
@@ -74,26 +71,6 @@ public class VoidingEffect implements IClientInit, ILootModifier<VoidingLootModi
 		return false;
 	}
 
-	private float getVoidingEfficiency(@Nullable DamageSource source) {
-		if (source == null)
-			return 0;
-		if (source.getTrueSource() instanceof LivingEntity) {
-			LivingEntity user = (LivingEntity) source.getTrueSource();
-			ItemStack heldItem = user.getHeldItemMainhand();
-
-			if (heldItem.getItem() instanceof ModularItem) {
-				ModularItem heldModularitem = (ModularItem) heldItem.getItem();
-				return (float) heldModularitem.getEffectEfficiency(heldItem, VOIDING_EFFECT);
-			}
-			ItemStack thrownItem = ItemHelper.getThrownItemStack(source.getImmediateSource());
-			if (thrownItem != null && thrownItem.getItem() instanceof ModularItem) {
-				ModularItem thrownModularItem = (ModularItem) thrownItem.getItem();
-				return (float) thrownModularItem.getEffectEfficiency(thrownItem, VOIDING_EFFECT);
-			}
-		}
-		return 0;
-	}
-
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void clientInit() {
@@ -101,9 +78,9 @@ public class VoidingEffect implements IClientInit, ILootModifier<VoidingLootModi
 		final IStatGetter voidingEffGetter = new StatGetterEffectEfficiency(VOIDING_EFFECT, 1);
 		final IStatGetter voidingLootingGetter = new StatGetterEnchantmentLevel(Enchantments.LOOTING, 1.0D);
 		final IStatGetter voidingFortuneGetter = new StatGetterEnchantmentLevel(Enchantments.FORTUNE, 1.0D);
-		final GuiStatBar voidingBar = new GuiStatBar(0, 0, 59, "tetrapak.stats.voiding",
+		final GuiStatBar voidingBar = new GuiStatBar(0, 0, 59, EffectHelper.getStatsPath(VOIDING_EFFECT),
 			0, 1, false, voidingGetter, LabelGetterBasic.integerLabel,
-			(player, itemStack) -> I18n.format("tetrapak.stats.voiding.tooltip",
+			(player, itemStack) -> I18n.format(EffectHelper.getTooltipPath(VOIDING_EFFECT),
 				1 + (voidingEffGetter.getValue(player, itemStack) * (voidingLootingGetter.getValue(player, itemStack) + 2))
 				, 1 + (voidingEffGetter.getValue(player, itemStack) * (voidingFortuneGetter.getValue(player, itemStack) + 2))));
 
@@ -113,6 +90,6 @@ public class VoidingEffect implements IClientInit, ILootModifier<VoidingLootModi
 
 	@Override
 	public GlobalLootModifierSerializer<VoidingLootModifier> getModifier() {
-		return new VoidingLootModifier.Serializer().setRegistryName(new ResourceLocation("tetrapak", "voiding"));
+		return new VoidingLootModifier.Serializer().setRegistryName(new ResourceLocation(VOIDING_EFFECT.getKey()));
 	}
 }

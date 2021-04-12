@@ -1,5 +1,6 @@
 package mod.noobulus.tetrapak.druidcraft;
 
+import mod.noobulus.tetrapak.util.EffectHelper;
 import mod.noobulus.tetrapak.util.IClientInit;
 import mod.noobulus.tetrapak.util.ItemHelper;
 import net.minecraft.client.resources.I18n;
@@ -24,7 +25,7 @@ import se.mickelus.tetra.items.modular.impl.holo.gui.craft.HoloStatsGui;
 import static java.lang.Math.round;
 
 public class RegrowthEffect implements IClientInit {
-	private static final ItemEffect REGROWTH_EFFECT = ItemEffect.get("tetrapak:regrowth");
+	private static final ItemEffect REGROWTH_EFFECT = EffectHelper.get("regrowth");
 
 	@SubscribeEvent
 	public static void onLivingUpdate(LivingEvent.LivingUpdateEvent event) {
@@ -50,9 +51,9 @@ public class RegrowthEffect implements IClientInit {
 	public void clientInit() {
 		final IStatGetter regrowthGetter = new StatGetterEffectEfficiency(REGROWTH_EFFECT, 0.05);
 		final IStatGetter regrowthTotalGetter = new StatGetterEffectEfficiency(REGROWTH_EFFECT, 0.08333);
-		final GuiStatBar regrowthBar = new GuiStatBar(0, 0, 59, "tetrapak.stats.regrowth",
+		final GuiStatBar regrowthBar = new GuiStatBar(0, 0, 59, EffectHelper.getStatsPath(REGROWTH_EFFECT),
 			0, 60, false, regrowthGetter, LabelGetterBasic.integerLabel,
-			(player, itemStack) -> I18n.format("tetrapak.stats.regrowth.tooltip",
+			(player, itemStack) -> I18n.format(EffectHelper.getTooltipPath(REGROWTH_EFFECT),
 				regrowthGetter.getValue(player, itemStack), round((float) regrowthTotalGetter.getValue(player, itemStack))));
 
 		WorkbenchStatsGui.addBar(regrowthBar);

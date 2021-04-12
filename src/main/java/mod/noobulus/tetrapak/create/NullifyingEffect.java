@@ -29,7 +29,7 @@ import java.util.UUID;
 public class NullifyingEffect implements IClientInit {
 	public static final AttributeModifier beltGravityModifier = new AttributeModifier(UUID.fromString("678c7388-ba1d-45c8-9f51-d6e4f1c4e3ac"), "Gravity modifier", 0.25 - 1, AttributeModifier.Operation.MULTIPLY_TOTAL);
 	public static final AttributeModifier beltDoubleGravityModifier = new AttributeModifier(UUID.fromString("778c7388-ba1d-45c8-9f51-d6e4f1c4e3ac"), "Gravity modifier", 0.125 - 1, AttributeModifier.Operation.MULTIPLY_TOTAL);
-	public static final ItemEffect NULLIFYING_EFFECT = ItemEffect.get("tetrapak:nullifying");
+	public static final ItemEffect NULLIFYING_EFFECT = EffectHelper.get("nullifying");
 
 	private static int getNullifierLevel(LivingEntity e) {
 		if (!(e instanceof PlayerEntity))
@@ -60,9 +60,9 @@ public class NullifyingEffect implements IClientInit {
 	@OnlyIn(Dist.CLIENT)
 	public void clientInit() {
 		final IStatGetter nullifyingGetter = new StatGetterEffectLevel(NULLIFYING_EFFECT, 12.5, 62.5);
-		final GuiStatBar nullifyingBar = new GuiStatBar(0, 0, 59, "tetrapak.stats.nullifying",
+		final GuiStatBar nullifyingBar = new GuiStatBar(0, 0, 59, EffectHelper.getStatsPath(NULLIFYING_EFFECT),
 			0D, 100D, false, nullifyingGetter, LabelGetterBasic.percentageLabelDecimal,
-			new TooltipGetterPercentageDecimal("tetrapak.stats.nullifying.tooltip", nullifyingGetter));
+			new TooltipGetterPercentageDecimal(EffectHelper.getTooltipPath(NULLIFYING_EFFECT), nullifyingGetter));
 
 		WorkbenchStatsGui.addBar(nullifyingBar);
 		HoloStatsGui.addBar(nullifyingBar);

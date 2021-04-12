@@ -1,5 +1,6 @@
 package mod.noobulus.tetrapak.druidcraft;
 
+import mod.noobulus.tetrapak.util.EffectHelper;
 import mod.noobulus.tetrapak.util.IClientInit;
 import mod.noobulus.tetrapak.util.ILootModifier;
 import net.minecraft.util.ResourceLocation;
@@ -16,15 +17,15 @@ import se.mickelus.tetra.gui.statbar.getter.TooltipGetterInteger;
 import se.mickelus.tetra.items.modular.impl.holo.gui.craft.HoloStatsGui;
 
 public class ScorchingEffect implements IClientInit, ILootModifier<ScorchingLootModifier> {
-	public static final ItemEffect SCORCHING_EFFECT = ItemEffect.get("tetrapak:scorching");
+	public static final ItemEffect SCORCHING_EFFECT = EffectHelper.get("scorching");
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void clientInit() {
 		final IStatGetter scorchingGetter = new StatGetterEffectLevel(SCORCHING_EFFECT, 1, 0);
-		final GuiStatBar scorchingBar = new GuiStatBar(0, 0, 59, "tetrapak.stats.scorching",
+		final GuiStatBar scorchingBar = new GuiStatBar(0, 0, 59, EffectHelper.getStatsPath(SCORCHING_EFFECT),
 			0, 1, false, scorchingGetter, LabelGetterBasic.integerLabel,
-			new TooltipGetterInteger("tetrapak.stats.scorching.tooltip", scorchingGetter));
+			new TooltipGetterInteger(EffectHelper.getTooltipPath(SCORCHING_EFFECT), scorchingGetter));
 
 		WorkbenchStatsGui.addBar(scorchingBar);
 		HoloStatsGui.addBar(scorchingBar);
@@ -32,6 +33,6 @@ public class ScorchingEffect implements IClientInit, ILootModifier<ScorchingLoot
 
 	@Override
 	public GlobalLootModifierSerializer<ScorchingLootModifier> getModifier() {
-		return new ScorchingLootModifier.Serializer().setRegistryName(new ResourceLocation("tetrapak", "scorchingitems"));
+		return new ScorchingLootModifier.Serializer().setRegistryName(new ResourceLocation(SCORCHING_EFFECT.getKey()));
 	}
 }

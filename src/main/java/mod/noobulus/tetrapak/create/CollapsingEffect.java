@@ -1,5 +1,6 @@
 package mod.noobulus.tetrapak.create;
 
+import mod.noobulus.tetrapak.util.EffectHelper;
 import mod.noobulus.tetrapak.util.IClientInit;
 import mod.noobulus.tetrapak.util.ItemHelper;
 import net.minecraft.item.ItemStack;
@@ -10,7 +11,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import se.mickelus.tetra.effect.ItemEffect;
 
 public class CollapsingEffect implements IClientInit {
-	public static final ItemEffect COLLAPSING_EFFECT = ItemEffect.get("tetrapak:collapsing");
+	public static final ItemEffect COLLAPSING_EFFECT = EffectHelper.get("collapsing");
 	private static boolean collapsing = false; // required as to not run into "recursions" over forge events on tree cutting
 
 	@SubscribeEvent
