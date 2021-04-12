@@ -2,14 +2,10 @@ package mod.noobulus.tetrapak.druidcraft;
 
 import com.google.gson.JsonObject;
 import mod.noobulus.tetrapak.util.ItemHelper;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootContext;
-import net.minecraft.loot.LootParameters;
 import net.minecraft.loot.conditions.ILootCondition;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.LootModifier;
 
@@ -25,20 +21,9 @@ public class ScorchingLootModifier extends LootModifier {
 	@Nonnull
 	@Override
 	public List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
-		if (context.has(LootParameters.BLOCK_ENTITY)) //don't smelt TE drops
-			return generatedLoot;
-		Entity killerEntity = context.get(LootParameters.KILLER_ENTITY);
-		return applyFor(context.get(LootParameters.THIS_ENTITY) instanceof PlayerEntity || killerEntity == null ?
-			context.get(LootParameters.TOOL) :
-			killerEntity.getHeldEquipment().iterator().next(), generatedLoot, context.getWorld());
+		return generatedLoot.stream().map(stack -> ItemHelper.smelt(stack, context.getWorld())).collect(Collectors.toList());
 	}
 
-	private List<ItemStack> applyFor(ItemStack tool, List<ItemStack> toSmelt, World world) {
-		if (ItemHelper.getEffectLevel(tool, ScorchingEffect.SCORCHING_EFFECT) > 0) {
-			return toSmelt.stream().map(stack -> ItemHelper.smelt(stack, world)).collect(Collectors.toList());
-		}
-		return toSmelt;
-	}
 
 	// JSON serializer stuff for loot modifiers
 	public static class Serializer extends GlobalLootModifierSerializer<ScorchingLootModifier> {

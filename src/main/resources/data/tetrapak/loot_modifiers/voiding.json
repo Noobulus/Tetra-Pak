@@ -2,10 +2,8 @@
   "type": "tetrapak:voiding",
   "conditions": [
     {
-      "condition": "minecraft:match_tool",
-      "predicate": {
-        "tag": "tetrapak:modular_items"
-      }
+      "condition": "tetrapak:should_effect_affect",
+      "effect": "tetrapak:voiding"
     }
   ]
 }

@@ -13,7 +13,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
-import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -27,13 +26,6 @@ import javax.annotation.Nullable;
 
 public class VoidingEffect implements IClientInit, ILootModifier<VoidingLootModifier> {
 	public static final ItemEffect VOIDING_EFFECT = EffectHelper.get("voiding");
-
-	@SubscribeEvent
-	public void voidingKillsRemoveDrops(LivingDropsEvent event) {
-		if (shouldVoidingAffect(event.getSource(), event.getEntity())) {
-			event.getDrops().clear();
-		}
-	}
 
 	@SubscribeEvent
 	public void voidingKillsMultiplyExp(LivingExperienceDropEvent event) {

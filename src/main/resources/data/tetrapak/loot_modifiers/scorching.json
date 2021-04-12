@@ -1,5 +1,9 @@
 {
   "type": "tetrapak:scorching",
   "conditions": [
+    {
+      "condition": "tetrapak:should_effect_affect",
+      "effect": "tetrapak:scorching"
+    }
   ]
 }

@@ -1,10 +1,8 @@
 package mod.noobulus.tetrapak.create;
 
 import com.google.gson.JsonObject;
-import mod.noobulus.tetrapak.util.ItemHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootContext;
-import net.minecraft.loot.LootParameters;
 import net.minecraft.loot.conditions.ILootCondition;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
@@ -21,11 +19,7 @@ public class VoidingLootModifier extends LootModifier {
 	@Nonnull
 	@Override
 	public List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
-		if (context.has(LootParameters.BLOCK_ENTITY)) // because deleting a shulker full of items from one screw-up is unfun
-			return generatedLoot;
-		if (ItemHelper.getEffectLevel(context.get(LootParameters.TOOL), VoidingEffect.VOIDING_EFFECT) > 0) {
-			generatedLoot.clear();
-		}
+		generatedLoot.clear();
 		return generatedLoot;
 	}
 

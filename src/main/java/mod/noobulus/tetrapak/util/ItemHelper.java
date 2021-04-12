@@ -1,5 +1,6 @@
 package mod.noobulus.tetrapak.util;
 
+import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.inventory.Inventory;
@@ -14,9 +15,12 @@ import se.mickelus.tetra.effect.ItemEffect;
 import se.mickelus.tetra.items.modular.ModularItem;
 
 import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+@MethodsReturnNonnullByDefault
+@ParametersAreNonnullByDefault
 public class ItemHelper {
 	private static final LazyValue<Method> arrowStackGetter = new LazyValue<>(() -> ObfuscationReflectionHelper.findMethod(AbstractArrowEntity.class, "func_184550_j"));
 
@@ -34,7 +38,7 @@ public class ItemHelper {
 	}
 
 	@Nullable
-	public static ItemStack getThrownItemStack(@Nullable Entity e) { // i should make this a helper method but for now doing it twice is fine
+	public static ItemStack getThrownItemStack(@Nullable Entity e) {
 		if (!(e instanceof AbstractArrowEntity))
 			return null;
 		Method lookup = arrowStackGetter.getValue();

@@ -1,5 +1,6 @@
 package mod.noobulus.tetrapak;
 
+import mod.noobulus.tetrapak.loot_conditions.LootConditions;
 import mod.noobulus.tetrapak.util.DamageBufferer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
@@ -20,5 +21,7 @@ public class TetraPak {
 		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 		modEventBus.addGenericListener(GlobalLootModifierSerializer.class, Mods::registerLootModifiers);
 		modEventBus.addListener(Mods::clientSetup);
+
+		LootConditions.register();
 	}
 }
