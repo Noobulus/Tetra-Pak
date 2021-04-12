@@ -13,7 +13,6 @@ public class TetraPak {
 	public static final String MODID = "tetrapak";
 
 	public TetraPak() {
-		MinecraftForge.EVENT_BUS.register(this);
 		MinecraftForge.EVENT_BUS.register(DamageBufferer.class);
 
 		Mods.registerEventListeners();
