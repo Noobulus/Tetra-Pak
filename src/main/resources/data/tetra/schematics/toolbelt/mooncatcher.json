@@ -27,8 +27,8 @@
       "requiredTools": {
         "hammer": 5
       },
-      "moduleKey": "toolbelt/moonsight",
-      "moduleVariant": "moonsight/moonstone"
+      "moduleKey": "toolbelt/mooncatcher",
+      "moduleVariant": "mooncatcher/moonstone"
     }
   ]
 }

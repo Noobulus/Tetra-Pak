@@ -5,7 +5,7 @@
   "slotSuffixes": ["_slot1", "_slot2", "_slot3"],
   "variants": [
     {
-      "key": "moonsight/moonstone",
+      "key": "mooncatcher/moonstone",
       "integrity": -2,
       "glyph": {
         "tint": "ffffff",
