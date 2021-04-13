@@ -30,7 +30,7 @@ public class VoidingEffect implements IHoloDescription, ILootModifier<VoidingLoo
 		LivingEntity target = event.getEntityLiving();
 		if (shouldVoidingAffect(DamageBufferer.getLastActiveDamageSource(), target)) {
 			int levelLooting = EnchantmentHelper.getEnchantmentLevel(Enchantments.LOOTING, event.getAttackingPlayer().getHeldItemMainhand());
-			float modifier = 1 + (EffectHelper.getEffectEfficiency(DamageBufferer.getLastActiveDamageSource(), getEffect()) * (levelLooting + 2));
+			float modifier = 1 + (getEffectEfficiency() * (levelLooting + 2));
 			event.setDroppedExperience((int) (event.getDroppedExperience() * modifier));
 		}
 	}
@@ -40,7 +40,7 @@ public class VoidingEffect implements IHoloDescription, ILootModifier<VoidingLoo
 		ItemStack heldItemMainhand = event.getPlayer().getHeldItemMainhand();
 		if (hasEffect(heldItemMainhand)) {
 			int levelFortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, heldItemMainhand);
-			float efficiency = EffectHelper.getEffectEfficiency(DamageBufferer.getLastActiveDamageSource(), getEffect());
+			float efficiency = getEffectEfficiency(DamageBufferer.getLastActiveDamageSource());
 			float modifier = 1 + efficiency * (levelFortune + 2);
 			float hardness = event.getState().getBlockHardness(event.getWorld(), event.getPos());
 			float hardnessExp = 0;
@@ -68,16 +68,16 @@ public class VoidingEffect implements IHoloDescription, ILootModifier<VoidingLoo
 		final IStatGetter voidingEffGetter = new StatGetterEffectEfficiency(getEffect(), 1);
 		final IStatGetter voidingLootingGetter = new StatGetterEnchantmentLevel(Enchantments.LOOTING, 1.0D);
 		final IStatGetter voidingFortuneGetter = new StatGetterEnchantmentLevel(Enchantments.FORTUNE, 1.0D);
-		return new GuiStatBar(0, 0, 59, EffectHelper.getStatsPath(getEffect()),
+		return new GuiStatBar(0, 0, 59, getStatsPath(),
 			0, 1, false, voidingGetter, LabelGetterBasic.integerLabel,
-			(player, itemStack) -> I18n.format(EffectHelper.getTooltipPath(getEffect()),
+			(player, itemStack) -> I18n.format(getTooltipPath(),
 				1 + (voidingEffGetter.getValue(player, itemStack) * (voidingLootingGetter.getValue(player, itemStack) + 2))
 				, 1 + (voidingEffGetter.getValue(player, itemStack) * (voidingFortuneGetter.getValue(player, itemStack) + 2))));
 	}
 
 	@Override
 	public ItemEffect getEffect() {
-		return EffectHelper.get("voiding");
+		return ITetraEffect.get("voiding");
 	}
 
 	@Override

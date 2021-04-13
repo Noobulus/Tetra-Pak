@@ -1,9 +1,9 @@
 package mod.noobulus.tetrapak.druidcraft;
 
 import mod.noobulus.tetrapak.loot.ScorchingLootModifier;
-import mod.noobulus.tetrapak.util.EffectHelper;
 import mod.noobulus.tetrapak.util.IHoloDescription;
 import mod.noobulus.tetrapak.util.ILootModifier;
+import mod.noobulus.tetrapak.util.ITetraEffect;
 import net.minecraft.loot.conditions.ILootCondition;
 import se.mickelus.tetra.effect.ItemEffect;
 
@@ -17,6 +17,6 @@ public class ScorchingEffect implements IHoloDescription, ILootModifier<Scorchin
 
 	@Override
 	public ItemEffect getEffect() {
-		return EffectHelper.get("scorching");
+		return ITetraEffect.get("scorching");
 	}
 }

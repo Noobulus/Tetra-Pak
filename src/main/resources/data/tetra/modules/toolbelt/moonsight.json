@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "type": "tetra:toolbelt_module",
+  "slots": ["toolbelt/slot1", "toolbelt/slot2", "toolbelt/slot3"],
+  "slotSuffixes": ["_slot1", "_slot2", "_slot3"],
+  "variants": [
+    {
+      "key": "moonsight/moonstone",
+      "integrity": -2,
+      "glyph": {
+        "tint": "ffffff",
+        "textureX": 240
+      },
+      "effects": {
+        "tetrapak:moonsight": 1
+      }
+    }
+  ]
+}

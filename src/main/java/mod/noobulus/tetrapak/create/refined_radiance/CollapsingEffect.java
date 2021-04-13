@@ -1,7 +1,7 @@
 package mod.noobulus.tetrapak.create.refined_radiance;
 
-import mod.noobulus.tetrapak.util.EffectHelper;
 import mod.noobulus.tetrapak.util.IHoloDescription;
+import mod.noobulus.tetrapak.util.ITetraEffect;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -74,6 +74,6 @@ public class CollapsingEffect implements IHoloDescription {
 
 	@Override
 	public ItemEffect getEffect() {
-		return EffectHelper.get("collapsing");
+		return ITetraEffect.get("collapsing");
 	}
 }

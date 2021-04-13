@@ -1,7 +1,7 @@
 package mod.noobulus.tetrapak.druidcraft;
 
-import mod.noobulus.tetrapak.util.EffectHelper;
 import mod.noobulus.tetrapak.util.IHoloDescription;
+import mod.noobulus.tetrapak.util.ITetraEffect;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -47,14 +47,14 @@ public class RegrowthEffect implements IHoloDescription {
 	public GuiStatBar getStatBar() {
 		final IStatGetter regrowthGetter = new StatGetterEffectEfficiency(getEffect(), 0.05);
 		final IStatGetter regrowthTotalGetter = new StatGetterEffectEfficiency(getEffect(), 0.08333);
-		return new GuiStatBar(0, 0, 59, EffectHelper.getStatsPath(getEffect()),
+		return new GuiStatBar(0, 0, 59, getStatsPath(),
 			0, 60, false, regrowthGetter, LabelGetterBasic.integerLabel,
-			(player, itemStack) -> I18n.format(EffectHelper.getTooltipPath(getEffect()),
+			(player, itemStack) -> I18n.format(getTooltipPath(),
 				regrowthGetter.getValue(player, itemStack), round((float) regrowthTotalGetter.getValue(player, itemStack))));
 	}
 
 	@Override
 	public ItemEffect getEffect() {
-		return EffectHelper.get("regrowth");
+		return ITetraEffect.get("regrowth");
 	}
 }

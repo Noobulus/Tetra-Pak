@@ -7,6 +7,7 @@ import mcp.MethodsReturnNonnullByDefault;
 import mod.noobulus.tetrapak.util.ItemHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.ILootSerializer;
 import net.minecraft.loot.LootConditionType;
@@ -41,7 +42,7 @@ public class ShouldEffectAffect implements ILootCondition {
 		Entity killerEntity = context.get(LootParameters.KILLER_ENTITY);
 		Entity directKillerEntity = context.get(LootParameters.DIRECT_KILLER_ENTITY);
 
-		if (!(context.get(LootParameters.THIS_ENTITY) instanceof PlayerEntity)) {
+		if (!(context.get(LootParameters.THIS_ENTITY) instanceof PlayerEntity || context.get(LootParameters.THIS_ENTITY) instanceof IInventory)) {
 			if (tool == null && directKillerEntity != null)
 				tool = ItemHelper.getThrownItemStack(directKillerEntity);
 			if (tool == null && killerEntity != null)

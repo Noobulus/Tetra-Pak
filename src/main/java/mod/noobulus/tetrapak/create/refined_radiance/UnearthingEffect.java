@@ -1,7 +1,7 @@
 package mod.noobulus.tetrapak.create.refined_radiance;
 
-import mod.noobulus.tetrapak.util.EffectHelper;
 import mod.noobulus.tetrapak.util.IHoloDescription;
+import mod.noobulus.tetrapak.util.ITetraEffect;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Direction;
@@ -65,6 +65,6 @@ public class UnearthingEffect implements IHoloDescription {
 
 	@Override
 	public ItemEffect getEffect() {
-		return EffectHelper.get("unearthing");
+		return ITetraEffect.get("unearthing");
 	}
 }

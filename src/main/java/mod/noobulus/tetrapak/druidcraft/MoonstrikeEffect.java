@@ -1,8 +1,7 @@
 package mod.noobulus.tetrapak.druidcraft;
 
-import mod.noobulus.tetrapak.util.DamageBufferer;
-import mod.noobulus.tetrapak.util.EffectHelper;
 import mod.noobulus.tetrapak.util.IHoloDescription;
+import mod.noobulus.tetrapak.util.ITetraEffect;
 import mod.noobulus.tetrapak.util.ItemHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
@@ -27,8 +26,7 @@ import javax.annotation.Nullable;
 public class MoonstrikeEffect implements IHoloDescription {
 
 	private static float getMoonFactor(IWorld world, float efficiency) {
-		int moonPhase = world.getMoonPhase();
-		return (1 + ((efficiency / 10) * (float) Math.abs(moonPhase - 4) / 40));
+		return 1 + (efficiency * world.getMoonSize() / 100.f);
 	}
 
 	@SubscribeEvent
@@ -46,12 +44,12 @@ public class MoonstrikeEffect implements IHoloDescription {
 
 	@SubscribeEvent
 	public void moonstrikeCausesBonusDamage(LivingHurtEvent event) {
-		if (shouldMoonstrikeAffect(DamageBufferer.getLastActiveDamageSource())) {
+		if (shouldMoonstrikeAffect(event.getSource())) {
 			Entity source = event.getSource().getImmediateSource();
 			if (source == null)
 				return;
 			IWorld moonPhaseWorld = source.getEntityWorld();
-			float efficiency = EffectHelper.getEffectEfficiency(DamageBufferer.getLastActiveDamageSource(), getEffect());
+			float efficiency = getEffectEfficiency(event.getSource());
 			event.setAmount(event.getAmount() * getMoonFactor(moonPhaseWorld, efficiency));
 		}
 	}
@@ -72,14 +70,14 @@ public class MoonstrikeEffect implements IHoloDescription {
 	@OnlyIn(Dist.CLIENT)
 	public GuiStatBar getStatBar() {
 		final IStatGetter moonstrikeGetter = new StatGetterEffectEfficiency(getEffect(), 1);
-		return new GuiStatBar(0, 0, 59, EffectHelper.getStatsPath(getEffect()),
+		return new GuiStatBar(0, 0, 59, getStatsPath(),
 			0D, 100D, false, moonstrikeGetter, LabelGetterBasic.percentageLabelDecimal,
-			(player, itemStack) -> I18n.format(EffectHelper.getTooltipPath(getEffect()),
+			(player, itemStack) -> I18n.format(getTooltipPath(),
 				moonstrikeGetter.getValue(player, itemStack), moonstrikeGetter.getValue(player, itemStack)));
 	}
 
 	@Override
 	public ItemEffect getEffect() {
-		return EffectHelper.get("moonstrike");
+		return ITetraEffect.get("moonstrike");
 	}
 }

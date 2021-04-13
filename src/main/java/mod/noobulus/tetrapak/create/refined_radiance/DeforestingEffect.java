@@ -1,8 +1,8 @@
 package mod.noobulus.tetrapak.create.refined_radiance;
 
 import com.simibubi.create.content.curiosities.tools.DeforesterItem;
-import mod.noobulus.tetrapak.util.EffectHelper;
 import mod.noobulus.tetrapak.util.IHoloDescription;
+import mod.noobulus.tetrapak.util.ITetraEffect;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import se.mickelus.tetra.effect.ItemEffect;
@@ -17,6 +17,6 @@ public class DeforestingEffect implements IHoloDescription {
 
 	@Override
 	public ItemEffect getEffect() {
-		return EffectHelper.get("deforesting");
+		return ITetraEffect.get("deforesting");
 	}
 }
