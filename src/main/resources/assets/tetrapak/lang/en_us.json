@@ -11,68 +11,74 @@
   "tetra.material.moonstone.prefix": "Moonstone",
 
   "tetra.variant.double_socket/rose_quartz": "Socket [\u00a7cRose Quartz\u00a7r]",
-  "tetra.variant.double_socket/rose_quartz.description": "A gem, fitted onto the side of the tool head. The gem is enchanted and grants the wielder additional reach.",
+  "tetra.variant.double_socket/rose_quartz.description": "A gem, fitted onto the side of the tool head. The gem is enchanted and grants the wielder additional reach",
   "tetra.variant.single_socket/rose_quartz": "Socket [\u00a7cRose Quartz\u00a7r]",
-  "tetra.variant.single_socket/rose_quartz.description": "A gem, attached where the head meets the handle. The gem is enchanted and grants the wielder additional reach.",
+  "tetra.variant.single_socket/rose_quartz.description": "A gem, attached where the head meets the handle. The gem is enchanted and grants the wielder additional reach",
   "tetra.variant.sword_socket/rose_quartz": "Socket [\u00a7cRose Quartz\u00a7r]",
-  "tetra.variant.sword_socket/rose_quartz.description": "A gem, fitted onto the sword where the blade meets the hilt. The gem is enchanted and grants the wielder additional reach.",
+  "tetra.variant.sword_socket/rose_quartz.description": "A gem, fitted onto the sword where the blade meets the hilt. The gem is enchanted and grants the wielder additional reach",
 
   "tetra.variant.double_socket/fiery_glass": "Socket [\u00a76Fiery Glass\u00a7r]",
-  "tetra.variant.double_socket/fiery_glass.description": "A gem, fitted onto the side of the tool head. The gem is enchanted and will scorch anything the tool touches.",
+  "tetra.variant.double_socket/fiery_glass.description": "A gem, fitted onto the side of the tool head. The gem is enchanted and will scorch anything the tool touches",
   "tetra.variant.single_socket/fiery_glass": "Socket [\u00a76Fiery Glass\u00a7r]",
-  "tetra.variant.single_socket/fiery_glass.description": "A gem, attached where the head meets the handle. The gem is enchanted and will scorch anything the tool touches.",
+  "tetra.variant.single_socket/fiery_glass.description": "A gem, attached where the head meets the handle. The gem is enchanted and will scorch anything the tool touches",
   "tetra.variant.sword_socket/fiery_glass": "Socket [\u00a76Fiery Glass\u00a7r]",
-  "tetra.variant.sword_socket/fiery_glass.description": "A gem, fitted onto the sword where the blade meets the hilt. The gem is enchanted and will scorch anything the sword touches.",
+  "tetra.variant.sword_socket/fiery_glass.description": "A gem, fitted onto the sword where the blade meets the hilt. The gem is enchanted and will scorch anything the sword touches",
 
   "tetra.variant.double_socket/moonstone": "Socket [\u00a7bMoonstone\u00a7r]",
-  "tetra.variant.double_socket/moonstone.description": "A gem, fitted onto the side of the tool head. The gem is enchanted and grants the tool increased damage and efficiency depending on moon phase.",
+  "tetra.variant.double_socket/moonstone.description": "A gem, fitted onto the side of the tool head. The gem is enchanted and grants the tool increased damage and efficiency depending on moon phase",
   "tetra.variant.single_socket/moonstone": "Socket [\u00a7bMoonstone\u00a7r]",
-  "tetra.variant.single_socket/moonstone.description": "A gem, attached where the head meets the handle. The gem is enchanted and grants the tool increased damage and efficiency depending on moon phase.",
+  "tetra.variant.single_socket/moonstone.description": "A gem, attached where the head meets the handle. The gem is enchanted and grants the tool increased damage and efficiency depending on moon phase",
   "tetra.variant.sword_socket/moonstone": "Socket [\u00a7bMoonstone\u00a7r]",
-  "tetra.variant.sword_socket/moonstone.description": "A gem, fitted onto the sword where the blade meets the hilt. The gem is enchanted and grants the sword increased damage depending on moon phase.",
+  "tetra.variant.sword_socket/moonstone.description": "A gem, fitted onto the sword where the blade meets the hilt. The gem is enchanted and grants the sword increased damage depending on moon phase",
 
   "tetra.variant.double_socket/rockroot": "Socket [\u00a77Rockroot\u00a7r]",
-  "tetra.variant.double_socket/rockroot.description": "A gem, fitted onto the side of the tool head. The gem is enchanted and grants the tool the ability to slowly repair itself over time.",
+  "tetra.variant.double_socket/rockroot.description": "A gem, fitted onto the side of the tool head. The gem is enchanted and grants the tool the ability to slowly repair itself over time",
   "tetra.variant.single_socket/rockroot": "Socket [\u00a77Rockroot\u00a7r]",
-  "tetra.variant.single_socket/rockroot.description": "A gem, attached where the head meets the handle. The gem is enchanted and grants the tool the ability to slowly repair itself over time.",
+  "tetra.variant.single_socket/rockroot.description": "A gem, attached where the head meets the handle. The gem is enchanted and grants the tool the ability to slowly repair itself over time",
   "tetra.variant.sword_socket/rockroot": "Socket [\u00a77Rockroot\u00a7r]",
-  "tetra.variant.sword_socket/rockroot.description": "A gem, fitted onto the sword where the blade meets the hilt. The gem is enchanted and grants the sword the ability to slowly repair itself over time.",
+  "tetra.variant.sword_socket/rockroot.description": "A gem, fitted onto the sword where the blade meets the hilt. The gem is enchanted and grants the sword the ability to slowly repair itself over time",
 
   "tetra/schematic/toolbelt/nullifier.slot1": "Material",
   "tetra/schematic/toolbelt/nullifier.name": "Nullifier",
-  "tetra/schematic/toolbelt/nullifier.description": "Attach a gravity nullification unit, which lowers the gravity experienced by the belt's wearer. As a side-effect of this, fall damage is also completely nullified.",
+  "tetra/schematic/toolbelt/nullifier.description": "Attach a gravity nullification unit, which lowers the gravity experienced by the belt's wearer. As a side-effect of this, fall damage is also completely nullified",
   "tetra.variant.nullifier/refined_radiance": "Gravity nullifier",
 
   "tetra/schematic/toolbelt/mooncatcher.slot1": "Material",
   "tetra/schematic/toolbelt/mooncatcher.name": "Mooncatcher",
-  "tetra/schematic/toolbelt/mooncatcher.description": "Attach a mooncatcher, allowing you to see better under the moonlight. This module will have no effect when moonlight is not present, such as during new moons or when underground.",
+  "tetra/schematic/toolbelt/mooncatcher.description": "Attach a mooncatcher, allowing you to see better under the moonlight. This module will have no effect when moonlight is not present, such as during new moons or when underground",
   "tetra.variant.mooncatcher/moonstone": "Mooncatcher",
 
   "tetra.improvement.tetrapak/radiant.name": "Radiant",
-  "tetra.improvement.tetrapak/radiant.description": "The latent energy of Refined Radiance allows this tool to harvest many blocks at a time depending upon the tool's function.",
+  "tetra.improvement.tetrapak/radiant.description": "The latent energy of Refined Radiance allows this tool to harvest many blocks at a time depending upon the tool's function",
   "tetra.improvement.tetrapak/voiding.name": "Voiding",
-  "tetra.improvement.tetrapak/voiding.description": "The void powers infused into Shadow Steel give this tool incredible power at the cost of converting ALL drops to experience. Fortune and Looting both increase dropped experience.",
+  "tetra.improvement.tetrapak/voiding.description": "The void powers infused into Shadow Steel give this tool incredible power at the cost of converting ALL drops to experience. Fortune and Looting both increase dropped experience",
   "tetra.improvement.tetrapak/moonstrike.name": "Moonstrike",
-  "tetra.improvement.tetrapak/moonstrike.description": "The moonstone used to make this tool gains strength based on moon phase.",
+  "tetra.improvement.tetrapak/moonstrike.description": "The moonstone used to make this tool gains strength based on moon phase",
 
   "tetrapak.stats.voiding": "Voiding",
   "tetrapak.stats.voiding.tooltip": "This tool will void the drops of blocks mined and mobs killed with it in exchange for experience\n\n\u00a7ex%s \u00a77mob kill experience multiplier\n\u00a7ex%s \u00a77block experience multiplier",
 
   "tetrapak.stats.deforesting": "Deforesting",
-  "tetrapak.stats.deforesting.tooltip": "This tool will chop down any tree in a single swing.",
+  "tetrapak.stats.deforesting.tooltip": "This tool will chop down any tree in a single swing",
+
+  "tetrapak.stats.collapsing": "Collapsing",
+  "tetrapak.stats.collapsing.tooltip": "This tool will collapse a vertical line of shovelable blocks above it, so long as the blocks are gravity blocks or of the same type",
+
+  "tetrapak.stats.unearthing": "Unearthing",
+  "tetrapak.stats.unearthing.tooltip": "This tool will mine an entire vein of ore in a single swing",
 
   "tetrapak.stats.nullifying": "Nullifying",
   "tetrapak.stats.nullifying.tooltip": "Wearing this belt will reduce gravity experienced the wearer by \u00a7e%s\u00a7r",
 
   "tetrapak.stats.moonstrike": "Moonstrike",
-  "tetrapak.stats.moonstrike.tooltip": "This tool will deal \u00a7e%s%%\u00a7r bonus damage and break blocks \u00a7e%s%%\u00a7r faster on a full moon. Lesser bonuses apply for intermediate moon phases.",
+  "tetrapak.stats.moonstrike.tooltip": "This tool will deal \u00a7e%s%%\u00a7r bonus damage and break blocks \u00a7e%s%%\u00a7r faster on a full moon. Lesser bonuses apply for intermediate moon phases",
 
   "tetrapak.stats.regrowth": "Regrowth",
   "tetrapak.stats.regrowth.tooltip": "This tool will repair itself by \u00a7e1%%\u00a7r of the total durability every \u00a7e%s\u00a7r seconds\n\n\u00a77In total, it will take around \u00a7e%s \u00a77minutes for the tool to fully repair",
 
   "tetrapak.stats.scorching": "Scorching",
-  "tetrapak.stats.scorching.tooltip": "This tool will scorch drops, processing them the same way a furnace would. Does not affect unsmeltable items.",
+  "tetrapak.stats.scorching.tooltip": "This tool will scorch drops, processing them the same way a furnace would. Does not affect unsmeltable items",
 
   "tetrapak.stats.moonsight": "Moonsight",
-  "tetrapak.stats.moonsight.tooltip": "Wearing this belt will allow the wearer to see better under the moonlight."
+  "tetrapak.stats.moonsight.tooltip": "Wearing this belt will allow the wearer to see better under the moonlight"
 }
