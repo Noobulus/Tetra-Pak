@@ -1,6 +1,6 @@
 package mod.noobulus.tetrapak;
 
-import mod.noobulus.tetrapak.loot_conditions.LootConditions;
+import mod.noobulus.tetrapak.loot.LootConditions;
 import mod.noobulus.tetrapak.util.DamageBufferer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;

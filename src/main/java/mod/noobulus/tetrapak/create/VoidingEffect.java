@@ -1,5 +1,6 @@
 package mod.noobulus.tetrapak.create;
 
+import mod.noobulus.tetrapak.loot.VoidingLootModifier;
 import mod.noobulus.tetrapak.util.*;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -8,11 +9,10 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.loot.conditions.ILootCondition;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -21,6 +21,7 @@ import se.mickelus.tetra.gui.statbar.GuiStatBar;
 import se.mickelus.tetra.gui.statbar.getter.*;
 
 import javax.annotation.Nullable;
+import java.util.function.Function;
 
 public class VoidingEffect implements IHoloDescription, ILootModifier<VoidingLootModifier> {
 
@@ -75,12 +76,12 @@ public class VoidingEffect implements IHoloDescription, ILootModifier<VoidingLoo
 	}
 
 	@Override
-	public GlobalLootModifierSerializer<VoidingLootModifier> getModifier() {
-		return new VoidingLootModifier.Serializer().setRegistryName(new ResourceLocation(getEffect().getKey()));
+	public ItemEffect getEffect() {
+		return EffectHelper.get("voiding");
 	}
 
 	@Override
-	public ItemEffect getEffect() {
-		return EffectHelper.get("voiding");
+	public Function<ILootCondition[], VoidingLootModifier> getModifierConstructor() {
+		return VoidingLootModifier::new;
 	}
 }

@@ -1,20 +1,18 @@
 package mod.noobulus.tetrapak.druidcraft;
 
+import mod.noobulus.tetrapak.loot.ScorchingLootModifier;
 import mod.noobulus.tetrapak.util.EffectHelper;
 import mod.noobulus.tetrapak.util.IHoloDescription;
 import mod.noobulus.tetrapak.util.ILootModifier;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
+import net.minecraft.loot.conditions.ILootCondition;
 import se.mickelus.tetra.effect.ItemEffect;
 
-public class ScorchingEffect implements IHoloDescription, ILootModifier<ScorchingLootModifier> {
+import java.util.function.Function;
 
+public class ScorchingEffect implements IHoloDescription, ILootModifier<ScorchingLootModifier> {
 	@Override
-	@OnlyIn(Dist.CLIENT)
-	public GlobalLootModifierSerializer<ScorchingLootModifier> getModifier() {
-		return new ScorchingLootModifier.Serializer().setRegistryName(new ResourceLocation(getEffect().getKey()));
+	public Function<ILootCondition[], ScorchingLootModifier> getModifierConstructor() {
+		return ScorchingLootModifier::new;
 	}
 
 	@Override

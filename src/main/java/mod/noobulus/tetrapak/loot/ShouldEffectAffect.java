@@ -1,4 +1,4 @@
-package mod.noobulus.tetrapak.loot_conditions;
+package mod.noobulus.tetrapak.loot;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
