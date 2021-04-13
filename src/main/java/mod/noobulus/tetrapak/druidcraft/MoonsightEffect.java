@@ -22,6 +22,6 @@ public class MoonsightEffect implements IHoloDescription {
 		if (effectLevel <= 0 || world.isRemote || !world.isNight() || world.getGameTime() % 80L != 0L || !world.isSkyVisible(player.getBlockPos()) || world.getMoonSize() == 0)
 			return;
 
-		player.addPotionEffect(new EffectInstance(Effects.NIGHT_VISION, 300, 1, true, false));
+		player.addPotionEffect(new EffectInstance(Effects.NIGHT_VISION, 300, 0, true, false));
 	}
 }

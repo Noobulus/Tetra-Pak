@@ -22,10 +22,10 @@
     {
       "material": {
         "item": "druidcraft:moonstone",
-        "count": 3
+        "count": 2
       },
       "requiredTools": {
-        "hammer": 5
+        "hammer": 4
       },
       "moduleKey": "toolbelt/mooncatcher",
       "moduleVariant": "mooncatcher/moonstone"

@@ -7,7 +7,7 @@
   "durability": "2303",
   "integrityCost": "2",
   "integrityGain": "2",
-  "magicCapacity": "100",
+  "magicCapacity": "60",
   "toolLevel": "5",
   "toolEfficiency": "15",
   "tints": {
@@ -25,6 +25,6 @@
     "tetrapak/voiding": 1
   },
   "requiredTools":{
-    "hammer":4
+    "hammer":5
   }
 }

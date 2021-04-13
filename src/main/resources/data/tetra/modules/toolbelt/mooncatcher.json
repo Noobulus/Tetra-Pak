@@ -6,7 +6,7 @@
   "variants": [
     {
       "key": "mooncatcher/moonstone",
-      "integrity": -2,
+      "integrity": -1,
       "glyph": {
         "tint": "ffffff",
         "textureX": 240
