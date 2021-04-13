@@ -8,7 +8,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import se.mickelus.tetra.effect.ItemEffect;
 import se.mickelus.tetra.items.modular.ModularItem;
-import se.mickelus.tetra.items.modular.impl.toolbelt.ToolbeltHelper;
 
 import javax.annotation.Nullable;
 
@@ -23,14 +22,11 @@ public interface ITetraEffect {
 		return ItemHelper.getEffectLevel(stack, getEffect()) > 0;
 	}
 
-	default int getBeltEffectLevel(LivingEntity e) {
-		if (!(e instanceof PlayerEntity))
-			return 0;
-		return ItemHelper.getEffectLevel(ToolbeltHelper.findToolbelt((PlayerEntity) e), getEffect());
+	default void doBeltTick(PlayerEntity player, int effectLevel) {
 	}
 
-	default boolean hasBeltEffect(LivingEntity entity) {
-		return getBeltEffectLevel(entity) > 0;
+	default void doBeltTick(PlayerEntity player, @Nullable ItemStack belt) {
+		doBeltTick(player, ItemHelper.getEffectLevel(belt, getEffect()));
 	}
 
 	default float getEffectEfficiency() {

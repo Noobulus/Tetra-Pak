@@ -4,13 +4,10 @@ import mod.noobulus.tetrapak.util.IHoloDescription;
 import mod.noobulus.tetrapak.util.ITetraEffect;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
-import net.minecraft.util.DamageSource;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeMod;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import se.mickelus.tetra.effect.ItemEffect;
 import se.mickelus.tetra.gui.statbar.GuiStatBar;
 import se.mickelus.tetra.gui.statbar.getter.IStatGetter;
@@ -33,23 +30,15 @@ public class NullifyingEffect implements IHoloDescription {
 		}
 	}
 
-	@SubscribeEvent
-	public void nullifierAtrributeModifiers(LivingEvent.LivingUpdateEvent event) {
-		ModifiableAttributeInstance gravityAttribute = event.getEntityLiving().getAttribute(ForgeMod.ENTITY_GRAVITY.get());
-		int nullifierLevel = getBeltEffectLevel(event.getEntityLiving());
-
-		if (nullifierLevel <= 0 || gravityAttribute == null)
+	@Override
+	public void doBeltTick(PlayerEntity player, int nullifierLevel) {
+		ModifiableAttributeInstance gravityAttribute = player.getAttribute(ForgeMod.ENTITY_GRAVITY.get());
+		if (nullifierLevel < 0 || gravityAttribute == null)
 			return;
-
 		updateEffect(nullifierLevel == 1, gravityAttribute, beltGravityModifier);
 		updateEffect(nullifierLevel == 2, gravityAttribute, beltDoubleGravityModifier);
-	}
-
-	@SubscribeEvent
-	public void nullifyingRemovesFallDamage(LivingAttackEvent event) {
-		if (event.getSource().damageType.equals(DamageSource.FALL.damageType) && getBeltEffectLevel(event.getEntityLiving()) > 0) {
-			event.setCanceled(true);
-		}
+		if (nullifierLevel > 0)
+			player.fallDistance = 0;
 	}
 
 	@Override
