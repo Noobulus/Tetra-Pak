@@ -1,9 +1,10 @@
 package mod.noobulus.tetrapak;
 
-import mod.noobulus.tetrapak.create.refined_radiance.CollapsingEffect;
-import mod.noobulus.tetrapak.create.refined_radiance.DeforestingEffect;
 import mod.noobulus.tetrapak.create.NullifyingEffect;
 import mod.noobulus.tetrapak.create.VoidingEffect;
+import mod.noobulus.tetrapak.create.refined_radiance.CollapsingEffect;
+import mod.noobulus.tetrapak.create.refined_radiance.DeforestingEffect;
+import mod.noobulus.tetrapak.create.refined_radiance.UnearthingEffect;
 import mod.noobulus.tetrapak.druidcraft.MoonstrikeEffect;
 import mod.noobulus.tetrapak.druidcraft.RegrowthEffect;
 import mod.noobulus.tetrapak.druidcraft.ScorchingEffect;
@@ -22,7 +23,7 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public enum Mods {
-	CREATE("create", CollapsingEffect::new, DeforestingEffect::new, NullifyingEffect::new, VoidingEffect::new),
+	CREATE("create", CollapsingEffect::new, DeforestingEffect::new, UnearthingEffect::new, NullifyingEffect::new, VoidingEffect::new),
 	DRUIDCRAFT("druidcraft", MoonstrikeEffect::new, RegrowthEffect::new, ScorchingEffect::new);
 
 	private final Set<Object> loadedListeners = new HashSet<>();

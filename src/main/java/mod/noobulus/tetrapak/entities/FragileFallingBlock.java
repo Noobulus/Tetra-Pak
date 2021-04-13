@@ -1,12 +1,12 @@
 package mod.noobulus.tetrapak.entities;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ConcretePowderBlock;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.item.FallingBlockEntity;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.math.BlockPos;
@@ -83,9 +83,7 @@ public class FragileFallingBlock extends FallingBlockEntity {
 	}
 
 	private void dropItems() {
-		drops.stream()
-			.map(stack -> new ItemEntity(world, getX() + .5, getY() + .5, getZ() + .5, stack))
-			.forEach(world::addEntity);
+		drops.forEach(stack -> Block.spawnAsEntity(world, getBlockPos(), stack));
 		this.remove();
 	}
 }
