@@ -43,6 +43,11 @@
   "tetra/schematic/toolbelt/nullifier.description": "Attach a gravity nullification unit, which lowers the gravity experienced by the belt's wearer. As a side-effect of this, fall damage is also completely nullified.",
   "tetra.variant.nullifier/refined_radiance": "Gravity nullifier",
 
+  "tetra/schematic/toolbelt/mooncatcher.slot1": "Material",
+  "tetra/schematic/toolbelt/mooncatcher.name": "Mooncatcher",
+  "tetra/schematic/toolbelt/mooncatcher.description": "Attach a mooncatcher, allowing you to see better under the moonlight. This module will have no effect when moonlight is not present, such as during new moons or when underground.",
+  "tetra.variant.mooncatcher/moonstone": "Mooncatcher",
+
   "tetra.improvement.tetrapak/radiant.name": "Radiant",
   "tetra.improvement.tetrapak/radiant.description": "The latent energy of Refined Radiance allows this tool to harvest many blocks at a time depending upon the tool's function.",
   "tetra.improvement.tetrapak/voiding.name": "Voiding",
@@ -66,5 +71,8 @@
   "tetrapak.stats.regrowth.tooltip": "This tool will repair itself by \u00a7e1%%\u00a7r of the total durability every \u00a7e%s\u00a7r seconds\n\n\u00a77In total, it will take around \u00a7e%s \u00a77minutes for the tool to fully repair",
 
   "tetrapak.stats.scorching": "Scorching",
-  "tetrapak.stats.scorching.tooltip": "This tool will scorch drops, processing them the same way a furnace would. Does not affect unsmeltable items."
+  "tetrapak.stats.scorching.tooltip": "This tool will scorch drops, processing them the same way a furnace would. Does not affect unsmeltable items.",
+
+  "tetrapak.stats.moonsight": "Moonsight",
+  "tetrapak.stats.moonsight.tooltip": "Wearing this belt will allow the wearer to see better under the moonlight."
 }
