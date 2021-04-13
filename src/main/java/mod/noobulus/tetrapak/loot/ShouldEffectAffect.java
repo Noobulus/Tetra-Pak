@@ -18,6 +18,7 @@ import net.minecraft.util.JSONUtils;
 import se.mickelus.tetra.effect.ItemEffect;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.Iterator;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
@@ -45,8 +46,11 @@ public class ShouldEffectAffect implements ILootCondition {
 		if (!(context.get(LootParameters.THIS_ENTITY) instanceof PlayerEntity || context.get(LootParameters.THIS_ENTITY) instanceof IInventory)) {
 			if (tool == null && directKillerEntity != null)
 				tool = ItemHelper.getThrownItemStack(directKillerEntity);
-			if (tool == null && killerEntity != null)
-				tool = killerEntity.getHeldEquipment().iterator().next();
+			if (tool == null && killerEntity != null) {
+				Iterator<ItemStack> equip = killerEntity.getHeldEquipment().iterator();
+				if (equip.hasNext())
+					tool = equip.next();
+			}
 		}
 
 		return ItemHelper.getEffectLevel(tool, effect) > 0;

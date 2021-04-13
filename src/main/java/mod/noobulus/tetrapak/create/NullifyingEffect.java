@@ -5,6 +5,7 @@ import mod.noobulus.tetrapak.util.ITetraEffect;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.potion.Effects;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeMod;
@@ -20,6 +21,7 @@ import java.util.UUID;
 public class NullifyingEffect implements IHoloDescription {
 	public static final AttributeModifier beltGravityModifier = new AttributeModifier(UUID.fromString("678c7388-ba1d-45c8-9f51-d6e4f1c4e3ac"), "Gravity modifier", 0.25 - 1, AttributeModifier.Operation.MULTIPLY_TOTAL);
 	public static final AttributeModifier beltDoubleGravityModifier = new AttributeModifier(UUID.fromString("778c7388-ba1d-45c8-9f51-d6e4f1c4e3ac"), "Gravity modifier", 0.125 - 1, AttributeModifier.Operation.MULTIPLY_TOTAL);
+	public static final AttributeModifier beltGravityModifierSlowfall = new AttributeModifier(UUID.fromString("878c7388-ba1d-45c8-9f51-d6e4f1c4e3ac"), "Gravity modifier", 0.35 - 1, AttributeModifier.Operation.MULTIPLY_TOTAL);
 
 	private static void updateEffect(boolean active, ModifiableAttributeInstance attributeInstance, AttributeModifier modifier) {
 		if (active) {
@@ -35,8 +37,11 @@ public class NullifyingEffect implements IHoloDescription {
 		ModifiableAttributeInstance gravityAttribute = player.getAttribute(ForgeMod.ENTITY_GRAVITY.get());
 		if (nullifierLevel < 0 || gravityAttribute == null)
 			return;
-		updateEffect(nullifierLevel == 1, gravityAttribute, beltGravityModifier);
-		updateEffect(nullifierLevel == 2, gravityAttribute, beltDoubleGravityModifier);
+
+		boolean slowfall = player.isPotionActive(Effects.SLOW_FALLING);
+		updateEffect(nullifierLevel == 1 && !slowfall, gravityAttribute, beltGravityModifier);
+		updateEffect(nullifierLevel == 2 && !slowfall, gravityAttribute, beltDoubleGravityModifier);
+		updateEffect(nullifierLevel > 0 && slowfall, gravityAttribute, beltGravityModifierSlowfall);
 		if (nullifierLevel > 0)
 			player.fallDistance = 0;
 	}
