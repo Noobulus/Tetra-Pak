@@ -1,6 +1,5 @@
 package mod.noobulus.tetrapak.create.refined_radiance;
 
-import com.simibubi.create.foundation.utility.Iterate;
 import mod.noobulus.tetrapak.util.EffectHelper;
 import mod.noobulus.tetrapak.util.IHoloDescription;
 import net.minecraft.block.Block;
@@ -48,7 +47,7 @@ public class UnearthingEffect implements IHoloDescription {
 		while (!frontier.isEmpty()) {
 			BlockPos current = frontier.remove(0);
 			visited.add(current);
-			for (Direction direction : Iterate.directions) {
+			for (Direction direction : Direction.values()) {
 				BlockPos offset = current.offset(direction);
 				if (!visited.contains(offset) && start.equals(world.getBlockState(offset).getBlock()))
 					frontier.add(offset);
