@@ -15,6 +15,7 @@ public enum LootConditions {
 		type = LootConditionManager.register(id, serializer);
 	}
 
+	@SuppressWarnings("EmptyMethod")
 	public static void register() {
 		// classloading
 	}
