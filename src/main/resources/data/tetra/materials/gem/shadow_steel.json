@@ -7,9 +7,9 @@
   "durability": "2303",
   "integrityCost": "2",
   "integrityGain": "2",
-  "magicCapacity": "60",
+  "magicCapacity": "75",
   "toolLevel": "5",
-  "toolEfficiency": "15",
+  "toolEfficiency": "28",
   "tints": {
     "glyph":"342e41",
     "texture":"342e41"
