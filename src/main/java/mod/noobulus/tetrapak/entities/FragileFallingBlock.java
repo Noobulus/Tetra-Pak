@@ -50,6 +50,8 @@ public class FragileFallingBlock extends FallingBlockEntity implements IEntityAd
 	@Override
 	@SuppressWarnings("deprecation")
 	public void tick() {
+		if (!isAlive())
+			return;
 		if (getBlockState().isAir()) {
 			this.dropItems();
 			return;
@@ -66,7 +68,8 @@ public class FragileFallingBlock extends FallingBlockEntity implements IEntityAd
 	}
 
 	private void dropItems() {
-		drops.forEach(stack -> Block.spawnAsEntity(world, getBlockPos(), stack));
+		if (!world.isRemote)
+			drops.forEach(stack -> Block.spawnAsEntity(world, getBlockPos(), stack));
 		this.remove();
 	}
 
