@@ -1,11 +1,9 @@
-package mod.noobulus.tetrapak.create.refined_radiance;
+package mod.noobulus.tetrapak.util;
 
-import com.simibubi.create.foundation.utility.worldWrappers.WrappedServerWorld;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
@@ -24,6 +22,10 @@ public class DropSimulationWorld extends WrappedServerWorld {
 		restoringBlockSnapshots = world.restoringBlockSnapshots;
 	}
 
+	public static World of(World world) {
+		return world instanceof ServerWorld ? new DropSimulationWorld(world) : world;
+	}
+
 	public Collection<ItemStack> getItems() {
 		Collection<ItemStack> out = new ArrayList<>(items);
 		items.clear();
@@ -35,18 +37,5 @@ public class DropSimulationWorld extends WrappedServerWorld {
 		if (entityIn instanceof ItemEntity)
 			items.add(((ItemEntity) entityIn).getItem());
 		return false;
-	}
-
-	public static World of(World world) {
-		return world instanceof ServerWorld ? new DropSimulationWorld(world) : world;
-	}
-
-	public static World unwrap(World world) {
-		return world instanceof DropSimulationWorld ? ((DropSimulationWorld) world).world : world;
-	}
-
-	@Override
-	public GameRules getGameRules() {
-		return world.getGameRules();
 	}
 }
