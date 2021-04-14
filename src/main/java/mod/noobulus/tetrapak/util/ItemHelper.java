@@ -11,8 +11,6 @@ import net.minecraft.util.LazyValue;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.items.ItemHandlerHelper;
-import se.mickelus.tetra.effect.ItemEffect;
-import se.mickelus.tetra.items.modular.ModularItem;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -25,16 +23,6 @@ public class ItemHelper {
 	private static final LazyValue<Method> arrowStackGetter = new LazyValue<>(() -> ObfuscationReflectionHelper.findMethod(AbstractArrowEntity.class, "func_184550_j"));
 
 	private ItemHelper() {
-	}
-
-	/**
-	 * @return the effect level of the given Item. 0 if the effect isn't on the item.
-	 */
-	public static int getEffectLevel(@Nullable ItemStack test, ItemEffect effect) {
-		if (test == null || test.isEmpty() || !(test.getItem() instanceof ModularItem))
-			return 0;
-		ModularItem item = (ModularItem) test.getItem();
-		return item.getEffectLevel(test, effect);
 	}
 
 	@Nullable

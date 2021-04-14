@@ -19,14 +19,14 @@ public interface ITetraEffect {
 	ItemEffect getEffect();
 
 	default boolean hasEffect(@Nullable ItemStack stack) {
-		return ItemHelper.getEffectLevel(stack, getEffect()) > 0;
+		return getEffectLevel(stack) > 0;
 	}
 
 	default void doBeltTick(PlayerEntity player, int effectLevel) {
 	}
 
 	default void doBeltTick(PlayerEntity player, @Nullable ItemStack belt) {
-		doBeltTick(player, ItemHelper.getEffectLevel(belt, getEffect()));
+		doBeltTick(player, getEffectLevel(belt));
 	}
 
 	default float getEffectEfficiency() {
@@ -56,6 +56,13 @@ public interface ITetraEffect {
 
 	default String getStatsPath() {
 		return TetraPak.MODID + ".stats." + new ResourceLocation(getEffect().getKey()).getPath();
+	}
+
+	default int getEffectLevel(@Nullable ItemStack test) {
+		if (test == null || test.isEmpty() || !(test.getItem() instanceof ModularItem))
+			return 0;
+		ModularItem item = (ModularItem) test.getItem();
+		return item.getEffectLevel(test, getEffect());
 	}
 
 	default String getTooltipPath() {

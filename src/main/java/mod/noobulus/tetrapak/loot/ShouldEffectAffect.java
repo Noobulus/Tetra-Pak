@@ -4,6 +4,7 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import mcp.MethodsReturnNonnullByDefault;
+import mod.noobulus.tetrapak.util.ITetraEffect;
 import mod.noobulus.tetrapak.util.ItemHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -22,7 +23,7 @@ import java.util.Iterator;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-public class ShouldEffectAffect implements ILootCondition {
+public class ShouldEffectAffect implements ILootCondition, ITetraEffect {
 	private final ItemEffect effect;
 
 	public ShouldEffectAffect(ItemEffect effect) {
@@ -53,7 +54,12 @@ public class ShouldEffectAffect implements ILootCondition {
 			}
 		}
 
-		return ItemHelper.getEffectLevel(tool, effect) > 0;
+		return hasEffect(tool);
+	}
+
+	@Override
+	public ItemEffect getEffect() {
+		return effect;
 	}
 
 	public static class Serializer implements ILootSerializer<ShouldEffectAffect> {
