@@ -15,7 +15,8 @@
   "rarity": "temporary",
   "repair": false,
   "glyph": {
-    "textureX": 240
+    "textureLocation": "tetrapak:textures/gui/glyphs.png",
+    "textureX": 16
   },
   "displayType": "major",
   "outcomes": [

@@ -9,7 +9,8 @@
       "integrity": -1,
       "glyph": {
         "tint": "ffffff",
-        "textureX": 240
+        "textureLocation": "tetrapak:textures/gui/glyphs.png",
+        "textureX": 16
       },
       "effects": {
         "tetrapak:moonsight": 1
