@@ -1,4 +1,4 @@
-package mod.noobulus.tetrapak.create.refined_radiance;
+package mod.noobulus.tetrapak.util;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -27,7 +27,7 @@ public class BlockHelper {
 
 	public static void destroyBlockAs(World world, BlockPos pos, @Nullable PlayerEntity player, ItemStack usedTool,
 									  float effectChance, BiConsumer<ItemStack, BlockState> droppedItemCallback) {
-		World unwrappedWorld = DropSimulationWorld.unwrap(world);
+		World unwrappedWorld = WrappedServerWorld.unwrap(world);
 		FluidState fluidState = unwrappedWorld.getFluidState(pos);
 		BlockState state = unwrappedWorld.getBlockState(pos);
 		if (unwrappedWorld.rand.nextFloat() < effectChance)
@@ -45,7 +45,7 @@ public class BlockHelper {
 	}
 
 	private static boolean breakBlock(World world, @Nonnull PlayerEntity player, ItemStack tool, BlockPos pos) {
-		World unwrappedWorld = DropSimulationWorld.unwrap(world);
+		World unwrappedWorld = WrappedServerWorld.unwrap(world);
 		BlockState offsetState = unwrappedWorld.getBlockState(pos);
 		ToolType effectiveTool = ItemModularHandheld.getEffectiveTool(offsetState);
 
@@ -64,7 +64,7 @@ public class BlockHelper {
 	}
 
 	public static boolean breakBlock(World world, PlayerEntity breakingPlayer, ItemStack toolStack, BlockPos pos, BlockState blockState, boolean harvest) {
-		World unwrappedWorld = DropSimulationWorld.unwrap(world);
+		World unwrappedWorld = WrappedServerWorld.unwrap(world);
 		if (!unwrappedWorld.isRemote && unwrappedWorld instanceof ServerWorld) {
 			ServerWorld serverWorld = (ServerWorld) unwrappedWorld;
 			ServerPlayerEntity serverPlayer = (ServerPlayerEntity) breakingPlayer;
