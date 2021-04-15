@@ -42,7 +42,9 @@ public class NullifyingEffect implements IHoloDescription {
 		updateEffect(nullifierLevel == 1 && !slowfall, gravityAttribute, beltGravityModifier);
 		updateEffect(nullifierLevel == 2 && !slowfall, gravityAttribute, beltDoubleGravityModifier);
 		updateEffect(nullifierLevel > 0 && slowfall, gravityAttribute, beltGravityModifierSlowfall);
-		if (nullifierLevel > 0)
+		if (nullifierLevel > 0 && player.getMotion().getY() < 0) // extra check for fall speed to make crits work correctly
+			player.fallDistance = 1;
+		if (nullifierLevel > 0 && player.getMotion().getY() >= 0)
 			player.fallDistance = 0;
 	}
 

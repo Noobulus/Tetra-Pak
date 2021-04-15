@@ -46,7 +46,7 @@
       "durability": 100,
       "integrity": -1,
       "effects": {
-        "tetrapak:moonstrike": [1, 10]
+        "tetrapak:moonstrike": [1, 20]
       },
       "glyph": {
         "tint": "7bd1f6",

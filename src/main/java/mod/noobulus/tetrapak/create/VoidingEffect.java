@@ -13,6 +13,7 @@ import net.minecraft.loot.conditions.ILootCondition;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -48,6 +49,14 @@ public class VoidingEffect implements IHoloDescription, ILootModifier<VoidingLoo
 				hardnessExp = (0.1f * (hardness * (1 + efficiency * levelFortune))); // give exp based on broken block hardness, needs tweaking
 			event.setExpToDrop((int) ((event.getExpToDrop() * modifier) + hardnessExp));
 		}
+	}
+
+	@SubscribeEvent
+	public void voidingKillsRemoveDrops(LivingDropsEvent event) { // this is dumb, but bosses are built different and don't care about loot modifiers
+		if (!shouldVoidingAffect(event.getSource(), event.getEntity())) {
+			return;
+		}
+		event.getDrops().clear();
 	}
 
 	private boolean shouldVoidingAffect(@Nullable DamageSource source, Entity target) {

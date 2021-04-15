@@ -1,0 +1,30 @@
+{
+  "slots": [
+    "double/head_left",
+    "double/head_right"
+  ],
+  "keySuffixes": [
+    "_left",
+    "_right"
+  ],
+  "materialSlotCount": 1,
+  "glyph": {
+    "textureX": 64
+  },
+  "displayType": "major",
+  "outcomes": [
+    {
+      "material": {
+        "item": "create:shadow_steel"
+      },
+      "requiredTools": {
+        "hammer": 7
+      },
+      "moduleKey": "double/basic_hammer",
+      "moduleVariant": "basic_hammer/shadow_steel",
+      "improvements": {
+        "tetrapak/voiding": 1
+      }
+    }
+  ]
+}
