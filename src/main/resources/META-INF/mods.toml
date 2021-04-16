@@ -83,7 +83,7 @@ Currently, only Create is supported. Check back soon for more!
 [[dependencies.tetrapak]]
     modId="create"
     mandatory=true
-    versionRange="[mc1.16.3_v0.3e,)"
+    versionRange="[mc1.16.3_v0.3.1b,)"
     ordering="NONE"
     side="BOTH"
 

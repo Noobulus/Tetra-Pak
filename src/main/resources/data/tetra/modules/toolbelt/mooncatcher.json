@@ -8,7 +8,7 @@
       "key": "mooncatcher/moonstone",
       "integrity": -1,
       "glyph": {
-        "tint": "ffffff",
+        "tint": "c6e7f5",
         "textureLocation": "tetrapak:textures/gui/glyphs.png",
         "textureX": 16
       },

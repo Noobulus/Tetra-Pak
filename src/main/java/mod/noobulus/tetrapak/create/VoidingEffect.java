@@ -46,7 +46,7 @@ public class VoidingEffect implements IHoloDescription, ILootModifier<VoidingLoo
 			float hardness = event.getState().getBlockHardness(event.getWorld(), event.getPos());
 			float hardnessExp = 0;
 			if (hardness > 3.1) // free exp for mining stone is a little bit much
-				hardnessExp = (0.1f * (hardness * (1 + efficiency * levelFortune))); // give exp based on broken block hardness, needs tweaking
+				hardnessExp = (0.1f * (hardness * (1 + efficiency))); // give exp based on broken block hardness, does not scale with fortune
 			event.setExpToDrop((int) ((event.getExpToDrop() * modifier) + hardnessExp));
 		}
 	}

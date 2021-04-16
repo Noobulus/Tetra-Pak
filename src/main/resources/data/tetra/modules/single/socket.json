@@ -64,7 +64,7 @@
       "durability": 5,
       "integrity": -1,
       "effects": {
-        "tetrapak:regrowth": [1, 360]
+        "tetrapak:regrowth": [1, 720]
       },
       "glyph": {
         "tint": "605852",
