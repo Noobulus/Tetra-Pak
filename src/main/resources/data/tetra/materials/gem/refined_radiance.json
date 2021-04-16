@@ -22,6 +22,7 @@
     "item":"create:refined_radiance"
   },
   "improvements": {
+    "arrested": 0,
     "tetrapak/radiant": 1
   },
   "requiredTools":{
