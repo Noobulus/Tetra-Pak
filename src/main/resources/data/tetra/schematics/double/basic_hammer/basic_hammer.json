@@ -18,7 +18,7 @@
         "item": "create:shadow_steel"
       },
       "requiredTools": {
-        "hammer": 7
+        "hammer": 5
       },
       "moduleKey": "double/basic_hammer",
       "moduleVariant": "basic_hammer/shadow_steel",

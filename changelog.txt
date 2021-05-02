@@ -1,3 +1,16 @@
+Version 0.2
+    New content in this version:
+        Druidcraft support has been added! Moonstone is now usable as a tool material and several other gems from the mod can be socketed for neat effects.
+        Another new secret belt module has been added! This module channels the power of the moon to allow you to see better under the moonlight.
+    Improvements and fixes:
+        Brass has been re-adjusted to a sensible level. Goodbye absurd bows :(
+        Create support has been expanded! Now, Refined Radiance does something different for each of the 'main' tools, i.e. shovel, axe, and pickaxe.
+        New tooltips have been added for several of the effects added by the mod to clarify how they work.
+        You can now make a Shadow Steel hammer to get rid of forges you aren't particularly fond of.
+        It is now possible to use Tetra-Pak and Tetranomicon together! This requires a datapack linked on this mod's CurseForge page.
+        Deforesting and other Radiant effects now work correctly with Voiding and other loot modifiers.
+        The Nullifier + Slow Fall strangeness has been fixed. Now, having both will combine the effects reasonably - unfortunately including the shorter jump of Slow Falling.
+
 Version 0.1.1
     Changes in this version:
         Refined Radiance tools now have the 'Radiant' trait, which does different things depending on the tool. As of now, only Deforesting is implemented.
