@@ -35,9 +35,10 @@ minecraft {
     runs {
         client {
             workingDirectory project.file('run')
-            jvmArgs "-Dmixin.env.disableRefMap=true"
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             mods {
                 tetrapak {
@@ -48,9 +49,10 @@ minecraft {
 
         server {
             workingDirectory project.file('run')
-            jvmArgs "-Dmixin.env.disableRefMap=true"
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             mods {
                 tetrapak {
@@ -61,9 +63,10 @@ minecraft {
 
         data {
             workingDirectory project.file('run')
-            jvmArgs "-Dmixin.env.disableRefMap=true"
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             args '--mod', 'tetrapak', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
             mods {
@@ -86,6 +89,9 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:druidcraft-340991:3177267")
     runtimeOnly fg.deobf("curse.maven:openloader-354339:3198395")
     runtimeOnly fg.deobf("curse.maven:neat-238372:3182258")
+    runtimeOnly fg.deobf("curse.maven:quark-243121:3282239")
+    runtimeOnly fg.deobf("curse.maven:quarkoddities-301051:3088871")
+    runtimeOnly fg.deobf("curse.maven:autoreglib-250363:3128555")
 
 }
 
