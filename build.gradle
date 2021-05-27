@@ -80,7 +80,7 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 dependencies {
     minecraft 'net.minecraftforge:forge:1.16.5-36.1.0'
 
-    implementation fg.deobf("curse.maven:tetra-289712:3297566")
+    implementation fg.deobf("curse.maven:tetra-289712:3321042")
     implementation fg.deobf("curse.maven:mgui-351914:3291267")
     implementation fg.deobf("curse.maven:create-328085:3278516")
     runtimeOnly fg.deobf("curse.maven:druidcraft-340991:3177267")
