@@ -1,3 +1,7 @@
+Version 0.2.1
+    Improvements and fixes:
+        Refined Radiance modules will now receive their proper effects when crafted.
+
 Version 0.2
     New content in this version:
         Druidcraft support has been added! Moonstone is now usable as a tool material and several other gems from the mod can be socketed for neat effects.
