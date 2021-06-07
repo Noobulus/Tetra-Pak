@@ -1,4 +1,4 @@
-package mod.noobulus.tetrapak.util;
+package mod.noobulus.tetrapak.util.tetra_definitions;
 
 import mod.noobulus.tetrapak.loot.GenericModifierSerializer;
 import net.minecraft.loot.conditions.ILootCondition;

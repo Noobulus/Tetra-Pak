@@ -1,9 +1,9 @@
 package mod.noobulus.tetrapak.druidcraft;
 
 import mod.noobulus.tetrapak.loot.ScorchingLootModifier;
-import mod.noobulus.tetrapak.util.IHoloDescription;
-import mod.noobulus.tetrapak.util.ILootModifier;
-import mod.noobulus.tetrapak.util.ITetraEffect;
+import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
+import mod.noobulus.tetrapak.util.tetra_definitions.ILootModifier;
+import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
 import net.minecraft.loot.conditions.ILootCondition;
 import se.mickelus.tetra.effect.ItemEffect;
 

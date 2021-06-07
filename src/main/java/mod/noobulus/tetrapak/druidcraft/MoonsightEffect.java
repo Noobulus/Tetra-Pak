@@ -1,7 +1,7 @@
 package mod.noobulus.tetrapak.druidcraft;
 
-import mod.noobulus.tetrapak.util.IHoloDescription;
-import mod.noobulus.tetrapak.util.ITetraEffect;
+import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
+import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;

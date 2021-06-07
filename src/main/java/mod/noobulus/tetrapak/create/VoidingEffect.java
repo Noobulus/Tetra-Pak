@@ -2,6 +2,9 @@ package mod.noobulus.tetrapak.create;
 
 import mod.noobulus.tetrapak.loot.VoidingLootModifier;
 import mod.noobulus.tetrapak.util.*;
+import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
+import mod.noobulus.tetrapak.util.tetra_definitions.ILootModifier;
+import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;

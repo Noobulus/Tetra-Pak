@@ -1,8 +1,8 @@
 package mod.noobulus.tetrapak.create.refined_radiance;
 
 import com.simibubi.create.content.curiosities.tools.DeforesterItem;
-import mod.noobulus.tetrapak.util.IHoloDescription;
-import mod.noobulus.tetrapak.util.ITetraEffect;
+import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
+import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import se.mickelus.tetra.effect.ItemEffect;

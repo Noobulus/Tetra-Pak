@@ -1,7 +1,7 @@
 package mod.noobulus.tetrapak.create.refined_radiance;
 
-import mod.noobulus.tetrapak.util.IHoloDescription;
-import mod.noobulus.tetrapak.util.ITetraEffect;
+import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
+import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;

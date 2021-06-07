@@ -1,6 +1,8 @@
-package mod.noobulus.tetrapak.util;
+package mod.noobulus.tetrapak.util.tetra_definitions;
 
 import mod.noobulus.tetrapak.TetraPak;
+import mod.noobulus.tetrapak.util.DamageBufferer;
+import mod.noobulus.tetrapak.util.ItemHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
