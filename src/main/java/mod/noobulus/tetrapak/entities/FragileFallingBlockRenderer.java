@@ -31,7 +31,7 @@ public class FragileFallingBlockRenderer<T extends FallingBlockEntity> extends E
 	}
 
 	@Override
-	public ResourceLocation getEntityTexture(T e) {
-		return AtlasTexture.LOCATION_BLOCKS_TEXTURE;
+	public ResourceLocation getTextureLocation(T e) {
+		return AtlasTexture.LOCATION_BLOCKS;
 	}
 }

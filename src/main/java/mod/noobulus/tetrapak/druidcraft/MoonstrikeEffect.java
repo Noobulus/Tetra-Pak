@@ -22,17 +22,17 @@ import javax.annotation.Nullable;
 public class MoonstrikeEffect implements IPercentageHoloDescription {
 
 	private static float getMoonFactor(IWorld world, float efficiency) {
-		return 1 + (efficiency * world.getMoonSize() / 100.f);
+		return 1 + (efficiency * world.getMoonBrightness() / 100.f);
 	}
 
 	@SubscribeEvent
 	public void moonstrikeToolsBreakBlocksFaster(PlayerEvent.BreakSpeed event) {
-		ItemStack heldItemMainhand = event.getPlayer().getHeldItemMainhand();
+		ItemStack heldItemMainhand = event.getPlayer().getMainHandItem();
 		if (!(heldItemMainhand.getItem() instanceof ModularItem))
 			return;
 		ModularItem item = (ModularItem) heldItemMainhand.getItem();
 		if (hasEffect(heldItemMainhand)) {
-			IWorld moonPhaseWorld = event.getPlayer().getEntityWorld();
+			IWorld moonPhaseWorld = event.getPlayer().getCommandSenderWorld();
 			float efficiency = (float) item.getEffectEfficiency(heldItemMainhand, getEffect());
 			event.setNewSpeed(event.getOriginalSpeed() * getMoonFactor(moonPhaseWorld, efficiency));
 		}
@@ -41,10 +41,10 @@ public class MoonstrikeEffect implements IPercentageHoloDescription {
 	@SubscribeEvent
 	public void moonstrikeCausesBonusDamage(LivingHurtEvent event) {
 		if (shouldMoonstrikeAffect(event.getSource())) {
-			Entity source = event.getSource().getImmediateSource();
+			Entity source = event.getSource().getDirectEntity();
 			if (source == null)
 				return;
-			IWorld moonPhaseWorld = source.getEntityWorld();
+			IWorld moonPhaseWorld = source.getCommandSenderWorld();
 			float efficiency = getEffectEfficiency(event.getSource());
 			event.setAmount(event.getAmount() * getMoonFactor(moonPhaseWorld, efficiency));
 		}
@@ -53,18 +53,18 @@ public class MoonstrikeEffect implements IPercentageHoloDescription {
 	private boolean shouldMoonstrikeAffect(@Nullable DamageSource source) {
 		if (source == null)
 			return false;
-		if (source.getTrueSource() instanceof LivingEntity) {
-			LivingEntity user = (LivingEntity) source.getTrueSource();
+		if (source.getEntity() instanceof LivingEntity) {
+			LivingEntity user = (LivingEntity) source.getEntity();
 
-			return hasEffect(user.getHeldItemMainhand()) ||
-				hasEffect(ItemHelper.getThrownItemStack(source.getImmediateSource()));
+			return hasEffect(user.getMainHandItem()) ||
+				hasEffect(ItemHelper.getThrownItemStack(source.getDirectEntity()));
 		}
 		return false;
 	}
 
 	@Override
 	public ITooltipGetter getStatTooltipGetter(IStatGetter statGetter) {
-		return (player, itemStack) -> I18n.format(getTooltipPath(),
+		return (player, itemStack) -> I18n.get(getTooltipPath(),
 			statGetter.getValue(player, itemStack), statGetter.getValue(player, itemStack));
 	}
 

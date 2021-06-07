@@ -37,47 +37,47 @@ public class WrappedServerWorld extends ServerWorld {
 	protected World world;
 
 	public WrappedServerWorld(World world) {
-		super(world.getServer(), Util.getServerExecutor(), getLevelSaveFromWorld(world), (IServerWorldInfo) world.getWorldInfo(), world.getRegistryKey(), world.getDimension(), null, ((ServerChunkProvider) world.getChunkProvider()).getChunkGenerator(), world.isDebugWorld(), world.getBiomeAccess().seed, Collections.emptyList(), false);
+		super(world.getServer(), Util.backgroundExecutor(), getLevelSaveFromWorld(world), (IServerWorldInfo) world.getLevelData(), world.dimension(), world.dimensionType(), null, ((ServerChunkProvider) world.getChunkSource()).getGenerator(), world.isDebug(), world.getBiomeManager().biomeZoomSeed, Collections.emptyList(), false);
 		this.world = world;
 	}
 
 	private static SaveFormat.LevelSave getLevelSaveFromWorld(World world) {
-		return ObfuscationReflectionHelper.getPrivateValue(MinecraftServer.class, world.getServer(), "field_71310_m");
+		return ObfuscationReflectionHelper.getPrivateValue(MinecraftServer.class, world.getServer(), "storageSource");
 	}
 
 	@Override
-	public float getCelestialAngleRadians(float p_72826_1_) {
+	public float getSunAngle(float p_72826_1_) {
 		return 0.0F;
 	}
 
 	@Override
-	public int getLight(BlockPos pos) {
+	public int getMaxLocalRawBrightness(BlockPos pos) {
 		return 15;
 	}
 
 	@Override
-	public void notifyBlockUpdate(BlockPos pos, BlockState oldState, BlockState newState, int flags) {
-		this.world.notifyBlockUpdate(pos, oldState, newState, flags);
+	public void sendBlockUpdated(BlockPos pos, BlockState oldState, BlockState newState, int flags) {
+		this.world.sendBlockUpdated(pos, oldState, newState, flags);
 	}
 
 	@Override
-	public ServerTickList<Block> getPendingBlockTicks() {
-		ITickList<Block> tl = this.world.getPendingBlockTicks();
-		return tl instanceof ServerTickList ? (ServerTickList) tl : super.getPendingBlockTicks();
+	public ServerTickList<Block> getBlockTicks() {
+		ITickList<Block> tl = this.world.getBlockTicks();
+		return tl instanceof ServerTickList ? (ServerTickList) tl : super.getBlockTicks();
 	}
 
 	@Override
-	public ServerTickList<Fluid> getPendingFluidTicks() {
-		ITickList<Fluid> tl = this.world.getPendingFluidTicks();
-		return tl instanceof ServerTickList ? (ServerTickList) tl : super.getPendingFluidTicks();
+	public ServerTickList<Fluid> getLiquidTicks() {
+		ITickList<Fluid> tl = this.world.getLiquidTicks();
+		return tl instanceof ServerTickList ? (ServerTickList) tl : super.getLiquidTicks();
 	}
 
 	@Override
-	public void playEvent(PlayerEntity player, int type, BlockPos pos, int data) {
+	public void levelEvent(PlayerEntity player, int type, BlockPos pos, int data) {
 	}
 
 	@Override
-	public List<ServerPlayerEntity> getPlayers() {
+	public List<ServerPlayerEntity> players() {
 		return Collections.emptyList();
 	}
 
@@ -86,11 +86,11 @@ public class WrappedServerWorld extends ServerWorld {
 	}
 
 	@Override
-	public void playMovingSound(PlayerEntity p_217384_1_, Entity p_217384_2_, SoundEvent p_217384_3_, SoundCategory p_217384_4_, float p_217384_5_, float p_217384_6_) {
+	public void playSound(PlayerEntity p_217384_1_, Entity p_217384_2_, SoundEvent p_217384_3_, SoundCategory p_217384_4_, float p_217384_5_, float p_217384_6_) {
 	}
 
 	@Override
-	public Entity getEntityByID(int id) {
+	public Entity getEntity(int id) {
 		return null;
 	}
 
@@ -100,22 +100,22 @@ public class WrappedServerWorld extends ServerWorld {
 	}
 
 	@Override
-	public boolean addEntity(Entity entityIn) {
-		entityIn.setWorld(this.world);
-		return this.world.addEntity(entityIn);
+	public boolean addFreshEntity(Entity entityIn) {
+		entityIn.setLevel(this.world);
+		return this.world.addFreshEntity(entityIn);
 	}
 
 	@Override
-	public void registerMapData(MapData mapDataIn) {
+	public void setMapData(MapData mapDataIn) {
 	}
 
 	@Override
-	public int getNextMapId() {
+	public int getFreeMapId() {
 		return 0;
 	}
 
 	@Override
-	public void sendBlockBreakProgress(int breakerId, BlockPos pos, int progress) {
+	public void destroyBlockProgress(int breakerId, BlockPos pos, int progress) {
 	}
 
 	@Override
@@ -124,13 +124,13 @@ public class WrappedServerWorld extends ServerWorld {
 	}
 
 	@Override
-	public ITagCollectionSupplier getTags() {
-		return this.world.getTags();
+	public ITagCollectionSupplier getTagManager() {
+		return this.world.getTagManager();
 	}
 
 	@Override
-	public Biome getGeneratorStoredBiome(int p_225604_1_, int p_225604_2_, int p_225604_3_) {
-		return this.world.getGeneratorStoredBiome(p_225604_1_, p_225604_2_, p_225604_3_);
+	public Biome getUncachedNoiseBiome(int p_225604_1_, int p_225604_2_, int p_225604_3_) {
+		return this.world.getUncachedNoiseBiome(p_225604_1_, p_225604_2_, p_225604_3_);
 	}
 
 	@Override

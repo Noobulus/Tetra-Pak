@@ -19,7 +19,7 @@ public class NullifyingEffect implements IPercentageHoloDescription {
 	private static void updateEffect(boolean active, ModifiableAttributeInstance attributeInstance, AttributeModifier modifier) {
 		if (active) {
 			if (!attributeInstance.hasModifier(modifier))
-				attributeInstance.addTemporaryModifier(modifier);
+				attributeInstance.addTransientModifier(modifier);
 		} else if (attributeInstance.hasModifier(modifier)) {
 			attributeInstance.removeModifier(modifier);
 		}
@@ -31,13 +31,13 @@ public class NullifyingEffect implements IPercentageHoloDescription {
 		if (nullifierLevel < 0 || gravityAttribute == null)
 			return;
 
-		boolean slowfall = player.isPotionActive(Effects.SLOW_FALLING);
+		boolean slowfall = player.hasEffect(Effects.SLOW_FALLING);
 		updateEffect(nullifierLevel == 1 && !slowfall, gravityAttribute, beltGravityModifier);
 		updateEffect(nullifierLevel == 2 && !slowfall, gravityAttribute, beltDoubleGravityModifier);
 		updateEffect(nullifierLevel > 0 && slowfall, gravityAttribute, beltGravityModifierSlowfall);
-		if (nullifierLevel > 0 && player.getMotion().getY() < 0) // extra check for fall speed to make crits work correctly
+		if (nullifierLevel > 0 && player.getDeltaMovement().y() < 0) // extra check for fall speed to make crits work correctly
 			player.fallDistance = 1;
-		if (nullifierLevel > 0 && player.getMotion().getY() >= 0)
+		if (nullifierLevel > 0 && player.getDeltaMovement().y() >= 0)
 			player.fallDistance = 0;
 	}
 

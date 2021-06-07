@@ -26,17 +26,17 @@ public class RegrowthEffect implements IHoloDescription {
 	@SubscribeEvent
 	public void onLivingUpdate(LivingEvent.LivingUpdateEvent event) {
 		LivingEntity entity = event.getEntityLiving();
-		World world = entity.getEntityWorld();
+		World world = entity.getCommandSenderWorld();
 		if (!(entity instanceof PlayerEntity))
 			return;
 
 		for (EquipmentSlotType slot : new EquipmentSlotType[]{EquipmentSlotType.MAINHAND, EquipmentSlotType.OFFHAND}) {
-			ItemStack stack = entity.getItemStackFromSlot(slot);
+			ItemStack stack = entity.getItemBySlot(slot);
 			if (!(stack.getItem() instanceof ModularItem))
 				continue;
 			ModularItem item = (ModularItem) stack.getItem();
 			if (stack.isDamaged() && hasEffect(stack) && world.getGameTime() % item.getEffectEfficiency(stack, getEffect()) == 0) {
-				stack.setDamage(stack.getDamage() - (stack.getMaxDamage() / 100) - 1);
+				stack.setDamageValue(stack.getDamageValue() - (stack.getMaxDamage() / 100) - 1);
 			}
 		}
 
@@ -49,7 +49,7 @@ public class RegrowthEffect implements IHoloDescription {
 		final IStatGetter regrowthTotalGetter = new StatGetterEffectEfficiency(getEffect(), 0.08333);
 		return new GuiStatBar(0, 0, 59, getStatsPath(),
 			0, 60, false, regrowthGetter, LabelGetterBasic.integerLabel,
-			(player, itemStack) -> I18n.format(getTooltipPath(),
+			(player, itemStack) -> I18n.get(getTooltipPath(),
 				regrowthGetter.getValue(player, itemStack), round((float) regrowthTotalGetter.getValue(player, itemStack))));
 	}
 

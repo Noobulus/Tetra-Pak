@@ -10,7 +10,7 @@ import se.mickelus.tetra.effect.ItemEffect;
 public class DeforestingEffect implements IHoloDescription {
 	@SubscribeEvent
 	public void deforestWhenBlockBroken(BlockEvent.BreakEvent event) {
-		if (hasEffect(event.getPlayer().getHeldItemMainhand())) {
+		if (hasEffect(event.getPlayer().getMainHandItem())) {
 			DeforesterItem.destroyTree(event.getWorld(), event.getState(), event.getPos(), event.getPlayer());
 		}
 	}

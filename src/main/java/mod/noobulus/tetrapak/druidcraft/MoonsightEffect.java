@@ -17,11 +17,11 @@ public class MoonsightEffect implements IHoloDescription {
 
 	@Override
 	public void doBeltTick(PlayerEntity player, int effectLevel) {
-		World world = player.world;
+		World world = player.level;
 
-		if (effectLevel <= 0 || world.isRemote || !world.isNight() || world.getGameTime() % 80L != 0L || !world.isSkyVisible(player.getBlockPos()) || world.getMoonSize() == 0)
+		if (effectLevel <= 0 || world.isClientSide || !world.isNight() || world.getGameTime() % 80L != 0L || !world.canSeeSky(player.blockPosition()) || world.getMoonBrightness() == 0)
 			return;
 
-		player.addPotionEffect(new EffectInstance(Effects.NIGHT_VISION, 400, 0, true, false));
+		player.addEffect(new EffectInstance(Effects.NIGHT_VISION, 400, 0, true, false));
 	}
 }

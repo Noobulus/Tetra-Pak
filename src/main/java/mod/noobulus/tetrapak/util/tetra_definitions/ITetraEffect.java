@@ -39,15 +39,15 @@ public interface ITetraEffect {
 		ItemEffect effect = getEffect();
 		if (source == null)
 			return 0;
-		if (source.getTrueSource() instanceof LivingEntity) {
-			LivingEntity user = (LivingEntity) source.getTrueSource();
-			ItemStack heldItem = user.getHeldItemMainhand();
+		if (source.getEntity() instanceof LivingEntity) {
+			LivingEntity user = (LivingEntity) source.getEntity();
+			ItemStack heldItem = user.getMainHandItem();
 
 			if (heldItem.getItem() instanceof ModularItem) {
 				ModularItem heldModularitem = (ModularItem) heldItem.getItem();
 				return (float) heldModularitem.getEffectEfficiency(heldItem, effect);
 			}
-			ItemStack thrownItem = ItemHelper.getThrownItemStack(source.getImmediateSource());
+			ItemStack thrownItem = ItemHelper.getThrownItemStack(source.getDirectEntity());
 			if (thrownItem != null && thrownItem.getItem() instanceof ModularItem) {
 				ModularItem thrownModularItem = (ModularItem) thrownItem.getItem();
 				return (float) thrownModularItem.getEffectEfficiency(thrownItem, effect);

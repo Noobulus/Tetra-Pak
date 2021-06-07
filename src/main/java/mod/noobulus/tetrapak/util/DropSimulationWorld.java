@@ -33,7 +33,7 @@ public class DropSimulationWorld extends WrappedServerWorld {
 	}
 
 	@Override
-	public boolean addEntity(Entity entityIn) {
+	public boolean addFreshEntity(Entity entityIn) {
 		if (entityIn instanceof ItemEntity)
 			items.add(((ItemEntity) entityIn).getItem());
 		return false;
