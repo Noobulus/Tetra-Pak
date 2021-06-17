@@ -1,11 +1,14 @@
 package mod.noobulus.tetrapak.create;
 
+import com.simibubi.create.foundation.utility.VecHelper;
 import mod.noobulus.tetrapak.util.tetra_definitions.IPercentageHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.Effects;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.common.ForgeMod;
 import se.mickelus.tetra.effect.ItemEffect;
 
@@ -39,6 +42,16 @@ public class NullifyingEffect implements IPercentageHoloDescription {
 			player.fallDistance = 1;
 		if (nullifierLevel > 0 && player.getMotion().getY() >= 0)
 			player.fallDistance = 0;
+
+		// spawn end rod particles at player's feet to show that refined radiance-y effects are happening
+		if (player.world.isRemote) {
+			Vector3d pos = player.getPositionVec();
+			Vector3d basemotion;
+			if (player.world.rand.nextFloat() < nullifierLevel / 2f) {
+				basemotion = VecHelper.offsetRandomly(pos, player.world.rand, 0.5F);
+				player.world.addParticle(ParticleTypes.END_ROD, basemotion.x, pos.y, basemotion.z, 0.0D, -0.10000000149011612D, 0.0D);
+			}
+		}
 	}
 
 	@Override
