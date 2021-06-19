@@ -2,6 +2,7 @@ package mod.noobulus.tetrapak;
 
 import mod.noobulus.tetrapak.loot.LootConditions;
 import mod.noobulus.tetrapak.registries.Entities;
+import mod.noobulus.tetrapak.registries.Particles;
 import mod.noobulus.tetrapak.util.DamageBufferer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
@@ -22,6 +23,7 @@ public class TetraPak {
 		modEventBus.addGenericListener(GlobalLootModifierSerializer.class, Mods::registerLootModifiers);
 		modEventBus.addListener(Mods::clientSetup);
 		Entities.register(modEventBus);
+		Particles.PARTICLES.register(modEventBus);
 
 		LootConditions.register();
 	}
