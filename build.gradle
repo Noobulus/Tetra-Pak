@@ -4,7 +4,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '4.1+', changing: true
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
@@ -20,22 +20,30 @@ repositories {
             includeGroup "curse.maven"
         }
     }
+
+    maven {
+        url "https://jitpack.io/"
+    }
 }
 
 version = '0.2.1'
 group = 'mod.noobulus.tetrapak' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'tetrapak'
 
-// java.toolchain.languageVersion = JavaLanguageVersion.of(8) // Mojang ships Java 8 to end users, so your mod should target Java 8.
+java.toolchain.languageVersion = JavaLanguageVersion.of(8) // Mojang ships Java 8 to end users, so your mod should target Java 8.
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
-    mappings channel: 'snapshot', version: '20200920-mixed-1.16.3'
+    mappings channel: 'official', version: '1.16.5'
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
     runs {
         client {
             workingDirectory project.file('run')
-            jvmArgs "-Dmixin.env.disableRefMap=true"
+            // jvmArgs "-Dmixin.env.disableRefMap=true"
+            // properties 'mixin.env.disableRefMap': 'true'
+
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
 
@@ -48,7 +56,8 @@ minecraft {
 
         server {
             workingDirectory project.file('run')
-            jvmArgs "-Dmixin.env.disableRefMap=true"
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
 
@@ -61,7 +70,8 @@ minecraft {
 
         data {
             workingDirectory project.file('run')
-            jvmArgs "-Dmixin.env.disableRefMap=true"
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
             args '--mod', 'tetrapak', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
@@ -78,11 +88,12 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.16.5-36.1.0'
+    minecraft 'net.minecraftforge:forge:1.16.5-36.1.25'
 
     implementation fg.deobf("curse.maven:tetra-289712:3321042")
     implementation fg.deobf("curse.maven:mgui-351914:3291267")
-    implementation fg.deobf("curse.maven:create-328085:3278516")
+    implementation "com.github.LordGrimmauld:Create:1.16~mojmap-SNAPSHOT"
+    // implementation fg.deobf(files("create-mc1.16.5_v0.3.1c+custom.jar"))
     runtimeOnly fg.deobf("curse.maven:druidcraft-340991:3177267")
     runtimeOnly fg.deobf("curse.maven:openloader-354339:3198395")
     runtimeOnly fg.deobf("curse.maven:neat-238372:3182258")
@@ -92,13 +103,13 @@ dependencies {
 jar {
     manifest {
         attributes([
-            "Specification-Title": "tetrapak",
-            "Specification-Vendor": "Noobulus",
-            "Specification-Version": "0.1", // We are version 1 of ourselves
-            "Implementation-Title": project.name,
-            "Implementation-Version": "${version}",
-            "Implementation-Vendor" :"Noobulus",
-            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+                "Specification-Title"     : "tetrapak",
+                "Specification-Vendor"    : "Noobulus",
+                "Specification-Version"   : "0.1", // We are version 1 of ourselves
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : "${version}",
+                "Implementation-Vendor"   : "Noobulus",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
 }
