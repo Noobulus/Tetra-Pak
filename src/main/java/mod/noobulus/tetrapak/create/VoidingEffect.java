@@ -1,7 +1,8 @@
 package mod.noobulus.tetrapak.create;
 
 import mod.noobulus.tetrapak.loot.VoidingLootModifier;
-import mod.noobulus.tetrapak.util.*;
+import mod.noobulus.tetrapak.util.DamageBufferer;
+import mod.noobulus.tetrapak.util.ItemHelper;
 import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ILootModifier;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;

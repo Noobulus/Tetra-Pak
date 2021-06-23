@@ -34,7 +34,7 @@ public class BlockCollection extends AbstractBlockBreakQueue {
 	}
 
 	public void destroyBlocks(World world, @Nullable LivingEntity entity, TriConsumer<BlockPos, BlockState, ItemStack> drop) {
-		PlayerEntity playerEntity = entity instanceof PlayerEntity ? (PlayerEntity)entity : null;
+		PlayerEntity playerEntity = entity instanceof PlayerEntity ? (PlayerEntity) entity : null;
 		ItemStack toDamage = playerEntity != null && !playerEntity.isCreative() ? playerEntity.getHeldItemMainhand() : ItemStack.EMPTY;
 		this.destroyBlocks(world, toDamage, playerEntity, drop);
 	}

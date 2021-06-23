@@ -45,6 +45,10 @@ public class WrappedServerWorld extends ServerWorld {
 		return ObfuscationReflectionHelper.getPrivateValue(MinecraftServer.class, world.getServer(), "field_71310_m");
 	}
 
+	public static World unwrap(World world) {
+		return world instanceof WrappedServerWorld ? ((WrappedServerWorld) world).world : world;
+	}
+
 	@Override
 	public float getCelestialAngleRadians(float p_72826_1_) {
 		return 0.0F;
@@ -136,9 +140,5 @@ public class WrappedServerWorld extends ServerWorld {
 	@Override
 	public GameRules getGameRules() {
 		return world.getGameRules();
-	}
-
-	public static World unwrap(World world) {
-		return world instanceof WrappedServerWorld ? ((WrappedServerWorld) world).world : world;
 	}
 }
