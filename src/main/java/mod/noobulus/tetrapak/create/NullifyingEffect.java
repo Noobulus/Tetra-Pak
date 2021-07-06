@@ -10,6 +10,8 @@ import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.common.ForgeMod;
+import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import se.mickelus.tetra.effect.ItemEffect;
 
 import java.util.UUID;
@@ -52,6 +54,12 @@ public class NullifyingEffect implements IPercentageHoloDescription {
 				player.world.addParticle(ParticleTypes.END_ROD, basemotion.x, pos.y, basemotion.z, 0.0D, -0.10000000149011612D, 0.0D);
 			}
 		}
+	}
+
+	@SubscribeEvent
+	public void onFarmlandTrampled(BlockEvent.FarmlandTrampleEvent event) {
+		if (hasBeltEffect(event.getEntity()))
+			event.setCanceled(true);
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package mod.noobulus.tetrapak.util.tetra_definitions;
 import mod.noobulus.tetrapak.TetraPak;
 import mod.noobulus.tetrapak.util.DamageBufferer;
 import mod.noobulus.tetrapak.util.ItemHelper;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -10,6 +11,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import se.mickelus.tetra.effect.ItemEffect;
 import se.mickelus.tetra.items.modular.ModularItem;
+import se.mickelus.tetra.items.modular.impl.toolbelt.ToolbeltHelper;
 
 import javax.annotation.Nullable;
 
@@ -33,6 +35,16 @@ public interface ITetraEffect {
 
 	default float getEffectEfficiency() {
 		return getEffectEfficiency(DamageBufferer.getLastActiveDamageSource());
+	}
+
+	default int getBeltEffectLevel(PlayerEntity playerEntity) {
+		return getEffectLevel(ToolbeltHelper.findToolbelt((playerEntity)));
+	}
+
+	default boolean hasBeltEffect(@Nullable Entity entity) {
+		if (entity instanceof PlayerEntity)
+			return getBeltEffectLevel(((PlayerEntity) entity)) > 0;
+		return false;
 	}
 
 	default float getEffectEfficiency(@Nullable DamageSource source) {
