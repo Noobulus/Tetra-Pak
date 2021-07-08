@@ -2,7 +2,7 @@
   "required": true,
   "package": "mod.noobulus.tetrapak.mixin",
   "compatibilityLevel": "JAVA_8",
-  "refmap": "discordchat.refmap.json",
+  "refmap": "tetrapak.refmap.json",
   "client": [
   ],
   "injectors": {
