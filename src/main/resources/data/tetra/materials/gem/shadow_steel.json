@@ -11,20 +11,20 @@
   "toolLevel": "5",
   "toolEfficiency": "28",
   "tints": {
-    "glyph":"342e41",
-    "texture":"342e41"
+    "glyph": "342e41",
+    "texture": "342e41"
   },
   "textures": [
     "metal",
     "default"
   ],
   "material": {
-    "item":"create:shadow_steel"
+    "item": "create:shadow_steel"
   },
   "improvements": {
     "tetrapak/voiding": 1
   },
-  "requiredTools":{
-    "hammer":5
+  "requiredTools": {
+    "hammer": 5
   }
 }

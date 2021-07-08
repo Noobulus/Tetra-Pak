@@ -1,7 +1,9 @@
 {
   "replace": false,
   "type": "tetra:basic_module",
-  "slots": ["single/binding"],
+  "slots": [
+    "single/binding"
+  ],
   "renderLayer": "higher",
   "variants": [
     {
@@ -17,10 +19,12 @@
         "textureX": 80,
         "textureY": 16
       },
-      "models": [{
-        "location": "tetra:items/module/single/binding/socket/pristine",
-        "tint": "ec7276"
-      }]
+      "models": [
+        {
+          "location": "tetra:items/module/single/binding/socket/pristine",
+          "tint": "ec7276"
+        }
+      ]
     },
     {
       "key": "single_socket/fiery_glass",
@@ -35,10 +39,12 @@
         "textureX": 80,
         "textureY": 16
       },
-      "models": [{
-        "location": "tetra:items/module/single/binding/socket/pristine",
-        "tint": "bd5718"
-      }]
+      "models": [
+        {
+          "location": "tetra:items/module/single/binding/socket/pristine",
+          "tint": "bd5718"
+        }
+      ]
     },
     {
       "key": "single_socket/moonstone",
@@ -46,17 +52,22 @@
       "durability": 100,
       "integrity": -1,
       "effects": {
-        "tetrapak:moonstrike": [1, 20]
+        "tetrapak:moonstrike": [
+          1,
+          20
+        ]
       },
       "glyph": {
         "tint": "7bd1f6",
         "textureX": 80,
         "textureY": 16
       },
-      "models": [{
-        "location": "tetra:items/module/single/binding/socket/pristine",
-        "tint": "7bd1f6"
-      }]
+      "models": [
+        {
+          "location": "tetra:items/module/single/binding/socket/pristine",
+          "tint": "7bd1f6"
+        }
+      ]
     },
     {
       "key": "single_socket/rockroot",
@@ -64,17 +75,42 @@
       "durability": 5,
       "integrity": -1,
       "effects": {
-        "tetrapak:regrowth": [1, 720]
+        "tetrapak:regrowth": [
+          1,
+          720
+        ]
       },
       "glyph": {
         "tint": "605852",
         "textureX": 80,
         "textureY": 16
       },
-      "models": [{
-        "location": "tetra:items/module/single/binding/socket/default",
-        "tint": "605852"
-      }]
+      "models": [
+        {
+          "location": "tetra:items/module/single/binding/socket/default",
+          "tint": "605852"
+        }
+      ]
+    },
+    {
+      "key": "single_socket/refined_radiance",
+      "category": "gem",
+      "durability": 20,
+      "integrity": -1,
+      "effects": {
+        "tetrapak:floating": 1
+      },
+      "glyph": {
+        "tint": "e9f7f6",
+        "textureX": 80,
+        "textureY": 16
+      },
+      "models": [
+        {
+          "location": "tetra:items/module/single/binding/socket/pristine",
+          "tint": "e9f7f6"
+        }
+      ]
     }
   ]
 }

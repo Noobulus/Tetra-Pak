@@ -3,7 +3,10 @@
     "key": "tetrapak/moonstrike",
     "level": 1,
     "effects": {
-      "tetrapak:moonstrike": [1, 20]
+      "tetrapak:moonstrike": [
+        1,
+        20
+      ]
     }
   }
 ]

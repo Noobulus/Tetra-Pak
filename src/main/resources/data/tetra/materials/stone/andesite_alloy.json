@@ -11,8 +11,8 @@
   "toolLevel": "3",
   "toolEfficiency": "5.5",
   "tints": {
-    "glyph":"83857d",
-    "texture":"83857d"
+    "glyph": "83857d",
+    "texture": "83857d"
   },
   "textures": [
     "grainy",
@@ -20,12 +20,12 @@
     "default"
   ],
   "material": {
-    "item":"create:andesite_alloy"
+    "item": "create:andesite_alloy"
   },
   "improvements": {
     "workable": 1
   },
-  "requiredTools":{
-    "hammer":1
+  "requiredTools": {
+    "hammer": 1
   }
 }

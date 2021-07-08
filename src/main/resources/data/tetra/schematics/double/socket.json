@@ -41,6 +41,14 @@
       "experienceCost": 3,
       "moduleKey": "double/socket",
       "moduleVariant": "double_socket/rockroot"
+    },
+    {
+      "material": {
+        "item": "create:refined_radiance"
+      },
+      "experienceCost": 3,
+      "moduleKey": "double/socket",
+      "moduleVariant": "double_socket/refined_radiance"
     }
   ]
 }

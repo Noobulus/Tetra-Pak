@@ -4,6 +4,7 @@ import mod.noobulus.tetrapak.create.NullifyingEffect;
 import mod.noobulus.tetrapak.create.VoidingEffect;
 import mod.noobulus.tetrapak.create.refined_radiance.CollapsingEffect;
 import mod.noobulus.tetrapak.create.refined_radiance.DeforestingEffect;
+import mod.noobulus.tetrapak.create.refined_radiance.FloatingEffect;
 import mod.noobulus.tetrapak.create.refined_radiance.UnearthingEffect;
 import mod.noobulus.tetrapak.druidcraft.MoonsightEffect;
 import mod.noobulus.tetrapak.druidcraft.MoonstrikeEffect;
@@ -30,15 +31,19 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public enum Mods {
-	CREATE("create", CollapsingEffect::new, DeforestingEffect::new, UnearthingEffect::new, NullifyingEffect::new, VoidingEffect::new),
+	CREATE("create", CollapsingEffect::new, DeforestingEffect::new, UnearthingEffect::new, NullifyingEffect::new, VoidingEffect::new, () -> FloatingEffect.INSTANCE),
 	DRUIDCRAFT("druidcraft", MoonstrikeEffect::new, MoonsightEffect::new, RegrowthEffect::new, ScorchingEffect::new);
 
+	public final boolean isLoaded;
 	private final Set<ITetraEffect> loadedListeners = new HashSet<>();
 
 	@SafeVarargs
 	Mods(String modid, Supplier<ITetraEffect>... eventListeners) {
-		if (ModList.get().isLoaded(modid)) {
-			Arrays.stream(eventListeners).map(Supplier::get).forEach(loadedListeners::add);
+		isLoaded = ModList.get().isLoaded(modid);
+		if (isLoaded) {
+			Arrays.stream(eventListeners)
+				.map(Supplier::get)
+				.forEach(loadedListeners::add);
 		}
 	}
 

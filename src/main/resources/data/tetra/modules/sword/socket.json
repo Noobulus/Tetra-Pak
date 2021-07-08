@@ -1,6 +1,8 @@
 {
   "replace": false,
-  "slots": ["sword/guard"],
+  "slots": [
+    "sword/guard"
+  ],
   "type": "tetra:basic_module",
   "renderLayer": "higher",
   "variants": [
@@ -17,10 +19,12 @@
         "textureX": 80,
         "textureY": 16
       },
-      "models": [{
-        "location": "tetra:items/module/sword/guard/socket/pristine",
-        "tint": "ec7276"
-      }]
+      "models": [
+        {
+          "location": "tetra:items/module/sword/guard/socket/pristine",
+          "tint": "ec7276"
+        }
+      ]
     },
     {
       "key": "sword_socket/fiery_glass",
@@ -35,10 +39,12 @@
         "textureX": 80,
         "textureY": 16
       },
-      "models": [{
-        "location": "tetra:items/module/sword/guard/socket/pristine",
-        "tint": "bd5718"
-      }]
+      "models": [
+        {
+          "location": "tetra:items/module/sword/guard/socket/pristine",
+          "tint": "bd5718"
+        }
+      ]
     },
     {
       "key": "sword_socket/moonstone",
@@ -46,17 +52,22 @@
       "durability": 100,
       "integrity": -1,
       "effects": {
-        "tetrapak:moonstrike": [1, 20]
+        "tetrapak:moonstrike": [
+          1,
+          20
+        ]
       },
       "glyph": {
         "tint": "7bd1f6",
         "textureX": 80,
         "textureY": 16
       },
-      "models": [{
-        "location": "tetra:items/module/sword/guard/socket/pristine",
-        "tint": "7bd1f6"
-      }]
+      "models": [
+        {
+          "location": "tetra:items/module/sword/guard/socket/pristine",
+          "tint": "7bd1f6"
+        }
+      ]
     },
     {
       "key": "sword_socket/rockroot",
@@ -64,17 +75,42 @@
       "durability": 5,
       "integrity": -1,
       "effects": {
-        "tetrapak:regrowth": [1, 720]
+        "tetrapak:regrowth": [
+          1,
+          720
+        ]
       },
       "glyph": {
         "tint": "605852",
         "textureX": 80,
         "textureY": 16
       },
-      "models": [{
-        "location": "tetra:items/module/sword/guard/socket/default",
-        "tint": "605852"
-      }]
+      "models": [
+        {
+          "location": "tetra:items/module/sword/guard/socket/default",
+          "tint": "605852"
+        }
+      ]
+    },
+    {
+      "key": "sword_socket/refined_radiance",
+      "category": "gem",
+      "durability": 20,
+      "integrity": -1,
+      "effects": {
+        "tetrapak:floating": 1
+      },
+      "glyph": {
+        "tint": "e9f7f6",
+        "textureX": 80,
+        "textureY": 16
+      },
+      "models": [
+        {
+          "location": "tetra:items/module/sword/binding/socket/pristine",
+          "tint": "e9f7f6"
+        }
+      ]
     }
   ]
 }

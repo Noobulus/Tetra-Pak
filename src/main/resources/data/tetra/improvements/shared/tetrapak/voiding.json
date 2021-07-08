@@ -3,7 +3,10 @@
     "key": "tetrapak/voiding",
     "level": 1,
     "effects": {
-      "tetrapak:voiding": [1, 0.25]
+      "tetrapak:voiding": [
+        1,
+        0.25
+      ]
     }
   }
 ]

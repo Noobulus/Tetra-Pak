@@ -11,20 +11,20 @@
   "toolLevel": "3",
   "toolEfficiency": "7",
   "tints": {
-    "glyph":"b39c54",
-    "texture":"b39c54"
+    "glyph": "b39c54",
+    "texture": "b39c54"
   },
   "textures": [
     "metal",
     "default"
   ],
   "material": {
-    "item":"create:brass_ingot"
+    "item": "create:brass_ingot"
   },
   "improvements": {
     "workable": 1
   },
-  "requiredTools":{
-    "hammer":2
+  "requiredTools": {
+    "hammer": 2
   }
 }

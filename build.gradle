@@ -2,15 +2,20 @@ buildscript {
     repositories {
         maven { url = 'https://files.minecraftforge.net/maven' }
         mavenCentral()
+        maven { url='https://dist.creeper.host/Sponge/maven' }
+        maven {url='https://repo.spongepowered.org/maven'}
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+        classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
+apply plugin: 'idea'
+apply plugin: 'org.spongepowered.mixin'
 
 // cursemaven needs to be down here for some reason
 repositories {
@@ -36,6 +41,7 @@ minecraft {
         client {
             workingDirectory project.file('run')
             jvmArgs "-Dmixin.env.disableRefMap=true"
+            arg '-mixin.config=tetrapak.mixins.json'
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
 
@@ -49,6 +55,7 @@ minecraft {
         server {
             workingDirectory project.file('run')
             jvmArgs "-Dmixin.env.disableRefMap=true"
+            arg '-mixin.config=tetrapak.mixins.json'
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
 
@@ -78,7 +85,7 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.16.5-36.1.0'
+    minecraft 'net.minecraftforge:forge:1.16.5-36.1.32'
 
     implementation fg.deobf("curse.maven:tetra-289712:3371803")
     implementation fg.deobf("curse.maven:mgui-351914:3291267")
@@ -87,7 +94,10 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:openloader-354339:3199872")
     runtimeOnly fg.deobf("curse.maven:neat-238372:3182258")
 
+    annotationProcessor 'org.spongepowered:mixin:0.8:processor'
 }
+
+compileJava.options.encoding = 'UTF-8'
 
 jar {
     manifest {
@@ -104,6 +114,10 @@ jar {
 }
 
 jar.finalizedBy('reobfJar')
+
+mixin {
+    add sourceSets.main, "tetrapak.refmap.json"
+}
 
 publishing {
     publications {

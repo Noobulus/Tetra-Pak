@@ -11,21 +11,21 @@
   "toolLevel": "4",
   "toolEfficiency": "3",
   "tints": {
-    "glyph":"fff0ff",
-    "texture":"fff0ff"
+    "glyph": "fff0ff",
+    "texture": "fff0ff"
   },
   "textures": [
     "metal",
     "default"
   ],
   "material": {
-    "item":"create:refined_radiance"
+    "item": "create:refined_radiance"
   },
   "improvements": {
     "arrested": 0,
     "tetrapak/radiant": 1
   },
-  "requiredTools":{
-    "hammer":5
+  "requiredTools": {
+    "hammer": 5
   }
 }
