@@ -70,12 +70,11 @@ public class FloatingEffect implements IHoloDescription {
 
 	@SubscribeEvent
 	public void onEntityJoinWorld(EntityJoinWorldEvent event) {
-		if (!makeItemsFloat)
-			return;
 		if (!(event.getEntity() instanceof ItemEntity))
 			return;
 
-		makeFloaty(event.getEntity());
+		if (makeItemsFloat || hasEffect(((ItemEntity) event.getEntity()).getItem()))
+			makeFloaty(event.getEntity());
 	}
 
 	@Override
