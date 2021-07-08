@@ -1,6 +1,6 @@
 package mod.noobulus.tetrapak.networking;
 
-import mod.noobulus.tetrapak.TetraPak;
+import mod.noobulus.tetrapak.BuildConfig;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.network.NetworkDirection;
@@ -18,8 +18,8 @@ public enum Packets {
 
 	ENTITY_FLOAT_PARTICLE(EntityFloatParticlePacket.class, EntityFloatParticlePacket::new, PLAY_TO_CLIENT);
 
-	public static final ResourceLocation CHANNEL_NAME = new ResourceLocation(TetraPak.MODID, "network");
-	public static final String NETWORK_VERSION = new ResourceLocation(TetraPak.MODID, "1").toString();
+	public static final ResourceLocation CHANNEL_NAME = new ResourceLocation(BuildConfig.MODID, "network");
+	public static final String NETWORK_VERSION = new ResourceLocation(BuildConfig.MODID, "1").toString();
 	public static final SimpleChannel channel = NetworkRegistry.ChannelBuilder.named(CHANNEL_NAME)
 		.serverAcceptedVersions(NETWORK_VERSION::equals)
 		.clientAcceptedVersions(NETWORK_VERSION::equals)

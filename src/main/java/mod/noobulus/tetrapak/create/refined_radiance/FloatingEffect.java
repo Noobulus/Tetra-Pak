@@ -51,6 +51,10 @@ public class FloatingEffect implements IHoloDescription {
 		makeItemsFloat = hasEffect(tool);
 	}
 
+	public void checkFloatiness(DamageSource source) {
+		makeItemsFloat = shouldFloatingAffect(source);
+	}
+
 	private boolean shouldFloatingAffect(@Nullable DamageSource source) {
 		if (source == null)
 			return false;

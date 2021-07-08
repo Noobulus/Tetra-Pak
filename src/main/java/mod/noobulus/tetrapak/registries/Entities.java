@@ -1,6 +1,6 @@
 package mod.noobulus.tetrapak.registries;
 
-import mod.noobulus.tetrapak.TetraPak;
+import mod.noobulus.tetrapak.BuildConfig;
 import mod.noobulus.tetrapak.entities.FragileFallingBlock;
 import mod.noobulus.tetrapak.entities.FragileFallingBlockRenderer;
 import net.minecraft.entity.Entity;
@@ -17,9 +17,9 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-@Mod.EventBusSubscriber(modid = TetraPak.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = BuildConfig.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Entities {
-	private static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, TetraPak.MODID);
+	private static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, BuildConfig.MODID);
 	public static final RegistryObject<EntityType<FragileFallingBlock>> FRAGILE_FALLING_BLOCK = register("fragile_falling_block",
 		EntityType.Builder.<FragileFallingBlock>create(FragileFallingBlock::new, EntityClassification.MISC)
 			.size(0.98F, 0.98F)

@@ -1,6 +1,6 @@
 package mod.noobulus.tetrapak.util.tetra_definitions;
 
-import mod.noobulus.tetrapak.TetraPak;
+import mod.noobulus.tetrapak.BuildConfig;
 import mod.noobulus.tetrapak.util.DamageBufferer;
 import mod.noobulus.tetrapak.util.ItemHelper;
 import net.minecraft.entity.Entity;
@@ -17,7 +17,7 @@ import javax.annotation.Nullable;
 
 public interface ITetraEffect {
 	static ItemEffect get(String key) {
-		return ItemEffect.get(TetraPak.MODID + ":" + key);
+		return ItemEffect.get(BuildConfig.MODID + ":" + key);
 	}
 
 	ItemEffect getEffect();
@@ -69,7 +69,7 @@ public interface ITetraEffect {
 	}
 
 	default String getStatsPath() {
-		return TetraPak.MODID + ".stats." + new ResourceLocation(getEffect().getKey()).getPath();
+		return BuildConfig.MODID + ".stats." + new ResourceLocation(getEffect().getKey()).getPath();
 	}
 
 	default int getEffectLevel(@Nullable ItemStack test) {

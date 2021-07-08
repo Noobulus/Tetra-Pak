@@ -10,7 +10,10 @@
   },
   "minVersion": "0.8",
   "mixins": [
+    "ContainerMinecartEntityMixin",
+    "PlayerInteractionManagerMixin",
     "ItemEntityMixin",
+    "ItemFrameMixin",
     "SpawnDropsMixin"
   ]
 }

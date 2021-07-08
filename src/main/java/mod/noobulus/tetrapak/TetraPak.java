@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-@Mod(TetraPak.MODID)
+@Mod(BuildConfig.MODID)
 public class TetraPak {
 	public static final String MODID = "tetrapak";
 

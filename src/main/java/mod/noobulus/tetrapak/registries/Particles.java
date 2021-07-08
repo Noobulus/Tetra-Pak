@@ -1,6 +1,6 @@
 package mod.noobulus.tetrapak.registries;
 
-import mod.noobulus.tetrapak.TetraPak;
+import mod.noobulus.tetrapak.BuildConfig;
 import mod.noobulus.tetrapak.particle.MoonstrikeStageParticle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.ParticleManager;
@@ -17,7 +17,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-@Mod.EventBusSubscriber(modid = TetraPak.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = BuildConfig.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Particles {
 	public static final DeferredRegister<ParticleType<?>> MOONSTRIKE_PARTICLES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, "tetrapak");
 	@SuppressWarnings("unused")
