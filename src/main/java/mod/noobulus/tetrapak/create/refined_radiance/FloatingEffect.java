@@ -67,7 +67,7 @@ public class FloatingEffect implements IHoloDescription {
 	}
 
 	@SubscribeEvent
-	public void voidingKillsRemoveDrops(LivingDropsEvent event) {
+	public void floatingKillsLevitateDrops(LivingDropsEvent event) {
 		if (shouldFloatingAffect(event.getSource()))
 			event.getDrops().forEach(FloatingEffect::makeFloaty);
 	}
