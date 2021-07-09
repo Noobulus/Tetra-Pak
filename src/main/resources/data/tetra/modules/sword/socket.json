@@ -107,7 +107,7 @@
       },
       "models": [
         {
-          "location": "tetra:items/module/sword/binding/socket/pristine",
+          "location": "tetra:items/module/sword/guard/socket/pristine",
           "tint": "e9f7f6"
         }
       ]

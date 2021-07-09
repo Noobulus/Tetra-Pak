@@ -1,6 +1,9 @@
 Version 0.2.2
+    New content:
+        Refined Radiance can now be used as a socket, causing both drops and the tool itself to float in midair!
     Improvements and fixes:
-        TBD
+        Nullifiers and moonstone tools now spawn particles appropriate to their material to show to the player that they are working.
+        Falling on farmland while using a nullifier will no longer trample it.
 
 Version 0.2.1
     Improvements and fixes:
