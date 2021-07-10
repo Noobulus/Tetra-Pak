@@ -37,18 +37,18 @@ public class ShouldEffectAffect implements ILootCondition, ITetraEffect {
 
 	@Override
 	public boolean test(LootContext context) {
-		if (context.has(LootParameters.BLOCK_ENTITY))
+		if (context.hasParam(LootParameters.BLOCK_ENTITY))
 			return false;
 
-		ItemStack tool = context.get(LootParameters.TOOL);
-		Entity killerEntity = context.get(LootParameters.KILLER_ENTITY);
-		Entity directKillerEntity = context.get(LootParameters.DIRECT_KILLER_ENTITY);
+		ItemStack tool = context.getParamOrNull(LootParameters.TOOL);
+		Entity killerEntity = context.getParamOrNull(LootParameters.KILLER_ENTITY);
+		Entity directKillerEntity = context.getParamOrNull(LootParameters.DIRECT_KILLER_ENTITY);
 
-		if (!(context.get(LootParameters.THIS_ENTITY) instanceof PlayerEntity || context.get(LootParameters.THIS_ENTITY) instanceof IInventory)) {
+		if (!(context.getParamOrNull(LootParameters.THIS_ENTITY) instanceof PlayerEntity || context.getParamOrNull(LootParameters.THIS_ENTITY) instanceof IInventory)) {
 			if (tool == null && directKillerEntity != null)
 				tool = ItemHelper.getThrownItemStack(directKillerEntity);
 			if (tool == null && killerEntity != null) {
-				Iterator<ItemStack> equip = killerEntity.getHeldEquipment().iterator();
+				Iterator<ItemStack> equip = killerEntity.getHandSlots().iterator();
 				if (equip.hasNext())
 					tool = equip.next();
 			}
@@ -63,12 +63,12 @@ public class ShouldEffectAffect implements ILootCondition, ITetraEffect {
 	}
 
 	public static class Serializer implements ILootSerializer<ShouldEffectAffect> {
-		public void toJson(JsonObject json, ShouldEffectAffect condition, JsonSerializationContext context) {
+		public void serialize(JsonObject json, ShouldEffectAffect condition, JsonSerializationContext context) {
 			json.addProperty("effect", condition.effect.getKey());
 		}
 
-		public ShouldEffectAffect fromJson(JsonObject json, JsonDeserializationContext context) {
-			return new ShouldEffectAffect(ItemEffect.get(JSONUtils.getString(json, "effect")));
+		public ShouldEffectAffect deserialize(JsonObject json, JsonDeserializationContext context) {
+			return new ShouldEffectAffect(ItemEffect.get(JSONUtils.getAsString(json, "effect")));
 		}
 	}
 }

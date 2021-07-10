@@ -19,7 +19,7 @@ public class ScorchingLootModifier extends LootModifier {
 	@Override
 	public List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
 		return generatedLoot.stream()
-			.map(stack -> ItemHelper.smelt(stack, context.getWorld()))
+			.map(stack -> ItemHelper.smelt(stack, context.getLevel()))
 			.collect(Collectors.toList());
 	}
 }

@@ -37,7 +37,7 @@ public class Particles {
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	@OnlyIn(Dist.CLIENT)
 	public static void registerParticles(ParticleFactoryRegisterEvent event) {
-		ParticleManager manager = Minecraft.getInstance().particles;
-		MOONSTRIKE_PARTICLES.getEntries().stream().map(RegistryObject::get).forEach(sprite -> manager.registerFactory(sprite, MoonstrikeStageParticle.Factory::new));
+		ParticleManager manager = Minecraft.getInstance().particleEngine;
+		MOONSTRIKE_PARTICLES.getEntries().stream().map(RegistryObject::get).forEach(sprite -> manager.register(sprite, MoonstrikeStageParticle.Factory::new));
 	}
 }

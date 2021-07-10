@@ -20,7 +20,7 @@ public class PlayerInteractionManagerMixin {
 	private void onRemoveBlockPre(BlockPos pos, boolean canHarvest, CallbackInfoReturnable<Boolean> cir) {
 		if (!Mods.CREATE.isLoaded || player == null)
 			return;
-		FloatingEffect.INSTANCE.checkFloatiness(player.getHeldItemMainhand());
+		FloatingEffect.INSTANCE.checkFloatiness(player.getMainHandItem());
 	}
 
 	@Inject(at = @At("RETURN"), method = "removeBlock", remap = false)

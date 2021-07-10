@@ -34,7 +34,7 @@ public class VoidingEffect implements IHoloDescription, ILootModifier<VoidingLoo
 	public void voidingKillsMultiplyExp(LivingExperienceDropEvent event) {
 		LivingEntity target = event.getEntityLiving();
 		if (shouldVoidingAffect(DamageBufferer.getLastActiveDamageSource(), target)) {
-			int levelLooting = EnchantmentHelper.getEnchantmentLevel(Enchantments.LOOTING, event.getAttackingPlayer().getHeldItemMainhand());
+			int levelLooting = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.MOB_LOOTING, event.getAttackingPlayer().getMainHandItem());
 			float modifier = 1 + (getEffectEfficiency() * (levelLooting + 2));
 			event.setDroppedExperience((int) (event.getDroppedExperience() * modifier));
 		}
@@ -42,12 +42,12 @@ public class VoidingEffect implements IHoloDescription, ILootModifier<VoidingLoo
 
 	@SubscribeEvent
 	public void voidingHardBlocksGivesExp(BlockEvent.BreakEvent event) {
-		ItemStack heldItemMainhand = event.getPlayer().getHeldItemMainhand();
+		ItemStack heldItemMainhand = event.getPlayer().getMainHandItem();
 		if (hasEffect(heldItemMainhand)) {
-			int levelFortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, heldItemMainhand);
+			int levelFortune = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_FORTUNE, heldItemMainhand);
 			float efficiency = getEffectEfficiency(DamageBufferer.getLastActiveDamageSource());
 			float modifier = 1 + efficiency * (levelFortune + 2);
-			float hardness = event.getState().getBlockHardness(event.getWorld(), event.getPos());
+			float hardness = event.getState().getDestroySpeed(event.getWorld(), event.getPos());
 			float hardnessExp = 0;
 			if (hardness > 3.1) // free exp for mining stone is a little bit much
 				hardnessExp = (0.1f * (hardness * (1 + efficiency))); // give exp based on broken block hardness, does not scale with fortune
@@ -66,10 +66,10 @@ public class VoidingEffect implements IHoloDescription, ILootModifier<VoidingLoo
 	private boolean shouldVoidingAffect(@Nullable DamageSource source, Entity target) {
 		if (source == null)
 			return false;
-		if (source.getTrueSource() instanceof LivingEntity && !(target instanceof PlayerEntity)) {
-			LivingEntity user = (LivingEntity) source.getTrueSource();
-			return hasEffect(user.getHeldItemMainhand())
-				|| hasEffect(ItemHelper.getThrownItemStack(source.getImmediateSource()));
+		if (source.getEntity() instanceof LivingEntity && !(target instanceof PlayerEntity)) {
+			LivingEntity user = (LivingEntity) source.getEntity();
+			return hasEffect(user.getMainHandItem())
+				|| hasEffect(ItemHelper.getThrownItemStack(source.getDirectEntity()));
 		}
 		return false;
 	}
@@ -79,11 +79,11 @@ public class VoidingEffect implements IHoloDescription, ILootModifier<VoidingLoo
 	public GuiStatBar getStatBar() {
 		final IStatGetter voidingGetter = new StatGetterEffectLevel(getEffect(), 1, 0);
 		final IStatGetter voidingEffGetter = new StatGetterEffectEfficiency(getEffect(), 1);
-		final IStatGetter voidingLootingGetter = new StatGetterEnchantmentLevel(Enchantments.LOOTING, 1.0D);
-		final IStatGetter voidingFortuneGetter = new StatGetterEnchantmentLevel(Enchantments.FORTUNE, 1.0D);
+		final IStatGetter voidingLootingGetter = new StatGetterEnchantmentLevel(Enchantments.MOB_LOOTING, 1.0D);
+		final IStatGetter voidingFortuneGetter = new StatGetterEnchantmentLevel(Enchantments.BLOCK_FORTUNE, 1.0D);
 		return new GuiStatBar(0, 0, 59, getStatsPath(),
 			0, 1, false, voidingGetter, LabelGetterBasic.integerLabel,
-			(player, itemStack) -> I18n.format(getTooltipPath(),
+			(player, itemStack) -> I18n.get(getTooltipPath(),
 				1 + (voidingEffGetter.getValue(player, itemStack) * (voidingLootingGetter.getValue(player, itemStack) + 2))
 				, 1 + (voidingEffGetter.getValue(player, itemStack) * (voidingFortuneGetter.getValue(player, itemStack) + 2))));
 	}

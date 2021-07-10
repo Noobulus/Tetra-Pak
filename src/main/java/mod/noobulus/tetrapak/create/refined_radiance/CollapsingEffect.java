@@ -26,7 +26,7 @@ public class CollapsingEffect implements IHoloDescription {
 	private static boolean collapsing = false; // required as to not run into "recursions" over forge events on tree cutting
 
 	public static void collapse(IWorld iWorld, BlockPos pos, PlayerEntity entity) {
-		if (collapsing || entity.isSneaking() || !(iWorld instanceof World))
+		if (collapsing || entity.isShiftKeyDown() || !(iWorld instanceof World))
 			return;
 		World world = (World) iWorld;
 		collapsing = true;
@@ -43,7 +43,7 @@ public class CollapsingEffect implements IHoloDescription {
 
 		while (canBreakWithStart(startState, world.getBlockState(pos))) {
 			visited.add(pos);
-			pos = pos.up();
+			pos = pos.above();
 		}
 
 		return new BlockCollection(visited);
@@ -56,18 +56,18 @@ public class CollapsingEffect implements IHoloDescription {
 			return true;
 		if (start.getBlock().equals(test.getBlock()))
 			return true;
-		return Material.EARTH.equals(getBlockMaterial(start)) && (Material.EARTH.equals(getBlockMaterial(test)) || test.getBlock().equals(Blocks.GRASS_BLOCK));
+		return Material.DIRT.equals(getBlockMaterial(start)) && (Material.DIRT.equals(getBlockMaterial(test)) || test.getBlock().equals(Blocks.GRASS_BLOCK));
 	}
 
 	@Nullable
 	private static Material getBlockMaterial(BlockState state) {
-		Object mat = ObfuscationReflectionHelper.getPrivateValue(AbstractBlock.class, state.getBlock(), "field_149764_J");
+		Object mat = ObfuscationReflectionHelper.getPrivateValue(AbstractBlock.class, state.getBlock(), "material");
 		return mat instanceof Material ? (Material) mat : null;
 	}
 
 	@SubscribeEvent
 	public void collapseWhenBlockBroken(BlockEvent.BreakEvent event) {
-		if (!collapsing && hasEffect(event.getPlayer().getHeldItemMainhand())) {
+		if (!collapsing && hasEffect(event.getPlayer().getMainHandItem())) {
 			collapse(event.getWorld(), event.getPos(), event.getPlayer());
 		}
 	}

@@ -20,7 +20,7 @@ import java.lang.reflect.Method;
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 public class ItemHelper {
-	private static final LazyValue<Method> arrowStackGetter = new LazyValue<>(() -> ObfuscationReflectionHelper.findMethod(AbstractArrowEntity.class, "func_184550_j"));
+	private static final LazyValue<Method> arrowStackGetter = new LazyValue<>(() -> ObfuscationReflectionHelper.findMethod(AbstractArrowEntity.class, "getPickupItem"));
 
 	private ItemHelper() {
 	}
@@ -29,7 +29,7 @@ public class ItemHelper {
 	public static ItemStack getThrownItemStack(@Nullable Entity e) {
 		if (!(e instanceof AbstractArrowEntity))
 			return null;
-		Method lookup = arrowStackGetter.getValue();
+		Method lookup = arrowStackGetter.get();
 		lookup.setAccessible(true);
 		Object result;
 		try {
@@ -43,8 +43,8 @@ public class ItemHelper {
 	}
 
 	public static ItemStack smelt(ItemStack stack, World world) { // this is just forge example code switched over to my mappings but we won't talk about that
-		return world.getRecipeManager().getRecipe(IRecipeType.SMELTING, new Inventory(stack), world)
-			.map(FurnaceRecipe::getRecipeOutput)
+		return world.getRecipeManager().getRecipeFor(IRecipeType.SMELTING, new Inventory(stack), world)
+			.map(FurnaceRecipe::getResultItem)
 			.filter(itemStack -> !itemStack.isEmpty())
 			.map(itemStack -> ItemHandlerHelper.copyStackWithSize(itemStack, stack.getCount() * itemStack.getCount()))
 			.orElse(stack);

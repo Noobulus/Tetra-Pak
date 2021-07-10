@@ -24,11 +24,11 @@ public class UnearthingEffect implements IHoloDescription {
 	private static boolean unearthing = false; // required as to not run into "recursions" over forge events on tree cutting
 
 	public static void unearth(IWorld iWorld, BlockPos pos, PlayerEntity entity) {
-		if (unearthing || entity.isSneaking() || !(iWorld instanceof World))
+		if (unearthing || entity.isShiftKeyDown() || !(iWorld instanceof World))
 			return;
 		World world = (World) iWorld;
 		unearthing = true;
-		findOreVein(world, pos).destroyBlocks(world, entity, (dropPos, stack) -> Block.spawnAsEntity(world, dropPos, stack));
+		findOreVein(world, pos).destroyBlocks(world, entity, (dropPos, stack) -> Block.popResource(world, dropPos, stack));
 		unearthing = false;
 	}
 
@@ -48,7 +48,7 @@ public class UnearthingEffect implements IHoloDescription {
 			BlockPos current = frontier.remove(0);
 			visited.add(current);
 			for (Direction direction : Direction.values()) {
-				BlockPos offset = current.offset(direction);
+				BlockPos offset = current.relative(direction);
 				if (!visited.contains(offset) && start.equals(world.getBlockState(offset).getBlock()))
 					frontier.add(offset);
 			}
@@ -58,7 +58,7 @@ public class UnearthingEffect implements IHoloDescription {
 
 	@SubscribeEvent
 	public void unearthWhenBlockBroken(BlockEvent.BreakEvent event) {
-		if (!unearthing && hasEffect(event.getPlayer().getHeldItemMainhand())) {
+		if (!unearthing && hasEffect(event.getPlayer().getMainHandItem())) {
 			unearth(event.getWorld(), event.getPos(), event.getPlayer());
 		}
 	}

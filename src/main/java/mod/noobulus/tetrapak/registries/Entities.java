@@ -21,10 +21,10 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class Entities {
 	private static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, BuildConfig.MODID);
 	public static final RegistryObject<EntityType<FragileFallingBlock>> FRAGILE_FALLING_BLOCK = register("fragile_falling_block",
-		EntityType.Builder.<FragileFallingBlock>create(FragileFallingBlock::new, EntityClassification.MISC)
-			.size(0.98F, 0.98F)
-			.maxTrackingRange(10)
-			.trackingTickInterval(20));
+		EntityType.Builder.<FragileFallingBlock>of(FragileFallingBlock::new, EntityClassification.MISC)
+			.sized(0.98F, 0.98F)
+			.clientTrackingRange(10)
+			.updateInterval(20));
 
 	static {
 		ENTITY_TYPES.register(FMLJavaModLoadingContext.get().getModEventBus());

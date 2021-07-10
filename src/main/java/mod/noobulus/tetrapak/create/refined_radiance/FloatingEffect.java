@@ -26,7 +26,7 @@ public class FloatingEffect implements IHoloDescription {
 
 	private static void makeFloaty(Entity e) {
 		e.setNoGravity(true);
-		e.setMotion(e.getMotion().scale(0.3));
+		e.setDeltaMovement(e.getDeltaMovement().scale(0.3));
 		e.getPersistentData().putBoolean("DoFloatyParticles", true);
 	}
 
@@ -36,12 +36,12 @@ public class FloatingEffect implements IHoloDescription {
 	}
 
 	public static void onItemEntityTick(ItemEntity entity) {
-		World world = entity.getEntityWorld();
-		if (entity.world == null || entity.world.isRemote)
+		World world = entity.getCommandSenderWorld();
+		if (entity.level == null || entity.level.isClientSide)
 			return;
 		if (!entity.getPersistentData().getBoolean("DoFloatyParticles"))
 			return;
-		if (world.rand.nextFloat() > getIdleParticleChance(entity))
+		if (world.random.nextFloat() > getIdleParticleChance(entity))
 			return;
 
 		Packets.channel.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), new EntityFloatParticlePacket(entity));
@@ -58,10 +58,10 @@ public class FloatingEffect implements IHoloDescription {
 	private boolean shouldFloatingAffect(@Nullable DamageSource source) {
 		if (source == null)
 			return false;
-		if (source.getTrueSource() instanceof LivingEntity) {
-			LivingEntity user = (LivingEntity) source.getTrueSource();
-			return hasEffect(user.getHeldItemMainhand())
-				|| hasEffect(ItemHelper.getThrownItemStack(source.getImmediateSource()));
+		if (source.getEntity() instanceof LivingEntity) {
+			LivingEntity user = (LivingEntity) source.getEntity();
+			return hasEffect(user.getMainHandItem())
+				|| hasEffect(ItemHelper.getThrownItemStack(source.getDirectEntity()));
 		}
 		return false;
 	}

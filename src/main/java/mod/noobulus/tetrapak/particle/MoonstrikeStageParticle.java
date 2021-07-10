@@ -18,45 +18,45 @@ public class MoonstrikeStageParticle extends SpriteTexturedParticle {
 	// this is pretty much exactly the same as the vanilla crit particle since i want it to behave the same
 	protected MoonstrikeStageParticle(ClientWorld worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn) {
 		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
-		this.motionX *= 0.1F;
-		this.motionY *= 0.1F;
-		this.motionZ *= 0.1F;
-		this.motionX += xSpeedIn * 0.4D;
-		this.motionY += ySpeedIn * 0.4D;
-		this.motionZ += zSpeedIn * 0.4D;
+		this.xd *= 0.1F;
+		this.yd *= 0.1F;
+		this.zd *= 0.1F;
+		this.xd += xSpeedIn * 0.4D;
+		this.yd += ySpeedIn * 0.4D;
+		this.zd += zSpeedIn * 0.4D;
 		float f = (float) (Math.random() * (double) 0.3F + (double) 0.6F);
-		this.particleRed = f;
-		this.particleGreen = f;
-		this.particleBlue = f;
-		this.particleScale *= 0.75F;
-		this.maxAge = Math.max((int) (6.0D / (Math.random() * 0.8D + 0.6D)), 1);
-		this.canCollide = false;
+		this.rCol = f;
+		this.gCol = f;
+		this.bCol = f;
+		this.quadSize *= 0.75F;
+		this.lifetime = Math.max((int) (6.0D / (Math.random() * 0.8D + 0.6D)), 1);
+		this.hasPhysics = false;
 		this.tick();
 	}
 
 	@Override
-	public float getScale(float scale) {
-		return this.particleScale * MathHelper.clamp(((float) this.age + scale) / (float) this.maxAge * 32.0F, 0.0F, 1.0F);
+	public float getQuadSize(float scale) {
+		return this.quadSize * MathHelper.clamp(((float) this.age + scale) / (float) this.lifetime * 32.0F, 0.0F, 1.0F);
 	}
 
 	@Override
 	public void tick() {
-		this.prevPosX = this.posX;
-		this.prevPosY = this.posY;
-		this.prevPosZ = this.posZ;
-		if (this.age++ >= this.maxAge) {
-			this.setExpired();
+		this.xo = this.x;
+		this.yo = this.y;
+		this.zo = this.z;
+		if (this.age++ >= this.lifetime) {
+			this.remove();
 		} else {
-			this.move(this.motionX, this.motionY, this.motionZ);
-			this.particleBlue = (float) ((double) this.particleGreen * 0.9D);
-			this.particleBlue = (float) ((double) this.particleRed * 0.9D);
-			this.motionX *= 0.7F;
-			this.motionY *= 0.7F;
-			this.motionZ *= 0.7F;
-			this.motionY -= 0.02F;
+			this.move(this.xd, this.yd, this.zd);
+			this.bCol = (float) ((double) this.gCol * 0.9D);
+			this.bCol = (float) ((double) this.rCol * 0.9D);
+			this.xd *= 0.7F;
+			this.yd *= 0.7F;
+			this.zd *= 0.7F;
+			this.yd -= 0.02F;
 			if (this.onGround) {
-				this.motionX *= 0.7F;
-				this.motionZ *= 0.7F;
+				this.xd *= 0.7F;
+				this.zd *= 0.7F;
 			}
 
 		}
@@ -75,10 +75,10 @@ public class MoonstrikeStageParticle extends SpriteTexturedParticle {
 		}
 
 		@Override
-		public Particle makeParticle(T typeIn, ClientWorld worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn) {
+		public Particle createParticle(T typeIn, ClientWorld worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn) {
 			MoonstrikeStageParticle moonstrikeStageParticle = new MoonstrikeStageParticle(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
 			moonstrikeStageParticle.setColor(1.0f, 1.0f, 1.0f);
-			moonstrikeStageParticle.selectSpriteRandomly(this.spriteSet);
+			moonstrikeStageParticle.pickSprite(this.spriteSet);
 			return moonstrikeStageParticle;
 		}
 	}

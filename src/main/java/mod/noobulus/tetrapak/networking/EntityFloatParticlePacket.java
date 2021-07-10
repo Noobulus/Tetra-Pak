@@ -19,7 +19,7 @@ public class EntityFloatParticlePacket implements ISimplePacket {
 	private final int entityId;
 
 	public EntityFloatParticlePacket(Entity entity) {
-		entityId = entity.getEntityId();
+		entityId = entity.getId();
 	}
 
 	public EntityFloatParticlePacket(PacketBuffer buffer) {
@@ -36,13 +36,13 @@ public class EntityFloatParticlePacket implements ISimplePacket {
 		NetworkEvent.Context ctx = contextSupplier.get();
 
 		ctx.enqueueWork(() -> {
-			if (Minecraft.getInstance().world == null)
+			if (Minecraft.getInstance().level == null)
 				return;
-			Entity entity = Minecraft.getInstance().world.getEntityByID(entityId);
-			if (entity != null && entity.world != null) {
-				Vector3d pos = entity.getPositionVec();
-				Vector3d ppos = VecHelper.offsetRandomly(pos, entity.world.rand, .5f);
-				entity.world.addParticle(ParticleTypes.END_ROD, ppos.x, pos.y, ppos.z, 0, -.1f, 0);
+			Entity entity = Minecraft.getInstance().level.getEntity(entityId);
+			if (entity != null && entity.level != null) {
+				Vector3d pos = entity.position();
+				Vector3d ppos = VecHelper.offsetRandomly(pos, entity.level.random, .5f);
+				entity.level.addParticle(ParticleTypes.END_ROD, ppos.x, pos.y, ppos.z, 0, -.1f, 0);
 			}
 		});
 		ctx.setPacketHandled(true);

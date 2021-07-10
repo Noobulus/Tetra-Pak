@@ -30,14 +30,14 @@ public class BlockHelper {
 		World unwrappedWorld = WrappedServerWorld.unwrap(world);
 		FluidState fluidState = unwrappedWorld.getFluidState(pos);
 		BlockState state = unwrappedWorld.getBlockState(pos);
-		if (unwrappedWorld.rand.nextFloat() < effectChance)
-			unwrappedWorld.playEvent(2001, pos, Block.getStateId(state));
+		if (unwrappedWorld.random.nextFloat() < effectChance)
+			unwrappedWorld.levelEvent(2001, pos, Block.getId(state));
 		if (player != null) {
 			if (!(usedTool.getItem() instanceof ItemModularHandheld))
-				usedTool.onBlockDestroyed(unwrappedWorld, state, pos, player);
+				usedTool.mineBlock(unwrappedWorld, state, pos, player);
 			breakBlock(world, player, usedTool, pos);
 		} else {
-			unwrappedWorld.setBlockState(pos, fluidState.getBlockState());
+			unwrappedWorld.setBlockAndUpdate(pos, fluidState.createLegacyBlock());
 		}
 
 		if (world instanceof DropSimulationWorld)
@@ -49,13 +49,13 @@ public class BlockHelper {
 		BlockState offsetState = unwrappedWorld.getBlockState(pos);
 		ToolType effectiveTool = ItemModularHandheld.getEffectiveTool(offsetState);
 
-		float blockHardness = offsetState.getBlockHardness(unwrappedWorld, pos);
+		float blockHardness = offsetState.getDestroySpeed(unwrappedWorld, pos);
 		int toolLevel = tool.getItem().getHarvestLevel(tool, effectiveTool, player, offsetState);
-		if ((toolLevel >= 0 && toolLevel >= offsetState.getBlock().getHarvestLevel(offsetState) || tool.canHarvestBlock(offsetState))
+		if ((toolLevel >= 0 && toolLevel >= offsetState.getBlock().getHarvestLevel(offsetState) || tool.isCorrectToolForDrops(offsetState))
 			&& blockHardness != -1.0F
 			&& breakBlock(world, player, tool, pos, offsetState, true)) {
 
-			EffectHelper.sendEventToPlayer((ServerPlayerEntity) player, 2001, pos, Block.getStateId(offsetState));
+			EffectHelper.sendEventToPlayer((ServerPlayerEntity) player, 2001, pos, Block.getId(offsetState));
 			CastOptional.cast(tool.getItem(), ItemModularHandheld.class).ifPresent(itemHandheld -> itemHandheld.applyBreakEffects(tool, unwrappedWorld, offsetState, pos, player));
 			return true;
 		} else {
@@ -65,22 +65,22 @@ public class BlockHelper {
 
 	public static boolean breakBlock(World world, PlayerEntity breakingPlayer, ItemStack toolStack, BlockPos pos, BlockState blockState, boolean harvest) {
 		World unwrappedWorld = WrappedServerWorld.unwrap(world);
-		if (!unwrappedWorld.isRemote && unwrappedWorld instanceof ServerWorld) {
+		if (!unwrappedWorld.isClientSide && unwrappedWorld instanceof ServerWorld) {
 			ServerWorld serverWorld = (ServerWorld) unwrappedWorld;
 			ServerPlayerEntity serverPlayer = (ServerPlayerEntity) breakingPlayer;
-			GameType gameType = serverPlayer.interactionManager.getGameType();
+			GameType gameType = serverPlayer.gameMode.getGameModeForPlayer();
 			int exp = ForgeHooks.onBlockBreakEvent(serverWorld, gameType, serverPlayer, pos);
-			TileEntity tileEntity = serverWorld.getTileEntity(pos);
+			TileEntity tileEntity = serverWorld.getBlockEntity(pos);
 			if (exp == -1) {
 				return false;
 			} else {
-				boolean canRemove = !toolStack.onBlockStartBreak(pos, breakingPlayer) && !breakingPlayer.isBlockBreakingRestricted(serverWorld, pos, gameType) && (!harvest || blockState.canHarvestBlock(serverWorld, pos, breakingPlayer)) && blockState.getBlock().removedByPlayer(blockState, serverWorld, pos, breakingPlayer, harvest, serverWorld.getFluidState(pos));
+				boolean canRemove = !toolStack.onBlockStartBreak(pos, breakingPlayer) && !breakingPlayer.blockActionRestricted(serverWorld, pos, gameType) && (!harvest || blockState.canHarvestBlock(serverWorld, pos, breakingPlayer)) && blockState.getBlock().removedByPlayer(blockState, serverWorld, pos, breakingPlayer, harvest, serverWorld.getFluidState(pos));
 				if (canRemove) {
-					blockState.getBlock().onPlayerDestroy(serverWorld, pos, blockState);
+					blockState.getBlock().destroy(serverWorld, pos, blockState);
 					if (harvest) {
-						blockState.getBlock().harvestBlock(world, breakingPlayer, pos, blockState, tileEntity, toolStack);
+						blockState.getBlock().playerDestroy(world, breakingPlayer, pos, blockState, tileEntity, toolStack);
 						if (exp > 0) {
-							blockState.getBlock().dropXpOnBlockBreak(serverWorld, pos, exp);
+							blockState.getBlock().popExperience(serverWorld, pos, exp);
 						}
 					}
 				}

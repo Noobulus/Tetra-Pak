@@ -6,7 +6,7 @@ buildscript {
         maven {url='https://repo.spongepowered.org/maven'}
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '4.1.+', changing: true
         classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
     }
 }
@@ -33,22 +33,28 @@ repositories {
     maven {
         url 'https://jitpack.io/'
     }
+    maven {
+        // Location of the maven for mixed mappings, Registrate, and Flywheel
+        name = "tterrag maven"
+        url = "https://maven.tterrag.com/"
+    }
 }
 
 version = "${minecraft_version}-${mod_version}"
 group = "mod.noobulus.${modid}" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "${modid}"
 
-// java.toolchain.languageVersion = JavaLanguageVersion.of(8) // Mojang ships Java 8 to end users, so your mod should target Java 8.
+java.toolchain.languageVersion = JavaLanguageVersion.of(8) // Mojang ships Java 8 to end users, so your mod should target Java 8.
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
-    mappings channel: 'snapshot', version: '20200920-mixed-1.16.3'
+    mappings channel: 'official', version: "${minecraft_version}"
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
     runs {
         client {
             workingDirectory project.file('run')
-            jvmArgs "-Dmixin.env.disableRefMap=true"
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             arg '-mixin.config=tetrapak.mixins.json'
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
@@ -62,7 +68,8 @@ minecraft {
 
         server {
             workingDirectory project.file('run')
-            jvmArgs "-Dmixin.env.disableRefMap=true"
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             arg '-mixin.config=tetrapak.mixins.json'
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
@@ -97,7 +104,8 @@ dependencies {
 
     implementation fg.deobf("curse.maven:tetra-289712:3371803")
     implementation fg.deobf("curse.maven:mgui-351914:3291267")
-    implementation fg.deobf("curse.maven:create-328085:3278516")
+    implementation fg.deobf("curse.maven:create-328085:3384090")
+    implementation fg.deobf("curse.maven:flywheel-486392:3384004")
     runtimeOnly fg.deobf("curse.maven:druidcraft-340991:3177267")
     runtimeOnly fg.deobf("curse.maven:openloader-354339:3199872")
     runtimeOnly fg.deobf("curse.maven:neat-238372:3182258")

@@ -35,7 +35,7 @@ public class BlockCollection extends AbstractBlockBreakQueue {
 
 	public void destroyBlocks(World world, @Nullable LivingEntity entity, TriConsumer<BlockPos, BlockState, ItemStack> drop) {
 		PlayerEntity playerEntity = entity instanceof PlayerEntity ? (PlayerEntity) entity : null;
-		ItemStack toDamage = playerEntity != null && !playerEntity.isCreative() ? playerEntity.getHeldItemMainhand() : ItemStack.EMPTY;
+		ItemStack toDamage = playerEntity != null && !playerEntity.isCreative() ? playerEntity.getMainHandItem() : ItemStack.EMPTY;
 		this.destroyBlocks(world, toDamage, playerEntity, drop);
 	}
 
@@ -48,8 +48,8 @@ public class BlockCollection extends AbstractBlockBreakQueue {
 			drops.put(key, dropsAt);
 		});
 
-		if (!world.isRemote)
-			drops.forEach((inf, itemStacks) -> world.addEntity(new FragileFallingBlock(world, inf.getFirst(), inf.getSecond(), itemStacks)));
+		if (!world.isClientSide)
+			drops.forEach((inf, itemStacks) -> world.addFreshEntity(new FragileFallingBlock(world, inf.getFirst(), inf.getSecond(), itemStacks)));
 	}
 
 	protected Consumer<BlockPos> makeCallbackFor(World world, float effectChance, ItemStack toDamage, @Nullable PlayerEntity playerEntity, TriConsumer<BlockPos, BlockState, ItemStack> drop) {

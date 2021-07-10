@@ -11,14 +11,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ItemFrameEntity.class)
 public class ItemFrameMixin {
-	@Inject(at = @At("HEAD"), method = "attackEntityFrom")
+	@Inject(at = @At("HEAD"), method = "hurt")
 	private void onSpawnDropsPre(DamageSource damageSource, float p_70097_2_, CallbackInfoReturnable<Boolean> cir) {
 		if (!Mods.CREATE.isLoaded)
 			return;
 		FloatingEffect.INSTANCE.checkFloatiness(damageSource);
 	}
 
-	@Inject(at = @At("RETURN"), method = "attackEntityFrom")
+	@Inject(at = @At("RETURN"), method = "hurt")
 	private void onSpawnDropsEnd(DamageSource damageSource, float p_70097_2_, CallbackInfoReturnable<Boolean> cir) {
 		FloatingEffect.INSTANCE.resetFloatiness();
 	}

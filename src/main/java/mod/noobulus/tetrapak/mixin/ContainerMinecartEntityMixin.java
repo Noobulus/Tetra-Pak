@@ -11,14 +11,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ContainerMinecartEntity.class)
 public class ContainerMinecartEntityMixin {
-	@Inject(at = @At("HEAD"), method = "killMinecart")
+	@Inject(at = @At("HEAD"), method = "destroy")
 	private void onKillMinecartPre(DamageSource damageSource, CallbackInfo ci) {
 		if (!Mods.CREATE.isLoaded)
 			return;
 		FloatingEffect.INSTANCE.checkFloatiness(damageSource);
 	}
 
-	@Inject(at = @At("RETURN"), method = "killMinecart")
+	@Inject(at = @At("RETURN"), method = "destroy")
 	private void onKillMinecartPost(DamageSource damageSource, CallbackInfo ci) {
 		FloatingEffect.INSTANCE.resetFloatiness();
 	}

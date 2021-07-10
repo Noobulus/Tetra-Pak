@@ -16,14 +16,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Block.class)
 public class SpawnDropsMixin {
-	@Inject(at = @At("HEAD"), method = "spawnDrops(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/tileentity/TileEntity;Lnet/minecraft/entity/Entity;Lnet/minecraft/item/ItemStack;)V")
+	@Inject(at = @At("HEAD"), method = "dropResources(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/tileentity/TileEntity;Lnet/minecraft/entity/Entity;Lnet/minecraft/item/ItemStack;)V")
 	private static void onSpawnDropsPre(BlockState state, World world, BlockPos pos, TileEntity tileEntity, Entity entity, ItemStack stack, CallbackInfo ci) {
 		if (!Mods.CREATE.isLoaded)
 			return;
 		FloatingEffect.INSTANCE.checkFloatiness(stack);
 	}
 
-	@Inject(at = @At("RETURN"), method = "spawnDrops(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/tileentity/TileEntity;Lnet/minecraft/entity/Entity;Lnet/minecraft/item/ItemStack;)V")
+	@Inject(at = @At("RETURN"), method = "dropResources(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/tileentity/TileEntity;Lnet/minecraft/entity/Entity;Lnet/minecraft/item/ItemStack;)V")
 	private static void onSpawnDropsEnd(BlockState state, World world, BlockPos pos, TileEntity tileEntity, Entity entity, ItemStack stack, CallbackInfo ci) {
 		FloatingEffect.INSTANCE.resetFloatiness();
 	}

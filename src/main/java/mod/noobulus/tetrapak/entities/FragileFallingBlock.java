@@ -35,16 +35,16 @@ public class FragileFallingBlock extends FallingBlockEntity implements IEntityAd
 
 	public FragileFallingBlock(World world, BlockPos pos, BlockState state, Collection<ItemStack> drops) {
 		super(Entities.FRAGILE_FALLING_BLOCK.get(), world);
-		this.drops = NonNullList.from(ItemStack.EMPTY, drops.toArray(new ItemStack[0]));
-		this.fallTile = state;
-		this.preventEntitySpawning = true;
-		this.setPosition(pos.getX() + .5, pos.getY() + (1 - getHeight()) / 2., pos.getZ() + .5);
-		this.setMotion(Vector3d.ZERO);
-		this.prevPosX = pos.getX() + .5;
-		this.prevPosY = pos.getY();
-		this.prevPosZ = pos.getZ() + .5;
-		this.setOrigin(getBlockPos());
-		this.drops = NonNullList.from(ItemStack.EMPTY, drops.toArray(new ItemStack[0]));
+		this.drops = NonNullList.of(ItemStack.EMPTY, drops.toArray(new ItemStack[0]));
+		this.blockState = state;
+		this.blocksBuilding = true;
+		this.setPos(pos.getX() + .5, pos.getY() + (1 - getBbHeight()) / 2., pos.getZ() + .5);
+		this.setDeltaMovement(Vector3d.ZERO);
+		this.xo = pos.getX() + .5;
+		this.yo = pos.getY();
+		this.zo = pos.getZ() + .5;
+		this.setStartPos(blockPosition());
+		this.drops = NonNullList.of(ItemStack.EMPTY, drops.toArray(new ItemStack[0]));
 	}
 
 	@Override
@@ -57,52 +57,52 @@ public class FragileFallingBlock extends FallingBlockEntity implements IEntityAd
 			return;
 		}
 
-		if (!hasNoGravity())
-			setMotion(getMotion().add(0.0D, -0.04D, 0.0D));
+		if (!isNoGravity())
+			setDeltaMovement(getDeltaMovement().add(0.0D, -0.04D, 0.0D));
 
-		move(MoverType.SELF, getMotion());
-		if (!world.isRemote && (onGround || (fallTime > 100 && (getY() < 1 || getY() > 256)) || this.fallTime > 600))
+		move(MoverType.SELF, getDeltaMovement());
+		if (!level.isClientSide && (onGround || (time > 100 && (getY() < 1 || getY() > 256)) || this.time > 600))
 			dropItems();
 
-		setMotion(getMotion().scale(0.98D));
+		setDeltaMovement(getDeltaMovement().scale(0.98D));
 	}
 
 	private void dropItems() {
-		if (!world.isRemote)
-			drops.forEach(stack -> Block.spawnAsEntity(world, getBlockPos(), stack));
+		if (!level.isClientSide)
+			drops.forEach(stack -> Block.popResource(level, blockPosition(), stack));
 		this.remove();
 	}
 
 	@Override
-	protected void writeAdditional(CompoundNBT nbt) {
-		super.writeAdditional(nbt);
+	protected void addAdditionalSaveData(CompoundNBT nbt) {
+		super.addAdditionalSaveData(nbt);
 		ItemStackHelper.saveAllItems(nbt, drops);
 	}
 
 	@Override
-	protected void readAdditional(@Nullable CompoundNBT nbt) {
+	protected void readAdditionalSaveData(@Nullable CompoundNBT nbt) {
 		if (nbt == null)
 			return;
-		super.readAdditional(nbt);
+		super.readAdditionalSaveData(nbt);
 		drops = NonNullList.withSize(nbt.getList("Items", 10).size(), ItemStack.EMPTY);
 		ItemStackHelper.loadAllItems(nbt, drops);
 		ItemStackHelper.loadAllItems(nbt, drops);
 	}
 
 	@Override
-	public IPacket<?> createSpawnPacket() {
+	public IPacket<?> getAddEntityPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 
 	@Override
 	public void writeSpawnData(PacketBuffer buffer) {
 		CompoundNBT compound = new CompoundNBT();
-		writeAdditional(compound);
-		buffer.writeCompoundTag(compound);
+		addAdditionalSaveData(compound);
+		buffer.writeNbt(compound);
 	}
 
 	@Override
 	public void readSpawnData(PacketBuffer additionalData) {
-		readAdditional(additionalData.readCompoundTag());
+		readAdditionalSaveData(additionalData.readNbt());
 	}
 }

@@ -30,17 +30,17 @@ import javax.annotation.Nullable;
 public class MoonstrikeEffect implements IPercentageHoloDescription {
 
 	private static float getMoonFactor(IDayTimeReader world, float efficiency) {
-		return 1 + (efficiency * world.getMoonSize() / 100.f);
+		return 1 + (efficiency * world.getMoonBrightness() / 100.f);
 	}
 
 	private static void spawnMoonParticles(World world, Vector3d pos) {
-		if (world instanceof ServerWorld && world.getMoonSize() != 0) {
-			((ServerWorld) world).spawnParticle(getParticleType(world), pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, 12, (world.rand.nextDouble() * 2.0D - 1.0D) * 0.3D, 0.3D + world.rand.nextDouble() * 0.3D, (world.rand.nextDouble() * 2.0D - 1.0D) * 0.3D, 0.3D);
+		if (world instanceof ServerWorld && world.getMoonBrightness() != 0) {
+			((ServerWorld) world).sendParticles(getParticleType(world), pos.x() + 0.5D, pos.y() + 0.5D, pos.z() + 0.5D, 12, (world.random.nextDouble() * 2.0D - 1.0D) * 0.3D, 0.3D + world.random.nextDouble() * 0.3D, (world.random.nextDouble() * 2.0D - 1.0D) * 0.3D, 0.3D);
 		}
 	}
 
 	private static BasicParticleType getParticleType(IDayTimeReader world) {
-		float moonSize = world.getMoonSize();
+		float moonSize = world.getMoonBrightness();
 		return (moonSize > .5 ?
 			(moonSize > .75 ? Particles.MOONSTRIKE_STAGE_3 : Particles.MOONSTRIKE_STAGE_2) :
 			(moonSize > .25 ? Particles.MOONSTRIKE_STAGE_1 : Particles.MOONSTRIKE_STAGE_0)).get();
@@ -48,13 +48,13 @@ public class MoonstrikeEffect implements IPercentageHoloDescription {
 
 	@SubscribeEvent
 	public void moonstrikeToolsBreakBlocksFaster(PlayerEvent.BreakSpeed event) {
-		ItemStack heldItemMainhand = event.getPlayer().getHeldItemMainhand();
+		ItemStack heldItemMainhand = event.getPlayer().getMainHandItem();
 		if (!(heldItemMainhand.getItem() instanceof ModularItem))
 			return;
 		ModularItem item = (ModularItem) heldItemMainhand.getItem();
 		if (hasEffect(heldItemMainhand)) {
-			World moonPhaseWorld = event.getPlayer().getEntityWorld();
-			spawnMoonParticles(moonPhaseWorld, Vector3d.of(event.getPos()));
+			World moonPhaseWorld = event.getPlayer().getCommandSenderWorld();
+			spawnMoonParticles(moonPhaseWorld, Vector3d.atLowerCornerOf(event.getPos()));
 			float efficiency = (float) item.getEffectEfficiency(heldItemMainhand, getEffect());
 			event.setNewSpeed(event.getOriginalSpeed() * getMoonFactor(moonPhaseWorld, efficiency));
 		}
@@ -63,13 +63,13 @@ public class MoonstrikeEffect implements IPercentageHoloDescription {
 	@SubscribeEvent
 	public void moonstrikeCausesBonusDamage(LivingHurtEvent event) {
 		if (shouldMoonstrikeAffect(event.getSource())) {
-			Entity source = event.getSource().getImmediateSource();
+			Entity source = event.getSource().getDirectEntity();
 			if (source == null)
 				return;
-			World moonPhaseWorld = source.getEntityWorld();
+			World moonPhaseWorld = source.getCommandSenderWorld();
 			float efficiency = getEffectEfficiency(event.getSource());
-			if (moonPhaseWorld.getMoonSize() != 0)
-				DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> Minecraft.getInstance().particles.addParticleEmitter(event.getEntity(), getParticleType(moonPhaseWorld)));
+			if (moonPhaseWorld.getMoonBrightness() != 0)
+				DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> Minecraft.getInstance().particleEngine.createTrackingEmitter(event.getEntity(), getParticleType(moonPhaseWorld)));
 			event.setAmount(event.getAmount() * getMoonFactor(moonPhaseWorld, efficiency));
 		}
 	}
@@ -77,18 +77,18 @@ public class MoonstrikeEffect implements IPercentageHoloDescription {
 	private boolean shouldMoonstrikeAffect(@Nullable DamageSource source) {
 		if (source == null)
 			return false;
-		if (source.getTrueSource() instanceof LivingEntity) {
-			LivingEntity user = (LivingEntity) source.getTrueSource();
+		if (source.getEntity() instanceof LivingEntity) {
+			LivingEntity user = (LivingEntity) source.getEntity();
 
-			return hasEffect(user.getHeldItemMainhand()) ||
-				hasEffect(ItemHelper.getThrownItemStack(source.getImmediateSource()));
+			return hasEffect(user.getMainHandItem()) ||
+				hasEffect(ItemHelper.getThrownItemStack(source.getDirectEntity()));
 		}
 		return false;
 	}
 
 	@Override
 	public ITooltipGetter getStatTooltipGetter(IStatGetter statGetter) {
-		return (player, itemStack) -> I18n.format(getTooltipPath(),
+		return (player, itemStack) -> I18n.get(getTooltipPath(),
 			statGetter.getValue(player, itemStack), statGetter.getValue(player, itemStack));
 	}
 
