@@ -1,16 +1,13 @@
 package mod.noobulus.tetrapak.druidcraft;
 
 import mod.noobulus.tetrapak.registries.Particles;
-import mod.noobulus.tetrapak.util.ItemHelper;
 import mod.noobulus.tetrapak.util.tetra_definitions.IPercentageHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.BasicParticleType;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IDayTimeReader;
 import net.minecraft.world.World;
@@ -25,12 +22,10 @@ import se.mickelus.tetra.gui.statbar.getter.IStatGetter;
 import se.mickelus.tetra.gui.statbar.getter.ITooltipGetter;
 import se.mickelus.tetra.items.modular.ModularItem;
 
-import javax.annotation.Nullable;
-
 public class MoonstrikeEffect implements IPercentageHoloDescription {
 
-	private static float getMoonFactor(IDayTimeReader world, float efficiency) {
-		return 1 + (efficiency * world.getMoonBrightness() / 100.f);
+	private static float getMoonFactor(IDayTimeReader world, double efficiency) {
+		return (float) (1 + (efficiency * world.getMoonBrightness() / 100.d));
 	}
 
 	private static void spawnMoonParticles(World world, Vector3d pos) {
@@ -62,28 +57,16 @@ public class MoonstrikeEffect implements IPercentageHoloDescription {
 
 	@SubscribeEvent
 	public void moonstrikeCausesBonusDamage(LivingHurtEvent event) {
-		if (shouldMoonstrikeAffect(event.getSource())) {
+		if (hasEffect(event.getSource())) {
 			Entity source = event.getSource().getDirectEntity();
 			if (source == null)
 				return;
 			World moonPhaseWorld = source.getCommandSenderWorld();
-			float efficiency = getEffectEfficiency(event.getSource());
+			double efficiency = getEffectEfficiency(event.getSource());
 			if (moonPhaseWorld.getMoonBrightness() != 0)
 				DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> Minecraft.getInstance().particleEngine.createTrackingEmitter(event.getEntity(), getParticleType(moonPhaseWorld)));
 			event.setAmount(event.getAmount() * getMoonFactor(moonPhaseWorld, efficiency));
 		}
-	}
-
-	private boolean shouldMoonstrikeAffect(@Nullable DamageSource source) {
-		if (source == null)
-			return false;
-		if (source.getEntity() instanceof LivingEntity) {
-			LivingEntity user = (LivingEntity) source.getEntity();
-
-			return hasEffect(user.getMainHandItem()) ||
-				hasEffect(ItemHelper.getThrownItemStack(source.getDirectEntity()));
-		}
-		return false;
 	}
 
 	@Override

@@ -2,11 +2,9 @@ package mod.noobulus.tetrapak.create.refined_radiance;
 
 import mod.noobulus.tetrapak.networking.EntityFloatParticlePacket;
 import mod.noobulus.tetrapak.networking.Packets;
-import mod.noobulus.tetrapak.util.ItemHelper;
 import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
@@ -17,8 +15,6 @@ import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.network.PacketDistributor;
 import se.mickelus.tetra.effect.ItemEffect;
-
-import javax.annotation.Nullable;
 
 public class FloatingEffect implements IHoloDescription {
 	public static final FloatingEffect INSTANCE = new FloatingEffect();
@@ -52,23 +48,12 @@ public class FloatingEffect implements IHoloDescription {
 	}
 
 	public void checkFloatiness(DamageSource source) {
-		makeItemsFloat = shouldFloatingAffect(source);
-	}
-
-	private boolean shouldFloatingAffect(@Nullable DamageSource source) {
-		if (source == null)
-			return false;
-		if (source.getEntity() instanceof LivingEntity) {
-			LivingEntity user = (LivingEntity) source.getEntity();
-			return hasEffect(user.getMainHandItem())
-				|| hasEffect(ItemHelper.getThrownItemStack(source.getDirectEntity()));
-		}
-		return false;
+		makeItemsFloat = hasEffect(source);
 	}
 
 	@SubscribeEvent
 	public void floatingKillsLevitateDrops(LivingDropsEvent event) {
-		if (shouldFloatingAffect(event.getSource()))
+		if (hasEffect(event.getSource()))
 			event.getDrops().forEach(FloatingEffect::makeFloaty);
 	}
 

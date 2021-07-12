@@ -21,22 +21,10 @@ import se.mickelus.tetra.effect.ItemEffect;
 public class DeforestingEffect implements IHoloDescription {
 	private static boolean deforesting = false; // required as to not run into "recursions" over forge events on tree cutting
 
-	@SubscribeEvent
-	public void deforestWhenBlockBroken(BlockEvent.BreakEvent event) {
-		if (hasEffect(event.getPlayer().getMainHandItem())) {
-			destroyTree(event.getWorld(), event.getState(), event.getPos(), event.getPlayer());
-		}
-	}
-
-	@Override
-	public ItemEffect getEffect() {
-		return ITetraEffect.get("deforesting");
-	}
-
 	public static void destroyTree(IWorld iWorld, BlockState state, BlockPos pos,
 								   PlayerEntity player) {
 
-		if (deforesting ||!(state.is(BlockTags.LOGS) || AllTags.AllBlockTags.SLIMY_LOGS.matches(state)) || player.isCrouching() || !(iWorld instanceof  World))
+		if (deforesting || !(state.is(BlockTags.LOGS) || AllTags.AllBlockTags.SLIMY_LOGS.matches(state)) || player.isCrouching() || !(iWorld instanceof World))
 			return;
 		World worldIn = (World) iWorld;
 		Vector3d vec = player.getLookAngle();
@@ -53,5 +41,17 @@ public class DeforestingEffect implements IHoloDescription {
 		ItemEntity entity = new ItemEntity(world, dropPos.x, dropPos.y, dropPos.z, stack);
 		entity.setDeltaMovement(fallDirection.scale(distance / 20f));
 		world.addFreshEntity(entity);
+	}
+
+	@SubscribeEvent
+	public void deforestWhenBlockBroken(BlockEvent.BreakEvent event) {
+		if (hasEffect(event.getPlayer().getMainHandItem())) {
+			destroyTree(event.getWorld(), event.getState(), event.getPos(), event.getPlayer());
+		}
+	}
+
+	@Override
+	public ItemEffect getEffect() {
+		return ITetraEffect.get("deforesting");
 	}
 }

@@ -2,7 +2,6 @@ package mod.noobulus.tetrapak.create;
 
 import mod.noobulus.tetrapak.loot.VoidingLootModifier;
 import mod.noobulus.tetrapak.util.DamageBufferer;
-import mod.noobulus.tetrapak.util.ItemHelper;
 import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ILootModifier;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
@@ -33,9 +32,10 @@ public class VoidingEffect implements IHoloDescription, ILootModifier<VoidingLoo
 	@SubscribeEvent
 	public void voidingKillsMultiplyExp(LivingExperienceDropEvent event) {
 		LivingEntity target = event.getEntityLiving();
-		if (shouldVoidingAffect(DamageBufferer.getLastActiveDamageSource(), target)) {
+		DamageSource lastActive = DamageBufferer.getLastActiveDamageSource();
+		if (shouldVoidingAffect(lastActive, target)) {
 			int levelLooting = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.MOB_LOOTING, event.getAttackingPlayer().getMainHandItem());
-			float modifier = 1 + (getEffectEfficiency() * (levelLooting + 2));
+			double modifier = 1 + (getEffectEfficiency(lastActive) * (levelLooting + 2));
 			event.setDroppedExperience((int) (event.getDroppedExperience() * modifier));
 		}
 	}
@@ -45,10 +45,10 @@ public class VoidingEffect implements IHoloDescription, ILootModifier<VoidingLoo
 		ItemStack heldItemMainhand = event.getPlayer().getMainHandItem();
 		if (hasEffect(heldItemMainhand)) {
 			int levelFortune = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_FORTUNE, heldItemMainhand);
-			float efficiency = getEffectEfficiency(DamageBufferer.getLastActiveDamageSource());
-			float modifier = 1 + efficiency * (levelFortune + 2);
+			double efficiency = getEffectEfficiency(heldItemMainhand);
+			double modifier = 1 + efficiency * (levelFortune + 2);
 			float hardness = event.getState().getDestroySpeed(event.getWorld(), event.getPos());
-			float hardnessExp = 0;
+			double hardnessExp = 0;
 			if (hardness > 3.1) // free exp for mining stone is a little bit much
 				hardnessExp = (0.1f * (hardness * (1 + efficiency))); // give exp based on broken block hardness, does not scale with fortune
 			event.setExpToDrop((int) ((event.getExpToDrop() * modifier) + hardnessExp));
@@ -64,14 +64,9 @@ public class VoidingEffect implements IHoloDescription, ILootModifier<VoidingLoo
 	}
 
 	private boolean shouldVoidingAffect(@Nullable DamageSource source, Entity target) {
-		if (source == null)
+		if (target instanceof PlayerEntity)
 			return false;
-		if (source.getEntity() instanceof LivingEntity && !(target instanceof PlayerEntity)) {
-			LivingEntity user = (LivingEntity) source.getEntity();
-			return hasEffect(user.getMainHandItem())
-				|| hasEffect(ItemHelper.getThrownItemStack(source.getDirectEntity()));
-		}
-		return false;
+		return hasEffect(source);
 	}
 
 	@Override

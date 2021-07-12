@@ -1,10 +1,7 @@
 package mod.noobulus.tetrapak.util.tetra_definitions;
 
 import mod.noobulus.tetrapak.BuildConfig;
-import mod.noobulus.tetrapak.util.DamageBufferer;
-import mod.noobulus.tetrapak.util.ItemHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
@@ -14,6 +11,8 @@ import se.mickelus.tetra.items.modular.ModularItem;
 import se.mickelus.tetra.items.modular.impl.toolbelt.ToolbeltHelper;
 
 import javax.annotation.Nullable;
+
+import static mod.noobulus.tetrapak.util.ItemHelper.getModularItemOfDamgeSource;
 
 public interface ITetraEffect {
 	static ItemEffect get(String key) {
@@ -33,10 +32,6 @@ public interface ITetraEffect {
 		doBeltTick(player, getEffectLevel(belt));
 	}
 
-	default float getEffectEfficiency() {
-		return getEffectEfficiency(DamageBufferer.getLastActiveDamageSource());
-	}
-
 	default int getBeltEffectLevel(PlayerEntity playerEntity) {
 		return getEffectLevel(ToolbeltHelper.findToolbelt((playerEntity)));
 	}
@@ -47,25 +42,19 @@ public interface ITetraEffect {
 		return false;
 	}
 
-	default float getEffectEfficiency(@Nullable DamageSource source) {
-		ItemEffect effect = getEffect();
-		if (source == null)
-			return 0;
-		if (source.getEntity() instanceof LivingEntity) {
-			LivingEntity user = (LivingEntity) source.getEntity();
-			ItemStack heldItem = user.getMainHandItem();
+	default double getEffectEfficiency(@Nullable DamageSource source) {
+		return getEffectEfficiency(getModularItemOfDamgeSource(source));
+	}
 
-			if (heldItem.getItem() instanceof ModularItem) {
-				ModularItem heldModularitem = (ModularItem) heldItem.getItem();
-				return (float) heldModularitem.getEffectEfficiency(heldItem, effect);
-			}
-			ItemStack thrownItem = ItemHelper.getThrownItemStack(source.getDirectEntity());
-			if (thrownItem != null && thrownItem.getItem() instanceof ModularItem) {
-				ModularItem thrownModularItem = (ModularItem) thrownItem.getItem();
-				return (float) thrownModularItem.getEffectEfficiency(thrownItem, effect);
-			}
-		}
-		return 0;
+	default boolean hasEffect(DamageSource source) {
+		return hasEffect(getModularItemOfDamgeSource(source));
+	}
+
+	default double getEffectEfficiency(@Nullable ItemStack test) {
+		if (test == null || test.isEmpty() || !(test.getItem() instanceof ModularItem))
+			return 0;
+		ModularItem item = (ModularItem) test.getItem();
+		return item.getEffectEfficiency(test, getEffect());
 	}
 
 	default String getStatsPath() {
