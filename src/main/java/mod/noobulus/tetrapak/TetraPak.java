@@ -7,10 +7,12 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Mod(BuildConfig.MODID)
 public class TetraPak {
-	public static final String MODID = "tetrapak";
+	public static final Logger LOGGER = LogManager.getLogger(BuildConfig.MODID);
 
 	public TetraPak() {
 		Mods.registerEventListeners();

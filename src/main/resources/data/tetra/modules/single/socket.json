@@ -111,6 +111,186 @@
           "tint": "e9f7f6"
         }
       ]
+    },
+    {
+      "key": "single_socket/red_crystal_cluster",
+      "category": "gem",
+      "durability": 0,
+      "integrity": -1,
+      "effects": {
+        "tetrapak:rainbow": 1
+      },
+      "glyph": {
+        "tint": "f0340a",
+        "textureX": 80,
+        "textureY": 16
+      },
+      "models": [
+        {
+          "location": "tetra:items/module/single/binding/socket/pristine",
+          "tint": "f0340a"
+        }
+      ]
+    },
+    {
+      "key": "single_socket/orange_crystal_cluster",
+      "category": "gem",
+      "durability": 0,
+      "integrity": -1,
+      "effects": {
+        "tetrapak:rainbow": 2
+      },
+      "glyph": {
+        "tint": "f0851a",
+        "textureX": 80,
+        "textureY": 16
+      },
+      "models": [
+        {
+          "location": "tetra:items/module/single/binding/socket/pristine",
+          "tint": "f0851a"
+        }
+      ]
+    },
+    {
+      "key": "single_socket/yellow_crystal_cluster",
+      "category": "gem",
+      "durability": 0,
+      "integrity": -1,
+      "effects": {
+        "tetrapak:rainbow": 3
+      },
+      "glyph": {
+        "tint": "f2db2c",
+        "textureX": 80,
+        "textureY": 16
+      },
+      "models": [
+        {
+          "location": "tetra:items/module/single/binding/socket/pristine",
+          "tint": "f2db2c"
+        }
+      ]
+    },
+    {
+      "key": "single_socket/green_crystal_cluster",
+      "category": "gem",
+      "durability": 0,
+      "integrity": -1,
+      "effects": {
+        "tetrapak:rainbow": 4
+      },
+      "glyph": {
+        "tint": "3eab0c",
+        "textureX": 80,
+        "textureY": 16
+      },
+      "models": [
+        {
+          "location": "tetra:items/module/single/binding/socket/pristine",
+          "tint": "3eab0c"
+        }
+      ]
+    },
+    {
+      "key": "single_socket/blue_crystal_cluster",
+      "category": "gem",
+      "durability": 0,
+      "integrity": -1,
+      "effects": {
+        "tetrapak:rainbow": 5
+      },
+      "glyph": {
+        "tint": "5ce2fa",
+        "textureX": 80,
+        "textureY": 16
+      },
+      "models": [
+        {
+          "location": "tetra:items/module/single/binding/socket/pristine",
+          "tint": "5ce2fa"
+        }
+      ]
+    },
+    {
+      "key": "single_socket/indigo_crystal_cluster",
+      "category": "gem",
+      "durability": 0,
+      "integrity": -1,
+      "effects": {
+        "tetrapak:rainbow": 6
+      },
+      "glyph": {
+        "tint": "9247ed",
+        "textureX": 80,
+        "textureY": 16
+      },
+      "models": [
+        {
+          "location": "tetra:items/module/single/binding/socket/pristine",
+          "tint": "9247ed"
+        }
+      ]
+    },
+    {
+      "key": "single_socket/violet_crystal_cluster",
+      "category": "gem",
+      "durability": 0,
+      "integrity": -1,
+      "effects": {
+        "tetrapak:rainbow": 7
+      },
+      "glyph": {
+        "tint": "f2a2f5",
+        "textureX": 80,
+        "textureY": 16
+      },
+      "models": [
+        {
+          "location": "tetra:items/module/single/binding/socket/pristine",
+          "tint": "f2a2f5"
+        }
+      ]
+    },
+    {
+      "key": "single_socket/white_crystal_cluster",
+      "category": "gem",
+      "durability": 0,
+      "integrity": -1,
+      "effects": {
+        "tetrapak:rainbow": 8
+      },
+      "glyph": {
+        "tint": "ffffff",
+        "textureX": 80,
+        "textureY": 16
+      },
+      "models": [
+        {
+          "location": "tetra:items/module/single/binding/socket/pristine",
+          "tint": "ffffff"
+        }
+      ]
+    },
+    {
+      "key": "single_socket/black_crystal_cluster",
+      "category": "gem",
+      "durability": 0,
+      "integrity": -1,
+      "effects": {
+        "tetrapak:rainbow": 9
+      },
+      "glyph": {
+        "tint": "000000",
+        "textureX": 80,
+        "textureY": 16
+      },
+      "models": [
+        {
+          "location": "tetra:items/module/single/binding/socket/pristine",
+          "tint": "000000"
+        }
+      ]
     }
   ]
 }

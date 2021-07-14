@@ -49,6 +49,78 @@
       "experienceCost": 3,
       "moduleKey": "single/socket",
       "moduleVariant": "single_socket/refined_radiance"
+    },
+    {
+      "material": {
+        "item": "quark:red_crystal_cluster"
+      },
+      "experienceCost": 3,
+      "moduleKey": "single/socket",
+      "moduleVariant": "single_socket/red_crystal_cluster"
+    },
+    {
+      "material": {
+        "item": "quark:orange_crystal_cluster"
+      },
+      "experienceCost": 3,
+      "moduleKey": "single/socket",
+      "moduleVariant": "single_socket/orange_crystal_cluster"
+    },
+    {
+      "material": {
+        "item": "quark:yellow_crystal_cluster"
+      },
+      "experienceCost": 3,
+      "moduleKey": "single/socket",
+      "moduleVariant": "single_socket/yellow_crystal_cluster"
+    },
+    {
+      "material": {
+        "item": "quark:green_crystal_cluster"
+      },
+      "experienceCost": 3,
+      "moduleKey": "single/socket",
+      "moduleVariant": "single_socket/green_crystal_cluster"
+    },
+    {
+      "material": {
+        "item": "quark:blue_crystal_cluster"
+      },
+      "experienceCost": 3,
+      "moduleKey": "single/socket",
+      "moduleVariant": "single_socket/blue_crystal_cluster"
+    },
+    {
+      "material": {
+        "item": "quark:indigo_crystal_cluster"
+      },
+      "experienceCost": 3,
+      "moduleKey": "single/socket",
+      "moduleVariant": "single_socket/indigo_crystal_cluster"
+    },
+    {
+      "material": {
+        "item": "quark:violet_crystal_cluster"
+      },
+      "experienceCost": 3,
+      "moduleKey": "single/socket",
+      "moduleVariant": "single_socket/violet_crystal_cluster"
+    },
+    {
+      "material": {
+        "item": "quark:white_crystal_cluster"
+      },
+      "experienceCost": 3,
+      "moduleKey": "single/socket",
+      "moduleVariant": "single_socket/white_crystal_cluster"
+    },
+    {
+      "material": {
+        "item": "quark:black_crystal_cluster"
+      },
+      "experienceCost": 3,
+      "moduleKey": "single/socket",
+      "moduleVariant": "single_socket/black_crystal_cluster"
     }
   ]
 }
