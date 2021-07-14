@@ -1,5 +1,6 @@
 package mod.noobulus.tetrapak.quark;
 
+import mod.noobulus.tetrapak.Config;
 import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
 import net.minecraft.util.math.BlockPos;
@@ -26,6 +27,6 @@ public class CorundumEffect implements IHoloDescription {
 		BlockPos pos = event.getPos();
 		IBlockReader world = event.getEntityLiving().level;
 		boolean matches = CorundumMap.COLOR_MAP.get(world.getBlockState(event.getPos()).getMapColor(world, pos)) == effectLevel;
-		event.setNewSpeed(event.getOriginalSpeed() * (matches ? 1.5f : 0.5f));
+		event.setNewSpeed((float) (event.getOriginalSpeed() * (matches ? Config.MATCHING_CRYSTAL_FACTOR.get() : Config.NON_MATCHING_CRYSTAL_FACTOR.get())));
 	}
 }
