@@ -110,5 +110,7 @@
   "tetra.variant.double_socket/black_crystal_cluster": "Socket [\u00a70Black Crystal\u00a7r]",
   "tetra.variant.double_socket/black_crystal_cluster.description": "A gem, fitted onto the side of the tool head. The gem is enchanted and hastens harvesting of black blocks.",
   "tetra.variant.single_socket/black_crystal_cluster": "Socket [\u00a70Black Crystal\u00a7r]",
-  "tetra.variant.single_socket/black_crystal_cluster.description": "A gem, attached where the head meets the handle. The gem is enchanted and hastens harvesting of black blocks."
+  "tetra.variant.single_socket/black_crystal_cluster.description": "A gem, attached where the head meets the handle. The gem is enchanted and hastens harvesting of black blocks.",
+  "tetrapak.advancements.wither_void.title": "The Flex",
+  "tetrapak.advancements.wither_void.description": "Kill a Wither with a Shadow Steel tool"
 }
