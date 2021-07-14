@@ -22,7 +22,7 @@ public class Config {
 		MATCHING_CRYSTAL_FACTOR = commonBuilder.comment("Matching Crystal color mining speed factor")
 			.defineInRange("matching_crystal_factor", 1.5f, 0f, 10);
 		NON_MATCHING_CRYSTAL_FACTOR = commonBuilder.comment("Non-matching Crystal color mining speed factor")
-			.defineInRange("matching_crystal_factor", 0.5f, 0f, 10);
+			.defineInRange("non_matching_crystal_factor", 0.5f, 0f, 10);
 		commonBuilder.pop();
 
 		// Create
