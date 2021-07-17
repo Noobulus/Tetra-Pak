@@ -55,12 +55,12 @@ minecraft {
             workingDirectory project.file('run')
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
-            arg '-mixin.config=tetrapak.mixins.json'
+            arg "-mixin.config=${modid}.mixins.json".toString()
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                tetrapak {
+                "${modid}" {
                     source sourceSets.main
                 }
             }
@@ -70,12 +70,12 @@ minecraft {
             workingDirectory project.file('run')
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
-            arg '-mixin.config=tetrapak.mixins.json'
+            arg "-mixin.config=${modid}.mixins.json".toString()
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                tetrapak {
+                "${modid}" {
                     source sourceSets.main
                 }
             }
@@ -86,10 +86,10 @@ minecraft {
             jvmArgs "-Dmixin.env.disableRefMap=true"
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
-            args '--mod', 'tetrapak', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args "--mod", "${modid}".toString(), "--all", "--output", file('src/generated/resources/'), "--existing", file('src/main/resources/')
 
             mods {
-                tetrapak {
+                "${modid}" {
                     source sourceSets.main
                 }
             }
@@ -175,7 +175,6 @@ def hasUnstaged = { ->
 buildConfig {
     buildConfigField 'String', 'MODID', "\"${modid}\""
     buildConfigField 'String', 'VERSION', "\"${project.version}\""
-    buildConfigField 'String', 'MODID', "\"${modid}\""
     def gitstage = "\"${getGitHash()}" + (hasUnstaged() ? "-modified" : "") + "\""
     println("Using git stage ${gitstage}")
     buildConfigField "String", "GITHASH", gitstage
