@@ -207,7 +207,7 @@ buildConfig {
     buildConfigField 'String', 'VERSION', "\"${project.version}\""
     def gitstage = getGitInfo()
     println("Using git stage ${gitstage}")
-    buildConfigField "String", "GITHASH", gitstage
+    buildConfigField "String", "GITHASH", "\"${gitstage}\""
 
     version = project.version
     packageName = project.group
