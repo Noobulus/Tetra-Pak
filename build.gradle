@@ -176,17 +176,15 @@ def hasUnstaged = { ->
 }
 
 def hasCommandInstalled = { cmd ->
+    if (!Os.isFamily(Os.FAMILY_WINDOWS)) // assume git is there on linux
+        return true
     def stdout = new ByteArrayOutputStream()
     def stderr = new ByteArrayOutputStream()
     return exec{
         ignoreExitValue = true
         standardOutput = stdout
         errorOutput = stderr
-        if (Os.isFamily(Os.FAMILY_WINDOWS)) {
-            commandLine "where", cmd
-        } else {
-            commandLine "command", "-v", cmd
-        }
+        commandLine "where", cmd
     }.getExitValue()==0 && stdout.toString().trim().contains(cmd)
 }
 
