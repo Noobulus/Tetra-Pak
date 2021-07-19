@@ -83,10 +83,11 @@ minecraft {
 
         data {
             workingDirectory project.file('run')
-            jvmArgs "-Dmixin.env.disableRefMap=true"
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
-            args "--mod", "${modid}".toString(), "--all", "--output", file('src/generated/resources/'), "--existing", file('src/main/resources/')
+            args "--mod", modid, "--all", "--output", file('src/generated/resources/'), "--existing", file('src/main/resources/')
 
             mods {
                 "${modid}" {
@@ -172,10 +173,18 @@ def hasUnstaged = { ->
     return !result.isEmpty()
 }
 
+def hasGit = { ->
+    def result = exec{
+        ignoreExitValue = true
+        commandLine "git", "--version"
+    }
+    return result.getExitValue()==0
+}
+
 buildConfig {
     buildConfigField 'String', 'MODID', "\"${modid}\""
     buildConfigField 'String', 'VERSION', "\"${project.version}\""
-    def gitstage = "\"${getGitHash()}" + (hasUnstaged() ? "-modified" : "") + "\""
+    def gitstage = hasGit() ? ("\"${getGitHash()}" + (hasUnstaged() ? "-modified" : "") + "\"") : "NOGIT"
     println("Using git stage ${gitstage}")
     buildConfigField "String", "GITHASH", gitstage
 
