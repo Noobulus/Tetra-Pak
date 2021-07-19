@@ -1,0 +1,9 @@
+{
+  "type": "tetrapak:reaping",
+  "conditions": [
+    {
+      "condition": "tetrapak:should_effect_affect",
+      "effect": "tetrapak:reaping"
+    }
+  ]
+}

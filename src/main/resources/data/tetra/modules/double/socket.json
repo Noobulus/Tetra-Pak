@@ -289,6 +289,26 @@
         {
           "location": "tetra:items/module/double/binding/socket/pristine",
           "tint": "000000"
+        },
+        {
+          "key": "double_socket/unholy_symbol",
+          "category": "misc",
+          "durability": 35,
+          "integrity": -1,
+          "attributes": {
+            "tetrapak:reaping": 1
+          },
+          "glyph": {
+            "tint": "bab0a2",
+            "textureX": 80,
+            "textureY": 16
+          },
+          "models": [
+            {
+              "location": "tetra:items/module/double/binding/socket/pristine",
+              "tint": "bab0a2"
+            }
+          ]
         }
       ]
     }

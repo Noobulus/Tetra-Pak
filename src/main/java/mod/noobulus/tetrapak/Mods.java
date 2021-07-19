@@ -35,6 +35,7 @@ public enum Mods {
 	CREATE("create", CollapsingEffect::new, DeforestingEffect::new, UnearthingEffect::new, NullifyingEffect::new, VoidingEffect::new, () -> FloatingEffect.INSTANCE),
 	DRUIDCRAFT("druidcraft", MoonstrikeEffect::new, MoonsightEffect::new, RegrowthEffect::new, ScorchingEffect::new),
 	QUARK("quark", CorundumEffect::new);
+	EIDOLON("eidolon", ReapingEffect::new),
 
 	public final boolean isLoaded;
 	private final Set<ITetraEffect> loadedListeners = new HashSet<>();
