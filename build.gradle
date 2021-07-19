@@ -1,3 +1,5 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
 buildscript {
     repositories {
         maven { url = 'https://files.minecraftforge.net/maven' }
@@ -180,7 +182,11 @@ def hasCommandInstalled = { cmd ->
         ignoreExitValue = true
         standardOutput = stdout
         errorOutput = stderr
-        commandLine "where", cmd
+        if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+            commandLine "where", cmd
+        } else {
+            commandLine "command", "-v", cmd
+        }
     }.getExitValue()==0 && stdout.toString().trim().contains(cmd)
 }
 
