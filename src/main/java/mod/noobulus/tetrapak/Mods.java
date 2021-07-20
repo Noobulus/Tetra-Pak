@@ -10,6 +10,7 @@ import mod.noobulus.tetrapak.druidcraft.MoonsightEffect;
 import mod.noobulus.tetrapak.druidcraft.MoonstrikeEffect;
 import mod.noobulus.tetrapak.druidcraft.RegrowthEffect;
 import mod.noobulus.tetrapak.druidcraft.ScorchingEffect;
+//import mod.noobulus.tetrapak.eidolon.ReapingEffect;
 import mod.noobulus.tetrapak.quark.CorundumEffect;
 import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ILootModifier;
@@ -35,7 +36,7 @@ public enum Mods {
 	CREATE("create", CollapsingEffect::new, DeforestingEffect::new, UnearthingEffect::new, NullifyingEffect::new, VoidingEffect::new, () -> FloatingEffect.INSTANCE),
 	DRUIDCRAFT("druidcraft", MoonstrikeEffect::new, MoonsightEffect::new, RegrowthEffect::new, ScorchingEffect::new),
 	QUARK("quark", CorundumEffect::new),
-	EIDOLON("eidolon", ReapingEffect::new);
+	EIDOLON("eidolon");//, ReapingEffect::new);
 
 	public final boolean isLoaded;
 	private final Set<ITetraEffect> loadedListeners = new HashSet<>();

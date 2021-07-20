@@ -299,14 +299,14 @@
             "tetrapak:reaping": 1
           },
           "glyph": {
-            "tint": "bab0a2",
+            "tint": "cccbc4",
             "textureX": 80,
             "textureY": 16
           },
           "models": [
             {
-              "location": "tetra:items/module/double/binding/socket/pristine",
-              "tint": "bab0a2"
+              "location": "tetra:items/module/double/binding/socket/default",
+              "tint": "cccbc4"
             }
           ]
         }

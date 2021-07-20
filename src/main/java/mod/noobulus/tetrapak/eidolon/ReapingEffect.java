@@ -1,7 +1,12 @@
+/*
 package mod.noobulus.tetrapak.eidolon;
 
-import mod.noobulus.tetrapak.loot.VoidingLootModifier;
+import src.main.java.elucent.eidolon.Registry;
+import mod.noobulus.tetrapak.loot.ReapingLootModifier;
+import net.minecraft.entity.CreatureAttribute;
+import net.minecraft.entity.monster.*;
 import mod.noobulus.tetrapak.util.DamageBufferer;
+import net.minecraft.entity.player.PlayerEntity;
 import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ILootModifier;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
@@ -10,6 +15,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.conditions.ILootCondition;
@@ -17,7 +23,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import se.mickelus.tetra.effect.ItemEffect;
@@ -29,15 +34,25 @@ import java.util.function.Function;
 
 public class ReapingEffect implements IHoloDescription, ILootModifier<ReapingLootModifier> {
     @SubscribeEvent
-    public void onDeath(LivingDropsEvent event) {
+    public void reapingSouls(LivingDropsEvent event) {
         LivingEntity target = event.getEntityLiving();
-        if (target.isEntityUndead()) {
-            int levelLooting = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.MOB_LOOTING, event.getAttackingPlayer().getMainHandItem());
-            double modifier = 1 + (getEffectEfficiency(lastActive) * (levelLooting + 2));
-            ItemEntity drop = new ItemEntity(source.world, entity.getPosX(), entity.getPosY(), entity.getPosZ(),
-                    new ItemStack(Registry.SOUL_SHARD.get(), source.world.rand.nextInt(2 + looting)));
-            drop.setDefaultPickupDelay();
+        DamageSource lastActive = DamageBufferer.getLastActiveDamageSource();
+        if (target.getMobType() == CreatureAttribute.UNDEAD) {
+            if(event.getSource().getEntity() instanceof PlayerEntity) {
+                int levelLooting = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.MOB_LOOTING, ((PlayerEntity)event.getSource().getEntity()).getMainHandItem());
+                double modifier = 1 + (getEffectEfficiency(lastActive) * (levelLooting + 2));
+            }
+            //Entity victim = event.getEntity();
+            ItemEntity drop = new ItemEntity(new ItemStack(Registry.SOUL_SHARD.get()));
+            //drop.setDefaultPickupDelay();
             event.getDrops().add(drop);
         }
     }
+
+
+
+    @Override
+    public ItemEffect getEffect() { return ITetraEffect.get("reaping"); }
 }
+
+ */
