@@ -1,4 +1,4 @@
-import org.apache.tools.ant.taskdefs.condition.Os
+import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 
 buildscript {
     repositories {
@@ -176,7 +176,7 @@ def hasUnstaged = { ->
 }
 
 def hasCommandInstalled = { cmd ->
-    if (!Os.isFamily(Os.FAMILY_WINDOWS)) // assume git is there on linux
+    if (!DefaultNativePlatform.currentOperatingSystem.isWindows())
         return true
     def stdout = new ByteArrayOutputStream()
     def stderr = new ByteArrayOutputStream()
