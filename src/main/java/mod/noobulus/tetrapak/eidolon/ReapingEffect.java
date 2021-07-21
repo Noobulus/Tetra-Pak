@@ -30,7 +30,11 @@ public class ReapingEffect implements IHoloDescription, ILootModifier<ReapingLoo
         if (target.getMobType() == CreatureAttribute.UNDEAD) {
             if(event.getSource().getEntity() instanceof PlayerEntity) {
                 int levelLooting = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.MOB_LOOTING, ((PlayerEntity)event.getSource().getEntity()).getMainHandItem());
-                double modifier = 2 + (getEffectEfficiency(lastActive) * (levelLooting));
+                double modifier = 2 + ((Math.random() * (levelLooting) - 0.05));
+                System.out.println(modifier);
+                System.out.println(getEffectEfficiency(lastActive) * (levelLooting));
+                System.out.println(getEffectEfficiency(lastActive));
+                System.out.println(levelLooting);
                 ItemEntity drop = new ItemEntity(target.level, target.getX(), target.getY(), target.getZ(),
                         new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation("eidolon","soul_shard")), ((int) Math.round(modifier))));
                 event.getDrops().add(drop);
