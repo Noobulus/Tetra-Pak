@@ -40,8 +40,6 @@ public class ReapingEffect implements IHoloDescription, ILootModifier<ReapingLoo
     @SubscribeEvent
     public void reapingSouls(LivingDropsEvent event) {
         LivingEntity target = event.getEntityLiving();
-        World world = target.world;
-        BlockPos pos = target.getPosition();
         DamageSource lastActive = DamageBufferer.getLastActiveDamageSource();
         if (target.getMobType() == CreatureAttribute.UNDEAD) {
             if(event.getSource().getEntity() instanceof PlayerEntity) {
@@ -51,7 +49,7 @@ public class ReapingEffect implements IHoloDescription, ILootModifier<ReapingLoo
             //Entity victim = event.getEntity();
             //ItemStack dropnull = new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation("eidolon","soul_shard")));
             //drop.setDefaultPickupDelay();
-            ItemEntity drop = new ItemEntity(target.world, entity.getPosX(), entity.getPosY(), entity.getPosZ(),
+            ItemEntity drop = new ItemEntity(target.level, target.getX(), target.getY(), target.getZ(),
                     new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation("eidolon","soul_shard"))));
             event.getDrops().add(drop);
 
