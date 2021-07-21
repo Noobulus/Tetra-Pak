@@ -1,4 +1,4 @@
-package mod.noobulus.tetrapak.predicate;
+package mod.noobulus.tetrapak.predicate.item;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonNull;

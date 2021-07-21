@@ -13,7 +13,6 @@ import net.minecraft.util.LazyValue;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.items.ItemHandlerHelper;
-import se.mickelus.tetra.items.modular.ModularItem;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -53,22 +52,15 @@ public class ItemHelper {
 			.orElse(stack);
 	}
 
-	@Nullable
-	public static ItemStack getModularItemOfDamgeSource(@Nullable DamageSource source) {
+	public static ItemStack getItemOfDamgeSource(@Nullable DamageSource source) {
 		if (source == null)
-			return null;
-		if (!(source.getEntity() instanceof LivingEntity))
-			return null;
-		LivingEntity user = (LivingEntity) source.getEntity();
-		ItemStack heldItem = user.getMainHandItem();
-
-		if (heldItem.getItem() instanceof ModularItem)
-			return heldItem;
-
+			return ItemStack.EMPTY;
 		ItemStack thrownItem = ItemHelper.getThrownItemStack(source.getDirectEntity());
-		if (thrownItem != null && thrownItem.getItem() instanceof ModularItem)
+		if (thrownItem != null)
 			return thrownItem;
-
-		return null;
+		if (!(source.getEntity() instanceof LivingEntity))
+			return ItemStack.EMPTY;
+		LivingEntity user = (LivingEntity) source.getEntity();
+		return user.getMainHandItem();
 	}
 }

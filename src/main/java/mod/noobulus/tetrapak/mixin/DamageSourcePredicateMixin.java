@@ -1,0 +1,59 @@
+package mod.noobulus.tetrapak.mixin;
+
+import com.google.gson.JsonElement;
+import mod.noobulus.tetrapak.predicate.damage_source.DamageSourcePredicateManager;
+import mod.noobulus.tetrapak.predicate.entity.EntityPredicateManager;
+import net.minecraft.advancements.criterion.DamageSourcePredicate;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.server.ServerWorld;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
+@Mixin(DamageSourcePredicate.class)
+public class DamageSourcePredicateMixin {
+	private final List<Predicate<DamageSource>> customPredicates = new ArrayList<>();
+
+	@Inject(at = @At("RETURN"), method = "fromJson", cancellable = true)
+	private static void onFromJson(JsonElement element, CallbackInfoReturnable<DamageSourcePredicate> cir) {
+		if (EntityPredicateManager.REGISTRY == null)
+			return;
+
+		List<Predicate<DamageSource>> predicateList = DamageSourcePredicateManager.REGISTRY
+			.getValues()
+			.stream()
+			.map(abstractEntityPredicate -> abstractEntityPredicate.read(element))
+			.filter(Objects::nonNull)
+			.collect(Collectors.toList());
+
+		if (predicateList.isEmpty())
+			return;
+
+		DamageSourcePredicate predicate = cir.getReturnValue();
+		if (predicate == DamageSourcePredicate.ANY) {
+			predicate = DamageSourcePredicate.Builder.damageType().build();
+			cir.setReturnValue(predicate);
+		}
+
+		((DamageSourcePredicateMixin) (Object) predicate).bindPredicateList(predicateList);
+	}
+
+	@Inject(at = @At("RETURN"), method = "matches(Lnet/minecraft/world/server/ServerWorld;Lnet/minecraft/util/math/vector/Vector3d;Lnet/minecraft/util/DamageSource;)Z", cancellable = true)
+	private void onPredicateTest(ServerWorld level, Vector3d pos, DamageSource damageSource, CallbackInfoReturnable<Boolean> cir) {
+		if (customPredicates.isEmpty() || !cir.getReturnValueZ())
+			return;
+		cir.setReturnValue(customPredicates.stream().allMatch(entityPredicate -> entityPredicate.test(damageSource)));
+	}
+
+	public void bindPredicateList(List<Predicate<DamageSource>> list) {
+		customPredicates.addAll(list);
+	}
+}

@@ -1,4 +1,4 @@
-package mod.noobulus.tetrapak.predicate;
+package mod.noobulus.tetrapak.predicate.entity;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
@@ -13,7 +13,7 @@ public class CreatureAttributePredicate extends AbstractEntityPredicate {
 	@Override
 	protected Predicate<Entity> readInternal(JsonObject jsonobject) throws JsonSyntaxException {
 		if (!jsonobject.has("attribute"))
-			return entity -> true;
+			return null;
 		String attribute = JSONUtils.getAsString(jsonobject, "attribute");
 		switch (attribute) {
 			case "undefined":
@@ -27,7 +27,7 @@ public class CreatureAttributePredicate extends AbstractEntityPredicate {
 			case "water":
 				return entity -> entity instanceof LivingEntity && ((LivingEntity) entity).getMobType().equals(CreatureAttribute.WATER);
 			default:
-				return entity -> true;
+				return null;
 		}
 	}
 }

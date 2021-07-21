@@ -1,4 +1,4 @@
-package mod.noobulus.tetrapak.predicate;
+package mod.noobulus.tetrapak.predicate.entity;
 
 import mod.noobulus.tetrapak.BuildConfig;
 import mod.noobulus.tetrapak.TetraPak;
@@ -11,6 +11,7 @@ import net.minecraftforge.registries.RegistryBuilder;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = BuildConfig.MODID)
 public class EntityPredicateManager {
 	public static IForgeRegistry<AbstractEntityPredicate> REGISTRY = null;
+
 	private EntityPredicateManager() {
 	}
 

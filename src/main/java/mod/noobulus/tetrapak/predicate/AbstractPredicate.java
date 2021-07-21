@@ -3,28 +3,30 @@ package mod.noobulus.tetrapak.predicate;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import net.minecraft.entity.Entity;
 import net.minecraft.util.JSONUtils;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
 import java.util.function.Predicate;
 
-public abstract class AbstractEntityPredicate extends ForgeRegistryEntry<AbstractEntityPredicate> {
-	public static final Predicate<Entity> ANY = entity -> true;
+public abstract class AbstractPredicate<T, R extends AbstractPredicate<T, R>> extends ForgeRegistryEntry<R> {
 
-	protected abstract Predicate<Entity> readInternal(JsonObject data) throws JsonSyntaxException;
+	@Nullable
+	protected abstract Predicate<T> readInternal(JsonObject data) throws JsonSyntaxException;
 
-	public Predicate<Entity> read(@Nullable JsonElement element) {
+	@Nullable
+	public Predicate<T> read(@Nullable JsonElement element) {
 		if (element == null || element.isJsonNull())
-			return ANY;
-		JsonObject jsonobject = JSONUtils.convertToJsonObject(element, "entity");
+			return null;
+		JsonObject jsonobject = JSONUtils.convertToJsonObject(element, getKey());
 		if (getRegistryName() != null && jsonobject.has(getRegistryName().toString())) {
 			JsonElement child = jsonobject.get(getRegistryName().toString());
 			if (child == null || child.isJsonNull())
-				return ANY;
+				return null;
 			return readInternal(JSONUtils.convertToJsonObject(child, getRegistryName().toString()));
 		}
-		return ANY;
+		return null;
 	}
+
+	protected abstract String getKey();
 }

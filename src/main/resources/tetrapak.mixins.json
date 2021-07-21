@@ -11,6 +11,7 @@
   "minVersion": "0.8",
   "mixins": [
     "ContainerMinecartEntityMixin",
+    "DamageSourcePredicateMixin",
     "EntityPredicateMixin",
     "ItemEntityMixin",
     "ItemFrameMixin",
