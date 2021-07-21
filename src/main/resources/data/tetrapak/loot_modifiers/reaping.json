@@ -3,13 +3,10 @@
   "conditions": [
     {
       "condition": "minecraft:entity_properties",
-      "entity": "killer_player",
+      "entity": "this",
       "predicate": {
-        "equipment": {
-          "mainhand": {
-            "type": "tetrapak:has_effect",
-            "effect": "tetrapak:reaping"
-          }
+        "tetrapak:creature_attribute": {
+          "attribute": "undead"
         }
       }
     },
