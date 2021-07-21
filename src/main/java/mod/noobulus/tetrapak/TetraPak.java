@@ -2,6 +2,7 @@ package mod.noobulus.tetrapak;
 
 import mod.noobulus.tetrapak.loot.LootConditions;
 import mod.noobulus.tetrapak.networking.Packets;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -26,5 +27,9 @@ public class TetraPak {
 		modEventBus.addListener(Mods::clientSetup);
 		modEventBus.addListener((FMLCommonSetupEvent event) -> Packets.registerPackets());
 		LootConditions.register();
+	}
+
+	public static ResourceLocation asId(String name) {
+		return new ResourceLocation(BuildConfig.MODID, name);
 	}
 }

@@ -1,10 +1,11 @@
-package mod.noobulus.tetrapak.advancement;
+package mod.noobulus.tetrapak.predicate;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import mcp.MethodsReturnNonnullByDefault;
 import mod.noobulus.tetrapak.BuildConfig;
+import mod.noobulus.tetrapak.TetraPak;
 import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.JSONUtils;
@@ -24,7 +25,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 public class TetraEffectPredicate extends ItemPredicate {
 	private static final ItemPredicate ANY = new TetraEffectPredicate(null);
 	private static final String JSON_EFFECT_KEY = "effect";
-	private static final ResourceLocation ID = new ResourceLocation(BuildConfig.MODID, "has_effect");
+	private static final ResourceLocation ID = TetraPak.asId("has_effect");
 
 	@Nullable
 	private final ItemEffect effect;

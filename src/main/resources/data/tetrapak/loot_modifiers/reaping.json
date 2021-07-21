@@ -2,8 +2,25 @@
   "type": "tetrapak:reaping",
   "conditions": [
     {
-      "condition": "tetrapak:should_effect_affect",
-      "effect": "tetrapak:reaping"
+      "condition": "minecraft:entity_properties",
+      "entity": "this",
+      "predicate": {
+        "tetrapak:creature_attribute": {
+          "attribute": "undead"
+        }
+      }
+    },
+    {
+      "condition": "minecraft:entity_properties",
+      "entity": "killer_player",
+      "predicate": {
+        "equipment": {
+          "mainhand": {
+            "type": "tetrapak:has_effect",
+            "effect": "tetrapak:reaping"
+          }
+        }
+      }
     }
   ]
 }
