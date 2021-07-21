@@ -2,8 +2,57 @@
   "type": "tetrapak:voiding",
   "conditions": [
     {
-      "condition": "tetrapak:should_effect_affect",
-      "effect": "tetrapak:voiding"
+      "condition": "minecraft:alternative",
+      "terms": [
+        {
+          "condition": "minecraft:inverted",
+          "term": {
+            "condition": "minecraft:alternative",
+            "terms": [
+              {
+                "condition": "tetrapak:has_block_entity"
+              },
+              {
+                "condition": "minecraft:inverted",
+                "term": {
+                  "condition": "minecraft:match_tool",
+                  "predicate": {
+                    "type": "tetrapak:has_effect",
+                    "effect": "tetrapak:voiding"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "condition": "minecraft:inverted",
+          "term": {
+            "condition": "minecraft:alternative",
+            "terms": [
+              {
+                "condition": "minecraft:inverted",
+                "term": {
+                  "condition": "minecraft:damage_source_properties",
+                  "predicate": {
+                    "tetrapak:weapon": {
+                      "type": "tetrapak:has_effect",
+                      "effect": "tetrapak:voiding"
+                    }
+                  }
+                }
+              },
+              {
+                "condition": "minecraft:entity_properties",
+                "entity": "this",
+                "predicate": {
+                  "type": "minecraft:player"
+                }
+              }
+            ]
+          }
+        }
+      ]
     }
   ]
 }

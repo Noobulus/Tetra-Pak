@@ -1,4 +1,4 @@
-package mod.noobulus.tetrapak.loot;
+package mod.noobulus.tetrapak.loot.modifier;
 
 import mod.noobulus.tetrapak.util.ItemHelper;
 import net.minecraft.item.ItemStack;

@@ -1,6 +1,6 @@
 package mod.noobulus.tetrapak.eidolon;
 
-import mod.noobulus.tetrapak.loot.ReapingLootModifier;
+import mod.noobulus.tetrapak.loot.modifier.ReapingLootModifier;
 import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ILootModifier;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;

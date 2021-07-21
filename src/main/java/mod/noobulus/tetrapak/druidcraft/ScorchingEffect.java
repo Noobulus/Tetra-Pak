@@ -1,6 +1,6 @@
 package mod.noobulus.tetrapak.druidcraft;
 
-import mod.noobulus.tetrapak.loot.ScorchingLootModifier;
+import mod.noobulus.tetrapak.loot.modifier.ScorchingLootModifier;
 import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ILootModifier;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;

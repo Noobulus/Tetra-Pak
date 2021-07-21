@@ -1,4 +1,4 @@
-package mod.noobulus.tetrapak.loot;
+package mod.noobulus.tetrapak.loot.modifier;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootContext;
