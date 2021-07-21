@@ -1,0 +1,30 @@
+{
+  "key": "arcane_gold",
+  "category": "metal",
+  "primary": "5.5",
+  "secondary": "4",
+  "tertiary": "3.0",
+  "durability": "400",
+  "integrityCost": "2",
+  "integrityGain": "5",
+  "magicCapacity": "290",
+  "toolLevel": "3",
+  "toolEfficiency": "13",
+  "tints": {
+    "glyph": "d9761a",
+    "texture": "d9761a"
+  },
+  "textures": [
+    "metal",
+    "shiny"
+  ],
+  "material": {
+    "item": "eidolon:arcane_gold_ingot"
+  },
+  "improvements": {
+    "workable": 1
+  },
+  "requiredTools": {
+    "hammer": 3
+  }
+}
