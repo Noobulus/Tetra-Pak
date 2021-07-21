@@ -2,6 +2,7 @@ package mod.noobulus.tetrapak.eidolon;
 
 //import src.main.java.elucent.eidolon.Registry;
 import mod.noobulus.tetrapak.loot.ReapingLootModifier;
+import mod.noobulus.tetrapak.loot.VoidingLootModifier;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.monster.*;
 import mod.noobulus.tetrapak.util.DamageBufferer;
@@ -20,6 +21,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.loot.conditions.ILootCondition;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
@@ -37,6 +40,8 @@ public class ReapingEffect implements IHoloDescription, ILootModifier<ReapingLoo
     @SubscribeEvent
     public void reapingSouls(LivingDropsEvent event) {
         LivingEntity target = event.getEntityLiving();
+        World world = target.world;
+        BlockPos pos = target.getPosition();
         DamageSource lastActive = DamageBufferer.getLastActiveDamageSource();
         if (target.getMobType() == CreatureAttribute.UNDEAD) {
             if(event.getSource().getEntity() instanceof PlayerEntity) {
@@ -44,9 +49,12 @@ public class ReapingEffect implements IHoloDescription, ILootModifier<ReapingLoo
                 double modifier = 1 + (getEffectEfficiency(lastActive) * (levelLooting + 2));
             }
             //Entity victim = event.getEntity();
-            ItemEntity drop = new ItemEntity(ForgeRegistries.ITEMS.getValue(new ResourceLocation("eidolon","soul_shard")));
+            //ItemStack dropnull = new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation("eidolon","soul_shard")));
             //drop.setDefaultPickupDelay();
+            ItemEntity drop = new ItemEntity(target.world, entity.getPosX(), entity.getPosY(), entity.getPosZ(),
+                    new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation("eidolon","soul_shard"))));
             event.getDrops().add(drop);
+
         }
     }
 
@@ -54,4 +62,9 @@ public class ReapingEffect implements IHoloDescription, ILootModifier<ReapingLoo
 
     @Override
     public ItemEffect getEffect() { return ITetraEffect.get("reaping"); }
+
+    @Override
+    public Function<ILootCondition[], ReapingLootModifier> getModifierConstructor() {
+        return ReapingLootModifier::new;
+    }
 }
