@@ -18,9 +18,9 @@ public class ReapingLootModifier extends LootModifier {
 	@Nonnull
 	@Override
 	public List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
-		int count = generatedLoot.stream().mapToInt(ItemStack::getCount).sum();
 		generatedLoot.clear();
-		generatedLoot.add(new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation("eidolon", "soul_shard")), count));
+		generatedLoot.add(new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation("eidolon", "soul_shard")),
+			context.getRandom().nextInt(2 + context.getLootingModifier())));
 		return generatedLoot;
 	}
 }
