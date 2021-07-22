@@ -126,7 +126,7 @@
       "material": {
         "item": "eidolon:unholy_symbol"
       },
-      "experienceCost": 10,
+      "experienceCost": 5,
       "moduleKey": "double/socket",
       "moduleVariant": "double_socket/unholy_symbol"
     }

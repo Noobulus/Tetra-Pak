@@ -1,3 +1,11 @@
+Version 0.3
+    New content:
+        Eidolon and Quark are now partially supported!
+        Currently, Eidolon's arcane gold and pewter are usable as tool materials. The unholy symbol is available as a socket, functioning similarly to Eidolon's Reaper Scythe.
+        Quark's corundum clusters can be socketed to provide a harvesting speed boost to blocks matching the color of the socketed cluster. Tooltips coming soon!
+        Create's deployers can now use hammers to crack geodes and salvage scrap!
+        An advancement for killing a Wither with a shadow steel tool has been added. Reward to be determined.
+
 Version 0.2.3
     Improvements and fixes:
         The moonstrike-related server crash has been fixed.

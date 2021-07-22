@@ -121,6 +121,14 @@
       "experienceCost": 3,
       "moduleKey": "single/socket",
       "moduleVariant": "single_socket/black_crystal_cluster"
+    },
+    {
+      "material": {
+        "item": "eidolon:unholy_symbol"
+      },
+      "experienceCost": 5,
+      "moduleKey": "single/socket",
+      "moduleVariant": "single_socket/unholy_symbol"
     }
   ]
 }

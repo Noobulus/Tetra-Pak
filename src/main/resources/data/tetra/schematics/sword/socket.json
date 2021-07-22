@@ -49,6 +49,14 @@
       "experienceCost": 3,
       "moduleKey": "sword/socket",
       "moduleVariant": "sword_socket/refined_radiance"
+    },
+    {
+      "material": {
+        "item": "eidolon:unholy_symbol"
+      },
+      "experienceCost": 5,
+      "moduleKey": "sword/socket",
+      "moduleVariant": "sword_socket/unholy_symbol"
     }
   ]
 }
