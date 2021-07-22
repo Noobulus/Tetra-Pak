@@ -1,0 +1,9 @@
+{
+  "type": "tetrapak:automatic_salvaging",
+  "input": {
+    "item": "tetra:geode"
+  },
+  "tool_type": "hammer",
+  "tool_level": 2,
+  "loot_table": "tetra:actions/geode"
+}
