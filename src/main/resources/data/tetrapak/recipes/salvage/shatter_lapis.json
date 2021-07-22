@@ -1,9 +1,9 @@
 {
   "type": "tetrapak:automatic_salvaging",
   "requirement": {
-    "item": "tetra:geode"
+    "item": "tetra:pristine_lapis"
   },
   "tool_type": "hammer",
   "tool_level": 2,
-  "lootTable": "tetra:actions/geode"
+  "lootTable": "tetra:actions/shatter_lapis"
 }

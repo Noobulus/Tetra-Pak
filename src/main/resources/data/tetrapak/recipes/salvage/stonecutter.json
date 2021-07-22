@@ -1,0 +1,9 @@
+{
+  "type": "tetrapak:automatic_salvaging",
+  "requirement": {
+    "item": "tetra:stonecutter"
+  },
+  "tool_type": "hammer",
+  "tool_level": 5,
+  "lootTable": "tetra:actions/stonecutter_salvage"
+}

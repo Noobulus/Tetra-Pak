@@ -1,0 +1,9 @@
+{
+  "type": "tetrapak:automatic_salvaging",
+  "requirement": {
+    "item": "tetra:vent_plate"
+  },
+  "tool_type": "hammer",
+  "tool_level": 3,
+  "lootTable": "tetra:actions/vent_plate_salvage"
+}

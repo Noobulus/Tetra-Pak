@@ -158,10 +158,10 @@ public class SalvagingRecipe implements IRecipe<IInventory> {
 
 		@Override
 		public SalvagingRecipe fromJson(ResourceLocation id, JsonObject json) {
-			final Ingredient ingredient = Ingredient.fromJson(json.get("input"));
+			final Ingredient ingredient = Ingredient.fromJson(json.get("requirement"));
 			final int toolLevel = JSONUtils.isValidNode(json, "tool_level") ? JSONUtils.getAsInt(json, "tool_level") : 0;
 			final ToolType toolType = ToolType.get(JSONUtils.getAsString(json, "tool_type"));
-			final ResourceLocation lootTable = new ResourceLocation(JSONUtils.getAsString(json, "loot_table"));
+			final ResourceLocation lootTable = new ResourceLocation(JSONUtils.getAsString(json, "lootTable"));
 			return new SalvagingRecipe(id, toolType, toolLevel, ingredient, lootTable);
 		}
 

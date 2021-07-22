@@ -1,0 +1,9 @@
+{
+  "type": "tetrapak:automatic_salvaging",
+  "requirement": {
+    "item": "tetra:quick_latch"
+  },
+  "tool_type": "hammer",
+  "tool_level": 3,
+  "lootTable": "tetra:actions/quick_latch_salvage_hammer"
+}

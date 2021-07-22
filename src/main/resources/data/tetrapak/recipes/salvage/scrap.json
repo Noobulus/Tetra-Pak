@@ -1,0 +1,9 @@
+{
+  "type": "tetrapak:automatic_salvaging",
+  "requirement": {
+    "item": "tetra:metal_scrap"
+  },
+  "tool_type": "hammer",
+  "tool_level": 3,
+  "lootTable": "tetra:actions/metal_scrap_salvage"
+}

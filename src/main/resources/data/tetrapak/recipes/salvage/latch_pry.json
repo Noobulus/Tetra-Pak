@@ -1,0 +1,9 @@
+{
+  "type": "tetrapak:automatic_salvaging",
+  "requirement": {
+    "item": "tetra:quick_latch"
+  },
+  "tool_type": "pry",
+  "tool_level": 1,
+  "lootTable": "tetra:actions/quick_latch_salvage_pry"
+}

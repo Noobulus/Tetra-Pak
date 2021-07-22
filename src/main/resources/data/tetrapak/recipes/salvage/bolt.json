@@ -1,0 +1,9 @@
+{
+  "type": "tetrapak:automatic_salvaging",
+  "requirement": {
+    "item": "tetra:forged_bolt"
+  },
+  "tool_type": "hammer",
+  "tool_level": 3,
+  "lootTable": "tetra:actions/bolt_salvage"
+}
