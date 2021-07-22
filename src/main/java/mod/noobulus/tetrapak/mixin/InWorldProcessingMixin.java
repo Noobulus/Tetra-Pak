@@ -13,6 +13,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @Mixin(InWorldProcessing.class)
 public class InWorldProcessingMixin {
@@ -32,7 +34,9 @@ public class InWorldProcessingMixin {
 			return;
 		PlayerEntity playerEntity = inventory.deployerFakePlayer;
 		List<ItemStack> rolls = salvagingRecipe.rollResults(inventory, ((ServerWorld) world), playerEntity);
-		if (!rolls.isEmpty())
+		if (!rolls.isEmpty()) {
+			inventory.onRecipeApply.accept(rolls.stream().filter(((Predicate<ItemStack>) ItemStack::isEmpty).negate()).map(ItemStack::getItem).collect(Collectors.toList()));
 			cir.setReturnValue(rolls);
+		}
 	}
 }

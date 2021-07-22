@@ -8,6 +8,7 @@ import mod.noobulus.tetrapak.BuildConfig;
 import mod.noobulus.tetrapak.TetraPak;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -35,6 +36,8 @@ import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
@@ -131,11 +134,13 @@ public class SalvagingRecipe implements IRecipe<IInventory> {
 	public static class DeployerAwareInventory extends RecipeWrapper {
 		public final DeployerTileEntity deployerTileEntity;
 		public final DeployerFakePlayer deployerFakePlayer;
+		public final Consumer<List<Item>> onRecipeApply;
 
-		public DeployerAwareInventory(IItemHandlerModifiable inv, DeployerTileEntity deployerTileEntity, DeployerFakePlayer deployerFakePlayer) {
+		public DeployerAwareInventory(IItemHandlerModifiable inv, DeployerTileEntity deployerTileEntity, DeployerFakePlayer deployerFakePlayer, Consumer<List<Item>> onRecipeApply) {
 			super(inv);
 			this.deployerTileEntity = deployerTileEntity;
 			this.deployerFakePlayer = deployerFakePlayer;
+			this.onRecipeApply = onRecipeApply;
 		}
 	}
 
