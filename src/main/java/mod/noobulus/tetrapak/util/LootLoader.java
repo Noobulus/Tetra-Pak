@@ -2,6 +2,7 @@ package mod.noobulus.tetrapak.util;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.loot.*;
 import net.minecraft.resources.IResourcePack;
 import net.minecraft.resources.ResourcePackType;
@@ -10,6 +11,8 @@ import net.minecraft.resources.VanillaPack;
 import net.minecraft.util.Unit;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
@@ -19,9 +22,13 @@ import net.minecraftforge.fml.packs.ModFileResourcePack;
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Supplier;
 import java.util.stream.IntStream;
 
 public class LootLoader {
+	private LootLoader() {
+	}
+
 	private static final Random rand = new Random();
 	private static final int STATISTICAL_TEST = 100; // Values tested to determine min and max
 	private static LootTableManager manager;
@@ -107,18 +114,41 @@ public class LootLoader {
 		}
 	}
 
-	public static class LootSlot {
+	public static class LootSlot implements Supplier<ITextComponent> {
 		public final Item item;
 		public final int min;
 		public final int max;
-		public final float weight;
+		public final float chance;
 
-		public LootSlot(Item item, float v, int min, int max) {
+		public LootSlot(Item item, float chance, int min, int max) {
 			this.item = item;
 			this.min = min;
 			this.max = max;
-			this.weight = v;
+			this.chance = chance;
+		}
+
+		public ItemStack asStack() {
+			return new ItemStack(item, min);
+		}
+
+		public String toString() {
+			if (min == max) return min + getDropChance();
+			return min + "-" + max + getDropChance();
+		}
+
+		private String getDropChance() {
+			return chance < 1F ? " (" + formatChance() + "%)" : "";
+		}
+
+		private String formatChance() {
+			float chance = this.chance * 100;
+			if (chance < 10) return String.format("%.1f", chance);
+			return String.format("%2d", (int) chance);
+		}
+
+		@Override
+		public ITextComponent get() {
+			return new StringTextComponent(this.toString());
 		}
 	}
-
 }

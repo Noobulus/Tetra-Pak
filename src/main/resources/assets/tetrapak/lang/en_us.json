@@ -125,5 +125,12 @@
   "tetra.variant.sword_socket/unholy_symbol.description": "An unholy mark, inscribed where the blade meets the hilt. The symbol is enchanted and condenses the souls of slain undead into shards.",
   "tetrapak.advancements.wither_void.title": "The Flex",
   "tetrapak.advancements.wither_void.description": "Kill a Wither with a Shadow Steel tool",
-  "tetrapak.recipe.auto_salvage": "Automatic Salvaging"
+  "tetrapak.recipe.auto_salvage": "Automatic Salvaging",
+  "tetrapak.tool_type.axe": "Axe",
+  "tetrapak.tool_type.hoe": "Hoe",
+  "tetrapak.tool_type.pickaxe": "Pickaxe",
+  "tetrapak.tool_type.shovel": "Shovel",
+  "tetrapak.tool_type.cut": "Cutting",
+  "tetrapak.tool_type.hammer": "Hammer",
+  "tetrapak.tool_type.pry": "Pry"
 }

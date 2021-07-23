@@ -6,6 +6,8 @@ import com.simibubi.create.content.contraptions.components.deployer.DeployerTile
 import mcp.MethodsReturnNonnullByDefault;
 import mod.noobulus.tetrapak.BuildConfig;
 import mod.noobulus.tetrapak.TetraPak;
+import mod.noobulus.tetrapak.util.LootLoader;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -14,16 +16,16 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.loot.LootContext;
-import net.minecraft.loot.LootParameterSet;
-import net.minecraft.loot.LootParameters;
-import net.minecraft.loot.LootTable;
+import net.minecraft.loot.*;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
+import net.minecraft.util.LazyValue;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -42,16 +44,18 @@ import java.util.function.Consumer;
 @ParametersAreNonnullByDefault
 public class SalvagingRecipe implements IRecipe<IInventory> {
 	public static final Serializer SERIALIZER = new Serializer();
-
 	private static final LootParameterSet lootParameters = new LootParameterSet.Builder()
 		.required(LootParameters.ORIGIN)
 		.optional(LootParameters.TOOL)
 		.optional(LootParameters.THIS_ENTITY)
 		.build();
+
 	public final ToolType toolType;
 	public final int toolLevel;
 	public final Ingredient startingItem;
 	public final ResourceLocation lootTable;
+	@OnlyIn(Dist.CLIENT)
+	public final LazyValue<List<LootLoader.LootSlot>> contents = new LazyValue<>(this::getContents);
 	private final ResourceLocation id;
 	@Nullable
 	private DeployerAwareInventory recipeInv;
@@ -129,6 +133,13 @@ public class SalvagingRecipe implements IRecipe<IInventory> {
 	@Nullable
 	public DeployerAwareInventory getRecipeInv() {
 		return recipeInv;
+	}
+
+	@OnlyIn(Dist.CLIENT)
+	private List<LootLoader.LootSlot> getContents() {
+		LootTableManager manager = LootLoader.getManager(Minecraft.getInstance().level);
+		LootTable table = manager.get(lootTable);
+		return LootLoader.crawlTable(table, manager);
 	}
 
 	public static class DeployerAwareInventory extends RecipeWrapper {

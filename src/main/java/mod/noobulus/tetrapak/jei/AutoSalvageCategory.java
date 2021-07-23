@@ -12,25 +12,23 @@ import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
 import mezz.jei.api.ingredients.IIngredients;
+import mod.noobulus.tetrapak.BuildConfig;
 import mod.noobulus.tetrapak.TetraPak;
 import mod.noobulus.tetrapak.create.recipes.SalvagingRecipe;
 import mod.noobulus.tetrapak.util.LootLoader;
-import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.loot.LootTable;
-import net.minecraft.loot.LootTableManager;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.registries.ForgeRegistries;
 import se.mickelus.tetra.items.modular.IModularItem;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 @MethodsReturnNonnullByDefault
@@ -84,18 +82,12 @@ public class AutoSalvageCategory implements CompatJeiRecipe<SalvagingRecipe> {
 
 	@Override
 	public void setIngredients(SalvagingRecipe salvagingRecipe, IIngredients iIngredients) {
-		LootTableManager manager = LootLoader.getManager(Minecraft.getInstance().level);
-		LootTable table = manager.get(salvagingRecipe.lootTable);
-		List<LootLoader.LootSlot> lootSlots = LootLoader.crawlTable(table, manager);
 		iIngredients.setInputIngredients(Arrays.asList(salvagingRecipe.startingItem, Ingredient.of(hammer)));
-		iIngredients.setOutputs(VanillaTypes.ITEM, lootSlots.stream().map(slot -> new ItemStack(slot.item, slot.min)).collect(Collectors.toList()));
+		iIngredients.setOutputs(VanillaTypes.ITEM, salvagingRecipe.contents.get().stream().map(LootLoader.LootSlot::asStack).collect(Collectors.toList()));
 	}
 
 	@Override
 	public void setRecipe(IRecipeLayout iRecipeLayout, SalvagingRecipe salvagingRecipe, IIngredients iIngredients) {
-		LootTableManager manager = LootLoader.getManager(Minecraft.getInstance().level);
-		LootTable table = manager.get(salvagingRecipe.lootTable);
-		List<LootLoader.LootSlot> lootSlots = LootLoader.crawlTable(table, manager);
 		IGuiItemStackGroup itemStacks = iRecipeLayout.getItemStacks();
 
 		itemStacks.init(0, true, 26, 66);
@@ -103,12 +95,19 @@ public class AutoSalvageCategory implements CompatJeiRecipe<SalvagingRecipe> {
 		itemStacks.init(1, true, 50, 19);
 		itemStacks.set(1, iIngredients.getInputs(VanillaTypes.ITEM).get(1));
 
-		for (int i = 0; i < lootSlots.size(); i++) {
+		Map<ItemStack, Supplier<ITextComponent>> tooltips = salvagingRecipe.contents.get()
+			.stream()
+			.collect(Collectors.toMap(LootLoader.LootSlot::asStack, lootSlot -> lootSlot));
+		List<ItemStack> entries = new ArrayList<>(tooltips.keySet());
+		for (int i = 0; i < entries.size(); i++) {
 			int xOffset = i % 2 == 0 ? 0 : 19;
 			int yOffset = (i / 2) * -19;
 			itemStacks.init(i + 2, false, 117 + xOffset, 57 + yOffset);
-			itemStacks.set(i + 2, new ItemStack(lootSlots.get(i).item, lootSlots.get(i).min));
+			itemStacks.set(i + 2, entries.get(i));
 		}
+		tooltips.put(iIngredients.getInputs(VanillaTypes.ITEM).get(1).get(0),
+			() -> new TranslationTextComponent(BuildConfig.MODID + ".tool_type." + salvagingRecipe.toolType.getName()));
+		iRecipeLayout.getItemStacks().addTooltipCallback(new JeiTooltipEntry<>(tooltips));
 	}
 
 	@Override
