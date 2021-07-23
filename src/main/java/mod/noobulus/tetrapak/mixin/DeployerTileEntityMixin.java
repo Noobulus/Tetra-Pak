@@ -21,7 +21,7 @@ import java.util.Optional;
 public class DeployerTileEntityMixin {
 	private final DeployerTileEntity self = (DeployerTileEntity) (Object) this;
 	public List<Item> lastProduced = new ArrayList<>();
-	@Shadow
+	@Shadow(remap = false)
 	protected DeployerFakePlayer player;
 
 	@Inject(at = @At("HEAD"), method = "getRecipe", remap = false, cancellable = true)

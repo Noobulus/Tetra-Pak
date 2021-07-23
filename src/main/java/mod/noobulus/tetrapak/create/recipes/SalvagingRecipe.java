@@ -37,7 +37,6 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.stream.Stream;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
@@ -49,10 +48,10 @@ public class SalvagingRecipe implements IRecipe<IInventory> {
 		.optional(LootParameters.TOOL)
 		.optional(LootParameters.THIS_ENTITY)
 		.build();
-	private final ToolType toolType;
-	private final int toolLevel;
-	private final Ingredient startingItem;
-	private final ResourceLocation lootTable;
+	public final ToolType toolType;
+	public final int toolLevel;
+	public final Ingredient startingItem;
+	public final ResourceLocation lootTable;
 	private final ResourceLocation id;
 	@Nullable
 	private DeployerAwareInventory recipeInv;
@@ -103,6 +102,7 @@ public class SalvagingRecipe implements IRecipe<IInventory> {
 				.withParameter(LootParameters.ORIGIN, playerEntity.position())
 				.withLuck(playerEntity.getLuck());
 		}
+
 		LootTable table = level.getServer().getLootTables().get(lootTable);
 		return table.getRandomItems(builder.create(lootParameters));
 	}
