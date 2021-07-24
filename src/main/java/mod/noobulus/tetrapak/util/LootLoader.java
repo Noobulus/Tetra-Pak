@@ -26,12 +26,12 @@ import java.util.function.Supplier;
 import java.util.stream.IntStream;
 
 public class LootLoader {
-	private LootLoader() {
-	}
-
 	private static final Random rand = new Random();
 	private static final int STATISTICAL_TEST = 100; // Values tested to determine min and max
 	private static LootTableManager manager;
+
+	private LootLoader() {
+	}
 
 	public static LootTableManager getManager(@Nullable World world) {
 		if (world == null || world.getServer() == null) {
