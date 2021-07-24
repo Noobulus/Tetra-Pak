@@ -1,3 +1,9 @@
+Version 0.3.1
+    New content:
+        Jei support for automatic salvaging
+    Improvements and fixes:
+        fixed a faulty mixin
+
 Version 0.3
     New content:
         Eidolon and Quark are now partially supported!
