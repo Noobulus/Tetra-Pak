@@ -4,13 +4,12 @@ import mod.noobulus.tetrapak.BuildConfig;
 import mod.noobulus.tetrapak.util.tetra_definitions.Pair;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import net.minecraftforge.fml.event.server.FMLServerStartedEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import se.mickelus.tetra.items.modular.IModularItem;
 
@@ -18,7 +17,7 @@ import java.util.*;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE, modid = BuildConfig.MODID)
 public class ToolHelper {
-	private static final Map<Pair<ToolType, Integer>, List<ItemStack>> tools = new HashMap<>();
+	private static final Map<Pair<String, Integer>, List<ItemStack>> tools = new HashMap<>();
 	private static final List<Pair<String, String>> materialPairs = Arrays.asList(
 		Pair.of("oak", "stick"),
 		Pair.of("stone", "stick"),
@@ -30,18 +29,21 @@ public class ToolHelper {
 
 	private static final List<String> doubleSchematics = Arrays.asList("basic_hammer", "claw");
 
+	private ToolHelper() {
+	}
+
 	@SubscribeEvent
-	public static void populateToolTable(ClientPlayerNetworkEvent.LoggedInEvent event) {
+	public static void onServerStart(FMLServerStartedEvent event) {
 		tools.clear();
+		populate();
+	}
+
+	public static void populate() {
 		for (ToolType t : getValues().values()) {
 			for (Item item : ForgeRegistries.ITEMS.getValues()) {
 				ItemStack test = new ItemStack(item);
-				int harvestLevel = test.getHarvestLevel(t, null, null);
-				for (int i = 0; i <= harvestLevel; i++) {
-					Pair<ToolType, Integer> p = Pair.of(t, i);
-					if (!tools.containsKey(p))
-						tools.put(p, new ArrayList<>());
-					tools.get(p).add(test);
+				for (int i = 0; i <= test.getHarvestLevel(t, null, null); i++) {
+					tools.computeIfAbsent(Pair.of(t.getName(), i), p -> new ArrayList<>()).add(test);
 				}
 			}
 		}
@@ -53,25 +55,20 @@ public class ToolHelper {
 				.forEach(ToolHelper::addModular);
 			addModular(setUpShortBlade(materials.getFirst(), materials.getSecond()));
 		});
-
 	}
 
 	private static void addModular(ItemStack tool) {
-		if (tool.isEmpty())
-			return;
-		tool.getToolTypes().forEach(toolType -> {
-			int harvestLevel = tool.getHarvestLevel(toolType, null, null);
-			for (int i = 0; i <= harvestLevel; i++) {
-				Pair<ToolType, Integer> p = Pair.of(toolType, i);
-				if (!tools.containsKey(p))
-					tools.put(p, new ArrayList<>());
-				tools.get(p).add(tool);
+		tool.getToolTypes().forEach(t -> {
+			for (int i = 0; i <= tool.getHarvestLevel(t, null, null); i++) {
+				tools.computeIfAbsent(Pair.of(t.getName(), i), p -> new ArrayList<>()).add(tool);
 			}
 		});
 	}
 
-	public static Ingredient getToolsOf(ToolType type, int level) {
-		return Ingredient.of(tools.getOrDefault(Pair.of(type, level), Collections.emptyList()).stream());
+	public static List<ItemStack> getToolsOf(ToolType type, int level) {
+		if (tools.isEmpty())
+			populate();
+		return tools.getOrDefault(Pair.of(type.getName(), level), Collections.emptyList());
 	}
 
 	public static Map<String, ToolType> getValues() {

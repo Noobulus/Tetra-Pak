@@ -12,15 +12,17 @@ import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
 import mezz.jei.api.ingredients.IIngredients;
+import mod.noobulus.tetrapak.BuildConfig;
 import mod.noobulus.tetrapak.TetraPak;
 import mod.noobulus.tetrapak.create.recipes.SalvagingRecipe;
 import mod.noobulus.tetrapak.util.LootLoader;
-import mod.noobulus.tetrapak.util.ToolHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.registries.ForgeRegistries;
 import se.mickelus.tetra.items.modular.IModularItem;
 
@@ -80,7 +82,7 @@ public class AutoSalvageCategory implements CompatJeiRecipe<SalvagingRecipe> {
 
 	@Override
 	public void setIngredients(SalvagingRecipe salvagingRecipe, IIngredients iIngredients) {
-		iIngredients.setInputIngredients(Arrays.asList(salvagingRecipe.startingItem, ToolHelper.getToolsOf(salvagingRecipe.toolType, salvagingRecipe.toolLevel)));
+		iIngredients.setInputIngredients(Arrays.asList(salvagingRecipe.startingItem, Ingredient.of(salvagingRecipe.toolExamples.get().stream())));
 		iIngredients.setOutputs(VanillaTypes.ITEM, salvagingRecipe.contents.get().stream().map(LootLoader.LootSlot::asStack).collect(Collectors.toList()));
 	}
 
@@ -100,11 +102,16 @@ public class AutoSalvageCategory implements CompatJeiRecipe<SalvagingRecipe> {
 		for (int i = 0; i < entries.size(); i++) {
 			int xOffset = i % 2 == 0 ? 0 : 19;
 			int yOffset = (i / 2) * -19;
-			itemStacks.init(i + 2, false, 117 + xOffset, 57 + yOffset);
+			itemStacks.init(i + 2, false, 117 + xOffset, 67 + yOffset);
 			itemStacks.set(i + 2, entries.get(i));
 		}
-//		tooltips.put(iIngredients.getInputs(VanillaTypes.ITEM).get(1).get(0),
-//			() -> new TranslationTextComponent(BuildConfig.MODID + ".tool_type." + salvagingRecipe.toolType.getName()));
+
+		iIngredients.getInputs(VanillaTypes.ITEM)
+			.get(1)
+			.stream()
+			.findFirst()
+			.ifPresent(t -> tooltips.put(t, () -> new TranslationTextComponent(BuildConfig.MODID + ".tool_type." + salvagingRecipe.toolType.getName())));
+
 		iRecipeLayout.getItemStacks().addTooltipCallback(new JeiTooltipEntry<>(tooltips));
 	}
 

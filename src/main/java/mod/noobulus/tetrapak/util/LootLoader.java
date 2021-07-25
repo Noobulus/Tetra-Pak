@@ -1,56 +1,64 @@
 package mod.noobulus.tetrapak.util;
 
+import mod.noobulus.tetrapak.BuildConfig;
+import mod.noobulus.tetrapak.TetraPak;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.*;
-import net.minecraft.resources.IResourcePack;
-import net.minecraft.resources.ResourcePackType;
-import net.minecraft.resources.SimpleReloadableResourceManager;
-import net.minecraft.resources.VanillaPack;
-import net.minecraft.util.Unit;
-import net.minecraft.util.Util;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.ModList;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
-import net.minecraftforge.fml.loading.moddiscovery.ModFileInfo;
-import net.minecraftforge.fml.packs.ModFileResourcePack;
+import net.minecraftforge.fml.event.server.FMLServerStartedEvent;
 
 import javax.annotation.Nullable;
-import java.util.*;
-import java.util.concurrent.CompletableFuture;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Random;
 import java.util.function.Supplier;
 import java.util.stream.IntStream;
 
+@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE, modid = BuildConfig.MODID)
 public class LootLoader {
 	private static final Random rand = new Random();
 	private static final int STATISTICAL_TEST = 100; // Values tested to determine min and max
+	@Nullable
+	private static MinecraftServer server = null;
 	private static LootTableManager manager;
 
 	private LootLoader() {
 	}
 
-	public static LootTableManager getManager(@Nullable World world) {
-		if (world == null || world.getServer() == null) {
+	@SubscribeEvent
+	public static void onServerStart(FMLServerStartedEvent event) {
+		server = event.getServer();
+	}
+
+	@Nullable
+	private static MinecraftServer getServer() {
+		if (server == null) {
+			return DistExecutor.unsafeRunForDist(() -> () -> Minecraft.getInstance().getSingleplayerServer(), () -> () -> null);
+		}
+		return server;
+	}
+
+	public static LootTableManager getManager() {
+		MinecraftServer server = getServer();
+		if (server == null) {
 			if (manager == null) {
 				manager = new LootTableManager(new LootPredicateManager());
-				SimpleReloadableResourceManager serverResourceManger = new SimpleReloadableResourceManager(ResourcePackType.SERVER_DATA);
-				List<IResourcePack> packs = new LinkedList<>();
-				packs.add(new VanillaPack("minecraft"));
-				for (ModFileInfo mod : ModList.get().getModFiles()) {
-					packs.add(new ModFileResourcePack(mod.getFile()));
-				}
-				packs.forEach(serverResourceManger::add);
-				serverResourceManger.registerReloadListener(manager);
-				CompletableFuture<Unit> completableFuture = serverResourceManger.reload(Util.backgroundExecutor(), Minecraft.getInstance(), packs, CompletableFuture.completedFuture(Unit.INSTANCE));
-				Minecraft.getInstance().managedBlock(completableFuture::isDone);
+				TetraPak.LOGGER.error("Loot tables should never be calculated on the client!");
 			}
 			return manager;
 		}
-		return world.getServer().getLootTables();
+		return server.getLootTables();
 	}
 
 	public static List<LootSlot> crawlTable(LootTable table, LootTableManager manager) {
@@ -127,6 +135,14 @@ public class LootLoader {
 			this.chance = chance;
 		}
 
+		public LootSlot(PacketBuffer buffer) {
+			ItemStack item = buffer.readItem();
+			this.item = item.getItem();
+			min = item.getCount();
+			max = buffer.readInt();
+			chance = buffer.readFloat();
+		}
+
 		public ItemStack asStack() {
 			return new ItemStack(item, min);
 		}
@@ -149,6 +165,12 @@ public class LootLoader {
 		@Override
 		public ITextComponent get() {
 			return new StringTextComponent(this.toString());
+		}
+
+		public void toBuffer(PacketBuffer buffer) {
+			buffer.writeItem(new ItemStack(item, min));
+			buffer.writeInt(max);
+			buffer.writeFloat(chance);
 		}
 	}
 }

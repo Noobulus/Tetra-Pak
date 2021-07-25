@@ -7,6 +7,8 @@ import mcp.MethodsReturnNonnullByDefault;
 import mod.noobulus.tetrapak.BuildConfig;
 import mod.noobulus.tetrapak.TetraPak;
 import mod.noobulus.tetrapak.util.LootLoader;
+import mod.noobulus.tetrapak.util.RecalculatableLazyValue;
+import mod.noobulus.tetrapak.util.ToolHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
@@ -19,16 +21,14 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.loot.*;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
-import net.minecraft.util.LazyValue;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
@@ -54,8 +54,8 @@ public class SalvagingRecipe implements IRecipe<IInventory> {
 	public final int toolLevel;
 	public final Ingredient startingItem;
 	public final ResourceLocation lootTable;
-	@OnlyIn(Dist.CLIENT)
-	public final LazyValue<List<LootLoader.LootSlot>> contents = new LazyValue<>(this::getContents);
+	public final RecalculatableLazyValue<List<LootLoader.LootSlot>> contents;
+	public final RecalculatableLazyValue<List<ItemStack>> toolExamples;
 	private final ResourceLocation id;
 	@Nullable
 	private DeployerAwareInventory recipeInv;
@@ -66,8 +66,14 @@ public class SalvagingRecipe implements IRecipe<IInventory> {
 		this.toolLevel = toolLevel;
 		this.startingItem = startingItem;
 		this.lootTable = lootTable;
-	}
+		this.contents = new RecalculatableLazyValue<>(DistExecutor.unsafeRunForDist(() -> () -> () -> {
+			if (Minecraft.getInstance().hasSingleplayerServer())
+				return getContents();
+			return new ArrayList<>();
+		}, () -> () -> this::getContents));
 
+		this.toolExamples = new RecalculatableLazyValue<>(() -> ToolHelper.getToolsOf(toolType, toolLevel));
+	}
 
 	@Override
 	public boolean matches(IInventory iInventory, World level) {
@@ -135,11 +141,9 @@ public class SalvagingRecipe implements IRecipe<IInventory> {
 		return recipeInv;
 	}
 
-	@OnlyIn(Dist.CLIENT)
 	private List<LootLoader.LootSlot> getContents() {
-		LootTableManager manager = LootLoader.getManager(Minecraft.getInstance().level);
-		LootTable table = manager.get(lootTable);
-		return LootLoader.crawlTable(table, manager);
+		LootTableManager manager = LootLoader.getManager();
+		return LootLoader.crawlTable(manager.get(lootTable), manager);
 	}
 
 	public static class DeployerAwareInventory extends RecipeWrapper {
@@ -188,7 +192,23 @@ public class SalvagingRecipe implements IRecipe<IInventory> {
 			final int toolLevel = packetBuffer.readInt();
 			final ResourceLocation lootTable = packetBuffer.readResourceLocation();
 			final ToolType toolType = ToolType.get(packetBuffer.readUtf(32767));
-			return new SalvagingRecipe(id, toolType, toolLevel, ingredient, lootTable);
+			SalvagingRecipe recipe = new SalvagingRecipe(id, toolType, toolLevel, ingredient, lootTable);
+
+			int slotCount = packetBuffer.readInt();
+			List<LootLoader.LootSlot> slots = new ArrayList<>();
+			for (int i = 0; i < slotCount; i++) {
+				slots.add(new LootLoader.LootSlot(packetBuffer));
+			}
+			recipe.contents.updateSupplier(() -> slots);
+
+			int exampleCount = packetBuffer.readInt();
+			List<ItemStack> examples = new ArrayList<>();
+			for (int i = 0; i < exampleCount; i++) {
+				examples.add(packetBuffer.readItem());
+			}
+			recipe.toolExamples.updateSupplier(() -> examples);
+
+			return recipe;
 		}
 
 		@Override
@@ -197,6 +217,14 @@ public class SalvagingRecipe implements IRecipe<IInventory> {
 			packetBuffer.writeInt(recipe.toolLevel);
 			packetBuffer.writeResourceLocation(recipe.lootTable);
 			packetBuffer.writeUtf(recipe.toolType.getName());
+
+			List<LootLoader.LootSlot> slots = recipe.contents.get();
+			packetBuffer.writeInt(slots.size());
+			slots.forEach(slot -> slot.toBuffer(packetBuffer));
+
+			List<ItemStack> examples = recipe.toolExamples.get();
+			packetBuffer.writeInt(examples.size());
+			examples.forEach(tool -> packetBuffer.writeItemStack(tool, false));
 		}
 	}
 }

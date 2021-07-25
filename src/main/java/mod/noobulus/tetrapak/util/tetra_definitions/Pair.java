@@ -20,20 +20,8 @@ public class Pair<F, S> {
 		return this.first;
 	}
 
-	public void setFirst(F first) {
-		this.first = first;
-	}
-
 	public S getSecond() {
 		return this.second;
-	}
-
-	public void setSecond(S second) {
-		this.second = second;
-	}
-
-	public Pair<F, S> copy() {
-		return of(this.first, this.second);
 	}
 
 	public boolean equals(Object obj) {
@@ -59,7 +47,4 @@ public class Pair<F, S> {
 		return "(" + this.first + ", " + this.second + ")";
 	}
 
-	public Pair<S, F> swap() {
-		return of(this.second, this.first);
-	}
 }

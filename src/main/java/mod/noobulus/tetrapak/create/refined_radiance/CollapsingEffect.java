@@ -61,7 +61,7 @@ public class CollapsingEffect implements IHoloDescription {
 
 	@Nullable
 	private static Material getBlockMaterial(BlockState state) {
-		Object mat = ObfuscationReflectionHelper.getPrivateValue(AbstractBlock.class, state.getBlock(), "material");
+		Object mat = ObfuscationReflectionHelper.getPrivateValue(AbstractBlock.class, state.getBlock(), "field_149764_J");
 		return mat instanceof Material ? (Material) mat : null;
 	}
 

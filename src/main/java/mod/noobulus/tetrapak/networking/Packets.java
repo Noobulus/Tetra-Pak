@@ -39,11 +39,11 @@ public enum Packets {
 
 	private static class LoadedPacket<T extends ISimplePacket> {
 		private static int index = 0;
-		BiConsumer<T, PacketBuffer> encoder;
-		Function<PacketBuffer, T> decoder;
-		BiConsumer<T, Supplier<NetworkEvent.Context>> handler;
-		Class<T> type;
-		NetworkDirection direction;
+		private final BiConsumer<T, PacketBuffer> encoder;
+		private final Function<PacketBuffer, T> decoder;
+		private final BiConsumer<T, Supplier<NetworkEvent.Context>> handler;
+		private final Class<T> type;
+		private final NetworkDirection direction;
 
 		private LoadedPacket(Class<T> type, Function<PacketBuffer, T> factory, NetworkDirection direction) {
 			encoder = T::writePacketData;

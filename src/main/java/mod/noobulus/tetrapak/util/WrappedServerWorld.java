@@ -34,7 +34,7 @@ import java.util.List;
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class WrappedServerWorld extends ServerWorld {
-	protected World world;
+	protected final World world;
 
 	public WrappedServerWorld(World world) {
 		super(world.getServer(), Util.backgroundExecutor(), getLevelSaveFromWorld(world), (IServerWorldInfo) world.getLevelData(), world.dimension(), world.dimensionType(), null, ((ServerChunkProvider) world.getChunkSource()).getGenerator(), world.isDebug(), world.getBiomeManager().biomeZoomSeed, Collections.emptyList(), false);
@@ -42,7 +42,7 @@ public class WrappedServerWorld extends ServerWorld {
 	}
 
 	private static SaveFormat.LevelSave getLevelSaveFromWorld(World world) {
-		return ObfuscationReflectionHelper.getPrivateValue(MinecraftServer.class, world.getServer(), "storageSource");
+		return ObfuscationReflectionHelper.getPrivateValue(MinecraftServer.class, world.getServer(), "field_71310_m");
 	}
 
 	public static World unwrap(World world) {
@@ -67,13 +67,13 @@ public class WrappedServerWorld extends ServerWorld {
 	@Override
 	public ServerTickList<Block> getBlockTicks() {
 		ITickList<Block> tl = this.world.getBlockTicks();
-		return tl instanceof ServerTickList ? (ServerTickList) tl : super.getBlockTicks();
+		return tl instanceof ServerTickList ? (ServerTickList<Block>) tl : super.getBlockTicks();
 	}
 
 	@Override
 	public ServerTickList<Fluid> getLiquidTicks() {
 		ITickList<Fluid> tl = this.world.getLiquidTicks();
-		return tl instanceof ServerTickList ? (ServerTickList) tl : super.getLiquidTicks();
+		return tl instanceof ServerTickList ? (ServerTickList<Fluid>) tl : super.getLiquidTicks();
 	}
 
 	@Override

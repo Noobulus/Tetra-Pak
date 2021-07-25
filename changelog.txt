@@ -1,3 +1,10 @@
+Version 0.3.2
+    Improvements and fixes:
+        fixed tetra pak not working on servers
+        fixed collapsing potentially crashing
+        fixed tool suggestions not being displayed properly in jei when playing on servers
+        cleaned up some code
+
 Version 0.3.1
     New content:
         Jei support for automatic salvaging
