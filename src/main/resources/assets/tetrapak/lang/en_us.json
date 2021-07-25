@@ -132,5 +132,9 @@
   "tetrapak.tool_type.shovel": "Shovel",
   "tetrapak.tool_type.cut": "Cutting",
   "tetrapak.tool_type.hammer": "Hammer",
-  "tetrapak.tool_type.pry": "Pry"
+  "tetrapak.tool_type.pry": "Pry",
+  "create.item_attributes.tetrapak.honeable": "honing available",
+  "create.item_attributes.tetrapak.broken": "is broken",
+  "create.item_attributes.tetrapak.honeable.inverted": "honing unavailable",
+  "create.item_attributes.tetrapak.broken.inverted": "is not broken"
 }

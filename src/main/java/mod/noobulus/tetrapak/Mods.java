@@ -1,6 +1,7 @@
 package mod.noobulus.tetrapak;
 
 import mod.noobulus.tetrapak.create.NullifyingEffect;
+import mod.noobulus.tetrapak.create.StandardTetraPakAttributes;
 import mod.noobulus.tetrapak.create.VoidingEffect;
 import mod.noobulus.tetrapak.create.refined_radiance.CollapsingEffect;
 import mod.noobulus.tetrapak.create.refined_radiance.DeforestingEffect;
@@ -28,30 +29,33 @@ import se.mickelus.tetra.items.modular.impl.toolbelt.ToolbeltHelper;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public enum Mods {
-	CREATE("create", CollapsingEffect::new, DeforestingEffect::new, UnearthingEffect::new, NullifyingEffect::new, VoidingEffect::new, () -> FloatingEffect.INSTANCE),
-	DRUIDCRAFT("druidcraft", MoonstrikeEffect::new, MoonsightEffect::new, RegrowthEffect::new, ScorchingEffect::new),
-	QUARK("quark", CorundumEffect::new),
-	EIDOLON("eidolon", ReapingEffect::new);
+	CREATE("create", () -> CollapsingEffect::new, () -> DeforestingEffect::new, () -> UnearthingEffect::new, () -> NullifyingEffect::new, () -> VoidingEffect::new, () -> () -> FloatingEffect.INSTANCE, () -> StandardTetraPakAttributes::register),
+	DRUIDCRAFT("druidcraft", () -> MoonstrikeEffect::new, () -> MoonsightEffect::new, () -> RegrowthEffect::new, () -> ScorchingEffect::new),
+	QUARK("quark", () -> CorundumEffect::new),
+	EIDOLON("eidolon", () -> ReapingEffect::new);
 
 	public final boolean isLoaded;
-	private final Set<ITetraEffect> loadedListeners = new HashSet<>();
+	private final Set<Object> loadedListeners = new HashSet<>();
 
 	@SafeVarargs
-	Mods(String modid, Supplier<ITetraEffect>... eventListeners) {
+	Mods(String modid, Supplier<Supplier<Object>>... eventListeners) {
 		isLoaded = ModList.get().isLoaded(modid);
 		if (isLoaded) {
 			Arrays.stream(eventListeners)
 				.map(Supplier::get)
+				.map(Supplier::get)
+				.filter(Objects::nonNull)
 				.forEach(loadedListeners::add);
 		}
 	}
 
-	private static Stream<ITetraEffect> getLoadedListenersStream() {
+	private static Stream<Object> getLoadedListenersStream() {
 		return Arrays.stream(Mods.values())
 			.flatMap(Mods::getLoadedListeners);
 	}
@@ -85,10 +89,12 @@ public enum Mods {
 		ItemStack belt = ToolbeltHelper.findToolbelt(player);
 
 		getLoadedListenersStream()
+			.filter(ITetraEffect.class::isInstance)
+			.map(ITetraEffect.class::cast)
 			.forEach(tetraEffect -> tetraEffect.doBeltTick(player, belt));
 	}
 
-	public Stream<ITetraEffect> getLoadedListeners() {
+	public Stream<Object> getLoadedListeners() {
 		return loadedListeners.stream();
 	}
 }
