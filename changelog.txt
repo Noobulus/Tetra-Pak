@@ -1,9 +1,10 @@
 Version 0.3.2
+    New content:
+        Added the ability to filter Tetra tools using Create's brass filter based on whether they are broken or hone-able
     Improvements and fixes:
         Fixed a server crash related to automatic salvaging
         Fixed collapsing potentially crashing
         Fixed tool suggestions not being displayed properly in JEI when playing on servers
-        Added Create attribute filters for hone-able and broken Tetra tools
 
 Version 0.3.1
     New content:
