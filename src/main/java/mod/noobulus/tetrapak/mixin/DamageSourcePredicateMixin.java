@@ -2,7 +2,6 @@ package mod.noobulus.tetrapak.mixin;
 
 import com.google.gson.JsonElement;
 import mod.noobulus.tetrapak.predicate.damage_source.DamageSourcePredicateManager;
-import mod.noobulus.tetrapak.predicate.entity.EntityPredicateManager;
 import net.minecraft.advancements.criterion.DamageSourcePredicate;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.vector.Vector3d;
@@ -24,10 +23,11 @@ public class DamageSourcePredicateMixin {
 
 	@Inject(at = @At("RETURN"), method = "fromJson", cancellable = true)
 	private static void onFromJson(JsonElement element, CallbackInfoReturnable<DamageSourcePredicate> cir) {
-		if (EntityPredicateManager.REGISTRY == null)
+		if (DamageSourcePredicateManager.INSTANCE.getRegistry() == null)
 			return;
 
-		List<Predicate<DamageSource>> predicateList = DamageSourcePredicateManager.REGISTRY
+		List<Predicate<DamageSource>> predicateList = DamageSourcePredicateManager.INSTANCE
+			.getRegistry()
 			.getValues()
 			.stream()
 			.map(abstractEntityPredicate -> abstractEntityPredicate.read(element))

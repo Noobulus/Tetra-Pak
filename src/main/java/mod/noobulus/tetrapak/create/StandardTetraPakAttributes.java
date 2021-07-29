@@ -19,15 +19,15 @@ public enum StandardTetraPakAttributes implements ItemAttribute {
 		.orElse(false)),
 	broken(s -> s.getItem() instanceof IModularItem && ((IModularItem) s.getItem()).isBroken(s));
 
-	public static Object register() {
-		ItemAttribute.register(DUMMY);
-		return null;
-	}
-
 	private final Predicate<ItemStack> test;
 
 	StandardTetraPakAttributes(Predicate<ItemStack> test) {
 		this.test = test;
+	}
+
+	public static Object register() {
+		ItemAttribute.register(DUMMY);
+		return null;
 	}
 
 	@Override

@@ -1,7 +1,6 @@
 package mod.noobulus.tetrapak.util;
 
 import mod.noobulus.tetrapak.BuildConfig;
-import mod.noobulus.tetrapak.util.tetra_definitions.Pair;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;

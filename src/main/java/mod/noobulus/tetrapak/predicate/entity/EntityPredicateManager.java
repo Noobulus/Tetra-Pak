@@ -1,31 +1,24 @@
 package mod.noobulus.tetrapak.predicate.entity;
 
-import mod.noobulus.tetrapak.BuildConfig;
 import mod.noobulus.tetrapak.TetraPak;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import mod.noobulus.tetrapak.predicate.AbstractPredicateManager;
 import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.RegistryBuilder;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = BuildConfig.MODID)
-public class EntityPredicateManager {
-	public static IForgeRegistry<AbstractEntityPredicate> REGISTRY = null;
+public class EntityPredicateManager extends AbstractPredicateManager<AbstractEntityPredicate> {
+	public static final EntityPredicateManager INSTANCE = new EntityPredicateManager();
 
-	private EntityPredicateManager() {
-	}
-
-	@SubscribeEvent
-	public static void onNewRegistry(RegistryEvent.NewRegistry event) {
-		REGISTRY = new RegistryBuilder<AbstractEntityPredicate>()
-			.setType(AbstractEntityPredicate.class)
-			.setName(TetraPak.asId("entitypredicates"))
-			.create();
-	}
-
-	@SubscribeEvent
-	public static void onRegisterEntityPredicates(RegistryEvent.Register<AbstractEntityPredicate> event) {
-		IForgeRegistry<AbstractEntityPredicate> registry = event.getRegistry();
+	@Override
+	public void registerContents(IForgeRegistry<AbstractEntityPredicate> registry) {
 		registry.register(new CreatureAttributePredicate().setRegistryName(TetraPak.asId("creature_attribute")));
+	}
+
+	@Override
+	protected Class<AbstractEntityPredicate> getPredicateClass() {
+		return AbstractEntityPredicate.class;
+	}
+
+	@Override
+	protected String getRegistryName() {
+		return "entitypredicates";
 	}
 }

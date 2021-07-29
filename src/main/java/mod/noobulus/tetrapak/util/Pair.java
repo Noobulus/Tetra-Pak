@@ -1,4 +1,4 @@
-package mod.noobulus.tetrapak.util.tetra_definitions;
+package mod.noobulus.tetrapak.util;
 
 
 import java.util.Objects;

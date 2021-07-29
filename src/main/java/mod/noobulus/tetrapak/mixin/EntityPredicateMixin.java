@@ -24,10 +24,11 @@ public class EntityPredicateMixin {
 
 	@Inject(at = @At("RETURN"), method = "fromJson", cancellable = true)
 	private static void onFromJson(JsonElement element, CallbackInfoReturnable<EntityPredicate> cir) {
-		if (EntityPredicateManager.REGISTRY == null)
+		if (EntityPredicateManager.INSTANCE.getRegistry() == null)
 			return;
 
-		List<Predicate<Entity>> predicateList = EntityPredicateManager.REGISTRY
+		List<Predicate<Entity>> predicateList = EntityPredicateManager.INSTANCE
+			.getRegistry()
 			.getValues()
 			.stream()
 			.map(abstractEntityPredicate -> abstractEntityPredicate.read(element))
