@@ -2,8 +2,7 @@ package mod.noobulus.tetrapak;
 
 import mod.noobulus.tetrapak.loot.LootConditions;
 import mod.noobulus.tetrapak.networking.Packets;
-import mod.noobulus.tetrapak.predicate.damage_source.DamageSourcePredicateManager;
-import mod.noobulus.tetrapak.predicate.entity.EntityPredicateManager;
+import mod.noobulus.tetrapak.predicate.PredicateManagers;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -28,8 +27,7 @@ public class TetraPak {
 		modEventBus.addGenericListener(GlobalLootModifierSerializer.class, Mods::registerLootModifiers);
 		modEventBus.addListener(Mods::clientSetup);
 		modEventBus.addListener((FMLCommonSetupEvent event) -> Packets.registerPackets());
-		DamageSourcePredicateManager.INSTANCE.register(modEventBus);
-		EntityPredicateManager.INSTANCE.register(modEventBus);
+		PredicateManagers.register();
 		LootConditions.register();
 	}
 

@@ -1,7 +1,7 @@
 package mod.noobulus.tetrapak.mixin;
 
 import com.google.gson.JsonElement;
-import mod.noobulus.tetrapak.predicate.entity.EntityPredicateManager;
+import mod.noobulus.tetrapak.predicate.PredicateManagers;
 import net.minecraft.advancements.criterion.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.loot.FishingPredicate;
@@ -24,10 +24,10 @@ public class EntityPredicateMixin {
 
 	@Inject(at = @At("RETURN"), method = "fromJson", cancellable = true)
 	private static void onFromJson(JsonElement element, CallbackInfoReturnable<EntityPredicate> cir) {
-		if (EntityPredicateManager.INSTANCE.getRegistry() == null)
+		if (PredicateManagers.ENTITY_PREDICATES.getRegistry() == null)
 			return;
 
-		List<Predicate<Entity>> predicateList = EntityPredicateManager.INSTANCE
+		List<Predicate<Entity>> predicateList = PredicateManagers.ENTITY_PREDICATES
 			.getRegistry()
 			.getValues()
 			.stream()
