@@ -1,0 +1,27 @@
+{
+    "key": "dragon_scale",
+    "category": "scale",
+    "primary": "5",
+    "secondary": "0.4",
+    "tertiary": "1",
+    "durability": "200",
+    "integrityCost": "1",
+    "integrityGain": "4",
+    "magicCapacity": "90",
+    "toolLevel": "0",
+    "toolEfficiency": "0",
+    "tints": {
+        "glyph": "1a0e1b",
+        "texture": "1a0e1b"
+    },
+    "textures": [
+        "crude",
+        "default"
+    ],
+    "material": {
+        "item": "quark:dragon_scale"
+    },
+    "requiredTools": {
+        "cut": 3
+    }
+}
