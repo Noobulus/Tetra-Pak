@@ -113,8 +113,8 @@ dependencies {
 
     implementation fg.deobf("curse.maven:tetra-289712:3371803")
     implementation fg.deobf("curse.maven:mgui-351914:3291267")
-    implementation fg.deobf("curse.maven:create-328085:3419412")
-    implementation fg.deobf("curse.maven:flywheel-486392:3419392")
+    // implementation fg.deobf("curse.maven:create-328085:3419412")
+    // implementation fg.deobf("curse.maven:flywheel-486392:3419392")
     runtimeOnly fg.deobf("curse.maven:druidcraft-340991:3177267")
     runtimeOnly fg.deobf("curse.maven:openloader-354339:3199872")
     runtimeOnly fg.deobf("curse.maven:neat-238372:3182258")
@@ -125,6 +125,9 @@ dependencies {
 
     // compileOnly fg.deobf("mezz.jei:jei-1.16.5:${jei_version}:api")
     implementation fg.deobf("mezz.jei:jei-1.16.5:${jei_version}")
+
+    implementation fg.deobf("com.jozufozu.flywheel:Flywheel:${flywheel_version}")
+    implementation fg.deobf("com.simibubi.create:Create:${create_version}")
 
     annotationProcessor 'org.spongepowered:mixin:0.8:processor'
 }
