@@ -1,7 +1,6 @@
 package mod.noobulus.tetrapak.create.recipes;
 
 import com.google.gson.JsonObject;
-import com.simibubi.create.content.contraptions.components.deployer.DeployerFakePlayer;
 import com.simibubi.create.content.contraptions.components.deployer.DeployerTileEntity;
 import mcp.MethodsReturnNonnullByDefault;
 import mod.noobulus.tetrapak.BuildConfig;
@@ -20,6 +19,7 @@ import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.loot.*;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
@@ -39,6 +39,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
@@ -57,8 +58,8 @@ public class SalvagingRecipe implements IRecipe<IInventory> {
 	public final RecalculatableLazyValue<List<LootLoader.LootSlot>> contents;
 	public final RecalculatableLazyValue<List<ItemStack>> toolExamples;
 	private final ResourceLocation id;
-	@Nullable
-	private DeployerAwareInventory recipeInv;
+	private DeployerTileEntity bufferedDeployerTile;
+	private ItemStack bufferedToolStack;
 
 	public SalvagingRecipe(ResourceLocation id, ToolType toolType, int toolLevel, Ingredient startingItem, ResourceLocation lootTable) {
 		this.id = id;
@@ -79,12 +80,12 @@ public class SalvagingRecipe implements IRecipe<IInventory> {
 	public boolean matches(IInventory iInventory, World level) {
 		if (iInventory.getContainerSize() != 2)
 			return false;
-		ItemStack toolSlot = iInventory.getItem(0);
+		ItemStack toolSlot = iInventory.getItem(1);
 		if (toolSlot.isEmpty())
 			return false;
 		if (toolSlot.getItem().getHarvestLevel(toolSlot, toolType, null, null) < toolLevel)
 			return false;
-		return startingItem.test(iInventory.getItem(1));
+		return startingItem.test(iInventory.getItem(0));
 	}
 
 	public ItemStack assemble(IInventory inv) {
@@ -99,10 +100,7 @@ public class SalvagingRecipe implements IRecipe<IInventory> {
 		return ItemStack.EMPTY;
 	}
 
-	public List<ItemStack> rollResults(IInventory iInventory, ServerWorld level, @Nullable PlayerEntity playerEntity) {
-		if (iInventory.getContainerSize() != 2)
-			return new ArrayList<>();
-		ItemStack toolSlot = iInventory.getItem(0);
+	public List<ItemStack> rollResults(ItemStack toolSlot, ServerWorld level, @Nullable PlayerEntity playerEntity) {
 		if (toolSlot.isEmpty())
 			return new ArrayList<>();
 		LootContext.Builder builder = new LootContext.Builder(level)
@@ -132,13 +130,12 @@ public class SalvagingRecipe implements IRecipe<IInventory> {
 		return SalvagingRecipeType.AUTOMATIC_SALVAGING;
 	}
 
-	public void setBufferedInv(DeployerAwareInventory recipeInv) {
-		this.recipeInv = recipeInv;
+	public void setBufferedDeployer(DeployerTileEntity recipeInv) {
+		this.bufferedDeployerTile = recipeInv;
 	}
 
-	@Nullable
-	public DeployerAwareInventory getRecipeInv() {
-		return recipeInv;
+	public DeployerTileEntity getBufferedDeployerTile() {
+		return bufferedDeployerTile;
 	}
 
 	private List<LootLoader.LootSlot> getContents() {
@@ -146,16 +143,27 @@ public class SalvagingRecipe implements IRecipe<IInventory> {
 		return LootLoader.crawlTable(manager.get(lootTable), manager);
 	}
 
-	public static class DeployerAwareInventory extends RecipeWrapper {
+	public void setBufferedTool(ItemStack tool) {
+		this.bufferedToolStack = tool;
+	}
+
+	public ItemStack getBufferedToolStack() {
+		return bufferedToolStack;
+	}
+
+	public static class DeployerAwareInventory extends RecipeWrapper implements Supplier<TileEntity> {
 		public final DeployerTileEntity deployerTileEntity;
-		public final DeployerFakePlayer deployerFakePlayer;
 		public final Consumer<List<Item>> onRecipeApply;
 
-		public DeployerAwareInventory(IItemHandlerModifiable inv, DeployerTileEntity deployerTileEntity, DeployerFakePlayer deployerFakePlayer, Consumer<List<Item>> onRecipeApply) {
+		public DeployerAwareInventory(IItemHandlerModifiable inv, DeployerTileEntity deployerTileEntity, Consumer<List<Item>> onRecipeApply) {
 			super(inv);
 			this.deployerTileEntity = deployerTileEntity;
-			this.deployerFakePlayer = deployerFakePlayer;
 			this.onRecipeApply = onRecipeApply;
+		}
+
+		@Override
+		public TileEntity get() {
+			return deployerTileEntity;
 		}
 	}
 

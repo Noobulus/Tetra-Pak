@@ -1,6 +1,8 @@
 package mod.noobulus.tetrapak.mixin;
 
+import com.simibubi.create.content.contraptions.components.deployer.DeployerTileEntity;
 import com.simibubi.create.content.contraptions.processing.InWorldProcessing;
+import mod.noobulus.tetrapak.create.recipes.DeployerStoresLastRecipeOutputBehaviour;
 import mod.noobulus.tetrapak.create.recipes.SalvagingRecipe;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -12,6 +14,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -26,16 +29,17 @@ public class InWorldProcessingMixin {
 		if (!(recipe instanceof SalvagingRecipe))
 			return;
 		SalvagingRecipe salvagingRecipe = (SalvagingRecipe) recipe;
-		SalvagingRecipe.DeployerAwareInventory inventory = ((SalvagingRecipe) recipe).getRecipeInv();
-		if (inventory == null)
-			return;
-		World world = inventory.deployerTileEntity.getLevel();
+		DeployerTileEntity te = ((SalvagingRecipe) recipe).getBufferedDeployerTile();
+		World world = te.getLevel();
 		if (!(world instanceof ServerWorld))
 			return;
-		PlayerEntity playerEntity = inventory.deployerFakePlayer;
-		List<ItemStack> rolls = salvagingRecipe.rollResults(inventory, ((ServerWorld) world), playerEntity);
+		PlayerEntity playerEntity = te.getPlayer();
+		List<ItemStack> rolls = salvagingRecipe.rollResults(salvagingRecipe.getBufferedToolStack(), ((ServerWorld) world), playerEntity);
 		if (!rolls.isEmpty()) {
-			inventory.onRecipeApply.accept(rolls.stream().filter(((Predicate<ItemStack>) ItemStack::isEmpty).negate()).map(ItemStack::getItem).collect(Collectors.toList()));
+			@Nullable
+			DeployerStoresLastRecipeOutputBehaviour store = te.getBehaviour(DeployerStoresLastRecipeOutputBehaviour.TYPE);
+			if (store != null)
+				store.setLastProduced(rolls.stream().filter(((Predicate<ItemStack>) ItemStack::isEmpty).negate()).map(ItemStack::getItem).collect(Collectors.toList()));
 			cir.setReturnValue(rolls);
 		}
 	}
