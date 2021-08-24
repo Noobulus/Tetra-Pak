@@ -13,7 +13,6 @@
     "ContainerMinecartEntityMixin",
     "DamageSourcePredicateMixin",
     "EntityPredicateMixin",
-    "InWorldProcessingMixin",
     "ItemEntityMixin",
     "ItemFrameMixin",
     "PlayerInteractionManagerMixin",

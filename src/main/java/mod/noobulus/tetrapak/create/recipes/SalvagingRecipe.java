@@ -2,8 +2,10 @@ package mod.noobulus.tetrapak.create.recipes;
 
 import com.google.gson.JsonObject;
 import com.simibubi.create.content.contraptions.components.deployer.DeployerTileEntity;
+import com.simibubi.create.content.contraptions.processing.ProcessingRecipe;
+import com.simibubi.create.content.contraptions.processing.ProcessingRecipeBuilder;
+import com.simibubi.create.foundation.utility.recipe.IRecipeTypeInfo;
 import mcp.MethodsReturnNonnullByDefault;
-import mod.noobulus.tetrapak.BuildConfig;
 import mod.noobulus.tetrapak.TetraPak;
 import mod.noobulus.tetrapak.util.LootLoader;
 import mod.noobulus.tetrapak.util.RecalculatableLazyValue;
@@ -11,15 +13,12 @@ import mod.noobulus.tetrapak.util.ToolHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.loot.*;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
@@ -27,42 +26,56 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.items.IItemHandlerModifiable;
-import net.minecraftforge.items.wrapper.RecipeWrapper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
-@MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-public class SalvagingRecipe implements IRecipe<IInventory> {
-	public static final Serializer SERIALIZER = new Serializer();
+@MethodsReturnNonnullByDefault
+public class SalvagingRecipe extends ProcessingRecipe<IInventory> {
+	public static final ResourceLocation ID = TetraPak.asId("automatic_salvaging");
+	public static final IRecipeTypeInfo INFO = new IRecipeTypeInfo() {
+		@Override
+		public ResourceLocation getId() {
+			return ID;
+		}
+
+		@Override
+		public IRecipeSerializer<SalvagingRecipe> getSerializer() {
+			return Serializer.INSTANCE;
+		}
+
+		@Override
+		public IRecipeType<SalvagingRecipe> getType() {
+			return SalvagingRecipeType.INSTANCE;
+		}
+	};
 	private static final LootParameterSet lootParameters = new LootParameterSet.Builder()
 		.required(LootParameters.ORIGIN)
 		.optional(LootParameters.TOOL)
 		.optional(LootParameters.THIS_ENTITY)
 		.build();
-
 	public final ToolType toolType;
 	public final int toolLevel;
 	public final Ingredient startingItem;
 	public final ResourceLocation lootTable;
 	public final RecalculatableLazyValue<List<LootLoader.LootSlot>> contents;
 	public final RecalculatableLazyValue<List<ItemStack>> toolExamples;
-	private final ResourceLocation id;
-	private DeployerTileEntity bufferedDeployerTile;
-	private ItemStack bufferedToolStack;
+
+	@Nullable
+	private DeployerTileEntity bufferedDeployerTile = null;
+	private ItemStack bufferedToolStack = ItemStack.EMPTY;
 
 	public SalvagingRecipe(ResourceLocation id, ToolType toolType, int toolLevel, Ingredient startingItem, ResourceLocation lootTable) {
-		this.id = id;
+		super(INFO, new ProcessingRecipeBuilder.ProcessingRecipeParams(id) {
+		});
+
 		this.toolType = toolType;
 		this.toolLevel = toolLevel;
 		this.startingItem = startingItem;
@@ -77,6 +90,16 @@ public class SalvagingRecipe implements IRecipe<IInventory> {
 	}
 
 	@Override
+	protected int getMaxInputCount() {
+		return 2;
+	}
+
+	@Override
+	protected int getMaxOutputCount() {
+		return 20;
+	}
+
+	@Override
 	public boolean matches(IInventory iInventory, World level) {
 		if (iInventory.getContainerSize() != 2)
 			return false;
@@ -88,54 +111,12 @@ public class SalvagingRecipe implements IRecipe<IInventory> {
 		return startingItem.test(iInventory.getItem(0));
 	}
 
-	public ItemStack assemble(IInventory inv) {
-		return this.getResultItem();
-	}
-
-	public boolean canCraftInDimensions(int width, int height) {
-		return true;
-	}
-
-	public ItemStack getResultItem() {
-		return ItemStack.EMPTY;
-	}
-
-	public List<ItemStack> rollResults(ItemStack toolSlot, ServerWorld level, @Nullable PlayerEntity playerEntity) {
-		if (toolSlot.isEmpty())
-			return new ArrayList<>();
-		LootContext.Builder builder = new LootContext.Builder(level)
-			.withParameter(LootParameters.TOOL, toolSlot);
-		if (playerEntity != null) {
-			builder.withParameter(LootParameters.THIS_ENTITY, playerEntity)
-				.withParameter(LootParameters.ORIGIN, playerEntity.position())
-				.withLuck(playerEntity.getLuck());
-		}
-
-		LootTable table = level.getServer().getLootTables().get(lootTable);
-		return table.getRandomItems(builder.create(lootParameters));
-	}
-
-	@Override
-	public ResourceLocation getId() {
-		return id;
-	}
-
-	@Override
-	public IRecipeSerializer<?> getSerializer() {
-		return SERIALIZER;
-	}
-
-	@Override
-	public IRecipeType<?> getType() {
-		return SalvagingRecipeType.AUTOMATIC_SALVAGING;
-	}
-
 	public void setBufferedDeployer(DeployerTileEntity recipeInv) {
 		this.bufferedDeployerTile = recipeInv;
 	}
 
-	public DeployerTileEntity getBufferedDeployerTile() {
-		return bufferedDeployerTile;
+	public void setBufferedTool(ItemStack tool) {
+		this.bufferedToolStack = tool;
 	}
 
 	private List<LootLoader.LootSlot> getContents() {
@@ -143,46 +124,42 @@ public class SalvagingRecipe implements IRecipe<IInventory> {
 		return LootLoader.crawlTable(manager.get(lootTable), manager);
 	}
 
-	public void setBufferedTool(ItemStack tool) {
-		this.bufferedToolStack = tool;
-	}
-
-	public ItemStack getBufferedToolStack() {
-		return bufferedToolStack;
-	}
-
-	public static class DeployerAwareInventory extends RecipeWrapper implements Supplier<TileEntity> {
-		public final DeployerTileEntity deployerTileEntity;
-		public final Consumer<List<Item>> onRecipeApply;
-
-		public DeployerAwareInventory(IItemHandlerModifiable inv, DeployerTileEntity deployerTileEntity, Consumer<List<Item>> onRecipeApply) {
-			super(inv);
-			this.deployerTileEntity = deployerTileEntity;
-			this.onRecipeApply = onRecipeApply;
+	@Override
+	public List<ItemStack> rollResults() {
+		if (bufferedDeployerTile == null)
+			return new ArrayList<>();
+		World level = bufferedDeployerTile.getLevel();
+		if (!(level instanceof ServerWorld))
+			return new ArrayList<>();
+		if (bufferedToolStack.isEmpty())
+			return new ArrayList<>();
+		LootContext.Builder builder = new LootContext.Builder(((ServerWorld) level))
+			.withParameter(LootParameters.TOOL, bufferedToolStack);
+		PlayerEntity player = bufferedDeployerTile.getPlayer();
+		if (player != null) {
+			builder.withParameter(LootParameters.THIS_ENTITY, player)
+				.withParameter(LootParameters.ORIGIN, player.position())
+				.withLuck(player.getLuck());
 		}
 
-		@Override
-		public TileEntity get() {
-			return deployerTileEntity;
+		LootTable table = level.getServer().getLootTables().get(lootTable);
+		List<ItemStack> rolls = table.getRandomItems(builder.create(lootParameters));
+		if (!rolls.isEmpty()) {
+			@Nullable
+			DeployerStoresLastRecipeOutputBehaviour store = bufferedDeployerTile.getBehaviour(DeployerStoresLastRecipeOutputBehaviour.TYPE);
+			if (store != null)
+				store.setLastProduced(rolls
+					.stream()
+					.filter(((Predicate<ItemStack>) ItemStack::isEmpty).negate())
+					.map(ItemStack::getItem)
+					.collect(Collectors.toList()));
 		}
-	}
-
-	@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = BuildConfig.MODID)
-	public static class SalvagingRecipeType implements IRecipeType<SalvagingRecipe> {
-		public static final IRecipeType<SalvagingRecipe> AUTOMATIC_SALVAGING = new SalvagingRecipeType();
-
-		private SalvagingRecipeType() {
-		}
-
-		@SubscribeEvent
-		public static void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> event) {
-			Registry.register(Registry.RECIPE_TYPE, TetraPak.asId("automatic_salvaging"), AUTOMATIC_SALVAGING);
-			event.getRegistry().register(SalvagingRecipe.SERIALIZER.setRegistryName(TetraPak.asId("automatic_salvaging")));
-		}
+		return rolls;
 	}
 
 	private static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>>
 		implements IRecipeSerializer<SalvagingRecipe> {
+		public static final IRecipeSerializer<SalvagingRecipe> INSTANCE = new Serializer();
 
 		@Override
 		public SalvagingRecipe fromJson(ResourceLocation id, JsonObject json) {
@@ -233,6 +210,18 @@ public class SalvagingRecipe implements IRecipe<IInventory> {
 			List<ItemStack> examples = recipe.toolExamples.get();
 			packetBuffer.writeInt(examples.size());
 			examples.forEach(tool -> packetBuffer.writeItemStack(tool, false));
+		}
+	}
+
+	public static class SalvagingRecipeType implements IRecipeType<SalvagingRecipe> {
+		public static final IRecipeType<SalvagingRecipe> INSTANCE = new SalvagingRecipe.SalvagingRecipeType();
+
+		private SalvagingRecipeType() {
+		}
+
+		public static void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> event) {
+			Registry.register(Registry.RECIPE_TYPE, SalvagingRecipe.ID, INSTANCE);
+			event.getRegistry().register(SalvagingRecipe.Serializer.INSTANCE.setRegistryName(SalvagingRecipe.ID));
 		}
 	}
 }

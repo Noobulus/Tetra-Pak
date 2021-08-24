@@ -13,7 +13,6 @@ import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
 import mezz.jei.api.ingredients.IIngredients;
 import mod.noobulus.tetrapak.BuildConfig;
-import mod.noobulus.tetrapak.TetraPak;
 import mod.noobulus.tetrapak.create.recipes.SalvagingRecipe;
 import mod.noobulus.tetrapak.util.LootLoader;
 import net.minecraft.item.Item;
@@ -34,7 +33,6 @@ import java.util.stream.Collectors;
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 public class AutoSalvageCategory implements CompatJeiRecipe<SalvagingRecipe> {
-	public static final ResourceLocation ID = TetraPak.asId("auto_salvage");
 	private static final ItemStack hammer = makeHammer();
 	private final IDrawable background;
 	private final IDrawable icon;
@@ -62,7 +60,7 @@ public class AutoSalvageCategory implements CompatJeiRecipe<SalvagingRecipe> {
 
 	@Override
 	public ResourceLocation getUid() {
-		return ID;
+		return SalvagingRecipe.ID;
 	}
 
 	@Override
@@ -117,7 +115,7 @@ public class AutoSalvageCategory implements CompatJeiRecipe<SalvagingRecipe> {
 
 	@Override
 	public IRecipeType<SalvagingRecipe> getRecipeType() {
-		return SalvagingRecipe.SalvagingRecipeType.AUTOMATIC_SALVAGING;
+		return SalvagingRecipe.SalvagingRecipeType.INSTANCE;
 	}
 
 	@Override

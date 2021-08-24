@@ -7,8 +7,10 @@ import com.simibubi.create.foundation.tileEntity.TileEntityBehaviour;
 import mod.noobulus.tetrapak.TetraPak;
 import mod.noobulus.tetrapak.util.IEventBusListener;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.util.LazyValue;
 import net.minecraft.world.World;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 
@@ -66,10 +68,16 @@ public class AutoSalvageManager implements IEventBusListener {
 			if (store.lastProduced.contains(beltStack.getItem()))
 				return Optional.empty();
 
-			Optional<SalvagingRecipe> recipe = level.getRecipeManager().getRecipeFor(SalvagingRecipe.SalvagingRecipeType.AUTOMATIC_SALVAGING, event.getInventory(), level);
+			Optional<SalvagingRecipe> recipe = level.getRecipeManager().getRecipeFor(SalvagingRecipe.SalvagingRecipeType.INSTANCE, event.getInventory(), level);
 			recipe.ifPresent(r -> r.setBufferedDeployer(deployer));
 			recipe.ifPresent(r -> r.setBufferedTool(tool));
 			return recipe;
 		}, 42);
+	}
+
+	@Override
+	public void registerModListeners(IEventBus bus) {
+		IEventBusListener.super.registerModListeners(bus);
+		bus.addGenericListener(IRecipeSerializer.class, SalvagingRecipe.SalvagingRecipeType::registerRecipeSerializers);
 	}
 }

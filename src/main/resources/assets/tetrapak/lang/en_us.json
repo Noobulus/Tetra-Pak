@@ -143,7 +143,7 @@
   "tetra.variant.single_socket/black_crystal_cluster.description": "A gem, attached where the head meets the handle. The gem is enchanted and hastens harvesting of black blocks.",
   "tetrapak.advancements.wither_void.title": "The Flex",
   "tetrapak.advancements.wither_void.description": "Kill a Wither with a Shadow Steel tool",
-  "tetrapak.recipe.auto_salvage": "Automatic Salvaging",
+  "tetrapak.recipe.automatic_salvaging": "Automatic Salvaging",
   "tetrapak.tool_type.axe": "Axe",
   "tetrapak.tool_type.hoe": "Hoe",
   "tetrapak.tool_type.pickaxe": "Pickaxe",
