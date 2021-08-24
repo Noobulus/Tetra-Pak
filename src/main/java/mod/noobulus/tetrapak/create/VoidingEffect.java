@@ -2,6 +2,7 @@ package mod.noobulus.tetrapak.create;
 
 import mod.noobulus.tetrapak.loot.modifier.VoidingLootModifier;
 import mod.noobulus.tetrapak.util.DamageBufferer;
+import mod.noobulus.tetrapak.util.IEventBusListener;
 import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ILootModifier;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
@@ -27,7 +28,7 @@ import se.mickelus.tetra.gui.statbar.getter.*;
 import javax.annotation.Nullable;
 import java.util.function.Function;
 
-public class VoidingEffect implements IHoloDescription, ILootModifier<VoidingLootModifier> {
+public class VoidingEffect implements IHoloDescription, ILootModifier<VoidingLootModifier>, IEventBusListener {
 
 	@SubscribeEvent
 	public void voidingKillsMultiplyExp(LivingExperienceDropEvent event) {

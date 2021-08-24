@@ -1,5 +1,6 @@
 package mod.noobulus.tetrapak.druidcraft;
 
+import mod.noobulus.tetrapak.util.IEventBusListener;
 import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
 import net.minecraft.client.resources.I18n;
@@ -21,7 +22,7 @@ import se.mickelus.tetra.items.modular.ModularItem;
 
 import static java.lang.Math.round;
 
-public class RegrowthEffect implements IHoloDescription {
+public class RegrowthEffect implements IHoloDescription, IEventBusListener {
 
 	@SubscribeEvent
 	public void onLivingUpdate(LivingEvent.LivingUpdateEvent event) {

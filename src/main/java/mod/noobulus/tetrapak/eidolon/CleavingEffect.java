@@ -1,6 +1,7 @@
 package mod.noobulus.tetrapak.eidolon;
 
 import com.mojang.authlib.GameProfile;
+import mod.noobulus.tetrapak.util.IEventBusListener;
 import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
 import net.minecraft.client.resources.I18n;
@@ -24,7 +25,7 @@ import se.mickelus.tetra.effect.ItemEffect;
 import se.mickelus.tetra.gui.statbar.getter.IStatGetter;
 import se.mickelus.tetra.gui.statbar.getter.ITooltipGetter;
 
-public class CleavingEffect implements IHoloDescription {
+public class CleavingEffect implements IHoloDescription, IEventBusListener {
     @SubscribeEvent
     public void onDeath(LivingDropsEvent event) {
         if (hasEffect(event.getSource())) {

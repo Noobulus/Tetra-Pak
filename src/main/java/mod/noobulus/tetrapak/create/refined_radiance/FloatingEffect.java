@@ -2,6 +2,7 @@ package mod.noobulus.tetrapak.create.refined_radiance;
 
 import mod.noobulus.tetrapak.networking.EntityFloatParticlePacket;
 import mod.noobulus.tetrapak.networking.Packets;
+import mod.noobulus.tetrapak.util.IEventBusListener;
 import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
 import net.minecraft.entity.Entity;
@@ -16,7 +17,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.network.PacketDistributor;
 import se.mickelus.tetra.effect.ItemEffect;
 
-public class FloatingEffect implements IHoloDescription {
+public class FloatingEffect implements IHoloDescription, IEventBusListener {
 	public static final FloatingEffect INSTANCE = new FloatingEffect();
 	private boolean makeItemsFloat = false;
 

@@ -3,6 +3,7 @@ package mod.noobulus.tetrapak.create.refined_radiance;
 import com.simibubi.create.AllTags;
 import com.simibubi.create.foundation.utility.TreeCutter;
 import com.simibubi.create.foundation.utility.VecHelper;
+import mod.noobulus.tetrapak.util.IEventBusListener;
 import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
 import net.minecraft.block.BlockState;
@@ -18,7 +19,7 @@ import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import se.mickelus.tetra.effect.ItemEffect;
 
-public class DeforestingEffect implements IHoloDescription {
+public class DeforestingEffect implements IHoloDescription, IEventBusListener {
 	private static boolean deforesting = false; // required as to not run into "recursions" over forge events on tree cutting
 
 	public static void destroyTree(IWorld iWorld, BlockState state, BlockPos pos,

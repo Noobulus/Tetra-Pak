@@ -1,5 +1,6 @@
 package mod.noobulus.tetrapak.create.refined_radiance;
 
+import mod.noobulus.tetrapak.util.IEventBusListener;
 import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
 import net.minecraft.block.Block;
@@ -20,7 +21,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-public class UnearthingEffect implements IHoloDescription {
+public class UnearthingEffect implements IHoloDescription, IEventBusListener {
 	private static boolean unearthing = false; // required as to not run into "recursions" over forge events on tree cutting
 
 	public static void unearth(IWorld iWorld, BlockPos pos, PlayerEntity entity) {

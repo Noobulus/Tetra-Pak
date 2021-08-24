@@ -1,6 +1,7 @@
 package mod.noobulus.tetrapak.druidcraft;
 
 import mod.noobulus.tetrapak.registries.Particles;
+import mod.noobulus.tetrapak.util.IEventBusListener;
 import mod.noobulus.tetrapak.util.tetra_definitions.IPercentageHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
 import net.minecraft.client.Minecraft;
@@ -22,7 +23,7 @@ import se.mickelus.tetra.gui.statbar.getter.IStatGetter;
 import se.mickelus.tetra.gui.statbar.getter.ITooltipGetter;
 import se.mickelus.tetra.items.modular.ModularItem;
 
-public class MoonstrikeEffect implements IPercentageHoloDescription {
+public class MoonstrikeEffect implements IPercentageHoloDescription, IEventBusListener {
 
 	private static float getMoonFactor(IDayTimeReader world, double efficiency) {
 		return (float) (1 + (efficiency * world.getMoonBrightness() / 100.d));

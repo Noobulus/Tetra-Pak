@@ -1,6 +1,7 @@
 package mod.noobulus.tetrapak.quark;
 
 import mod.noobulus.tetrapak.Config;
+import mod.noobulus.tetrapak.util.IEventBusListener;
 import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
 import net.minecraft.util.math.BlockPos;
@@ -9,7 +10,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import se.mickelus.tetra.effect.ItemEffect;
 
-public class CorundumEffect implements IHoloDescription {
+public class CorundumEffect implements IHoloDescription, IEventBusListener {
 	public CorundumEffect() {
 		CorundumMap.checkMappings();
 	}

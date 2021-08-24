@@ -1,6 +1,7 @@
 package mod.noobulus.tetrapak.create;
 
 import com.simibubi.create.foundation.utility.VecHelper;
+import mod.noobulus.tetrapak.util.IEventBusListener;
 import mod.noobulus.tetrapak.util.tetra_definitions.IPercentageHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -16,7 +17,7 @@ import se.mickelus.tetra.effect.ItemEffect;
 
 import java.util.UUID;
 
-public class NullifyingEffect implements IPercentageHoloDescription {
+public class NullifyingEffect implements IPercentageHoloDescription, IEventBusListener {
 	public static final AttributeModifier beltGravityModifier = new AttributeModifier(UUID.fromString("678c7388-ba1d-45c8-9f51-d6e4f1c4e3ac"), "Gravity modifier", 0.25 - 1, AttributeModifier.Operation.MULTIPLY_TOTAL);
 	public static final AttributeModifier beltDoubleGravityModifier = new AttributeModifier(UUID.fromString("778c7388-ba1d-45c8-9f51-d6e4f1c4e3ac"), "Gravity modifier", 0.125 - 1, AttributeModifier.Operation.MULTIPLY_TOTAL);
 	public static final AttributeModifier beltGravityModifierSlowfall = new AttributeModifier(UUID.fromString("878c7388-ba1d-45c8-9f51-d6e4f1c4e3ac"), "Gravity modifier", 0.35 - 1, AttributeModifier.Operation.MULTIPLY_TOTAL);

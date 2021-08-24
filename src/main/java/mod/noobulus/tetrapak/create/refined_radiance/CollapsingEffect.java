@@ -1,5 +1,6 @@
 package mod.noobulus.tetrapak.create.refined_radiance;
 
+import mod.noobulus.tetrapak.util.IEventBusListener;
 import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
 import net.minecraft.block.AbstractBlock;
@@ -22,7 +23,7 @@ import javax.annotation.Nullable;
 import java.util.HashSet;
 import java.util.Set;
 
-public class CollapsingEffect implements IHoloDescription {
+public class CollapsingEffect implements IHoloDescription, IEventBusListener {
 	private static boolean collapsing = false; // required as to not run into "recursions" over forge events on tree cutting
 
 	public static void collapse(IWorld iWorld, BlockPos pos, PlayerEntity entity) {

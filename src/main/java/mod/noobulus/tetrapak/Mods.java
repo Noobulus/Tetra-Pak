@@ -14,6 +14,7 @@ import mod.noobulus.tetrapak.druidcraft.ScorchingEffect;
 import mod.noobulus.tetrapak.eidolon.CleavingEffect;
 import mod.noobulus.tetrapak.eidolon.ReapingEffect;
 import mod.noobulus.tetrapak.quark.CorundumEffect;
+import mod.noobulus.tetrapak.util.IEventBusListener;
 import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ILootModifier;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
@@ -58,12 +59,14 @@ public enum Mods {
 
 	private static Stream<Object> getLoadedListenersStream() {
 		return Arrays.stream(Mods.values())
-			.flatMap(Mods::getLoadedListeners);
+			.flatMap(mods -> mods.loadedListeners.stream());
 	}
 
 	public static void registerEventListeners() {
 		getLoadedListenersStream()
-			.forEach(MinecraftForge.EVENT_BUS::register);
+			.filter(IEventBusListener.class::isInstance)
+			.map(IEventBusListener.class::cast)
+			.forEach(IEventBusListener::register);
 		MinecraftForge.EVENT_BUS.register(Mods.class);
 	}
 
@@ -95,7 +98,4 @@ public enum Mods {
 			.forEach(tetraEffect -> tetraEffect.doBeltTick(player, belt));
 	}
 
-	public Stream<Object> getLoadedListeners() {
-		return loadedListeners.stream();
-	}
 }
