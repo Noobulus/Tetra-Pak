@@ -111,26 +111,6 @@
           "tint": "e9f7f6"
         }
       ]
-    },
-    {
-      "key": "sword_socket/unholy_symbol",
-      "category": "misc",
-      "durability": 35,
-      "integrity": -1,
-      "effects": {
-        "tetrapak:reaping": 1
-      },
-      "glyph": {
-        "tint": "cccbc4",
-        "textureX": 80,
-        "textureY": 16
-      },
-      "models": [
-        {
-          "location": "tetra:items/module/sword/guard/socket/default",
-          "tint": "cccbc4"
-        }
-      ]
     }
   ]
 }

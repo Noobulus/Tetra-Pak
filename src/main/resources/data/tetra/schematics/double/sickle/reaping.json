@@ -1,0 +1,50 @@
+{
+  "replace": true,
+  "localizationKey": "double/sickle/reaping",
+  "slots": [
+    "double/head_left",
+    "double/head_right"
+  ],
+  "keySuffixes": [
+    "_left",
+    "_right"
+  ],
+  "materialSlotCount": 1,
+  "materialRevealSlot": 0,
+  "rarity": "temporary",
+  "repair": false,
+  "hone": true,
+  "displayType": "major",
+  "glyph": {
+    "textureX": 32,
+    "textureY": 240
+  },
+  "requirement": {
+    "type": "tetra:modular_item",
+    "modules": [
+      [
+        "double/sickle_right"
+      ],
+      [
+        "double/sickle_left"
+      ]
+    ],
+    "improvements": {
+      "!tetrapak/reaping": 1
+    }
+  },
+  "outcomes": [
+    {
+      "material": {
+        "item": "eidolon:unholy_symbol",
+        "count": 1
+      },
+      "requiredTools": {
+        "hammer": 2
+      },
+      "improvements": {
+        "tetrapak/reaping": 1
+      }
+    }
+  ]
+}

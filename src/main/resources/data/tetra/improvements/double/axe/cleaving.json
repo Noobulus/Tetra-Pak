@@ -1,0 +1,9 @@
+[
+  {
+    "key": "tetrapak/cleaving",
+    "level": 1,
+    "effects": {
+      "tetrapak:cleaving": 1
+    }
+  }
+]
