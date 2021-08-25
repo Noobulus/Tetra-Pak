@@ -86,7 +86,7 @@
   "tetrapak.stats.voiding": "Voiding",
   "tetrapak.stats.voiding.tooltip": "This tool will void the drops of blocks mined and mobs killed with it in exchange for experience\n\n\u00a7ex%s \u00a77mob kill experience multiplier\n\u00a7ex%s \u00a77block experience multiplier",
   "tetrapak.stats.rainbow": "Rainbow",
-  "tetrapak.stats.rainbow.tooltip": "This tool will break blocks matching its gems color faster",
+  "tetrapak.stats.rainbow.tooltip": "This tool will break §e%s§r blocks §e%sx§r faster",
   "tetrapak.stats.floating": "Floating",
   "tetrapak.stats.floating.tooltip": "This tool defies gravity, causing both drops gathered by the tool and the tool itself to float",
   "tetrapak.stats.deforesting": "Deforesting",
