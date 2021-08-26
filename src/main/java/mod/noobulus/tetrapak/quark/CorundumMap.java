@@ -1,11 +1,8 @@
 package mod.noobulus.tetrapak.quark;
 
 import mod.noobulus.tetrapak.TetraPak;
-import mod.noobulus.tetrapak.util.LangHelper;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -101,15 +98,15 @@ public final class CorundumMap {
 		CRYSTAL_MAP.put(BLACK, asQuarkCrystal("black"));
 
 
-		NAME_MAP.put(RED, LangHelper.translate("red"));
-		NAME_MAP.put(ORANGE, LangHelper.translate("orange"));
-		NAME_MAP.put(YELLOW, LangHelper.translate("yellow"));
-		NAME_MAP.put(GREEN, LangHelper.translate("green"));
-		NAME_MAP.put(BLUE, LangHelper.translate("blue"));
-		NAME_MAP.put(INDIGO, LangHelper.translate("indigo"));
-		NAME_MAP.put(VIOLET, LangHelper.translate("violet"));
-		NAME_MAP.put(WHITE, LangHelper.translate("white"));
-		NAME_MAP.put(BLACK, LangHelper.translate("black"));
+		NAME_MAP.put(RED, "red");
+		NAME_MAP.put(ORANGE, "orange");
+		NAME_MAP.put(YELLOW, "yellow");
+		NAME_MAP.put(GREEN, "green");
+		NAME_MAP.put(BLUE, "blue");
+		NAME_MAP.put(INDIGO, "indigo");
+		NAME_MAP.put(VIOLET, "violet");
+		NAME_MAP.put(WHITE, "white");
+		NAME_MAP.put(BLACK, "black");
 	}
 
 

@@ -1,11 +1,13 @@
 package mod.noobulus.tetrapak.quark;
 
+import mod.noobulus.tetrapak.BuildConfig;
 import mod.noobulus.tetrapak.Config;
 import mod.noobulus.tetrapak.util.IEventBusListener;
 import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -37,6 +39,7 @@ public class CorundumEffect implements IHoloDescription, IEventBusListener {
 	@Override
 	public ITooltipGetter getStatTooltipGetter(IStatGetter statGetter) {
 		return (player, itemStack) -> I18n.get(getTooltipPath(),
-				CorundumMap.NAME_MAP.get((int) statGetter.getValue(player, itemStack)), Config.MATCHING_CRYSTAL_FACTOR.get());
+			new TranslationTextComponent(BuildConfig.MODID + "." + CorundumMap.NAME_MAP.get(
+				(int) statGetter.getValue(player, itemStack))).getString(), Config.MATCHING_CRYSTAL_FACTOR.get());
 	}
 }
