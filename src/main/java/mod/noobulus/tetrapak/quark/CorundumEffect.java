@@ -12,8 +12,10 @@ import net.minecraft.world.IBlockReader;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import se.mickelus.tetra.effect.ItemEffect;
+import se.mickelus.tetra.gui.statbar.getter.ILabelGetter;
 import se.mickelus.tetra.gui.statbar.getter.IStatGetter;
 import se.mickelus.tetra.gui.statbar.getter.ITooltipGetter;
+import se.mickelus.tetra.gui.statbar.getter.LabelGetterBasic;
 
 public class CorundumEffect implements IHoloDescription, IEventBusListener {
 	public CorundumEffect() {
@@ -41,5 +43,15 @@ public class CorundumEffect implements IHoloDescription, IEventBusListener {
 		return (player, itemStack) -> I18n.get(getTooltipPath(),
 			new TranslationTextComponent(BuildConfig.MODID + "." + CorundumMap.NAME_MAP.get(
 				(int) statGetter.getValue(player, itemStack))).getString(), Config.MATCHING_CRYSTAL_FACTOR.get());
+	}
+
+	@Override
+	public ILabelGetter getStatLabel() {
+		return new LabelGetterBasic("%s", "%s"){
+			@Override
+			public String getLabel(double value, double diffValue, boolean flipped) {
+				return new TranslationTextComponent(BuildConfig.MODID + "." + CorundumMap.NAME_MAP.get((int) diffValue)).getString();
+			}
+		};
 	}
 }
