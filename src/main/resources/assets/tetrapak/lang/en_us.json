@@ -154,5 +154,14 @@
   "create.item_attributes.tetrapak.honeable": "honing available",
   "create.item_attributes.tetrapak.broken": "is broken",
   "create.item_attributes.tetrapak.honeable.inverted": "honing unavailable",
-  "create.item_attributes.tetrapak.broken.inverted": "is not broken"
+  "create.item_attributes.tetrapak.broken.inverted": "is not broken",
+  "tetrapak.red" : "red",
+  "tetrapak.orange" : "orange",
+  "tetrapak.yellow" : "yellow",
+  "tetrapak.green" : "green",
+  "tetrapak.blue" : "blue",
+  "tetrapak.indigo" : "indigo",
+  "tetrapak.violet" : "violet",
+  "tetrapak.white" : "white",
+  "tetrapak.black" : "black"
 }
