@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "tetrapak.refmap.json",
   "client": [
+    "ModularOverrideListMixin"
   ],
   "injectors": {
     "defaultRequire": 1

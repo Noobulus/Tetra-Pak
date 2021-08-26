@@ -3,6 +3,7 @@ package mod.noobulus.tetrapak;
 import mod.noobulus.tetrapak.create.NullifyingEffect;
 import mod.noobulus.tetrapak.create.StandardTetraPakAttributes;
 import mod.noobulus.tetrapak.create.VoidingEffect;
+import mod.noobulus.tetrapak.create.glowy_render.FancyRenderManager;
 import mod.noobulus.tetrapak.create.refined_radiance.CollapsingEffect;
 import mod.noobulus.tetrapak.create.refined_radiance.DeforestingEffect;
 import mod.noobulus.tetrapak.create.refined_radiance.FloatingEffect;
@@ -37,7 +38,8 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public enum Mods {
-	CREATE("create", () -> CollapsingEffect::new, () -> DeforestingEffect::new, () -> UnearthingEffect::new, () -> NullifyingEffect::new, () -> VoidingEffect::new, () -> () -> FloatingEffect.INSTANCE, () -> StandardTetraPakAttributes::register),
+	CREATE("create", () -> CollapsingEffect::new, () -> DeforestingEffect::new, () -> UnearthingEffect::new, () -> NullifyingEffect::new,
+		() -> VoidingEffect::new, () -> () -> FloatingEffect.INSTANCE, () -> StandardTetraPakAttributes::register, () -> FancyRenderManager::new),
 	DRUIDCRAFT("druidcraft", () -> MoonstrikeEffect::new, () -> MoonsightEffect::new, () -> RegrowthEffect::new, () -> ScorchingEffect::new),
 	QUARK("quark", () -> CorundumEffect::new),
 	EIDOLON("eidolon", () -> ReapingEffect::new, () -> CleavingEffect::new);
