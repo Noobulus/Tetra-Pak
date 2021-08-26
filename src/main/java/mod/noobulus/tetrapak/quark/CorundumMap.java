@@ -1,8 +1,11 @@
 package mod.noobulus.tetrapak.quark;
 
 import mod.noobulus.tetrapak.TetraPak;
+import mod.noobulus.tetrapak.util.LangHelper;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -15,6 +18,7 @@ import static net.minecraft.block.material.MaterialColor.*;
 public final class CorundumMap {
 	public static final Map<MaterialColor, Integer> COLOR_MAP = new HashMap<>();
 	public static final Map<Integer, ResourceLocation> CRYSTAL_MAP = new HashMap<>();
+	public static final Map<Integer, String> NAME_MAP = new HashMap<>();
 	private static final int RED = 1;
 	private static final int ORANGE = 2;
 	private static final int YELLOW = 3;
@@ -95,6 +99,17 @@ public final class CorundumMap {
 		CRYSTAL_MAP.put(VIOLET, asQuarkCrystal("violet"));
 		CRYSTAL_MAP.put(WHITE, asQuarkCrystal("white"));
 		CRYSTAL_MAP.put(BLACK, asQuarkCrystal("black"));
+
+
+		NAME_MAP.put(RED, LangHelper.translate("red"));
+		NAME_MAP.put(ORANGE, LangHelper.translate("orange"));
+		NAME_MAP.put(YELLOW, LangHelper.translate("yellow"));
+		NAME_MAP.put(GREEN, LangHelper.translate("green"));
+		NAME_MAP.put(BLUE, LangHelper.translate("blue"));
+		NAME_MAP.put(INDIGO, LangHelper.translate("indigo"));
+		NAME_MAP.put(VIOLET, LangHelper.translate("violet"));
+		NAME_MAP.put(WHITE, LangHelper.translate("white"));
+		NAME_MAP.put(BLACK, LangHelper.translate("black"));
 	}
 
 

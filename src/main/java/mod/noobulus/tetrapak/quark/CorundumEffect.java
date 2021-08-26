@@ -37,29 +37,6 @@ public class CorundumEffect implements IHoloDescription, IEventBusListener {
 	@Override
 	public ITooltipGetter getStatTooltipGetter(IStatGetter statGetter) {
 		return (player, itemStack) -> I18n.get(getTooltipPath(),
-				corundumTooltipMap((int) statGetter.getValue(player, itemStack)), Config.MATCHING_CRYSTAL_FACTOR.get());
-	}
-
-	public String corundumTooltipMap(int level) {
-		switch (level) {
-			case 1:
-				return "red";
-			case 2:
-				return "orange";
-			case 3:
-				return "yellow";
-			case 4:
-				return "green";
-			case 5:
-				return "blue";
-			case 6:
-				return "indigo";
-			case 7:
-				return "violet";
-			case 8:
-				return "white";
-			default:
-				return "!!invalid!!";
-		}
+				CorundumMap.NAME_MAP.get((int) statGetter.getValue(player, itemStack)), Config.MATCHING_CRYSTAL_FACTOR.get());
 	}
 }
