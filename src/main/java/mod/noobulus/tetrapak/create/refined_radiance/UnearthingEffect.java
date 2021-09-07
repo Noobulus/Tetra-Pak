@@ -1,5 +1,6 @@
 package mod.noobulus.tetrapak.create.refined_radiance;
 
+import mod.noobulus.tetrapak.Config;
 import mod.noobulus.tetrapak.util.IEventBusListener;
 import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
@@ -53,6 +54,7 @@ public class UnearthingEffect implements IHoloDescription, IEventBusListener {
 				if (!visited.contains(offset) && start.equals(world.getBlockState(offset).getBlock()))
 					frontier.add(offset);
 			}
+			if (visited.size() >= Config.MAX_RADIANT_BLOCKS.get()) return new BlockCollection(visited);
 		}
 		return new BlockCollection(visited);
 	}

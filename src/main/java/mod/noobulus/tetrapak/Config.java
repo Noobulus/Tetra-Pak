@@ -12,6 +12,7 @@ public class Config {
 	public static final ForgeConfigSpec COMMON_CONFIG;
 	public static final ForgeConfigSpec.DoubleValue MATCHING_CRYSTAL_FACTOR;
 	public static final ForgeConfigSpec.DoubleValue NON_MATCHING_CRYSTAL_FACTOR;
+	public static final ForgeConfigSpec.IntValue MAX_RADIANT_BLOCKS;
 
 
 	static {
@@ -26,7 +27,10 @@ public class Config {
 		commonBuilder.pop();
 
 		// Create
-		// ...
+		commonBuilder.comment("Create compatibility settings").push("create");
+		MAX_RADIANT_BLOCKS = commonBuilder.comment("Max block count for Refined Radiance mass harvesting")
+				.defineInRange("max_radiant_blocks", 512, 0, 4096);
+		commonBuilder.pop();
 
 		// Druidcraft
 		// ...
