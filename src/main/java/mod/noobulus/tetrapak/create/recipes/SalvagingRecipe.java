@@ -136,6 +136,11 @@ public class SalvagingRecipe implements IRecipe<IInventory> {
 		this.recipeInv = recipeInv;
 	}
 
+	@Override
+	public boolean isSpecial() {
+		return true;
+	}
+
 	@Nullable
 	public DeployerAwareInventory getRecipeInv() {
 		return recipeInv;

@@ -5,6 +5,7 @@ import mod.noobulus.tetrapak.util.IEventBusListener;
 import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
 import net.minecraft.block.Block;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
@@ -15,6 +16,8 @@ import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import se.mickelus.tetra.effect.ItemEffect;
+import se.mickelus.tetra.gui.stats.getter.IStatGetter;
+import se.mickelus.tetra.gui.stats.getter.ITooltipGetter;
 
 import javax.annotation.Nullable;
 import java.util.HashSet;
@@ -64,6 +67,11 @@ public class UnearthingEffect implements IHoloDescription, IEventBusListener {
 		if (!unearthing && hasEffect(event.getPlayer().getMainHandItem())) {
 			unearth(event.getWorld(), event.getPos(), event.getPlayer());
 		}
+	}
+
+	@Override
+	public ITooltipGetter getStatTooltipGetter(IStatGetter statGetter) {
+		return (player, itemStack) -> I18n.get(getTooltipPath(), Config.MAX_RADIANT_BLOCKS.get());
 	}
 
 	@Override

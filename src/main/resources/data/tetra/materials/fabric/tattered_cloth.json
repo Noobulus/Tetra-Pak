@@ -3,8 +3,8 @@
     "category": "fabric",
     "primary": "0.3",
     "secondary": "0.3",
-    "tertiary": "8",
-    "durability": "100",
+    "tertiary": "3.5",
+    "durability": "40",
     "integrityCost": "1",
     "integrityGain": "3",
     "magicCapacity": "90",
@@ -22,6 +22,6 @@
         "item": "eidolon:tattered_cloth"
     },
     "requiredTools": {
-        "cut": 2
+        "cut": 1
     }
 }
