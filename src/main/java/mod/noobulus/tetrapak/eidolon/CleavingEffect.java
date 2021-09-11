@@ -22,8 +22,8 @@ import net.minecraft.nbt.NBTUtil;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import se.mickelus.tetra.effect.ItemEffect;
-import se.mickelus.tetra.gui.statbar.getter.IStatGetter;
-import se.mickelus.tetra.gui.statbar.getter.ITooltipGetter;
+import se.mickelus.tetra.gui.stats.getter.IStatGetter;
+import se.mickelus.tetra.gui.stats.getter.ITooltipGetter;
 
 public class CleavingEffect implements IHoloDescription, IEventBusListener {
     @SubscribeEvent

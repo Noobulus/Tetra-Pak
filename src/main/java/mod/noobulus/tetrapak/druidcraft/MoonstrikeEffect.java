@@ -19,8 +19,8 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import se.mickelus.tetra.effect.ItemEffect;
-import se.mickelus.tetra.gui.statbar.getter.IStatGetter;
-import se.mickelus.tetra.gui.statbar.getter.ITooltipGetter;
+import se.mickelus.tetra.gui.stats.getter.IStatGetter;
+import se.mickelus.tetra.gui.stats.getter.ITooltipGetter;
 import se.mickelus.tetra.items.modular.ModularItem;
 
 public class MoonstrikeEffect implements IPercentageHoloDescription, IEventBusListener {

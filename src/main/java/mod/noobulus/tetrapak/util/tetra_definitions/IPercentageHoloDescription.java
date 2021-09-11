@@ -1,6 +1,6 @@
 package mod.noobulus.tetrapak.util.tetra_definitions;
 
-import se.mickelus.tetra.gui.statbar.getter.*;
+import se.mickelus.tetra.gui.stats.getter.*;
 
 public interface IPercentageHoloDescription extends IHoloDescription {
 	@Override

@@ -22,8 +22,8 @@ import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import se.mickelus.tetra.effect.ItemEffect;
-import se.mickelus.tetra.gui.statbar.GuiStatBar;
-import se.mickelus.tetra.gui.statbar.getter.*;
+import se.mickelus.tetra.gui.stats.bar.GuiStatBar;
+import se.mickelus.tetra.gui.stats.getter.*;
 
 import javax.annotation.Nullable;
 import java.util.function.Function;

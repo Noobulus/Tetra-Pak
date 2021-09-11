@@ -14,10 +14,10 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import se.mickelus.tetra.effect.ItemEffect;
-import se.mickelus.tetra.gui.statbar.GuiStatBar;
-import se.mickelus.tetra.gui.statbar.getter.IStatGetter;
-import se.mickelus.tetra.gui.statbar.getter.LabelGetterBasic;
-import se.mickelus.tetra.gui.statbar.getter.StatGetterEffectEfficiency;
+import se.mickelus.tetra.gui.stats.bar.GuiStatBar;
+import se.mickelus.tetra.gui.stats.getter.IStatGetter;
+import se.mickelus.tetra.gui.stats.getter.LabelGetterBasic;
+import se.mickelus.tetra.gui.stats.getter.StatGetterEffectEfficiency;
 import se.mickelus.tetra.items.modular.ModularItem;
 
 import static java.lang.Math.round;

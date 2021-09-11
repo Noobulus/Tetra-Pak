@@ -12,10 +12,10 @@ import net.minecraft.world.IBlockReader;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import se.mickelus.tetra.effect.ItemEffect;
-import se.mickelus.tetra.gui.statbar.getter.ILabelGetter;
-import se.mickelus.tetra.gui.statbar.getter.IStatGetter;
-import se.mickelus.tetra.gui.statbar.getter.ITooltipGetter;
-import se.mickelus.tetra.gui.statbar.getter.LabelGetterBasic;
+import se.mickelus.tetra.gui.stats.getter.ILabelGetter;
+import se.mickelus.tetra.gui.stats.getter.IStatGetter;
+import se.mickelus.tetra.gui.stats.getter.ITooltipGetter;
+import se.mickelus.tetra.gui.stats.getter.LabelGetterBasic;
 
 public class CorundumEffect implements IHoloDescription, IEventBusListener {
 	public CorundumEffect() {

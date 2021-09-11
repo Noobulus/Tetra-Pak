@@ -3,8 +3,8 @@ package mod.noobulus.tetrapak.util.tetra_definitions;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import se.mickelus.tetra.blocks.workbench.gui.WorkbenchStatsGui;
-import se.mickelus.tetra.gui.statbar.GuiStatBar;
-import se.mickelus.tetra.gui.statbar.getter.*;
+import se.mickelus.tetra.gui.stats.bar.GuiStatBar;
+import se.mickelus.tetra.gui.stats.getter.*;
 import se.mickelus.tetra.items.modular.impl.holo.gui.craft.HoloStatsGui;
 
 public interface IHoloDescription extends ITetraEffect {
