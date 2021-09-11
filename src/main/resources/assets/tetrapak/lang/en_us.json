@@ -92,28 +92,40 @@
 
   "tetrapak.stats.reaping": "Reaping",
   "tetrapak.stats.reaping.tooltip": "This tool will make undead mobs drop soul shards",
+
   "tetrapak.stats.cleaving": "Cleaving",
   "tetrapak.stats.cleaving.tooltip": "This tool will make mobs and players occasionally drop their respective heads",
+
   "tetrapak.stats.voiding": "Voiding",
   "tetrapak.stats.voiding.tooltip": "This tool will void the drops of blocks mined and mobs killed with it in exchange for an experience multiplier\n\n\u00a7ex%s \u00a77mob kill experience multiplier\n\u00a7ex%s \u00a77block experience multiplier",
+
   "tetrapak.stats.rainbow": "Rainbow",
   "tetrapak.stats.rainbow.tooltip": "This tool will break §e%s§r blocks §e%sx§r faster",
+
   "tetrapak.stats.floating": "Floating",
   "tetrapak.stats.floating.tooltip": "This tool defies gravity, causing both drops gathered by the tool and the tool itself to float",
+
   "tetrapak.stats.deforesting": "Deforesting",
   "tetrapak.stats.deforesting.tooltip": "This tool will chop down an entire tree after breaking the bottom-most block",
+
   "tetrapak.stats.collapsing": "Collapsing",
   "tetrapak.stats.collapsing.tooltip": "This tool will collapse a vertical line of shovelable blocks above it, so long as the blocks are gravity blocks or of the same type",
+
   "tetrapak.stats.unearthing": "Unearthing",
   "tetrapak.stats.unearthing.tooltip": "This tool will mine a vein of ore up to \u00a7e%s blocks\u00a7r after a single block in the vein is broken",
+
   "tetrapak.stats.nullifying": "Nullifying",
   "tetrapak.stats.nullifying.tooltip": "Wearing this belt will reduce gravity experienced the wearer by \u00a7e%s\u00a7r",
+
   "tetrapak.stats.moonstrike": "Moonstrike",
   "tetrapak.stats.moonstrike.tooltip": "This tool will deal \u00a7e%s%%\u00a7r bonus damage and break blocks \u00a7e%s%%\u00a7r faster on a full moon. Lesser bonuses apply for intermediate moon phases",
+
   "tetrapak.stats.regrowth": "Regrowth",
   "tetrapak.stats.regrowth.tooltip": "This tool will repair itself by \u00a7e1%%\u00a7r of the total durability every \u00a7e%s\u00a7r seconds\n\n\u00a77In total, it will take around \u00a7e%s \u00a77minutes for the tool to fully repair",
+
   "tetrapak.stats.scorching": "Scorching",
   "tetrapak.stats.scorching.tooltip": "This tool will scorch drops, processing them the same way a furnace would. Does not affect unsmeltable items",
+
   "tetrapak.stats.moonsight": "Moonsight",
   "tetrapak.stats.moonsight.tooltip": "Wearing this belt will allow the wearer to see better under the moonlight",
 

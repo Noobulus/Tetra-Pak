@@ -1,3 +1,16 @@
+Version 0.3.3
+    New content:
+        Eidolon and Quark support has been completed!
+        The functionality of the Evil Symbol socket (reaping) has been moved to a hone for sickle heads and a similar hone has been added for axes to mimic beheading
+        Quark's cave roots and ravager hide are usable for toolmaking
+        Several fabric and scale materials from Eidolon and Quark have been added, although they have little use in Tetra currently
+    Improvements and fixes:
+        Fixed compatibility with Tetra 3.15.0+
+        Updated rainbow tooltip to show color names instead of numbers
+        Updated several other tooltips to better explain their effects
+        Added configurable max block count for unearthing to avoid OOM crashes
+        Fixed auto-salvaging-related log spam
+
 Version 0.3.2
     New content:
         Added the ability to filter Tetra tools using Create's brass filter based on whether they are broken or hone-able
