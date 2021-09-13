@@ -119,9 +119,13 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:openloader-354339:3199872")
     runtimeOnly fg.deobf("curse.maven:neat-238372:3182258")
     runtimeOnly fg.deobf("curse.maven:quark-243121:3394265")
+    runtimeOnly fg.deobf("curse.maven:quarkoddities-301051:3088871")
     runtimeOnly fg.deobf("curse.maven:autoreglib-250363:3326041")
     runtimeOnly fg.deobf("curse.maven:eidolon-429625:3157832")
     runtimeOnly fg.deobf("curse.maven:curios-309927:3343065")
+    runtimeOnly fg.deobf("curse.maven:abnormals_core-382216:3457851")
+    runtimeOnly fg.deobf("curse.maven:autumnity-365045:3295700")
+    runtimeOnly fg.deobf("curse.maven:upgrade_aquatic-326895:3249419")
 
     // compileOnly fg.deobf("mezz.jei:jei-1.16.5:${jei_version}:api")
     implementation fg.deobf("mezz.jei:jei-1.16.5:${jei_version}")

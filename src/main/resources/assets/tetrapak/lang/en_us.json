@@ -25,6 +25,8 @@
   "tetra.material.crab_shell.prefix": "Crab Shell",
   "tetra.material.dragon_scale": "Dragon Scale",
   "tetra.material.dragon_scale.prefix": "Dragon Scale",
+  "tetra.material.thrasher_tooth": "Thrasher Tooth",
+  "tetra.material.thrasher_tooth.prefix": "Thrasher Tooth",
 
   "tetra.variant.double_socket/rose_quartz": "Socket [\u00a7cRose Quartz\u00a7r]",
   "tetra.variant.double_socket/rose_quartz.description": "A gem, fitted onto the side of the tool head. The gem is enchanted and grants the wielder additional reach",
