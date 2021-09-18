@@ -19,7 +19,7 @@
     "default"
   ],
   "material": {
-    "item": "eidolon:pewter_ingot"
+    "tag": "forge:ingots/pewter"
   },
   "requiredTools": {
     "hammer": 2

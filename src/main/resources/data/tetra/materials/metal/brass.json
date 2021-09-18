@@ -19,7 +19,7 @@
     "default"
   ],
   "material": {
-    "item": "create:brass_ingot"
+    "tag": "forge:ingots/brass"
   },
   "improvements": {
     "workable": 1

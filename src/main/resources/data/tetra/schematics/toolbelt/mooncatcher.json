@@ -22,7 +22,7 @@
   "outcomes": [
     {
       "material": {
-        "item": "druidcraft:moonstone",
+        "tag": "forge:gems/moonstone",
         "count": 2
       },
       "requiredTools": {

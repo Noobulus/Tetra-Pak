@@ -19,7 +19,7 @@
     "crude"
   ],
   "material": {
-    "item": "druidcraft:moonstone"
+    "tag": "forge:gems/moonstone"
   },
   "improvements": {
     "arrested": 0,

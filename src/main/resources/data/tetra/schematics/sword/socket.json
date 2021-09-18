@@ -28,7 +28,7 @@
     },
     {
       "material": {
-        "item": "druidcraft:moonstone"
+        "tag": "forge:gems/moonstone"
       },
       "experienceCost": 3,
       "moduleKey": "sword/socket",
