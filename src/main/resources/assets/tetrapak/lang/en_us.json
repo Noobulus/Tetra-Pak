@@ -33,6 +33,8 @@
   "tetra.material.booflo_hide.prefix": "Booflo Hide",
   "tetra.material.poise": "Poise",
   "tetra.material.poise.prefix": "Poise",
+  "tetra.material.obsidian_ingot": "Obsidian Ingot",
+  "tetra.material.obsidian_ingot.prefix": "Obsidian Ingot",
 
   "tetra.variant.double_socket/rose_quartz": "Socket [\u00a7cRose Quartz\u00a7r]",
   "tetra.variant.double_socket/rose_quartz.description": "A gem, fitted onto the side of the tool head. The gem is enchanted and grants the wielder additional reach",

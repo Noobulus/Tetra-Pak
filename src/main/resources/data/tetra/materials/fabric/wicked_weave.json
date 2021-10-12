@@ -1,9 +1,9 @@
 {
     "key": "wicked_weave",
     "category": "fabric",
-    "primary": "3",
-    "secondary": "2",
-    "tertiary": "3",
+    "primary": "5",
+    "secondary": "1.5",
+    "tertiary": "5.2",
     "durability": "400",
     "integrityCost": "1",
     "integrityGain": "6",
@@ -22,7 +22,7 @@
         "item": "eidolon:wicked_weave"
     },
     "effects": {
-        "unstable": 10
+        "stabilizing": 10
     },
     "requiredTools": {
         "cut": 3

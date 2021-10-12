@@ -3,7 +3,7 @@
     "category": "fabric",
     "primary": "0.3",
     "secondary": "0.3",
-    "tertiary": "3.5",
+    "tertiary": "6",
     "durability": "40",
     "integrityCost": "1",
     "integrityGain": "3",
@@ -20,6 +20,10 @@
     ],
     "material": {
         "item": "eidolon:tattered_cloth"
+    },
+    "effects": {
+        "unstable": 30,
+        "enderReverb":[-5,0]
     },
     "requiredTools": {
         "cut": 1
