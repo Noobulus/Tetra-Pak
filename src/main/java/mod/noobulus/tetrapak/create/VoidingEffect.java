@@ -1,5 +1,6 @@
 package mod.noobulus.tetrapak.create;
 
+import mod.noobulus.tetrapak.Registry;
 import mod.noobulus.tetrapak.loot.modifier.VoidingLootModifier;
 import mod.noobulus.tetrapak.util.DamageBufferer;
 import mod.noobulus.tetrapak.util.IEventBusListener;
@@ -11,10 +12,14 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.boss.WitherEntity;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.conditions.ILootCondition;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.IItemProvider;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
@@ -58,10 +63,16 @@ public class VoidingEffect implements IHoloDescription, ILootModifier<VoidingLoo
 
 	@SubscribeEvent
 	public void voidingKillsRemoveDrops(LivingDropsEvent event) { // this is dumb, but bosses are built different and don't care about loot modifiers
-		if (!shouldVoidingAffect(event.getSource(), event.getEntity())) {
+		Entity entity = event.getEntity();
+		if (!shouldVoidingAffect(event.getSource(), entity)) {
 			return;
 		}
 		event.getDrops().clear();
+		if (entity instanceof WitherEntity) { // funny music disc easter egg
+			ItemEntity drop = new ItemEntity(entity.level, entity.getX(), entity.getY(), entity.getZ(), new ItemStack(Registry.PLAYING_WITH_POWER_DISC.get(), 1));
+			drop.setDefaultPickUpDelay(); // i can tell this is janky because it doesn't work without this line
+			event.getDrops().add(drop);
+		}
 	}
 
 	private boolean shouldVoidingAffect(@Nullable DamageSource source, Entity target) {

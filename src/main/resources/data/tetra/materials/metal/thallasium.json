@@ -11,11 +11,11 @@
   "toolLevel": "3",
   "toolEfficiency": "7",
   "tints": {
-    "glyph": "87dad2",
-    "texture": "87dad2"
+    "glyph": "a2e5d7",
+    "texture": "a2e5d7"
   },
   "textures": [
-    "metal",
+    "crude",
     "default"
   ],
   "material": {

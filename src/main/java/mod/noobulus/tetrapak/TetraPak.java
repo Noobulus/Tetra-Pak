@@ -29,6 +29,7 @@ public class TetraPak {
 		modEventBus.addListener((FMLCommonSetupEvent event) -> Packets.registerPackets());
 		PredicateManagers.register();
 		LootConditions.register();
+		Registry.register();
 	}
 
 	public static ResourceLocation asId(String name) {

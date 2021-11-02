@@ -128,7 +128,7 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:upgrade_aquatic-326895:3249419")
     runtimeOnly fg.deobf("curse.maven:endergetic_expansion-291509:3154938")
     runtimeOnly fg.deobf("curse.maven:betterend_reforked-537247:3507856")
-    runtimeOnly fg.deobf("curse.maven:endergetic_expansion-395078:3487698")
+    runtimeOnly fg.deobf("curse.maven:infernal_expansion-395078:3487698")
 
     // compileOnly fg.deobf("mezz.jei:jei-1.16.5:${jei_version}:api")
     implementation fg.deobf("mezz.jei:jei-1.16.5:${jei_version}")

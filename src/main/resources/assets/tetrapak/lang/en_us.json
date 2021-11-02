@@ -215,5 +215,9 @@
   "tetrapak.indigo" : "indigo",
   "tetrapak.violet" : "violet",
   "tetrapak.white" : "white",
-  "tetrapak.black" : "black"
+  "tetrapak.black" : "black",
+
+  "item.tetrapak.music_disc_playing_with_power": "Music Disc",
+  "item.tetrapak.music_disc_playing_with_power.desc": "FantomenK - Playing With Power"
+
 }

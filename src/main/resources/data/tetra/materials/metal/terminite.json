@@ -6,13 +6,13 @@
   "tertiary": "2.8",
   "durability": "1230",
   "integrityCost": "2",
-  "integrityGain": "2",
+  "integrityGain": "7",
   "magicCapacity": "84",
   "toolLevel": "4",
   "toolEfficiency": "8.5",
   "tints": {
-    "glyph": "6c8681",
-    "texture": "6c8681"
+    "glyph": "70f0e5",
+    "texture": "70f0e5"
   },
   "textures": [
     "metal",
