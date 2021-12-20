@@ -2,19 +2,19 @@ package mod.noobulus.tetrapak.mixin;
 
 import mod.noobulus.tetrapak.Mods;
 import mod.noobulus.tetrapak.create.refined_radiance.FloatingEffect;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.server.management.PlayerInteractionManager;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.level.ServerPlayerGameMode;
+import net.minecraft.core.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(PlayerInteractionManager.class)
+@Mixin(ServerPlayerGameMode.class)
 public class PlayerInteractionManagerMixin {
 	@Shadow
-	public ServerPlayerEntity player;
+	public ServerPlayer player;
 
 	@Inject(at = @At("HEAD"), method = "removeBlock", remap = false)
 	private void onRemoveBlockPre(BlockPos pos, boolean canHarvest, CallbackInfoReturnable<Boolean> cir) {

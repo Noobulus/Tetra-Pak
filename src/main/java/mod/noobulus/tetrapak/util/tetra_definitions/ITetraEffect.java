@@ -1,11 +1,11 @@
 package mod.noobulus.tetrapak.util.tetra_definitions;
 
 import mod.noobulus.tetrapak.BuildConfig;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.resources.ResourceLocation;
 import se.mickelus.tetra.effect.ItemEffect;
 import se.mickelus.tetra.items.modular.ModularItem;
 import se.mickelus.tetra.items.modular.impl.toolbelt.ToolbeltHelper;
@@ -25,20 +25,20 @@ public interface ITetraEffect {
 		return getEffectLevel(stack) > 0;
 	}
 
-	default void doBeltTick(PlayerEntity player, int effectLevel) {
+	default void doBeltTick(Player player, int effectLevel) {
 	}
 
-	default void doBeltTick(PlayerEntity player, @Nullable ItemStack belt) {
+	default void doBeltTick(Player player, @Nullable ItemStack belt) {
 		doBeltTick(player, getEffectLevel(belt));
 	}
 
-	default int getBeltEffectLevel(PlayerEntity playerEntity) {
+	default int getBeltEffectLevel(Player playerEntity) {
 		return getEffectLevel(ToolbeltHelper.findToolbelt((playerEntity)));
 	}
 
 	default boolean hasBeltEffect(@Nullable Entity entity) {
-		if (entity instanceof PlayerEntity)
-			return getBeltEffectLevel(((PlayerEntity) entity)) > 0;
+		if (entity instanceof Player)
+			return getBeltEffectLevel(((Player) entity)) > 0;
 		return false;
 	}
 

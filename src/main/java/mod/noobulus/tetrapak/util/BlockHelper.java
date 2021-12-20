@@ -1,16 +1,16 @@
 package mod.noobulus.tetrapak.util;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.GameType;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.ToolType;
 import se.mickelus.tetra.effect.EffectHelper;
@@ -25,9 +25,9 @@ public class BlockHelper {
 	private BlockHelper() {
 	}
 
-	public static void destroyBlockAs(World world, BlockPos pos, @Nullable PlayerEntity player, ItemStack usedTool,
+	public static void destroyBlockAs(Level world, BlockPos pos, @Nullable Player player, ItemStack usedTool,
 									  float effectChance, BiConsumer<ItemStack, BlockState> droppedItemCallback) {
-		World unwrappedWorld = WrappedServerWorld.unwrap(world);
+		Level unwrappedWorld = WrappedServerWorld.unwrap(world);
 		FluidState fluidState = unwrappedWorld.getFluidState(pos);
 		BlockState state = unwrappedWorld.getBlockState(pos);
 		if (unwrappedWorld.random.nextFloat() < effectChance)
@@ -44,8 +44,8 @@ public class BlockHelper {
 			((DropSimulationWorld) world).getItems().forEach(stack -> droppedItemCallback.accept(stack, state));
 	}
 
-	private static boolean breakBlock(World world, @Nonnull PlayerEntity player, ItemStack tool, BlockPos pos) {
-		World unwrappedWorld = WrappedServerWorld.unwrap(world);
+	private static boolean breakBlock(Level world, @Nonnull Player player, ItemStack tool, BlockPos pos) {
+		Level unwrappedWorld = WrappedServerWorld.unwrap(world);
 		BlockState offsetState = unwrappedWorld.getBlockState(pos);
 		ToolType effectiveTool = ItemModularHandheld.getEffectiveTool(offsetState);
 
@@ -55,7 +55,7 @@ public class BlockHelper {
 			&& blockHardness != -1.0F
 			&& breakBlock(world, player, tool, pos, offsetState, true)) {
 
-			EffectHelper.sendEventToPlayer((ServerPlayerEntity) player, 2001, pos, Block.getId(offsetState));
+			EffectHelper.sendEventToPlayer((ServerPlayer) player, 2001, pos, Block.getId(offsetState));
 			CastOptional.cast(tool.getItem(), ItemModularHandheld.class).ifPresent(itemHandheld -> itemHandheld.applyBreakEffects(tool, unwrappedWorld, offsetState, pos, player));
 			return true;
 		} else {
@@ -63,14 +63,14 @@ public class BlockHelper {
 		}
 	}
 
-	public static boolean breakBlock(World world, PlayerEntity breakingPlayer, ItemStack toolStack, BlockPos pos, BlockState blockState, boolean harvest) {
-		World unwrappedWorld = WrappedServerWorld.unwrap(world);
-		if (!unwrappedWorld.isClientSide && unwrappedWorld instanceof ServerWorld) {
-			ServerWorld serverWorld = (ServerWorld) unwrappedWorld;
-			ServerPlayerEntity serverPlayer = (ServerPlayerEntity) breakingPlayer;
+	public static boolean breakBlock(Level world, Player breakingPlayer, ItemStack toolStack, BlockPos pos, BlockState blockState, boolean harvest) {
+		Level unwrappedWorld = WrappedServerWorld.unwrap(world);
+		if (!unwrappedWorld.isClientSide && unwrappedWorld instanceof ServerLevel) {
+			ServerLevel serverWorld = (ServerLevel) unwrappedWorld;
+			ServerPlayer serverPlayer = (ServerPlayer) breakingPlayer;
 			GameType gameType = serverPlayer.gameMode.getGameModeForPlayer();
 			int exp = ForgeHooks.onBlockBreakEvent(serverWorld, gameType, serverPlayer, pos);
-			TileEntity tileEntity = serverWorld.getBlockEntity(pos);
+			BlockEntity tileEntity = serverWorld.getBlockEntity(pos);
 			if (exp == -1) {
 				return false;
 			} else {

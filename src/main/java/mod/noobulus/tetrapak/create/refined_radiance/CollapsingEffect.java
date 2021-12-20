@@ -3,16 +3,16 @@ package mod.noobulus.tetrapak.create.refined_radiance;
 import mod.noobulus.tetrapak.util.IEventBusListener;
 import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.FallingBlock;
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FallingBlock;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -26,16 +26,16 @@ import java.util.Set;
 public class CollapsingEffect implements IHoloDescription, IEventBusListener {
 	private static boolean collapsing = false; // required as to not run into "recursions" over forge events on tree cutting
 
-	public static void collapse(IWorld iWorld, BlockPos pos, PlayerEntity entity) {
-		if (collapsing || entity.isShiftKeyDown() || !(iWorld instanceof World))
+	public static void collapse(LevelAccessor iWorld, BlockPos pos, Player entity) {
+		if (collapsing || entity.isShiftKeyDown() || !(iWorld instanceof Level))
 			return;
-		World world = (World) iWorld;
+		Level world = (Level) iWorld;
 		collapsing = true;
 		findDirtCollumn(world, pos).destroyBlocksFancy(world, entity);
 		collapsing = false;
 	}
 
-	public static BlockCollection findDirtCollumn(@Nullable IBlockReader world, BlockPos pos) {
+	public static BlockCollection findDirtCollumn(@Nullable BlockGetter world, BlockPos pos) {
 		if (world == null)
 			return BlockCollection.EMPTY;
 
@@ -62,7 +62,7 @@ public class CollapsingEffect implements IHoloDescription, IEventBusListener {
 
 	@Nullable
 	private static Material getBlockMaterial(BlockState state) {
-		Object mat = ObfuscationReflectionHelper.getPrivateValue(AbstractBlock.class, state.getBlock(), "field_149764_J");
+		Object mat = ObfuscationReflectionHelper.getPrivateValue(BlockBehaviour.class, state.getBlock(), "field_149764_J");
 		return mat instanceof Material ? (Material) mat : null;
 	}
 

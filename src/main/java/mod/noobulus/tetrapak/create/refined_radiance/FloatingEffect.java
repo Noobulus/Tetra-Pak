@@ -5,12 +5,12 @@ import mod.noobulus.tetrapak.networking.Packets;
 import mod.noobulus.tetrapak.util.IEventBusListener;
 import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.util.Mth;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -28,12 +28,12 @@ public class FloatingEffect implements IHoloDescription, IEventBusListener {
 	}
 
 	public static float getIdleParticleChance(ItemEntity entity) {
-		return MathHelper.clamp(entity.getItem()
+		return Mth.clamp(entity.getItem()
 			.getCount() - 10, 5, 100) / 64f;
 	}
 
 	public static void onItemEntityTick(ItemEntity entity) {
-		World world = entity.getCommandSenderWorld();
+		Level world = entity.getCommandSenderWorld();
 		if (entity.level == null || entity.level.isClientSide)
 			return;
 		if (!entity.getPersistentData().getBoolean("DoFloatyParticles"))

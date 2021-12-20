@@ -3,14 +3,14 @@ package mod.noobulus.tetrapak.util;
 import mod.noobulus.tetrapak.BuildConfig;
 import mod.noobulus.tetrapak.TetraPak;
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.loot.*;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.Mth;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
@@ -25,13 +25,26 @@ import java.util.Random;
 import java.util.function.Supplier;
 import java.util.stream.IntStream;
 
+import net.minecraft.world.level.storage.loot.BinomialDistributionGenerator;
+import net.minecraft.world.level.storage.loot.ConstantIntValue;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.LootTables;
+import net.minecraft.world.level.storage.loot.PredicateManager;
+import net.minecraft.world.level.storage.loot.RandomIntGenerator;
+import net.minecraft.world.level.storage.loot.RandomValueBounds;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
+import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
+import net.minecraft.world.level.storage.loot.entries.LootTableReference;
+
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE, modid = BuildConfig.MODID)
 public class LootLoader {
 	private static final Random rand = new Random();
 	private static final int STATISTICAL_TEST = 100; // Values tested to determine min and max
 	@Nullable
 	private static MinecraftServer server = null;
-	private static LootTableManager manager;
+	private static LootTables manager;
 
 	private LootLoader() {
 	}
@@ -49,11 +62,11 @@ public class LootLoader {
 		return server;
 	}
 
-	public static LootTableManager getManager() {
+	public static LootTables getManager() {
 		MinecraftServer server = getServer();
 		if (server == null) {
 			if (manager == null) {
-				manager = new LootTableManager(new LootPredicateManager());
+				manager = new LootTables(new PredicateManager());
 				TetraPak.LOGGER.error("Loot tables should never be calculated on the client!");
 			}
 			return manager;
@@ -61,7 +74,7 @@ public class LootLoader {
 		return server.getLootTables();
 	}
 
-	public static List<LootSlot> crawlTable(LootTable table, LootTableManager manager) {
+	public static List<LootSlot> crawlTable(LootTable table, LootTables manager) {
 		List<LootSlot> drops = new ArrayList<>();
 
 		getPools(table).forEach(
@@ -69,15 +82,15 @@ public class LootLoader {
 				int min = getMin(pool.getRolls());
 				int max = getMax(pool.getRolls()) + getMax(pool.getBonusRolls());
 				final float totalWeight = getLootEntries(pool).stream()
-					.filter(StandaloneLootEntry.class::isInstance).map(StandaloneLootEntry.class::cast)
+					.filter(LootPoolSingletonContainer.class::isInstance).map(LootPoolSingletonContainer.class::cast)
 					.mapToInt(entry -> entry.weight).sum();
 				getLootEntries(pool).stream()
-					.filter(ItemLootEntry.class::isInstance).map(ItemLootEntry.class::cast)
+					.filter(LootItem.class::isInstance).map(LootItem.class::cast)
 					.map(entry -> new LootSlot(entry.item, entry.weight / totalWeight, min, max))
 					.forEach(drops::add);
 
 				getLootEntries(pool).stream()
-					.filter(TableLootEntry.class::isInstance).map(TableLootEntry.class::cast)
+					.filter(LootTableReference.class::isInstance).map(LootTableReference.class::cast)
 					.map(entry -> crawlTable(manager.get(entry.name), manager)).forEach(drops::addAll);
 			}
 		);
@@ -91,17 +104,17 @@ public class LootLoader {
 		return ObfuscationReflectionHelper.getPrivateValue(LootTable.class, table, "field_186466_c");
 	}
 
-	public static List<LootEntry> getLootEntries(LootPool pool) {
+	public static List<LootPoolEntryContainer> getLootEntries(LootPool pool) {
 		// public net.minecraft.loot.LootPool field_186453_a # lootEntries
 		return ObfuscationReflectionHelper.getPrivateValue(LootPool.class, pool, "field_186453_a");
 	}
 
-	public static int getMin(IRandomRange randomRange) {
-		if (randomRange instanceof ConstantRange) {
+	public static int getMin(RandomIntGenerator randomRange) {
+		if (randomRange instanceof ConstantIntValue) {
 			return randomRange.getInt(rand);
-		} else if (randomRange instanceof RandomValueRange) {
-			return MathHelper.floor(((RandomValueRange) randomRange).getMin());
-		} else if (randomRange instanceof BinomialRange) {
+		} else if (randomRange instanceof RandomValueBounds) {
+			return Mth.floor(((RandomValueBounds) randomRange).getMin());
+		} else if (randomRange instanceof BinomialDistributionGenerator) {
 			return 0;
 		} else {
 			// Test a 100 values
@@ -109,20 +122,20 @@ public class LootLoader {
 		}
 	}
 
-	public static int getMax(IRandomRange randomRange) {
-		if (randomRange instanceof ConstantRange) {
+	public static int getMax(RandomIntGenerator randomRange) {
+		if (randomRange instanceof ConstantIntValue) {
 			return randomRange.getInt(rand);
-		} else if (randomRange instanceof RandomValueRange) {
-			return MathHelper.floor(((RandomValueRange) randomRange).getMax());
-		} else if (randomRange instanceof BinomialRange) {
-			return ((BinomialRange) randomRange).n;
+		} else if (randomRange instanceof RandomValueBounds) {
+			return Mth.floor(((RandomValueBounds) randomRange).getMax());
+		} else if (randomRange instanceof BinomialDistributionGenerator) {
+			return ((BinomialDistributionGenerator) randomRange).n;
 		} else {
 			// Test a 100 values
 			return IntStream.iterate(0, i -> randomRange.getInt(rand)).limit(STATISTICAL_TEST).max().orElse(0);
 		}
 	}
 
-	public static class LootSlot implements Supplier<ITextComponent> {
+	public static class LootSlot implements Supplier<Component> {
 		public final Item item;
 		public final int min;
 		public final int max;
@@ -135,7 +148,7 @@ public class LootLoader {
 			this.chance = chance;
 		}
 
-		public LootSlot(PacketBuffer buffer) {
+		public LootSlot(FriendlyByteBuf buffer) {
 			ItemStack item = buffer.readItem();
 			this.item = item.getItem();
 			min = item.getCount();
@@ -163,11 +176,11 @@ public class LootLoader {
 		}
 
 		@Override
-		public ITextComponent get() {
-			return new StringTextComponent(this.toString());
+		public Component get() {
+			return new TextComponent(this.toString());
 		}
 
-		public void toBuffer(PacketBuffer buffer) {
+		public void toBuffer(FriendlyByteBuf buffer) {
 			buffer.writeItem(new ItemStack(item, min));
 			buffer.writeInt(max);
 			buffer.writeFloat(chance);

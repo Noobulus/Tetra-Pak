@@ -1,8 +1,8 @@
 package mod.noobulus.tetrapak.quark;
 
 import mod.noobulus.tetrapak.TetraPak;
-import net.minecraft.block.material.MaterialColor;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.resources.ResourceLocation;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Predicate;
 
-import static net.minecraft.block.material.MaterialColor.*;
+import static net.minecraft.world.level.material.MaterialColor.*;
 
 public final class CorundumMap {
 	public static final Map<MaterialColor, Integer> COLOR_MAP = new HashMap<>();

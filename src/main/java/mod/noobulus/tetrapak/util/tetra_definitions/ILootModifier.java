@@ -1,8 +1,8 @@
 package mod.noobulus.tetrapak.util.tetra_definitions;
 
 import mod.noobulus.tetrapak.loot.GenericModifierSerializer;
-import net.minecraft.loot.conditions.ILootCondition;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.LootModifier;
 
@@ -13,5 +13,5 @@ public interface ILootModifier<T extends LootModifier> extends ITetraEffect {
 		return new GenericModifierSerializer<>(getModifierConstructor()).setRegistryName(new ResourceLocation(getEffect().getKey()));
 	}
 
-	Function<ILootCondition[], T> getModifierConstructor();
+	Function<LootItemCondition[], T> getModifierConstructor();
 }

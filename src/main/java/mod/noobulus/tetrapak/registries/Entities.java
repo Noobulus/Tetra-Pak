@@ -3,9 +3,9 @@ package mod.noobulus.tetrapak.registries;
 import mod.noobulus.tetrapak.BuildConfig;
 import mod.noobulus.tetrapak.entities.FragileFallingBlock;
 import mod.noobulus.tetrapak.entities.FragileFallingBlockRenderer;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.EntityType;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -21,7 +21,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class Entities {
 	private static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, BuildConfig.MODID);
 	public static final RegistryObject<EntityType<FragileFallingBlock>> FRAGILE_FALLING_BLOCK = register("fragile_falling_block",
-		EntityType.Builder.<FragileFallingBlock>of(FragileFallingBlock::new, EntityClassification.MISC)
+		EntityType.Builder.<FragileFallingBlock>of(FragileFallingBlock::new, MobCategory.MISC)
 			.sized(0.98F, 0.98F)
 			.clientTrackingRange(10)
 			.updateInterval(20));

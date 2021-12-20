@@ -1,11 +1,11 @@
 package mod.noobulus.tetrapak;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.MusicDiscItem;
-import net.minecraft.item.Rarity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.RecordItem;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
@@ -44,8 +44,8 @@ public class Registry {
 
 
     public static RegistryObject<Item>
-            PLAYING_WITH_POWER_DISC = addItem("music_disc_playing_with_power", new MusicDiscItem(2, () -> PLAYING_WITH_POWER.get(),
-            itemProps().stacksTo(1).tab(ItemGroup.TAB_MISC).rarity(Rarity.RARE)));
+            PLAYING_WITH_POWER_DISC = addItem("music_disc_playing_with_power", new RecordItem(2, () -> PLAYING_WITH_POWER.get(),
+            itemProps().stacksTo(1).tab(CreativeModeTab.TAB_MISC).rarity(Rarity.RARE)));
 
     public static void register() {
         ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());

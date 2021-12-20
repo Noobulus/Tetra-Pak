@@ -2,10 +2,10 @@ package mod.noobulus.tetrapak.predicate.entity;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import net.minecraft.entity.CreatureAttribute;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.JSONUtils;
+import net.minecraft.world.entity.MobType;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.util.GsonHelper;
 
 import java.util.function.Predicate;
 
@@ -14,18 +14,18 @@ public class CreatureAttributePredicate extends AbstractEntityPredicate {
 	protected Predicate<Entity> readInternal(JsonObject jsonobject) throws JsonSyntaxException {
 		if (!jsonobject.has("attribute"))
 			return null;
-		String attribute = JSONUtils.getAsString(jsonobject, "attribute");
+		String attribute = GsonHelper.getAsString(jsonobject, "attribute");
 		switch (attribute) {
 			case "undefined":
-				return entity -> entity instanceof LivingEntity && ((LivingEntity) entity).getMobType().equals(CreatureAttribute.UNDEFINED);
+				return entity -> entity instanceof LivingEntity && ((LivingEntity) entity).getMobType().equals(MobType.UNDEFINED);
 			case "undead":
-				return entity -> entity instanceof LivingEntity && ((LivingEntity) entity).getMobType().equals(CreatureAttribute.UNDEAD);
+				return entity -> entity instanceof LivingEntity && ((LivingEntity) entity).getMobType().equals(MobType.UNDEAD);
 			case "arthropod":
-				return entity -> entity instanceof LivingEntity && ((LivingEntity) entity).getMobType().equals(CreatureAttribute.ARTHROPOD);
+				return entity -> entity instanceof LivingEntity && ((LivingEntity) entity).getMobType().equals(MobType.ARTHROPOD);
 			case "illager":
-				return entity -> entity instanceof LivingEntity && ((LivingEntity) entity).getMobType().equals(CreatureAttribute.ILLAGER);
+				return entity -> entity instanceof LivingEntity && ((LivingEntity) entity).getMobType().equals(MobType.ILLAGER);
 			case "water":
-				return entity -> entity instanceof LivingEntity && ((LivingEntity) entity).getMobType().equals(CreatureAttribute.WATER);
+				return entity -> entity instanceof LivingEntity && ((LivingEntity) entity).getMobType().equals(MobType.WATER);
 			default:
 				return null;
 		}

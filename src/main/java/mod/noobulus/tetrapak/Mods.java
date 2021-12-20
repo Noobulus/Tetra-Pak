@@ -18,8 +18,8 @@ import mod.noobulus.tetrapak.util.IEventBusListener;
 import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ILootModifier;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.event.RegistryEvent;
@@ -87,9 +87,9 @@ public enum Mods {
 
 	@SubscribeEvent
 	public static void handlebeltTick(LivingEvent.LivingUpdateEvent event) {
-		if (!(event.getEntityLiving() instanceof PlayerEntity))
+		if (!(event.getEntityLiving() instanceof Player))
 			return;
-		PlayerEntity player = (PlayerEntity) event.getEntityLiving();
+		Player player = (Player) event.getEntityLiving();
 		ItemStack belt = ToolbeltHelper.findToolbelt(player);
 
 		getLoadedListenersStream()

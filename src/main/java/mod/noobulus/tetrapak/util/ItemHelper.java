@@ -1,16 +1,16 @@
 package mod.noobulus.tetrapak.util;
 
 import mcp.MethodsReturnNonnullByDefault;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.projectile.AbstractArrowEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipe;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.LazyValue;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.SmeltingRecipe;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.util.LazyLoadedValue;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.items.ItemHandlerHelper;
 
@@ -22,14 +22,14 @@ import java.lang.reflect.Method;
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 public class ItemHelper {
-	private static final LazyValue<Method> arrowStackGetter = new LazyValue<>(() -> ObfuscationReflectionHelper.findMethod(AbstractArrowEntity.class, "func_184550_j"));
+	private static final LazyLoadedValue<Method> arrowStackGetter = new LazyLoadedValue<>(() -> ObfuscationReflectionHelper.findMethod(AbstractArrow.class, "func_184550_j"));
 
 	private ItemHelper() {
 	}
 
 	@Nullable
 	public static ItemStack getThrownItemStack(@Nullable Entity e) {
-		if (!(e instanceof AbstractArrowEntity))
+		if (!(e instanceof AbstractArrow))
 			return null;
 		Method lookup = arrowStackGetter.get();
 		lookup.setAccessible(true);
@@ -44,9 +44,9 @@ public class ItemHelper {
 		return (ItemStack) result;
 	}
 
-	public static ItemStack smelt(ItemStack stack, World world) { // this is just forge example code switched over to my mappings but we won't talk about that
-		return world.getRecipeManager().getRecipeFor(IRecipeType.SMELTING, new Inventory(stack), world)
-			.map(FurnaceRecipe::getResultItem)
+	public static ItemStack smelt(ItemStack stack, Level world) { // this is just forge example code switched over to my mappings but we won't talk about that
+		return world.getRecipeManager().getRecipeFor(RecipeType.SMELTING, new SimpleContainer(stack), world)
+			.map(SmeltingRecipe::getResultItem)
 			.filter(itemStack -> !itemStack.isEmpty())
 			.map(itemStack -> ItemHandlerHelper.copyStackWithSize(itemStack, stack.getCount() * itemStack.getCount()))
 			.orElse(stack);

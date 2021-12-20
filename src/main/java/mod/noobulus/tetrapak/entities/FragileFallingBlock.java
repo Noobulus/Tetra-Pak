@@ -2,20 +2,20 @@ package mod.noobulus.tetrapak.entities;
 
 import mcp.MethodsReturnNonnullByDefault;
 import mod.noobulus.tetrapak.registries.Entities;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.MoverType;
-import net.minecraft.entity.item.FallingBlockEntity;
-import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.IPacket;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.item.FallingBlockEntity;
+import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.core.NonNullList;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.network.NetworkHooks;
 
@@ -28,18 +28,18 @@ import java.util.Collection;
 public class FragileFallingBlock extends FallingBlockEntity implements IEntityAdditionalSpawnData {
 	private NonNullList<ItemStack> drops;
 
-	public FragileFallingBlock(EntityType<FragileFallingBlock> entityType, World world) {
+	public FragileFallingBlock(EntityType<FragileFallingBlock> entityType, Level world) {
 		super(entityType, world);
 		drops = NonNullList.create();
 	}
 
-	public FragileFallingBlock(World world, BlockPos pos, BlockState state, Collection<ItemStack> drops) {
+	public FragileFallingBlock(Level world, BlockPos pos, BlockState state, Collection<ItemStack> drops) {
 		super(Entities.FRAGILE_FALLING_BLOCK.get(), world);
 		this.drops = NonNullList.of(ItemStack.EMPTY, drops.toArray(new ItemStack[0]));
 		this.blockState = state;
 		this.blocksBuilding = true;
 		this.setPos(pos.getX() + .5, pos.getY() + (1 - getBbHeight()) / 2., pos.getZ() + .5);
-		this.setDeltaMovement(Vector3d.ZERO);
+		this.setDeltaMovement(Vec3.ZERO);
 		this.xo = pos.getX() + .5;
 		this.yo = pos.getY();
 		this.zo = pos.getZ() + .5;
@@ -74,35 +74,35 @@ public class FragileFallingBlock extends FallingBlockEntity implements IEntityAd
 	}
 
 	@Override
-	protected void addAdditionalSaveData(CompoundNBT nbt) {
+	protected void addAdditionalSaveData(CompoundTag nbt) {
 		super.addAdditionalSaveData(nbt);
-		ItemStackHelper.saveAllItems(nbt, drops);
+		ContainerHelper.saveAllItems(nbt, drops);
 	}
 
 	@Override
-	protected void readAdditionalSaveData(@Nullable CompoundNBT nbt) {
+	protected void readAdditionalSaveData(@Nullable CompoundTag nbt) {
 		if (nbt == null)
 			return;
 		super.readAdditionalSaveData(nbt);
 		drops = NonNullList.withSize(nbt.getList("Items", 10).size(), ItemStack.EMPTY);
-		ItemStackHelper.loadAllItems(nbt, drops);
-		ItemStackHelper.loadAllItems(nbt, drops);
+		ContainerHelper.loadAllItems(nbt, drops);
+		ContainerHelper.loadAllItems(nbt, drops);
 	}
 
 	@Override
-	public IPacket<?> getAddEntityPacket() {
+	public Packet<?> getAddEntityPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 
 	@Override
-	public void writeSpawnData(PacketBuffer buffer) {
-		CompoundNBT compound = new CompoundNBT();
+	public void writeSpawnData(FriendlyByteBuf buffer) {
+		CompoundTag compound = new CompoundTag();
 		addAdditionalSaveData(compound);
 		buffer.writeNbt(compound);
 	}
 
 	@Override
-	public void readSpawnData(PacketBuffer additionalData) {
+	public void readSpawnData(FriendlyByteBuf additionalData) {
 		readAdditionalSaveData(additionalData.readNbt());
 	}
 }

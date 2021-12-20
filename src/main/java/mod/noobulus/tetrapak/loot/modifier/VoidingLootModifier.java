@@ -1,15 +1,15 @@
 package mod.noobulus.tetrapak.loot.modifier;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.loot.LootContext;
-import net.minecraft.loot.conditions.ILootCondition;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraftforge.common.loot.LootModifier;
 
 import javax.annotation.Nonnull;
 import java.util.List;
 
 public class VoidingLootModifier extends LootModifier {
-	public VoidingLootModifier(ILootCondition[] conditionsIn) {
+	public VoidingLootModifier(LootItemCondition[] conditionsIn) {
 		super(conditionsIn);
 	}
 

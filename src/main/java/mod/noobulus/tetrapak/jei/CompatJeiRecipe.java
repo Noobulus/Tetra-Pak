@@ -6,18 +6,18 @@ import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mod.noobulus.tetrapak.BuildConfig;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.RecipeManager;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.network.chat.TranslatableComponent;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 @MethodsReturnNonnullByDefault
-public interface CompatJeiRecipe<T extends IRecipe<IInventory>> extends IRecipeCategory<T> {
+public interface CompatJeiRecipe<T extends Recipe<Container>> extends IRecipeCategory<T> {
 
 	default void addRecipes(IRecipeRegistration recipeRegistration, RecipeManager manager) {
 		recipeRegistration.addRecipes(manager.byType(getRecipeType()).values(), getUid());
@@ -35,10 +35,10 @@ public interface CompatJeiRecipe<T extends IRecipe<IInventory>> extends IRecipeC
 		return new ArrayList<>();
 	}
 
-	IRecipeType<T> getRecipeType();
+	RecipeType<T> getRecipeType();
 
 	@Override
 	default String getTitle() {
-		return new TranslationTextComponent(BuildConfig.MODID + ".recipe." + getUid().getPath()).getString();
+		return new TranslatableComponent(BuildConfig.MODID + ".recipe." + getUid().getPath()).getString();
 	}
 }

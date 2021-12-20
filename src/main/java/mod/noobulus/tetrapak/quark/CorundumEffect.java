@@ -5,10 +5,10 @@ import mod.noobulus.tetrapak.Config;
 import mod.noobulus.tetrapak.util.IEventBusListener;
 import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import se.mickelus.tetra.effect.ItemEffect;
@@ -33,7 +33,7 @@ public class CorundumEffect implements IHoloDescription, IEventBusListener {
 		if (effectLevel <= 0)
 			return;
 		BlockPos pos = event.getPos();
-		IBlockReader world = event.getEntityLiving().level;
+		BlockGetter world = event.getEntityLiving().level;
 		boolean matches = CorundumMap.COLOR_MAP.get(world.getBlockState(event.getPos()).getMapColor(world, pos)) == effectLevel;
 		event.setNewSpeed((float) (event.getOriginalSpeed() * (matches ? Config.MATCHING_CRYSTAL_FACTOR.get() : Config.NON_MATCHING_CRYSTAL_FACTOR.get())));
 	}
@@ -41,7 +41,7 @@ public class CorundumEffect implements IHoloDescription, IEventBusListener {
 	@Override
 	public ITooltipGetter getStatTooltipGetter(IStatGetter statGetter) {
 		return (player, itemStack) -> I18n.get(getTooltipPath(),
-			new TranslationTextComponent(BuildConfig.MODID + "." + CorundumMap.NAME_MAP.get(
+			new TranslatableComponent(BuildConfig.MODID + "." + CorundumMap.NAME_MAP.get(
 				(int) statGetter.getValue(player, itemStack))).getString(), Config.MATCHING_CRYSTAL_FACTOR.get());
 	}
 
@@ -50,7 +50,7 @@ public class CorundumEffect implements IHoloDescription, IEventBusListener {
 		return new LabelGetterBasic("%s", "%s"){
 			@Override
 			public String getLabel(double value, double diffValue, boolean flipped) {
-				return new TranslationTextComponent(BuildConfig.MODID + "." + CorundumMap.NAME_MAP.get((int) diffValue)).getString();
+				return new TranslatableComponent(BuildConfig.MODID + "." + CorundumMap.NAME_MAP.get((int) diffValue)).getString();
 			}
 		};
 	}

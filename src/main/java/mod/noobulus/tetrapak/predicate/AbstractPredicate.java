@@ -3,7 +3,7 @@ package mod.noobulus.tetrapak.predicate;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import net.minecraft.util.JSONUtils;
+import net.minecraft.util.GsonHelper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
@@ -18,12 +18,12 @@ public abstract class AbstractPredicate<T, R extends AbstractPredicate<T, R>> ex
 	public Predicate<T> read(@Nullable JsonElement element) {
 		if (element == null || element.isJsonNull())
 			return null;
-		JsonObject jsonobject = JSONUtils.convertToJsonObject(element, getKey());
+		JsonObject jsonobject = GsonHelper.convertToJsonObject(element, getKey());
 		if (getRegistryName() != null && jsonobject.has(getRegistryName().toString())) {
 			JsonElement child = jsonobject.get(getRegistryName().toString());
 			if (child == null || child.isJsonNull())
 				return null;
-			return readInternal(JSONUtils.convertToJsonObject(child, getRegistryName().toString()));
+			return readInternal(GsonHelper.convertToJsonObject(child, getRegistryName().toString()));
 		}
 		return null;
 	}

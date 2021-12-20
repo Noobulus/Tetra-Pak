@@ -4,14 +4,14 @@ import mod.noobulus.tetrapak.Config;
 import mod.noobulus.tetrapak.util.IEventBusListener;
 import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
-import net.minecraft.block.Block;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -28,16 +28,16 @@ import java.util.Set;
 public class UnearthingEffect implements IHoloDescription, IEventBusListener {
 	private static boolean unearthing = false; // required as to not run into "recursions" over forge events on tree cutting
 
-	public static void unearth(IWorld iWorld, BlockPos pos, PlayerEntity entity) {
-		if (unearthing || entity.isShiftKeyDown() || !(iWorld instanceof World))
+	public static void unearth(LevelAccessor iWorld, BlockPos pos, Player entity) {
+		if (unearthing || entity.isShiftKeyDown() || !(iWorld instanceof Level))
 			return;
-		World world = (World) iWorld;
+		Level world = (Level) iWorld;
 		unearthing = true;
 		findOreVein(world, pos).destroyBlocks(world, entity, (dropPos, stack) -> Block.popResource(world, dropPos, stack));
 		unearthing = false;
 	}
 
-	public static BlockCollection findOreVein(@Nullable IBlockReader world, BlockPos pos) {
+	public static BlockCollection findOreVein(@Nullable BlockGetter world, BlockPos pos) {
 		if (world == null)
 			return BlockCollection.EMPTY;
 

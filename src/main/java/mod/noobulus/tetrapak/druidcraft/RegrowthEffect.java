@@ -3,12 +3,12 @@ package mod.noobulus.tetrapak.druidcraft;
 import mod.noobulus.tetrapak.util.IEventBusListener;
 import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -27,11 +27,11 @@ public class RegrowthEffect implements IHoloDescription, IEventBusListener {
 	@SubscribeEvent
 	public void onLivingUpdate(LivingEvent.LivingUpdateEvent event) {
 		LivingEntity entity = event.getEntityLiving();
-		World world = entity.getCommandSenderWorld();
-		if (!(entity instanceof PlayerEntity))
+		Level world = entity.getCommandSenderWorld();
+		if (!(entity instanceof Player))
 			return;
 
-		for (EquipmentSlotType slot : new EquipmentSlotType[]{EquipmentSlotType.MAINHAND, EquipmentSlotType.OFFHAND}) {
+		for (EquipmentSlot slot : new EquipmentSlot[]{EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND}) {
 			ItemStack stack = entity.getItemBySlot(slot);
 			if (!(stack.getItem() instanceof ModularItem))
 				continue;

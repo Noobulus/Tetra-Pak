@@ -3,10 +3,10 @@ package mod.noobulus.tetrapak.mixin;
 import com.simibubi.create.content.contraptions.components.deployer.DeployerFakePlayer;
 import com.simibubi.create.content.contraptions.components.deployer.DeployerTileEntity;
 import mod.noobulus.tetrapak.create.recipes.SalvagingRecipe;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.world.World;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.items.ItemStackHandler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -26,8 +26,8 @@ public class DeployerTileEntityMixin {
 	protected DeployerFakePlayer player;
 
 	@Inject(at = @At("HEAD"), method = "getRecipe", remap = false, cancellable = true)
-	private void onGetRecipe(ItemStack stack, CallbackInfoReturnable<IRecipe<?>> cir) {
-		World level = self.getLevel();
+	private void onGetRecipe(ItemStack stack, CallbackInfoReturnable<Recipe<?>> cir) {
+		Level level = self.getLevel();
 		if (player == null || level == null || lastProduced.contains(stack.getItem()))
 			return;
 		ItemStack heldItemMainhand = player.getMainHandItem();

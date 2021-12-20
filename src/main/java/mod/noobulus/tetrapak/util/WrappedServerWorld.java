@@ -2,29 +2,29 @@ package mod.noobulus.tetrapak.util;
 
 
 import mcp.MethodsReturnNonnullByDefault;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.item.crafting.RecipeManager;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.tags.ITagCollectionSupplier;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.Util;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.GameRules;
-import net.minecraft.world.ITickList;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.server.ServerChunkProvider;
-import net.minecraft.world.server.ServerTickList;
-import net.minecraft.world.server.ServerWorld;
-import net.minecraft.world.storage.IServerWorldInfo;
-import net.minecraft.world.storage.MapData;
-import net.minecraft.world.storage.SaveFormat;
+import net.minecraft.tags.TagContainer;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.Util;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.TickList;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.server.level.ServerChunkCache;
+import net.minecraft.world.level.ServerTickList;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.storage.ServerLevelData;
+import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
+import net.minecraft.world.level.storage.LevelStorageSource;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -33,19 +33,19 @@ import java.util.List;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class WrappedServerWorld extends ServerWorld {
-	protected final World world;
+public class WrappedServerWorld extends ServerLevel {
+	protected final Level world;
 
-	public WrappedServerWorld(World world) {
-		super(world.getServer(), Util.backgroundExecutor(), getLevelSaveFromWorld(world), (IServerWorldInfo) world.getLevelData(), world.dimension(), world.dimensionType(), null, ((ServerChunkProvider) world.getChunkSource()).getGenerator(), world.isDebug(), world.getBiomeManager().biomeZoomSeed, Collections.emptyList(), false);
+	public WrappedServerWorld(Level world) {
+		super(world.getServer(), Util.backgroundExecutor(), getLevelSaveFromWorld(world), (ServerLevelData) world.getLevelData(), world.dimension(), world.dimensionType(), null, ((ServerChunkCache) world.getChunkSource()).getGenerator(), world.isDebug(), world.getBiomeManager().biomeZoomSeed, Collections.emptyList(), false);
 		this.world = world;
 	}
 
-	private static SaveFormat.LevelSave getLevelSaveFromWorld(World world) {
+	private static LevelStorageSource.LevelStorageAccess getLevelSaveFromWorld(Level world) {
 		return ObfuscationReflectionHelper.getPrivateValue(MinecraftServer.class, world.getServer(), "field_71310_m");
 	}
 
-	public static World unwrap(World world) {
+	public static Level unwrap(Level world) {
 		return world instanceof WrappedServerWorld ? ((WrappedServerWorld) world).world : world;
 	}
 
@@ -66,31 +66,31 @@ public class WrappedServerWorld extends ServerWorld {
 
 	@Override
 	public ServerTickList<Block> getBlockTicks() {
-		ITickList<Block> tl = this.world.getBlockTicks();
+		TickList<Block> tl = this.world.getBlockTicks();
 		return tl instanceof ServerTickList ? (ServerTickList<Block>) tl : super.getBlockTicks();
 	}
 
 	@Override
 	public ServerTickList<Fluid> getLiquidTicks() {
-		ITickList<Fluid> tl = this.world.getLiquidTicks();
+		TickList<Fluid> tl = this.world.getLiquidTicks();
 		return tl instanceof ServerTickList ? (ServerTickList<Fluid>) tl : super.getLiquidTicks();
 	}
 
 	@Override
-	public void levelEvent(PlayerEntity player, int type, BlockPos pos, int data) {
+	public void levelEvent(Player player, int type, BlockPos pos, int data) {
 	}
 
 	@Override
-	public List<ServerPlayerEntity> players() {
+	public List<ServerPlayer> players() {
 		return Collections.emptyList();
 	}
 
 	@Override
-	public void playSound(PlayerEntity player, double x, double y, double z, SoundEvent soundIn, SoundCategory category, float volume, float pitch) {
+	public void playSound(Player player, double x, double y, double z, SoundEvent soundIn, SoundSource category, float volume, float pitch) {
 	}
 
 	@Override
-	public void playSound(PlayerEntity p_217384_1_, Entity p_217384_2_, SoundEvent p_217384_3_, SoundCategory p_217384_4_, float p_217384_5_, float p_217384_6_) {
+	public void playSound(Player p_217384_1_, Entity p_217384_2_, SoundEvent p_217384_3_, SoundSource p_217384_4_, float p_217384_5_, float p_217384_6_) {
 	}
 
 	@Override
@@ -99,7 +99,7 @@ public class WrappedServerWorld extends ServerWorld {
 	}
 
 	@Override
-	public MapData getMapData(String mapName) {
+	public MapItemSavedData getMapData(String mapName) {
 		return null;
 	}
 
@@ -110,7 +110,7 @@ public class WrappedServerWorld extends ServerWorld {
 	}
 
 	@Override
-	public void setMapData(MapData mapDataIn) {
+	public void setMapData(MapItemSavedData mapDataIn) {
 	}
 
 	@Override
@@ -128,7 +128,7 @@ public class WrappedServerWorld extends ServerWorld {
 	}
 
 	@Override
-	public ITagCollectionSupplier getTagManager() {
+	public TagContainer getTagManager() {
 		return this.world.getTagManager();
 	}
 

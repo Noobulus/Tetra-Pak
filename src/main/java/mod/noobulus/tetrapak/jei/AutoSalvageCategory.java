@@ -1,6 +1,6 @@
 package mod.noobulus.tetrapak.jei;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.compat.jei.DoubleItemIcon;
 import com.simibubi.create.compat.jei.EmptyBackground;
@@ -16,13 +16,13 @@ import mod.noobulus.tetrapak.BuildConfig;
 import mod.noobulus.tetrapak.TetraPak;
 import mod.noobulus.tetrapak.create.recipes.SalvagingRecipe;
 import mod.noobulus.tetrapak.util.LootLoader;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.registries.ForgeRegistries;
 import se.mickelus.tetra.items.modular.IModularItem;
 
@@ -95,7 +95,7 @@ public class AutoSalvageCategory implements CompatJeiRecipe<SalvagingRecipe> {
 		itemStacks.init(1, true, 50, 19);
 		itemStacks.set(1, iIngredients.getInputs(VanillaTypes.ITEM).get(1));
 
-		Map<ItemStack, Supplier<ITextComponent>> tooltips = salvagingRecipe.contents.get()
+		Map<ItemStack, Supplier<Component>> tooltips = salvagingRecipe.contents.get()
 			.stream()
 			.collect(Collectors.toMap(LootLoader.LootSlot::asStack, lootSlot -> lootSlot));
 		List<ItemStack> entries = new ArrayList<>(tooltips.keySet());
@@ -110,13 +110,13 @@ public class AutoSalvageCategory implements CompatJeiRecipe<SalvagingRecipe> {
 			.get(1)
 			.stream()
 			.findFirst()
-			.ifPresent(t -> tooltips.put(t, () -> new TranslationTextComponent(BuildConfig.MODID + ".tool_type." + salvagingRecipe.toolType.getName())));
+			.ifPresent(t -> tooltips.put(t, () -> new TranslatableComponent(BuildConfig.MODID + ".tool_type." + salvagingRecipe.toolType.getName())));
 
 		iRecipeLayout.getItemStacks().addTooltipCallback(new JeiTooltipEntry<>(tooltips));
 	}
 
 	@Override
-	public IRecipeType<SalvagingRecipe> getRecipeType() {
+	public RecipeType<SalvagingRecipe> getRecipeType() {
 		return SalvagingRecipe.SalvagingRecipeType.AUTOMATIC_SALVAGING;
 	}
 
@@ -126,7 +126,7 @@ public class AutoSalvageCategory implements CompatJeiRecipe<SalvagingRecipe> {
 	}
 
 	@Override
-	public void draw(SalvagingRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
+	public void draw(SalvagingRecipe recipe, PoseStack matrixStack, double mouseX, double mouseY) {
 		AllGuiTextures.JEI_SLOT.draw(matrixStack, 50, 19);
 		AllGuiTextures.JEI_SLOT.draw(matrixStack, 26, 65);
 		AllGuiTextures.JEI_SHADOW.draw(matrixStack, 62, 72);

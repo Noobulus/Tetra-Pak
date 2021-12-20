@@ -2,9 +2,9 @@ package mod.noobulus.tetrapak.particle;
 
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.client.particle.*;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.particles.IParticleData;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -13,10 +13,10 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @OnlyIn(Dist.CLIENT)
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-public class MoonstrikeStageParticle extends SpriteTexturedParticle {
+public class MoonstrikeStageParticle extends TextureSheetParticle {
 
 	// this is pretty much exactly the same as the vanilla crit particle since i want it to behave the same
-	protected MoonstrikeStageParticle(ClientWorld worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn) {
+	protected MoonstrikeStageParticle(ClientLevel worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn) {
 		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
 		this.xd *= 0.1F;
 		this.yd *= 0.1F;
@@ -36,7 +36,7 @@ public class MoonstrikeStageParticle extends SpriteTexturedParticle {
 
 	@Override
 	public float getQuadSize(float scale) {
-		return this.quadSize * MathHelper.clamp(((float) this.age + scale) / (float) this.lifetime * 32.0F, 0.0F, 1.0F);
+		return this.quadSize * Mth.clamp(((float) this.age + scale) / (float) this.lifetime * 32.0F, 0.0F, 1.0F);
 	}
 
 	@Override
@@ -62,20 +62,20 @@ public class MoonstrikeStageParticle extends SpriteTexturedParticle {
 		}
 	}
 
-	public IParticleRenderType getRenderType() {
-		return IParticleRenderType.PARTICLE_SHEET_LIT;
+	public ParticleRenderType getRenderType() {
+		return ParticleRenderType.PARTICLE_SHEET_LIT;
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public static class Factory<T extends IParticleData> implements IParticleFactory<T> {
-		private final IAnimatedSprite spriteSet;
+	public static class Factory<T extends ParticleOptions> implements ParticleProvider<T> {
+		private final SpriteSet spriteSet;
 
-		public Factory(IAnimatedSprite sprite) {
+		public Factory(SpriteSet sprite) {
 			this.spriteSet = sprite;
 		}
 
 		@Override
-		public Particle createParticle(T typeIn, ClientWorld worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn) {
+		public Particle createParticle(T typeIn, ClientLevel worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn) {
 			MoonstrikeStageParticle moonstrikeStageParticle = new MoonstrikeStageParticle(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
 			moonstrikeStageParticle.setColor(1.0f, 1.0f, 1.0f);
 			moonstrikeStageParticle.pickSprite(this.spriteSet);

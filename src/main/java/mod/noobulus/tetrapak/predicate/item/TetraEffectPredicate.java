@@ -6,10 +6,10 @@ import com.google.gson.JsonObject;
 import mcp.MethodsReturnNonnullByDefault;
 import mod.noobulus.tetrapak.BuildConfig;
 import mod.noobulus.tetrapak.TetraPak;
-import net.minecraft.advancements.criterion.ItemPredicate;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -37,7 +37,7 @@ public class TetraEffectPredicate extends ItemPredicate {
 	private static ItemPredicate fromJson(@Nullable JsonObject jsonObject) {
 		if (jsonObject != null && !jsonObject.isJsonNull()) {
 			if (jsonObject.has(JSON_EFFECT_KEY)) {
-				return new TetraEffectPredicate(ItemEffect.get(JSONUtils.getAsString(jsonObject, JSON_EFFECT_KEY)));
+				return new TetraEffectPredicate(ItemEffect.get(GsonHelper.getAsString(jsonObject, JSON_EFFECT_KEY)));
 			}
 
 			return ANY;

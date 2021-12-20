@@ -4,28 +4,28 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import mcp.MethodsReturnNonnullByDefault;
-import net.minecraft.loot.ILootSerializer;
-import net.minecraft.loot.LootConditionType;
-import net.minecraft.loot.LootContext;
-import net.minecraft.loot.LootParameters;
-import net.minecraft.loot.conditions.ILootCondition;
+import net.minecraft.world.level.storage.loot.Serializer;
+import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-public class HasBlockEntity implements ILootCondition {
+public class HasBlockEntity implements LootItemCondition {
 	@Override
-	public LootConditionType getType() {
+	public LootItemConditionType getType() {
 		return LootConditions.HAS_BLOCK_ENTITY.type;
 	}
 
 	@Override
 	public boolean test(LootContext context) {
-		return context.hasParam(LootParameters.BLOCK_ENTITY);
+		return context.hasParam(LootContextParams.BLOCK_ENTITY);
 	}
 
-	public static class Serializer implements ILootSerializer<HasBlockEntity> {
+	public static class Serializer implements Serializer<HasBlockEntity> {
 		@Override
 		public void serialize(JsonObject json, HasBlockEntity condition, JsonSerializationContext context) {
 			// No extra data required

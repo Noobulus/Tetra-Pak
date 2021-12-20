@@ -1,9 +1,9 @@
 package mod.noobulus.tetrapak.loot.modifier;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.loot.LootContext;
-import net.minecraft.loot.conditions.ILootCondition;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.loot.LootModifier;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -11,7 +11,7 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public class ReapingLootModifier extends LootModifier {
-	public ReapingLootModifier(ILootCondition[] conditionsIn) {
+	public ReapingLootModifier(LootItemCondition[] conditionsIn) {
 		super(conditionsIn);
 	}
 

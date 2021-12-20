@@ -4,10 +4,10 @@ package mod.noobulus.tetrapak.networking;
 import com.simibubi.create.foundation.utility.VecHelper;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.Entity;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -22,12 +22,12 @@ public class EntityFloatParticlePacket implements ISimplePacket {
 		entityId = entity.getId();
 	}
 
-	public EntityFloatParticlePacket(PacketBuffer buffer) {
+	public EntityFloatParticlePacket(FriendlyByteBuf buffer) {
 		entityId = buffer.readInt();
 	}
 
 	@Override
-	public void writePacketData(PacketBuffer buffer) {
+	public void writePacketData(FriendlyByteBuf buffer) {
 		buffer.writeInt(this.entityId);
 	}
 
@@ -40,8 +40,8 @@ public class EntityFloatParticlePacket implements ISimplePacket {
 				return;
 			Entity entity = Minecraft.getInstance().level.getEntity(entityId);
 			if (entity != null && entity.level != null) {
-				Vector3d pos = entity.position();
-				Vector3d ppos = VecHelper.offsetRandomly(pos, entity.level.random, .5f);
+				Vec3 pos = entity.position();
+				Vec3 ppos = VecHelper.offsetRandomly(pos, entity.level.random, .5f);
 				entity.level.addParticle(ParticleTypes.END_ROD, ppos.x, pos.y, ppos.z, 0, -.1f, 0);
 			}
 		});

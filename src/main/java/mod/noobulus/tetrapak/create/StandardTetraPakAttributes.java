@@ -2,8 +2,8 @@ package mod.noobulus.tetrapak.create;
 
 import com.simibubi.create.content.logistics.item.filter.ItemAttribute;
 import mod.noobulus.tetrapak.BuildConfig;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
 import se.mickelus.tetra.items.modular.IModularItem;
 
 import java.util.Arrays;
@@ -54,12 +54,12 @@ public enum StandardTetraPakAttributes implements ItemAttribute {
 	}
 
 	@Override
-	public void writeNBT(CompoundNBT nbt) {
+	public void writeNBT(CompoundTag nbt) {
 		nbt.putBoolean(this.name(), true);
 	}
 
 	@Override
-	public ItemAttribute readNBT(CompoundNBT nbt) {
+	public ItemAttribute readNBT(CompoundTag nbt) {
 		for (StandardTetraPakAttributes trait : values())
 			if (nbt.contains(trait.name()))
 				return trait;

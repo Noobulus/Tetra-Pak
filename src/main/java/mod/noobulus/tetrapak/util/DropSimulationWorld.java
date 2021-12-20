@@ -1,11 +1,11 @@
 package mod.noobulus.tetrapak.util;
 
 import mcp.MethodsReturnNonnullByDefault;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
@@ -17,13 +17,13 @@ import java.util.List;
 public class DropSimulationWorld extends WrappedServerWorld {
 	private final List<ItemStack> items = new ArrayList<>();
 
-	private DropSimulationWorld(World world) {
+	private DropSimulationWorld(Level world) {
 		super(world);
 		restoringBlockSnapshots = world.restoringBlockSnapshots;
 	}
 
-	public static World of(World world) {
-		return world instanceof ServerWorld ? new DropSimulationWorld(world) : world;
+	public static Level of(Level world) {
+		return world instanceof ServerLevel ? new DropSimulationWorld(world) : world;
 	}
 
 	public Collection<ItemStack> getItems() {

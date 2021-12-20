@@ -3,9 +3,9 @@ package mod.noobulus.tetrapak.registries;
 import mod.noobulus.tetrapak.BuildConfig;
 import mod.noobulus.tetrapak.particle.MoonstrikeStageParticle;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.ParticleManager;
-import net.minecraft.particles.BasicParticleType;
-import net.minecraft.particles.ParticleType;
+import net.minecraft.client.particle.ParticleEngine;
+import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.core.particles.ParticleType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
@@ -21,11 +21,11 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class Particles {
 	public static final DeferredRegister<ParticleType<?>> MOONSTRIKE_PARTICLES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, "tetrapak");
 	@SuppressWarnings("unused")
-	public static final RegistryObject<BasicParticleType>
-		MOONSTRIKE_STAGE_0 = MOONSTRIKE_PARTICLES.register("moonstrike_stage_0", () -> new BasicParticleType(true)),
-		MOONSTRIKE_STAGE_1 = MOONSTRIKE_PARTICLES.register("moonstrike_stage_1", () -> new BasicParticleType(true)),
-		MOONSTRIKE_STAGE_2 = MOONSTRIKE_PARTICLES.register("moonstrike_stage_2", () -> new BasicParticleType(true)),
-		MOONSTRIKE_STAGE_3 = MOONSTRIKE_PARTICLES.register("moonstrike_stage_3", () -> new BasicParticleType(true));
+	public static final RegistryObject<SimpleParticleType>
+		MOONSTRIKE_STAGE_0 = MOONSTRIKE_PARTICLES.register("moonstrike_stage_0", () -> new SimpleParticleType(true)),
+		MOONSTRIKE_STAGE_1 = MOONSTRIKE_PARTICLES.register("moonstrike_stage_1", () -> new SimpleParticleType(true)),
+		MOONSTRIKE_STAGE_2 = MOONSTRIKE_PARTICLES.register("moonstrike_stage_2", () -> new SimpleParticleType(true)),
+		MOONSTRIKE_STAGE_3 = MOONSTRIKE_PARTICLES.register("moonstrike_stage_3", () -> new SimpleParticleType(true));
 
 	static {
 		MOONSTRIKE_PARTICLES.register(FMLJavaModLoadingContext.get().getModEventBus());
@@ -37,7 +37,7 @@ public class Particles {
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	@OnlyIn(Dist.CLIENT)
 	public static void registerParticles(ParticleFactoryRegisterEvent event) {
-		ParticleManager manager = Minecraft.getInstance().particleEngine;
+		ParticleEngine manager = Minecraft.getInstance().particleEngine;
 		MOONSTRIKE_PARTICLES.getEntries().stream().map(RegistryObject::get).forEach(sprite -> manager.register(sprite, MoonstrikeStageParticle.Factory::new));
 	}
 }

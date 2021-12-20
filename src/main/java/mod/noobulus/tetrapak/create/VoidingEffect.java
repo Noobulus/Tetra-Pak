@@ -7,17 +7,17 @@ import mod.noobulus.tetrapak.util.IEventBusListener;
 import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ILootModifier;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.boss.WitherEntity;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.loot.conditions.ILootCondition;
-import net.minecraft.util.DamageSource;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.boss.wither.WitherBoss;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.api.distmarker.Dist;
@@ -68,7 +68,7 @@ public class VoidingEffect implements IHoloDescription, ILootModifier<VoidingLoo
 			return;
 		}
 		event.getDrops().clear();
-		if (entity instanceof WitherEntity) { // funny music disc easter egg
+		if (entity instanceof WitherBoss) { // funny music disc easter egg
 			ItemEntity drop = new ItemEntity(entity.level, entity.getX(), entity.getY(), entity.getZ(), new ItemStack(Registry.PLAYING_WITH_POWER_DISC.get(), 1));
 			drop.setDefaultPickUpDelay(); // i can tell this is janky because it doesn't work without this line
 			event.getDrops().add(drop);
@@ -76,7 +76,7 @@ public class VoidingEffect implements IHoloDescription, ILootModifier<VoidingLoo
 	}
 
 	private boolean shouldVoidingAffect(@Nullable DamageSource source, Entity target) {
-		if (target instanceof PlayerEntity)
+		if (target instanceof Player)
 			return false;
 		return hasEffect(source);
 	}
@@ -101,7 +101,7 @@ public class VoidingEffect implements IHoloDescription, ILootModifier<VoidingLoo
 	}
 
 	@Override
-	public Function<ILootCondition[], VoidingLootModifier> getModifierConstructor() {
+	public Function<LootItemCondition[], VoidingLootModifier> getModifierConstructor() {
 		return VoidingLootModifier::new;
 	}
 }

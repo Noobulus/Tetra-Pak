@@ -3,10 +3,10 @@ package mod.noobulus.tetrapak.mixin;
 import com.google.gson.JsonElement;
 import mod.noobulus.tetrapak.predicate.PredicateManagers;
 import net.minecraft.advancements.criterion.*;
-import net.minecraft.entity.Entity;
-import net.minecraft.loot.FishingPredicate;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.advancements.critereon.FishingHookPredicate;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.server.level.ServerLevel;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -17,6 +17,16 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+
+import net.minecraft.advancements.critereon.DistancePredicate;
+import net.minecraft.advancements.critereon.EntityEquipmentPredicate;
+import net.minecraft.advancements.critereon.EntityFlagsPredicate;
+import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.advancements.critereon.EntityTypePredicate;
+import net.minecraft.advancements.critereon.LocationPredicate;
+import net.minecraft.advancements.critereon.MobEffectsPredicate;
+import net.minecraft.advancements.critereon.NbtPredicate;
+import net.minecraft.advancements.critereon.PlayerPredicate;
 
 @Mixin(EntityPredicate.class)
 public class EntityPredicateMixin {
@@ -44,11 +54,11 @@ public class EntityPredicateMixin {
 				DistancePredicate.ANY,
 				LocationPredicate.ANY,
 				MobEffectsPredicate.ANY,
-				NBTPredicate.ANY,
+				NbtPredicate.ANY,
 				EntityFlagsPredicate.ANY,
 				EntityEquipmentPredicate.ANY,
 				PlayerPredicate.ANY,
-				FishingPredicate.ANY,
+				FishingHookPredicate.ANY,
 				null,
 				null);
 			cir.setReturnValue(predicate);
@@ -58,7 +68,7 @@ public class EntityPredicateMixin {
 	}
 
 	@Inject(at = @At("RETURN"), method = "matches(Lnet/minecraft/world/server/ServerWorld;Lnet/minecraft/util/math/vector/Vector3d;Lnet/minecraft/entity/Entity;)Z", cancellable = true)
-	private void onPredicateTest(ServerWorld level, Vector3d vector3d, Entity entity, CallbackInfoReturnable<Boolean> cir) {
+	private void onPredicateTest(ServerLevel level, Vec3 vector3d, Entity entity, CallbackInfoReturnable<Boolean> cir) {
 		if (customPredicates.isEmpty() || !cir.getReturnValueZ())
 			return;
 		cir.setReturnValue(customPredicates.stream().allMatch(entityPredicate -> entityPredicate.test(entity)));

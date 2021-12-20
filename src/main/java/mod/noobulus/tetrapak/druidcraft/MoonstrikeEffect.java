@@ -5,14 +5,14 @@ import mod.noobulus.tetrapak.util.IEventBusListener;
 import mod.noobulus.tetrapak.util.tetra_definitions.IPercentageHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.particles.BasicParticleType;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.IDayTimeReader;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.LevelTimeAccess;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -25,17 +25,17 @@ import se.mickelus.tetra.items.modular.ModularItem;
 
 public class MoonstrikeEffect implements IPercentageHoloDescription, IEventBusListener {
 
-	private static float getMoonFactor(IDayTimeReader world, double efficiency) {
+	private static float getMoonFactor(LevelTimeAccess world, double efficiency) {
 		return (float) (1 + (efficiency * world.getMoonBrightness() / 100.d));
 	}
 
-	private static void spawnMoonParticles(World world, Vector3d pos) {
-		if (world instanceof ServerWorld && world.getMoonBrightness() != 0) {
-			((ServerWorld) world).sendParticles(getParticleType(world), pos.x() + 0.5D, pos.y() + 0.5D, pos.z() + 0.5D, 12, (world.random.nextDouble() * 2.0D - 1.0D) * 0.3D, 0.3D + world.random.nextDouble() * 0.3D, (world.random.nextDouble() * 2.0D - 1.0D) * 0.3D, 0.3D);
+	private static void spawnMoonParticles(Level world, Vec3 pos) {
+		if (world instanceof ServerLevel && world.getMoonBrightness() != 0) {
+			((ServerLevel) world).sendParticles(getParticleType(world), pos.x() + 0.5D, pos.y() + 0.5D, pos.z() + 0.5D, 12, (world.random.nextDouble() * 2.0D - 1.0D) * 0.3D, 0.3D + world.random.nextDouble() * 0.3D, (world.random.nextDouble() * 2.0D - 1.0D) * 0.3D, 0.3D);
 		}
 	}
 
-	private static BasicParticleType getParticleType(IDayTimeReader world) {
+	private static SimpleParticleType getParticleType(LevelTimeAccess world) {
 		float moonSize = world.getMoonBrightness();
 		return (moonSize > .5 ?
 			(moonSize > .75 ? Particles.MOONSTRIKE_STAGE_3 : Particles.MOONSTRIKE_STAGE_2) :
@@ -49,8 +49,8 @@ public class MoonstrikeEffect implements IPercentageHoloDescription, IEventBusLi
 			return;
 		ModularItem item = (ModularItem) heldItemMainhand.getItem();
 		if (hasEffect(heldItemMainhand)) {
-			World moonPhaseWorld = event.getPlayer().getCommandSenderWorld();
-			spawnMoonParticles(moonPhaseWorld, Vector3d.atLowerCornerOf(event.getPos()));
+			Level moonPhaseWorld = event.getPlayer().getCommandSenderWorld();
+			spawnMoonParticles(moonPhaseWorld, Vec3.atLowerCornerOf(event.getPos()));
 			float efficiency = (float) item.getEffectEfficiency(heldItemMainhand, getEffect());
 			event.setNewSpeed(event.getOriginalSpeed() * getMoonFactor(moonPhaseWorld, efficiency));
 		}
@@ -62,7 +62,7 @@ public class MoonstrikeEffect implements IPercentageHoloDescription, IEventBusLi
 			Entity source = event.getSource().getDirectEntity();
 			if (source == null)
 				return;
-			World moonPhaseWorld = source.getCommandSenderWorld();
+			Level moonPhaseWorld = source.getCommandSenderWorld();
 			double efficiency = getEffectEfficiency(event.getSource());
 			if (moonPhaseWorld.getMoonBrightness() != 0)
 				DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> Minecraft.getInstance().particleEngine.createTrackingEmitter(event.getEntity(), getParticleType(moonPhaseWorld)));

@@ -1,9 +1,9 @@
 package mod.noobulus.tetrapak.loot.modifier;
 
 import mod.noobulus.tetrapak.util.ItemHelper;
-import net.minecraft.item.ItemStack;
-import net.minecraft.loot.LootContext;
-import net.minecraft.loot.conditions.ILootCondition;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraftforge.common.loot.LootModifier;
 
 import javax.annotation.Nonnull;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ScorchingLootModifier extends LootModifier {
-	public ScorchingLootModifier(ILootCondition[] conditionsIn) {
+	public ScorchingLootModifier(LootItemCondition[] conditionsIn) {
 		super(conditionsIn);
 	}
 

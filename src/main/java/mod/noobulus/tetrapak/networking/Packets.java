@@ -1,8 +1,8 @@
 package mod.noobulus.tetrapak.networking;
 
 import mod.noobulus.tetrapak.TetraPak;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.fml.network.NetworkEvent;
 import net.minecraftforge.fml.network.NetworkRegistry;
@@ -28,7 +28,7 @@ public enum Packets {
 
 	private final LoadedPacket<?> packet;
 
-	<T extends ISimplePacket> Packets(Class<T> packetClass, Function<PacketBuffer, T> factory, NetworkDirection direction) {
+	<T extends ISimplePacket> Packets(Class<T> packetClass, Function<FriendlyByteBuf, T> factory, NetworkDirection direction) {
 		packet = new LoadedPacket<>(packetClass, factory, direction);
 	}
 
@@ -39,13 +39,13 @@ public enum Packets {
 
 	private static class LoadedPacket<T extends ISimplePacket> {
 		private static int index = 0;
-		private final BiConsumer<T, PacketBuffer> encoder;
-		private final Function<PacketBuffer, T> decoder;
+		private final BiConsumer<T, FriendlyByteBuf> encoder;
+		private final Function<FriendlyByteBuf, T> decoder;
 		private final BiConsumer<T, Supplier<NetworkEvent.Context>> handler;
 		private final Class<T> type;
 		private final NetworkDirection direction;
 
-		private LoadedPacket(Class<T> type, Function<PacketBuffer, T> factory, NetworkDirection direction) {
+		private LoadedPacket(Class<T> type, Function<FriendlyByteBuf, T> factory, NetworkDirection direction) {
 			encoder = T::writePacketData;
 			decoder = factory;
 			handler = T::handle;
