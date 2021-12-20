@@ -8,7 +8,7 @@ buildscript {
         maven { url = 'https://repo.spongepowered.org/maven' }
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '4.1.+', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
         classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
     }
 }
@@ -136,7 +136,7 @@ dependencies {
     implementation fg.deobf("com.jozufozu.flywheel:Flywheel:${flywheel_version}")
     implementation fg.deobf("com.simibubi.create:Create:${create_version}")
 
-    annotationProcessor 'org.spongepowered:mixin:0.8:processor'
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
 
 compileJava.options.encoding = 'UTF-8'
