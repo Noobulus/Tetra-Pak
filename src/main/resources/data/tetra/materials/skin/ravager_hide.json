@@ -1,27 +1,27 @@
 {
-    "key": "ravager_hide",
-    "category": "skin",
-    "primary": "8",
-    "secondary": "6.5",
-    "tertiary": "0.2",
-    "durability": "600",
-    "integrityCost": "3",
-    "integrityGain": "9",
-    "magicCapacity": "60",
-    "toolLevel": "0",
-    "toolEfficiency": "0",
-    "tints": {
-        "glyph": "433b36",
-        "texture": "433b36"
-    },
-    "textures": [
-        "crude",
-        "default"
-    ],
-    "material": {
-        "item": "quark:ravager_hide"
-    },
-    "requiredTools": {
-        "cut": 3
-    }
+  "key": "ravager_hide",
+  "category": "skin",
+  "primary": "8",
+  "secondary": "6.5",
+  "tertiary": "0.2",
+  "durability": "600",
+  "integrityCost": "3",
+  "integrityGain": "9",
+  "magicCapacity": "60",
+  "toolLevel": "0",
+  "toolEfficiency": "0",
+  "tints": {
+    "glyph": "433b36",
+    "texture": "433b36"
+  },
+  "textures": [
+    "crude",
+    "default"
+  ],
+  "material": {
+    "item": "quark:ravager_hide"
+  },
+  "requiredTools": {
+    "cut": 3
+  }
 }

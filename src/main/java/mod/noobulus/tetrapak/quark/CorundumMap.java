@@ -1,8 +1,8 @@
 package mod.noobulus.tetrapak.quark;
 
 import mod.noobulus.tetrapak.TetraPak;
-import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.material.MaterialColor;
 
 import java.util.Arrays;
 import java.util.HashMap;

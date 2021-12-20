@@ -11,7 +11,10 @@
   "toolLevel": "3",
   "toolEfficiency": "6",
   "effects": {
-    "enderReverb": [2, 0.15]
+    "enderReverb": [
+      2,
+      0.15
+    ]
   },
   "tints": {
     "glyph": "623363",

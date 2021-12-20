@@ -3,12 +3,11 @@ package mod.noobulus.tetrapak.loot;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
-import mcp.MethodsReturnNonnullByDefault;
-import net.minecraft.world.level.storage.loot.Serializer;
-import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -25,7 +24,7 @@ public class HasBlockEntity implements LootItemCondition {
 		return context.hasParam(LootContextParams.BLOCK_ENTITY);
 	}
 
-	public static class Serializer implements Serializer<HasBlockEntity> {
+	public static class Serializer implements net.minecraft.world.level.storage.loot.Serializer<HasBlockEntity> {
 		@Override
 		public void serialize(JsonObject json, HasBlockEntity condition, JsonSerializationContext context) {
 			// No extra data required

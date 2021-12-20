@@ -4,9 +4,9 @@ import mod.noobulus.tetrapak.util.IEventBusListener;
 import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
@@ -33,9 +33,8 @@ public class RegrowthEffect implements IHoloDescription, IEventBusListener {
 
 		for (EquipmentSlot slot : new EquipmentSlot[]{EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND}) {
 			ItemStack stack = entity.getItemBySlot(slot);
-			if (!(stack.getItem() instanceof ModularItem))
+			if (!(stack.getItem() instanceof ModularItem item))
 				continue;
-			ModularItem item = (ModularItem) stack.getItem();
 			if (stack.isDamaged() && hasEffect(stack) && world.getGameTime() % item.getEffectEfficiency(stack, getEffect()) == 0) {
 				stack.setDamageValue(stack.getDamageValue() - (stack.getMaxDamage() / 100) - 1);
 			}

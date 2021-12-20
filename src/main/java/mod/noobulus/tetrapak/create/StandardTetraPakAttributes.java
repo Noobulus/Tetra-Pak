@@ -2,8 +2,8 @@ package mod.noobulus.tetrapak.create;
 
 import com.simibubi.create.content.logistics.item.filter.ItemAttribute;
 import mod.noobulus.tetrapak.BuildConfig;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.ItemStack;
 import se.mickelus.tetra.items.modular.IModularItem;
 
 import java.util.Arrays;

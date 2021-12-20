@@ -1,8 +1,8 @@
 package mod.noobulus.tetrapak.particle;
 
-import mcp.MethodsReturnNonnullByDefault;
-import net.minecraft.client.particle.*;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;

@@ -1,17 +1,19 @@
 package mod.noobulus.tetrapak.util;
 
 import mod.noobulus.tetrapak.BuildConfig;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.common.ToolType;
+import net.minecraft.world.item.TieredItem;
+import net.minecraftforge.common.ToolAction;
+import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
-import net.minecraftforge.fml.event.server.FMLServerStartedEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import se.mickelus.tetra.items.modular.IModularItem;
+import se.mickelus.tetra.items.modular.ItemModularHandheld;
 
+import javax.annotation.Nullable;
 import java.util.*;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE, modid = BuildConfig.MODID)
@@ -32,17 +34,17 @@ public class ToolHelper {
 	}
 
 	@SubscribeEvent
-	public static void onServerStart(FMLServerStartedEvent event) {
+	public static void onServerStart(ServerStartedEvent event) {
 		tools.clear();
 		populate();
 	}
 
 	public static void populate() {
-		for (ToolType t : getValues().values()) {
+		for (ToolAction t : ToolAction.getActions()) {
 			for (Item item : ForgeRegistries.ITEMS.getValues()) {
 				ItemStack test = new ItemStack(item);
-				for (int i = 0; i <= test.getHarvestLevel(t, null, null); i++) {
-					tools.computeIfAbsent(Pair.of(t.getName(), i), p -> new ArrayList<>()).add(test);
+				for (int i = 0; i <= getTierOf(test, t); i++) {
+					tools.computeIfAbsent(Pair.of(t.name(), i), p -> new ArrayList<>()).add(test);
 				}
 			}
 		}
@@ -57,21 +59,19 @@ public class ToolHelper {
 	}
 
 	private static void addModular(ItemStack tool) {
-		tool.getToolTypes().forEach(t -> {
-			for (int i = 0; i <= tool.getHarvestLevel(t, null, null); i++) {
-				tools.computeIfAbsent(Pair.of(t.getName(), i), p -> new ArrayList<>()).add(tool);
+		if (!(tool.getItem() instanceof ItemModularHandheld item))
+			return;
+		ToolAction.getActions().stream().filter(tool::canPerformAction).forEach(t -> {
+			for (int i = 0; i <= item.getHarvestLevel(tool, t, null, null); i++) {
+				tools.computeIfAbsent(Pair.of(t.name(), i), p -> new ArrayList<>()).add(tool);
 			}
 		});
 	}
 
-	public static List<ItemStack> getToolsOf(ToolType type, int level) {
+	public static List<ItemStack> getToolsOf(ToolAction type, int level) {
 		if (tools.isEmpty())
 			populate();
-		return tools.getOrDefault(Pair.of(type.getName(), level), Collections.emptyList());
-	}
-
-	public static Map<String, ToolType> getValues() {
-		return ObfuscationReflectionHelper.getPrivateValue(ToolType.class, null, "VALUES");
+		return tools.getOrDefault(Pair.of(type.name(), level), Collections.emptyList());
 	}
 
 	private static ItemStack setUpDouble(String moduleVariant, String headMaterial, String handleMaterial) {
@@ -102,5 +102,16 @@ public class ToolHelper {
 		IModularItem.updateIdentifier(itemStack);
 
 		return itemStack;
+	}
+
+	public static int getTierOf(@Nullable ItemStack stack, ToolAction action) {
+		if (stack == null || stack.isEmpty())
+			return -1;
+		if (stack.getItem() instanceof ItemModularHandheld handheld) {
+			return handheld.getHarvestLevel(stack, action, null, null);
+		} else if (stack.getItem() instanceof TieredItem tieredItem) {
+			return tieredItem.getTier().getLevel();
+		}
+		return -1;
 	}
 }

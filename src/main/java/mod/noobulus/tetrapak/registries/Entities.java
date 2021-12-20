@@ -3,19 +3,19 @@ package mod.noobulus.tetrapak.registries;
 import mod.noobulus.tetrapak.BuildConfig;
 import mod.noobulus.tetrapak.entities.FragileFallingBlock;
 import mod.noobulus.tetrapak.entities.FragileFallingBlockRenderer;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 @Mod.EventBusSubscriber(modid = BuildConfig.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Entities {
@@ -41,6 +41,6 @@ public class Entities {
 	@OnlyIn(Dist.CLIENT)
 	@SubscribeEvent
 	public static void clientInit(FMLClientSetupEvent event) {
-		RenderingRegistry.registerEntityRenderingHandler(FRAGILE_FALLING_BLOCK.get(), FragileFallingBlockRenderer::new);
+		EntityRenderers.register(FRAGILE_FALLING_BLOCK.get(), FragileFallingBlockRenderer::new);
 	}
 }

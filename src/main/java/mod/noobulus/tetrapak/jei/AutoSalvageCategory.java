@@ -16,13 +16,13 @@ import mod.noobulus.tetrapak.BuildConfig;
 import mod.noobulus.tetrapak.TetraPak;
 import mod.noobulus.tetrapak.create.recipes.SalvagingRecipe;
 import mod.noobulus.tetrapak.util.LootLoader;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.registries.ForgeRegistries;
 import se.mickelus.tetra.items.modular.IModularItem;
 
@@ -110,7 +110,7 @@ public class AutoSalvageCategory implements CompatJeiRecipe<SalvagingRecipe> {
 			.get(1)
 			.stream()
 			.findFirst()
-			.ifPresent(t -> tooltips.put(t, () -> new TranslatableComponent(BuildConfig.MODID + ".tool_type." + salvagingRecipe.toolType.getName())));
+			.ifPresent(t -> tooltips.put(t, () -> new TranslatableComponent(BuildConfig.MODID + ".tool_type." + salvagingRecipe.toolType.name())));
 
 		iRecipeLayout.getItemStacks().addTooltipCallback(new JeiTooltipEntry<>(tooltips));
 	}
@@ -120,6 +120,7 @@ public class AutoSalvageCategory implements CompatJeiRecipe<SalvagingRecipe> {
 		return SalvagingRecipe.SalvagingRecipeType.AUTOMATIC_SALVAGING;
 	}
 
+
 	@Override
 	public Collection<ItemStack> getCatalystIcons() {
 		return Collections.singletonList(new ItemStack(AllBlocks.DEPLOYER.get()));
@@ -127,9 +128,9 @@ public class AutoSalvageCategory implements CompatJeiRecipe<SalvagingRecipe> {
 
 	@Override
 	public void draw(SalvagingRecipe recipe, PoseStack matrixStack, double mouseX, double mouseY) {
-		AllGuiTextures.JEI_SLOT.draw(matrixStack, 50, 19);
-		AllGuiTextures.JEI_SLOT.draw(matrixStack, 26, 65);
-		AllGuiTextures.JEI_SHADOW.draw(matrixStack, 62, 72);
+		AllGuiTextures.JEI_SLOT.render(matrixStack, 50, 19);
+		AllGuiTextures.JEI_SLOT.render(matrixStack, 26, 65);
+		AllGuiTextures.JEI_SHADOW.render(matrixStack, 62, 72);
 		deployer.draw(matrixStack, getBackground().getWidth() / 2 - 13, 37);
 	}
 }

@@ -1,31 +1,31 @@
 package mod.noobulus.tetrapak.util;
 
 
-import mcp.MethodsReturnNonnullByDefault;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.item.crafting.RecipeManager;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.tags.TagContainer;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.sounds.SoundEvent;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerChunkCache;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.TagContainer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.GameRules;
-import net.minecraft.world.level.TickList;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.server.level.ServerChunkCache;
-import net.minecraft.world.level.ServerTickList;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.storage.ServerLevelData;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import net.minecraft.world.level.storage.LevelStorageSource;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import net.minecraft.world.level.storage.ServerLevelData;
+import net.minecraft.world.ticks.LevelTickAccess;
+import net.minecraft.world.ticks.LevelTicks;
+import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Collections;
@@ -65,15 +65,15 @@ public class WrappedServerWorld extends ServerLevel {
 	}
 
 	@Override
-	public ServerTickList<Block> getBlockTicks() {
-		TickList<Block> tl = this.world.getBlockTicks();
-		return tl instanceof ServerTickList ? (ServerTickList<Block>) tl : super.getBlockTicks();
+	public LevelTicks<Block> getBlockTicks() {
+		LevelTickAccess<Block> tl = this.world.getBlockTicks();
+		return tl instanceof LevelTicks ? (LevelTicks<Block>) tl : super.getBlockTicks();
 	}
 
 	@Override
-	public ServerTickList<Fluid> getLiquidTicks() {
-		TickList<Fluid> tl = this.world.getLiquidTicks();
-		return tl instanceof ServerTickList ? (ServerTickList<Fluid>) tl : super.getLiquidTicks();
+	public LevelTicks<Fluid> getFluidTicks() {
+		LevelTickAccess<Fluid> tl = this.world.getFluidTicks();
+		return tl instanceof LevelTicks ? (LevelTicks<Fluid>) tl : super.getFluidTicks();
 	}
 
 	@Override
@@ -105,12 +105,12 @@ public class WrappedServerWorld extends ServerLevel {
 
 	@Override
 	public boolean addFreshEntity(Entity entityIn) {
-		entityIn.setLevel(this.world);
+		entityIn.level = this.world;
 		return this.world.addFreshEntity(entityIn);
 	}
 
 	@Override
-	public void setMapData(MapItemSavedData mapDataIn) {
+	public void setMapData(String p_143305_, MapItemSavedData p_143306_) {
 	}
 
 	@Override

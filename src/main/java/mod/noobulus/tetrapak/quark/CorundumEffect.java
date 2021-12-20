@@ -47,7 +47,7 @@ public class CorundumEffect implements IHoloDescription, IEventBusListener {
 
 	@Override
 	public ILabelGetter getStatLabel() {
-		return new LabelGetterBasic("%s", "%s"){
+		return new LabelGetterBasic("%s", "%s") {
 			@Override
 			public String getLabel(double value, double diffValue, boolean flipped) {
 				return new TranslatableComponent(BuildConfig.MODID + "." + CorundumMap.NAME_MAP.get((int) diffValue)).getString();

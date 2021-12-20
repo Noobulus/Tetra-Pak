@@ -1,8 +1,8 @@
 package mod.noobulus.tetrapak.loot;
 
 import com.google.gson.JsonObject;
-import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.LootModifier;
 

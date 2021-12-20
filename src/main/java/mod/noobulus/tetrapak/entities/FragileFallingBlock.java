@@ -1,23 +1,23 @@
 package mod.noobulus.tetrapak.entities;
 
-import mcp.MethodsReturnNonnullByDefault;
 import mod.noobulus.tetrapak.registries.Entities;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.MethodsReturnNonnullByDefault;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.item.FallingBlockEntity;
-import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.core.NonNullList;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.entity.IEntityAdditionalSpawnData;
+import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -70,7 +70,7 @@ public class FragileFallingBlock extends FallingBlockEntity implements IEntityAd
 	private void dropItems() {
 		if (!level.isClientSide)
 			drops.forEach(stack -> Block.popResource(level, blockPosition(), stack));
-		this.remove();
+		this.discard();
 	}
 
 	@Override

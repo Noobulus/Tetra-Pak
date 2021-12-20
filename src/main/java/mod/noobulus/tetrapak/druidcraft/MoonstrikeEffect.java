@@ -6,13 +6,13 @@ import mod.noobulus.tetrapak.util.tetra_definitions.IPercentageHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.level.LevelTimeAccess;
 import net.minecraft.world.level.Level;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.LevelTimeAccess;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -30,8 +30,8 @@ public class MoonstrikeEffect implements IPercentageHoloDescription, IEventBusLi
 	}
 
 	private static void spawnMoonParticles(Level world, Vec3 pos) {
-		if (world instanceof ServerLevel && world.getMoonBrightness() != 0) {
-			((ServerLevel) world).sendParticles(getParticleType(world), pos.x() + 0.5D, pos.y() + 0.5D, pos.z() + 0.5D, 12, (world.random.nextDouble() * 2.0D - 1.0D) * 0.3D, 0.3D + world.random.nextDouble() * 0.3D, (world.random.nextDouble() * 2.0D - 1.0D) * 0.3D, 0.3D);
+		if (world instanceof ServerLevel serverLevel && world.getMoonBrightness() != 0) {
+			serverLevel.sendParticles(getParticleType(world), pos.x() + 0.5D, pos.y() + 0.5D, pos.z() + 0.5D, 12, (world.random.nextDouble() * 2.0D - 1.0D) * 0.3D, 0.3D + world.random.nextDouble() * 0.3D, (world.random.nextDouble() * 2.0D - 1.0D) * 0.3D, 0.3D);
 		}
 	}
 
@@ -45,9 +45,8 @@ public class MoonstrikeEffect implements IPercentageHoloDescription, IEventBusLi
 	@SubscribeEvent
 	public void moonstrikeToolsBreakBlocksFaster(PlayerEvent.BreakSpeed event) {
 		ItemStack heldItemMainhand = event.getPlayer().getMainHandItem();
-		if (!(heldItemMainhand.getItem() instanceof ModularItem))
+		if (!(heldItemMainhand.getItem() instanceof ModularItem item))
 			return;
-		ModularItem item = (ModularItem) heldItemMainhand.getItem();
 		if (hasEffect(heldItemMainhand)) {
 			Level moonPhaseWorld = event.getPlayer().getCommandSenderWorld();
 			spawnMoonParticles(moonPhaseWorld, Vec3.atLowerCornerOf(event.getPos()));

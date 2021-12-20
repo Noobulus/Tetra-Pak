@@ -2,6 +2,8 @@
   "playing_with_power": {
     "category": "record",
     "stream": true,
-    "sounds": [ "tetrapak:playing_with_power" ]
+    "sounds": [
+      "tetrapak:playing_with_power"
+    ]
   }
 }

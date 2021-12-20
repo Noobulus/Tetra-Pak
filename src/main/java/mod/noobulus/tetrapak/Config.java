@@ -29,7 +29,7 @@ public class Config {
 		// Create
 		commonBuilder.comment("Create compatibility settings").push("create");
 		MAX_RADIANT_BLOCKS = commonBuilder.comment("Max block count for Refined Radiance mass harvesting")
-				.defineInRange("max_radiant_blocks", 512, 0, 4096);
+			.defineInRange("max_radiant_blocks", 512, 0, 4096);
 		commonBuilder.pop();
 
 		// Druidcraft

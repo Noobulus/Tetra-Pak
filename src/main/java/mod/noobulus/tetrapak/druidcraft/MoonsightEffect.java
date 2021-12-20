@@ -2,9 +2,9 @@ package mod.noobulus.tetrapak.druidcraft;
 
 import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import se.mickelus.tetra.effect.ItemEffect;
 

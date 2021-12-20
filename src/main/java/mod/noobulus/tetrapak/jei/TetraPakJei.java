@@ -8,8 +8,8 @@ import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mod.noobulus.tetrapak.TetraPak;
 import net.minecraft.client.Minecraft;
-import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeManager;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 

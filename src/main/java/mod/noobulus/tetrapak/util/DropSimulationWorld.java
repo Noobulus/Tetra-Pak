@@ -1,11 +1,11 @@
 package mod.noobulus.tetrapak.util;
 
-import mcp.MethodsReturnNonnullByDefault;
+import net.minecraft.MethodsReturnNonnullByDefault;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.server.level.ServerLevel;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;

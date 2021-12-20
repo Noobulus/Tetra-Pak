@@ -2,10 +2,10 @@ package mod.noobulus.tetrapak.predicate.entity;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import net.minecraft.world.entity.MobType;
+import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.util.GsonHelper;
+import net.minecraft.world.entity.MobType;
 
 import java.util.function.Predicate;
 

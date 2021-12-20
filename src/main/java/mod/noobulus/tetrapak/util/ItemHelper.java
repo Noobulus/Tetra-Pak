@@ -1,17 +1,17 @@
 package mod.noobulus.tetrapak.util;
 
-import mcp.MethodsReturnNonnullByDefault;
+import net.minecraft.MethodsReturnNonnullByDefault;
+import net.minecraft.util.LazyLoadedValue;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.SmeltingRecipe;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.util.LazyLoadedValue;
+import net.minecraft.world.item.crafting.SmeltingRecipe;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 import net.minecraftforge.items.ItemHandlerHelper;
 
 import javax.annotation.Nullable;

@@ -3,33 +3,34 @@ package mod.noobulus.tetrapak.create.refined_radiance;
 import mod.noobulus.tetrapak.util.IEventBusListener;
 import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FallingBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.common.ToolType;
+import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 import se.mickelus.tetra.effect.ItemEffect;
 
 import javax.annotation.Nullable;
 import java.util.HashSet;
 import java.util.Set;
 
+import static se.mickelus.tetra.util.ToolActionHelper.isEffectiveOn;
+
 public class CollapsingEffect implements IHoloDescription, IEventBusListener {
 	private static boolean collapsing = false; // required as to not run into "recursions" over forge events on tree cutting
 
 	public static void collapse(LevelAccessor iWorld, BlockPos pos, Player entity) {
-		if (collapsing || entity.isShiftKeyDown() || !(iWorld instanceof Level))
+		if (collapsing || entity.isShiftKeyDown() || !(iWorld instanceof Level world))
 			return;
-		Level world = (Level) iWorld;
 		collapsing = true;
 		findDirtCollumn(world, pos).destroyBlocksFancy(world, entity);
 		collapsing = false;
@@ -51,7 +52,7 @@ public class CollapsingEffect implements IHoloDescription, IEventBusListener {
 	}
 
 	public static boolean canBreakWithStart(BlockState start, BlockState test) {
-		if (!ToolType.SHOVEL.equals(test.getHarvestTool()))
+		if (!isEffectiveOn(ToolActions.SHOVEL_DIG, test))
 			return false;
 		if (test.getBlock() instanceof FallingBlock)
 			return true;
@@ -62,8 +63,7 @@ public class CollapsingEffect implements IHoloDescription, IEventBusListener {
 
 	@Nullable
 	private static Material getBlockMaterial(BlockState state) {
-		Object mat = ObfuscationReflectionHelper.getPrivateValue(BlockBehaviour.class, state.getBlock(), "field_149764_J");
-		return mat instanceof Material ? (Material) mat : null;
+		return ObfuscationReflectionHelper.getPrivateValue(BlockBehaviour.class, state.getBlock(), "field_149764_J") instanceof Material mat ? mat : null;
 	}
 
 	@SubscribeEvent

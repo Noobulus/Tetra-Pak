@@ -3,9 +3,9 @@ package mod.noobulus.tetrapak.mixin;
 import com.google.gson.JsonElement;
 import mod.noobulus.tetrapak.predicate.PredicateManagers;
 import net.minecraft.advancements.critereon.DamageSourcePredicate;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.server.level.ServerLevel;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -46,7 +46,7 @@ public class DamageSourcePredicateMixin {
 		((DamageSourcePredicateMixin) (Object) predicate).bindPredicateList(predicateList);
 	}
 
-	@Inject(at = @At("RETURN"), method = "matches(Lnet/minecraft/world/server/ServerWorld;Lnet/minecraft/util/math/vector/Vector3d;Lnet/minecraft/util/DamageSource;)Z", cancellable = true)
+	@Inject(at = @At("RETURN"), method = "matches(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/damagesource/DamageSource;)Z", cancellable = true)
 	private void onPredicateTest(ServerLevel level, Vec3 pos, DamageSource damageSource, CallbackInfoReturnable<Boolean> cir) {
 		if (customPredicates.isEmpty() || !cir.getReturnValueZ())
 			return;

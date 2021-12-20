@@ -11,7 +11,10 @@
   "toolLevel": "0",
   "toolEfficiency": "0",
   "effects": {
-    "enderReverb": [2, 0.15]
+    "enderReverb": [
+      2,
+      0.15
+    ]
   },
   "tints": {
     "glyph": "efdd90",

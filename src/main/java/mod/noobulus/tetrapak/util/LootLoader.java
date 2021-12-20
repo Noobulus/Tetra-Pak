@@ -3,44 +3,38 @@ package mod.noobulus.tetrapak.util;
 import mod.noobulus.tetrapak.BuildConfig;
 import mod.noobulus.tetrapak.TetraPak;
 import net.minecraft.client.Minecraft;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.loot.*;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.Mth;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.Mth;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.loot.*;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
+import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
+import net.minecraft.world.level.storage.loot.entries.LootTableReference;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
+import net.minecraft.world.level.storage.loot.providers.number.BinomialDistributionGenerator;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
-import net.minecraftforge.fml.event.server.FMLServerStartedEvent;
+import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 import java.util.function.Supplier;
 import java.util.stream.IntStream;
 
-import net.minecraft.world.level.storage.loot.BinomialDistributionGenerator;
-import net.minecraft.world.level.storage.loot.ConstantIntValue;
-import net.minecraft.world.level.storage.loot.LootPool;
-import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.LootTables;
-import net.minecraft.world.level.storage.loot.PredicateManager;
-import net.minecraft.world.level.storage.loot.RandomIntGenerator;
-import net.minecraft.world.level.storage.loot.RandomValueBounds;
-import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
-import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
-import net.minecraft.world.level.storage.loot.entries.LootTableReference;
-
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE, modid = BuildConfig.MODID)
 public class LootLoader {
-	private static final Random rand = new Random();
 	private static final int STATISTICAL_TEST = 100; // Values tested to determine min and max
 	@Nullable
 	private static MinecraftServer server = null;
@@ -50,7 +44,7 @@ public class LootLoader {
 	}
 
 	@SubscribeEvent
-	public static void onServerStart(FMLServerStartedEvent event) {
+	public static void onServerStart(ServerStartedEvent event) {
 		server = event.getServer();
 	}
 
@@ -75,12 +69,13 @@ public class LootLoader {
 	}
 
 	public static List<LootSlot> crawlTable(LootTable table, LootTables manager) {
+		LootContext dummy_context = new LootContext.Builder(getServer().overworld()).create(new LootContextParamSet.Builder().build());
 		List<LootSlot> drops = new ArrayList<>();
 
 		getPools(table).forEach(
 			pool -> {
-				int min = getMin(pool.getRolls());
-				int max = getMax(pool.getRolls()) + getMax(pool.getBonusRolls());
+				int min = getMin(pool.getRolls(), dummy_context);
+				int max = getMax(pool.getRolls(), dummy_context) + getMax(pool.getBonusRolls(), dummy_context);
 				final float totalWeight = getLootEntries(pool).stream()
 					.filter(LootPoolSingletonContainer.class::isInstance).map(LootPoolSingletonContainer.class::cast)
 					.mapToInt(entry -> entry.weight).sum();
@@ -109,29 +104,29 @@ public class LootLoader {
 		return ObfuscationReflectionHelper.getPrivateValue(LootPool.class, pool, "field_186453_a");
 	}
 
-	public static int getMin(RandomIntGenerator randomRange) {
-		if (randomRange instanceof ConstantIntValue) {
-			return randomRange.getInt(rand);
-		} else if (randomRange instanceof RandomValueBounds) {
-			return Mth.floor(((RandomValueBounds) randomRange).getMin());
+	public static int getMin(NumberProvider randomRange, LootContext dummy_context) {
+		if (randomRange instanceof ConstantValue) {
+			return randomRange.getInt(dummy_context);
+		} else if (randomRange instanceof UniformGenerator) {
+			return Mth.floor(((UniformGenerator) randomRange).min.getFloat(dummy_context));
 		} else if (randomRange instanceof BinomialDistributionGenerator) {
 			return 0;
 		} else {
 			// Test a 100 values
-			return IntStream.iterate(0, i -> randomRange.getInt(rand)).limit(STATISTICAL_TEST).min().orElse(0);
+			return IntStream.iterate(0, i -> randomRange.getInt(dummy_context)).limit(STATISTICAL_TEST).min().orElse(0);
 		}
 	}
 
-	public static int getMax(RandomIntGenerator randomRange) {
-		if (randomRange instanceof ConstantIntValue) {
-			return randomRange.getInt(rand);
-		} else if (randomRange instanceof RandomValueBounds) {
-			return Mth.floor(((RandomValueBounds) randomRange).getMax());
+	public static int getMax(NumberProvider randomRange, LootContext dummy_context) {
+		if (randomRange instanceof ConstantValue) {
+			return randomRange.getInt(dummy_context);
+		} else if (randomRange instanceof UniformGenerator) {
+			return Mth.floor(((UniformGenerator) randomRange).max.getFloat(dummy_context));
 		} else if (randomRange instanceof BinomialDistributionGenerator) {
-			return ((BinomialDistributionGenerator) randomRange).n;
+			return ((BinomialDistributionGenerator) randomRange).n.getInt(dummy_context);
 		} else {
 			// Test a 100 values
-			return IntStream.iterate(0, i -> randomRange.getInt(rand)).limit(STATISTICAL_TEST).max().orElse(0);
+			return IntStream.iterate(0, i -> randomRange.getInt(dummy_context)).limit(STATISTICAL_TEST).max().orElse(0);
 		}
 	}
 

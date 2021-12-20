@@ -5,16 +5,16 @@ import mod.noobulus.tetrapak.networking.Packets;
 import mod.noobulus.tetrapak.util.IEventBusListener;
 import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
+import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.network.PacketDistributor;
+import net.minecraftforge.network.PacketDistributor;
 import se.mickelus.tetra.effect.ItemEffect;
 
 public class FloatingEffect implements IHoloDescription, IEventBusListener {
@@ -34,7 +34,7 @@ public class FloatingEffect implements IHoloDescription, IEventBusListener {
 
 	public static void onItemEntityTick(ItemEntity entity) {
 		Level world = entity.getCommandSenderWorld();
-		if (entity.level == null || entity.level.isClientSide)
+		if (entity.level.isClientSide)
 			return;
 		if (!entity.getPersistentData().getBoolean("DoFloatyParticles"))
 			return;

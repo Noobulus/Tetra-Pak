@@ -3,16 +3,16 @@ package mod.noobulus.tetrapak.networking;
 import mod.noobulus.tetrapak.TetraPak;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.fml.network.NetworkDirection;
-import net.minecraftforge.fml.network.NetworkEvent;
-import net.minecraftforge.fml.network.NetworkRegistry;
-import net.minecraftforge.fml.network.simple.SimpleChannel;
+import net.minecraftforge.network.NetworkDirection;
+import net.minecraftforge.network.NetworkEvent;
+import net.minecraftforge.network.NetworkRegistry;
+import net.minecraftforge.network.simple.SimpleChannel;
 
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static net.minecraftforge.fml.network.NetworkDirection.PLAY_TO_CLIENT;
+import static net.minecraftforge.network.NetworkDirection.PLAY_TO_CLIENT;
 
 public enum Packets {
 

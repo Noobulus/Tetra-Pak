@@ -3,29 +3,33 @@ package mod.noobulus.tetrapak.create.recipes;
 import com.google.gson.JsonObject;
 import com.simibubi.create.content.contraptions.components.deployer.DeployerFakePlayer;
 import com.simibubi.create.content.contraptions.components.deployer.DeployerTileEntity;
-import mcp.MethodsReturnNonnullByDefault;
 import mod.noobulus.tetrapak.BuildConfig;
 import mod.noobulus.tetrapak.TetraPak;
 import mod.noobulus.tetrapak.util.LootLoader;
 import mod.noobulus.tetrapak.util.RecalculatableLazyValue;
 import mod.noobulus.tetrapak.util.ToolHelper;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.core.Registry;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.loot.*;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.GsonHelper;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.core.Registry;
 import net.minecraft.world.level.Level;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraftforge.common.ToolType;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.LootTables;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -40,12 +44,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.LootTables;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 public class SalvagingRecipe implements Recipe<Container> {
@@ -56,7 +54,7 @@ public class SalvagingRecipe implements Recipe<Container> {
 		.optional(LootContextParams.THIS_ENTITY)
 		.build();
 
-	public final ToolType toolType;
+	public final ToolAction toolType;
 	public final int toolLevel;
 	public final Ingredient startingItem;
 	public final ResourceLocation lootTable;
@@ -66,7 +64,7 @@ public class SalvagingRecipe implements Recipe<Container> {
 	@Nullable
 	private DeployerAwareInventory recipeInv;
 
-	public SalvagingRecipe(ResourceLocation id, ToolType toolType, int toolLevel, Ingredient startingItem, ResourceLocation lootTable) {
+	public SalvagingRecipe(ResourceLocation id, ToolAction toolType, int toolLevel, Ingredient startingItem, ResourceLocation lootTable) {
 		this.id = id;
 		this.toolType = toolType;
 		this.toolLevel = toolLevel;
@@ -85,10 +83,7 @@ public class SalvagingRecipe implements Recipe<Container> {
 	public boolean matches(Container iInventory, Level level) {
 		if (iInventory.getContainerSize() != 2)
 			return false;
-		ItemStack toolSlot = iInventory.getItem(0);
-		if (toolSlot.isEmpty())
-			return false;
-		if (toolSlot.getItem().getHarvestLevel(toolSlot, toolType, null, null) < toolLevel)
+		if (ToolHelper.getTierOf(iInventory.getItem(0), toolType) < toolLevel)
 			return false;
 		return startingItem.test(iInventory.getItem(1));
 	}
@@ -191,7 +186,7 @@ public class SalvagingRecipe implements Recipe<Container> {
 		public SalvagingRecipe fromJson(ResourceLocation id, JsonObject json) {
 			final Ingredient ingredient = Ingredient.fromJson(json.get("requirement"));
 			final int toolLevel = GsonHelper.isValidNode(json, "tool_level") ? GsonHelper.getAsInt(json, "tool_level") : 0;
-			final ToolType toolType = ToolType.get(GsonHelper.getAsString(json, "tool_type"));
+			final ToolAction toolType = ToolAction.get(GsonHelper.getAsString(json, "tool_type"));
 			final ResourceLocation lootTable = new ResourceLocation(GsonHelper.getAsString(json, "lootTable"));
 			return new SalvagingRecipe(id, toolType, toolLevel, ingredient, lootTable);
 		}
@@ -202,7 +197,7 @@ public class SalvagingRecipe implements Recipe<Container> {
 			final Ingredient ingredient = Ingredient.fromNetwork(packetBuffer);
 			final int toolLevel = packetBuffer.readInt();
 			final ResourceLocation lootTable = packetBuffer.readResourceLocation();
-			final ToolType toolType = ToolType.get(packetBuffer.readUtf(32767));
+			final ToolAction toolType = ToolAction.get(packetBuffer.readUtf(32767));
 			SalvagingRecipe recipe = new SalvagingRecipe(id, toolType, toolLevel, ingredient, lootTable);
 
 			int slotCount = packetBuffer.readInt();
@@ -227,7 +222,7 @@ public class SalvagingRecipe implements Recipe<Container> {
 			recipe.startingItem.toNetwork(packetBuffer);
 			packetBuffer.writeInt(recipe.toolLevel);
 			packetBuffer.writeResourceLocation(recipe.lootTable);
-			packetBuffer.writeUtf(recipe.toolType.getName());
+			packetBuffer.writeUtf(recipe.toolType.name());
 
 			List<LootLoader.LootSlot> slots = recipe.contents.get();
 			packetBuffer.writeInt(slots.size());

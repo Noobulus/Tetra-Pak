@@ -1,8 +1,8 @@
 package mod.noobulus.tetrapak.util.tetra_definitions;
 
 import mod.noobulus.tetrapak.loot.GenericModifierSerializer;
-import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.LootModifier;
 

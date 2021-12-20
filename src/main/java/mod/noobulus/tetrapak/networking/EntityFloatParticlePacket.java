@@ -2,13 +2,13 @@ package mod.noobulus.tetrapak.networking;
 
 
 import com.simibubi.create.foundation.utility.VecHelper;
-import mcp.MethodsReturnNonnullByDefault;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraftforge.network.NetworkEvent;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.function.Supplier;

@@ -1,14 +1,14 @@
 package mod.noobulus.tetrapak.entities;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import mcp.MethodsReturnNonnullByDefault;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.FallingBlockRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlas;
-import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -20,7 +20,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 public class FragileFallingBlockRenderer<T extends FallingBlockEntity> extends EntityRenderer<T> {
 	private final FallingBlockRenderer renderer;
 
-	public FragileFallingBlockRenderer(EntityRenderDispatcher manager) {
+	public FragileFallingBlockRenderer(EntityRendererProvider.Context manager) {
 		super(manager);
 		renderer = new FallingBlockRenderer(manager);
 	}

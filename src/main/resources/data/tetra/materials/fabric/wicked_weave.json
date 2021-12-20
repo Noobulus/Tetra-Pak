@@ -1,30 +1,30 @@
 {
-    "key": "wicked_weave",
-    "category": "fabric",
-    "primary": "5",
-    "secondary": "1.5",
-    "tertiary": "5.2",
-    "durability": "400",
-    "integrityCost": "1",
-    "integrityGain": "6",
-    "magicCapacity": "90",
-    "toolLevel": "0",
-    "toolEfficiency": "0",
-    "tints": {
-        "glyph": "5d5dbb",
-        "texture": "5d5dbb"
-    },
-    "textures": [
-        "crude",
-        "default"
-    ],
-    "material": {
-        "item": "eidolon:wicked_weave"
-    },
-    "effects": {
-        "stabilizing": 10
-    },
-    "requiredTools": {
-        "cut": 3
-    }
+  "key": "wicked_weave",
+  "category": "fabric",
+  "primary": "5",
+  "secondary": "1.5",
+  "tertiary": "5.2",
+  "durability": "400",
+  "integrityCost": "1",
+  "integrityGain": "6",
+  "magicCapacity": "90",
+  "toolLevel": "0",
+  "toolEfficiency": "0",
+  "tints": {
+    "glyph": "5d5dbb",
+    "texture": "5d5dbb"
+  },
+  "textures": [
+    "crude",
+    "default"
+  ],
+  "material": {
+    "item": "eidolon:wicked_weave"
+  },
+  "effects": {
+    "stabilizing": 10
+  },
+  "requiredTools": {
+    "cut": 3
+  }
 }

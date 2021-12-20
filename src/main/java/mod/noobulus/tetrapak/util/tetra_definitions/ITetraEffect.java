@@ -1,11 +1,11 @@
 package mod.noobulus.tetrapak.util.tetra_definitions;
 
 import mod.noobulus.tetrapak.BuildConfig;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.resources.ResourceLocation;
 import se.mickelus.tetra.effect.ItemEffect;
 import se.mickelus.tetra.items.modular.ModularItem;
 import se.mickelus.tetra.items.modular.impl.toolbelt.ToolbeltHelper;
@@ -37,9 +37,7 @@ public interface ITetraEffect {
 	}
 
 	default boolean hasBeltEffect(@Nullable Entity entity) {
-		if (entity instanceof Player)
-			return getBeltEffectLevel(((Player) entity)) > 0;
-		return false;
+		return entity instanceof Player player && getBeltEffectLevel(player) > 0;
 	}
 
 	default double getEffectEfficiency(@Nullable DamageSource source) {
@@ -51,9 +49,8 @@ public interface ITetraEffect {
 	}
 
 	default double getEffectEfficiency(@Nullable ItemStack test) {
-		if (test == null || test.isEmpty() || !(test.getItem() instanceof ModularItem))
+		if (test == null || test.isEmpty() || !(test.getItem() instanceof ModularItem item))
 			return 0;
-		ModularItem item = (ModularItem) test.getItem();
 		return item.getEffectEfficiency(test, getEffect());
 	}
 
@@ -62,9 +59,8 @@ public interface ITetraEffect {
 	}
 
 	default int getEffectLevel(@Nullable ItemStack test) {
-		if (test == null || test.isEmpty() || !(test.getItem() instanceof ModularItem))
+		if (test == null || test.isEmpty() || !(test.getItem() instanceof ModularItem item))
 			return 0;
-		ModularItem item = (ModularItem) test.getItem();
 		return item.getEffectLevel(test, getEffect());
 	}
 

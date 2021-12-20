@@ -1,25 +1,26 @@
 package mod.noobulus.tetrapak.util;
 
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.ToolType;
+import se.mickelus.mutil.util.CastOptional;
 import se.mickelus.tetra.effect.EffectHelper;
 import se.mickelus.tetra.items.modular.ItemModularHandheld;
-import se.mickelus.tetra.util.CastOptional;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.function.BiConsumer;
+
+import static se.mickelus.tetra.util.ToolActionHelper.playerCanDestroyBlock;
 
 public class BlockHelper {
 	private BlockHelper() {
@@ -47,12 +48,8 @@ public class BlockHelper {
 	private static boolean breakBlock(Level world, @Nonnull Player player, ItemStack tool, BlockPos pos) {
 		Level unwrappedWorld = WrappedServerWorld.unwrap(world);
 		BlockState offsetState = unwrappedWorld.getBlockState(pos);
-		ToolType effectiveTool = ItemModularHandheld.getEffectiveTool(offsetState);
 
-		float blockHardness = offsetState.getDestroySpeed(unwrappedWorld, pos);
-		int toolLevel = tool.getItem().getHarvestLevel(tool, effectiveTool, player, offsetState);
-		if ((toolLevel >= 0 && toolLevel >= offsetState.getBlock().getHarvestLevel(offsetState) || tool.isCorrectToolForDrops(offsetState))
-			&& blockHardness != -1.0F
+		if (playerCanDestroyBlock(player, offsetState, pos, tool)
 			&& breakBlock(world, player, tool, pos, offsetState, true)) {
 
 			EffectHelper.sendEventToPlayer((ServerPlayer) player, 2001, pos, Block.getId(offsetState));
@@ -65,8 +62,7 @@ public class BlockHelper {
 
 	public static boolean breakBlock(Level world, Player breakingPlayer, ItemStack toolStack, BlockPos pos, BlockState blockState, boolean harvest) {
 		Level unwrappedWorld = WrappedServerWorld.unwrap(world);
-		if (!unwrappedWorld.isClientSide && unwrappedWorld instanceof ServerLevel) {
-			ServerLevel serverWorld = (ServerLevel) unwrappedWorld;
+		if (!unwrappedWorld.isClientSide && unwrappedWorld instanceof ServerLevel serverWorld) {
 			ServerPlayer serverPlayer = (ServerPlayer) breakingPlayer;
 			GameType gameType = serverPlayer.gameMode.getGameModeForPlayer();
 			int exp = ForgeHooks.onBlockBreakEvent(serverWorld, gameType, serverPlayer, pos);
@@ -74,7 +70,7 @@ public class BlockHelper {
 			if (exp == -1) {
 				return false;
 			} else {
-				boolean canRemove = !toolStack.onBlockStartBreak(pos, breakingPlayer) && !breakingPlayer.blockActionRestricted(serverWorld, pos, gameType) && (!harvest || blockState.canHarvestBlock(serverWorld, pos, breakingPlayer)) && blockState.getBlock().removedByPlayer(blockState, serverWorld, pos, breakingPlayer, harvest, serverWorld.getFluidState(pos));
+				boolean canRemove = !toolStack.onBlockStartBreak(pos, breakingPlayer) && !breakingPlayer.blockActionRestricted(serverWorld, pos, gameType) && (!harvest || blockState.canHarvestBlock(serverWorld, pos, breakingPlayer)) && blockState.getBlock().onDestroyedByPlayer(blockState, serverWorld, pos, breakingPlayer, harvest, serverWorld.getFluidState(pos));
 				if (canRemove) {
 					blockState.getBlock().destroy(serverWorld, pos, blockState);
 					if (harvest) {
@@ -88,7 +84,7 @@ public class BlockHelper {
 				return canRemove;
 			}
 		} else {
-			return blockState.getBlock().removedByPlayer(blockState, unwrappedWorld, pos, breakingPlayer, harvest, unwrappedWorld.getFluidState(pos));
+			return blockState.getBlock().onDestroyedByPlayer(blockState, unwrappedWorld, pos, breakingPlayer, harvest, unwrappedWorld.getFluidState(pos));
 		}
 	}
 }
