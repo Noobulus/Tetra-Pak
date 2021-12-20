@@ -41,8 +41,8 @@ public class BlockHelper {
 			unwrappedWorld.setBlockAndUpdate(pos, fluidState.createLegacyBlock());
 		}
 
-		if (world instanceof DropSimulationWorld)
-			((DropSimulationWorld) world).getItems().forEach(stack -> droppedItemCallback.accept(stack, state));
+		if (world instanceof DropSimulationWorld dropSimulationWorld)
+			dropSimulationWorld.getItems().forEach(stack -> droppedItemCallback.accept(stack, state));
 	}
 
 	private static boolean breakBlock(Level world, @Nonnull Player player, ItemStack tool, BlockPos pos) {

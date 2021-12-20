@@ -26,7 +26,7 @@
         "count": 2
       },
       "requiredTools": {
-        "hammer": 4
+        "hammer_dig": 4
       },
       "moduleKey": "toolbelt/mooncatcher",
       "moduleVariant": "mooncatcher/moonstone"

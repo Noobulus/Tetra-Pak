@@ -25,7 +25,9 @@
     "default"
   ],
   "material": {
-    "item": "endergetic:booflo_hide"
+    "items": [
+      "endergetic:booflo_hide"
+    ]
   },
   "requiredTools": {
     "cut": 3

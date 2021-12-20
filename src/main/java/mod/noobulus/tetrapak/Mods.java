@@ -87,9 +87,8 @@ public enum Mods {
 
 	@SubscribeEvent
 	public static void handlebeltTick(LivingEvent.LivingUpdateEvent event) {
-		if (!(event.getEntityLiving() instanceof Player))
+		if (!(event.getEntityLiving() instanceof Player player))
 			return;
-		Player player = (Player) event.getEntityLiving();
 		ItemStack belt = ToolbeltHelper.findToolbelt(player);
 
 		getLoadedListenersStream()

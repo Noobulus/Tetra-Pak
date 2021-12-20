@@ -19,9 +19,11 @@
     "default"
   ],
   "material": {
-    "item": "betterendforge:aeternium_ingot"
+    "items": [
+      "betterendforge:aeternium_ingot"
+    ]
   },
   "requiredTools": {
-    "hammer": 4
+    "hammer_dig": 4
   }
 }

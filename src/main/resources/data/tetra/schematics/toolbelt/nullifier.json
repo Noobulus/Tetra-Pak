@@ -26,7 +26,7 @@
         "count": 12
       },
       "requiredTools": {
-        "hammer": 5
+        "hammer_dig": 5
       },
       "moduleKey": "toolbelt/nullifier",
       "moduleVariant": "nullifier/refined_radiance"

@@ -19,7 +19,9 @@
     "default"
   ],
   "material": {
-    "item": "quark:root"
+    "items": [
+      "quark:root"
+    ]
   },
   "requiredTools": {
     "cut": 1

@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 public class InWorldProcessingMixin {
 
 	@Inject(at = @At(value = "HEAD", target = "Lcom/simibubi/create/content/contraptions/components/deployer/BeltDeployerCallbacks;activate(Lcom/simibubi/create/content/contraptions/relays/belt/transport/TransportedItemStack;Lcom/simibubi/create/foundation/tileEntity/behaviour/belt/TransportedItemStackHandlerBehaviour;Lcom/simibubi/create/content/contraptions/components/deployer/DeployerTileEntity;Lnet/minecraft/item/crafting/IRecipe;)V"),
-		method = "applyRecipeOn(Lnet/minecraft/item/ItemStack;Lnet/minecraft/item/crafting/IRecipe;)Ljava/util/List;",
+		method = "applyRecipeOn(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/crafting/Recipe;)Ljava/util/List;",
 		cancellable = true, remap = false)
 	private static void onApply(ItemStack stackIn, Recipe<?> recipe, CallbackInfoReturnable<List<ItemStack>> cir) {
 		if (!(recipe instanceof SalvagingRecipe))

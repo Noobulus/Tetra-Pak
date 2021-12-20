@@ -19,7 +19,9 @@
     "default"
   ],
   "material": {
-    "item": "eidolon:tattered_cloth"
+    "items": [
+      "eidolon:tattered_cloth"
+    ]
   },
   "effects": {
     "unstable": 30,

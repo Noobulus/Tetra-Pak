@@ -19,9 +19,11 @@
     "default"
   ],
   "material": {
-    "item": "betterendforge:terminite_ingot"
+    "items": [
+      "betterendforge:terminite_ingot"
+    ]
   },
   "requiredTools": {
-    "hammer": 3
+    "hammer_dig": 3
   }
 }

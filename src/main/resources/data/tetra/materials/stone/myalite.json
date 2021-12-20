@@ -20,9 +20,11 @@
     "default"
   ],
   "material": {
-    "item": "quark:myalite"
+    "items": [
+      "quark:myalite"
+    ]
   },
   "requiredTools": {
-    "hammer": 3
+    "hammer_dig": 3
   }
 }

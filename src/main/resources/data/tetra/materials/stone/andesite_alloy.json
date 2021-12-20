@@ -20,12 +20,14 @@
     "default"
   ],
   "material": {
-    "item": "create:andesite_alloy"
+    "items": [
+      "create:andesite_alloy"
+    ]
   },
   "improvements": {
     "workable": 1
   },
   "requiredTools": {
-    "hammer": 1
+    "hammer_dig": 1
   }
 }

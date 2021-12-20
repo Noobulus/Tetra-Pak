@@ -3,7 +3,7 @@
   "requirement": {
     "item": "tetra:pristine_emerald"
   },
-  "tool_type": "hammer",
+  "tool_type": "hammer_dig",
   "tool_level": 2,
   "lootTable": "tetra:actions/shatter_emerald"
 }

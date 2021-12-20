@@ -7,27 +7,27 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobType;
 
+import javax.annotation.Nullable;
 import java.util.function.Predicate;
 
 public class CreatureAttributePredicate extends AbstractEntityPredicate {
+	@Nullable
+	private static MobType fromString(String attribute) {
+		return switch (attribute) {
+			case "undefined" -> MobType.UNDEFINED;
+			case "undead" -> MobType.UNDEAD;
+			case "arthropod" -> MobType.ARTHROPOD;
+			case "illager" -> MobType.ILLAGER;
+			case "water" -> MobType.WATER;
+			default -> null;
+		};
+	}
+
 	@Override
 	protected Predicate<Entity> readInternal(JsonObject jsonobject) throws JsonSyntaxException {
 		if (!jsonobject.has("attribute"))
 			return null;
-		String attribute = GsonHelper.getAsString(jsonobject, "attribute");
-		switch (attribute) {
-			case "undefined":
-				return entity -> entity instanceof LivingEntity && ((LivingEntity) entity).getMobType().equals(MobType.UNDEFINED);
-			case "undead":
-				return entity -> entity instanceof LivingEntity && ((LivingEntity) entity).getMobType().equals(MobType.UNDEAD);
-			case "arthropod":
-				return entity -> entity instanceof LivingEntity && ((LivingEntity) entity).getMobType().equals(MobType.ARTHROPOD);
-			case "illager":
-				return entity -> entity instanceof LivingEntity && ((LivingEntity) entity).getMobType().equals(MobType.ILLAGER);
-			case "water":
-				return entity -> entity instanceof LivingEntity && ((LivingEntity) entity).getMobType().equals(MobType.WATER);
-			default:
-				return null;
-		}
+		MobType mobType = fromString(GsonHelper.getAsString(jsonobject, "attribute"));
+		return entity -> entity instanceof LivingEntity livingEntity && livingEntity.getMobType().equals(mobType);
 	}
 }

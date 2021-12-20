@@ -19,7 +19,9 @@
     "default"
   ],
   "material": {
-    "item": "quark:crab_shell"
+    "items": [
+      "quark:crab_shell"
+    ]
   },
   "requiredTools": {
     "cut": 2

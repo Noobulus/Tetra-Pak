@@ -19,13 +19,15 @@
     "default"
   ],
   "material": {
-    "item": "create:refined_radiance"
+    "items": [
+      "create:refined_radiance"
+    ]
   },
   "improvements": {
     "arrested": 0,
     "tetrapak/radiant": 1
   },
   "requiredTools": {
-    "hammer": 5
+    "hammer_dig": 5
   }
 }

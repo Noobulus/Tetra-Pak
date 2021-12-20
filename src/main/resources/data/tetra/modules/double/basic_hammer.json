@@ -18,7 +18,7 @@
         "generic.attack_speed": -1.1
       },
       "tools": {
-        "hammer": 0
+        "hammer_dig": 0
       },
       "integrity": -1,
       "extract": {
@@ -30,7 +30,7 @@
           "generic.attack_speed": -0.08
         },
         "tools": {
-          "hammer": [
+          "hammer_dig": [
             0,
             0.8333
           ]

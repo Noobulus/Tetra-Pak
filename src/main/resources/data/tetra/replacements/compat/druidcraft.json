@@ -1,7 +1,9 @@
 [
   {
     "predicate": {
-      "item": "druidcraft:moonstone_shovel"
+      "items": [
+        "druidcraft:moonstone_shovel"
+      ]
     },
     "item": "tetra:modular_single",
     "modules": {
@@ -21,7 +23,9 @@
   },
   {
     "predicate": {
-      "item": "druidcraft:moonstone_sword"
+      "items": [
+        "druidcraft:moonstone_sword"
+      ]
     },
     "item": "tetra:modular_sword",
     "modules": {
@@ -49,7 +53,9 @@
   },
   {
     "predicate": {
-      "item": "druidcraft:moonstone_pickaxe"
+      "items": [
+        "druidcraft:moonstone_pickaxe"
+      ]
     },
     "item": "tetra:modular_double",
     "modules": {
@@ -75,7 +81,9 @@
   },
   {
     "predicate": {
-      "item": "druidcraft:moonstone_axe"
+      "items": [
+        "druidcraft:moonstone_axe"
+      ]
     },
     "item": "tetra:modular_double",
     "modules": {
@@ -101,7 +109,9 @@
   },
   {
     "predicate": {
-      "item": "druidcraft:moonstone_hoe"
+      "items": [
+        "druidcraft:moonstone_hoe"
+      ]
     },
     "item": "tetra:modular_double",
     "modules": {

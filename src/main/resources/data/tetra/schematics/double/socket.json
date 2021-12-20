@@ -12,7 +12,9 @@
   "outcomes": [
     {
       "material": {
-        "item": "create:polished_rose_quartz"
+        "items": [
+          "create:polished_rose_quartz"
+        ]
       },
       "experienceCost": 3,
       "moduleKey": "double/socket",
@@ -20,7 +22,9 @@
     },
     {
       "material": {
-        "item": "druidcraft:fiery_glass"
+        "items": [
+          "druidcraft:fiery_glass"
+        ]
       },
       "experienceCost": 3,
       "moduleKey": "double/socket",
@@ -36,7 +40,9 @@
     },
     {
       "material": {
-        "item": "druidcraft:rockroot"
+        "items": [
+          "druidcraft:rockroot"
+        ]
       },
       "experienceCost": 3,
       "moduleKey": "double/socket",
@@ -44,7 +50,9 @@
     },
     {
       "material": {
-        "item": "create:refined_radiance"
+        "items": [
+          "create:refined_radiance"
+        ]
       },
       "experienceCost": 3,
       "moduleKey": "double/socket",
@@ -52,7 +60,9 @@
     },
     {
       "material": {
-        "item": "quark:red_crystal_cluster"
+        "items": [
+          "quark:red_crystal_cluster"
+        ]
       },
       "experienceCost": 3,
       "moduleKey": "double/socket",
@@ -60,7 +70,9 @@
     },
     {
       "material": {
-        "item": "quark:orange_crystal_cluster"
+        "items": [
+          "quark:orange_crystal_cluster"
+        ]
       },
       "experienceCost": 3,
       "moduleKey": "double/socket",
@@ -68,7 +80,9 @@
     },
     {
       "material": {
-        "item": "quark:yellow_crystal_cluster"
+        "items": [
+          "quark:yellow_crystal_cluster"
+        ]
       },
       "experienceCost": 3,
       "moduleKey": "double/socket",
@@ -76,7 +90,9 @@
     },
     {
       "material": {
-        "item": "quark:green_crystal_cluster"
+        "items": [
+          "quark:green_crystal_cluster"
+        ]
       },
       "experienceCost": 3,
       "moduleKey": "double/socket",
@@ -84,7 +100,9 @@
     },
     {
       "material": {
-        "item": "quark:blue_crystal_cluster"
+        "items": [
+          "quark:blue_crystal_cluster"
+        ]
       },
       "experienceCost": 3,
       "moduleKey": "double/socket",
@@ -92,7 +110,9 @@
     },
     {
       "material": {
-        "item": "quark:indigo_crystal_cluster"
+        "items": [
+          "quark:indigo_crystal_cluster"
+        ]
       },
       "experienceCost": 3,
       "moduleKey": "double/socket",
@@ -100,7 +120,9 @@
     },
     {
       "material": {
-        "item": "quark:violet_crystal_cluster"
+        "items": [
+          "quark:violet_crystal_cluster"
+        ]
       },
       "experienceCost": 3,
       "moduleKey": "double/socket",
@@ -108,7 +130,9 @@
     },
     {
       "material": {
-        "item": "quark:white_crystal_cluster"
+        "items": [
+          "quark:white_crystal_cluster"
+        ]
       },
       "experienceCost": 3,
       "moduleKey": "double/socket",
@@ -116,7 +140,9 @@
     },
     {
       "material": {
-        "item": "quark:black_crystal_cluster"
+        "items": [
+          "quark:black_crystal_cluster"
+        ]
       },
       "experienceCost": 3,
       "moduleKey": "double/socket",

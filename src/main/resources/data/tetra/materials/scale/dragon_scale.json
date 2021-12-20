@@ -19,7 +19,9 @@
     "default"
   ],
   "material": {
-    "item": "quark:dragon_scale"
+    "items": [
+      "quark:dragon_scale"
+    ]
   },
   "requiredTools": {
     "cut": 3

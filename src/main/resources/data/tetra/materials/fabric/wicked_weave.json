@@ -19,7 +19,9 @@
     "default"
   ],
   "material": {
-    "item": "eidolon:wicked_weave"
+    "items": [
+      "eidolon:wicked_weave"
+    ]
   },
   "effects": {
     "stabilizing": 10

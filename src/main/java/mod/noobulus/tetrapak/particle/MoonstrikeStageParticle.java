@@ -24,7 +24,7 @@ public class MoonstrikeStageParticle extends TextureSheetParticle {
 		this.xd += xSpeedIn * 0.4D;
 		this.yd += ySpeedIn * 0.4D;
 		this.zd += zSpeedIn * 0.4D;
-		float f = (float) (Math.random() * (double) 0.3F + (double) 0.6F);
+		float f = (float) (Math.random() * 0.3F + 0.6F);
 		this.rCol = f;
 		this.gCol = f;
 		this.bCol = f;
@@ -36,7 +36,7 @@ public class MoonstrikeStageParticle extends TextureSheetParticle {
 
 	@Override
 	public float getQuadSize(float scale) {
-		return this.quadSize * Mth.clamp(((float) this.age + scale) / (float) this.lifetime * 32.0F, 0.0F, 1.0F);
+		return this.quadSize * Mth.clamp((this.age + scale) / this.lifetime * 32.0F, 0.0F, 1.0F);
 	}
 
 	@Override
@@ -48,8 +48,7 @@ public class MoonstrikeStageParticle extends TextureSheetParticle {
 			this.remove();
 		} else {
 			this.move(this.xd, this.yd, this.zd);
-			this.bCol = (float) ((double) this.gCol * 0.9D);
-			this.bCol = (float) ((double) this.rCol * 0.9D);
+			this.bCol = (this.rCol * 0.9f);
 			this.xd *= 0.7F;
 			this.yd *= 0.7F;
 			this.zd *= 0.7F;

@@ -19,7 +19,7 @@ public abstract class AbstractPredicateManager<T extends AbstractPredicate<?, T>
 	private final String registryName;
 	protected IForgeRegistry<T> registry = null;
 
-	public AbstractPredicateManager(Class<T> registryClass, String registryName) {
+	protected AbstractPredicateManager(Class<T> registryClass, String registryName) {
 		this.registryClass = registryClass;
 		this.registryName = registryName;
 	}

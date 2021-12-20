@@ -27,10 +27,9 @@ public class Pair<F, S> {
 	public boolean equals(Object obj) {
 		if (obj == this) {
 			return true;
-		} else if (!(obj instanceof Pair)) {
+		} else if (!(obj instanceof Pair<?, ?> other)) {
 			return false;
 		} else {
-			Pair<?, ?> other = (Pair<?, ?>) obj;
 			return Objects.equals(this.first, other.first) && Objects.equals(this.second, other.second);
 		}
 	}

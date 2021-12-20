@@ -19,12 +19,14 @@
     "default"
   ],
   "material": {
-    "item": "create:shadow_steel"
+    "items": [
+      "create:shadow_steel"
+    ]
   },
   "improvements": {
     "tetrapak/voiding": 1
   },
   "requiredTools": {
-    "hammer": 5
+    "hammer_dig": 5
   }
 }

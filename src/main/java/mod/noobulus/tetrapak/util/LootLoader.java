@@ -69,13 +69,13 @@ public class LootLoader {
 	}
 
 	public static List<LootSlot> crawlTable(LootTable table, LootTables manager) {
-		LootContext dummy_context = new LootContext.Builder(getServer().overworld()).create(new LootContextParamSet.Builder().build());
+		LootContext dummyContext = new LootContext.Builder(getServer().overworld()).create(new LootContextParamSet.Builder().build());
 		List<LootSlot> drops = new ArrayList<>();
 
 		getPools(table).forEach(
 			pool -> {
-				int min = getMin(pool.getRolls(), dummy_context);
-				int max = getMax(pool.getRolls(), dummy_context) + getMax(pool.getBonusRolls(), dummy_context);
+				int min = getMin(pool.getRolls(), dummyContext);
+				int max = getMax(pool.getRolls(), dummyContext) + getMax(pool.getBonusRolls(), dummyContext);
 				final float totalWeight = getLootEntries(pool).stream()
 					.filter(LootPoolSingletonContainer.class::isInstance).map(LootPoolSingletonContainer.class::cast)
 					.mapToInt(entry -> entry.weight).sum();
@@ -104,29 +104,29 @@ public class LootLoader {
 		return ObfuscationReflectionHelper.getPrivateValue(LootPool.class, pool, "field_186453_a");
 	}
 
-	public static int getMin(NumberProvider randomRange, LootContext dummy_context) {
+	public static int getMin(NumberProvider randomRange, LootContext dummyContext) {
 		if (randomRange instanceof ConstantValue) {
-			return randomRange.getInt(dummy_context);
-		} else if (randomRange instanceof UniformGenerator) {
-			return Mth.floor(((UniformGenerator) randomRange).min.getFloat(dummy_context));
+			return randomRange.getInt(dummyContext);
+		} else if (randomRange instanceof UniformGenerator uniformGenerator) {
+			return Mth.floor(uniformGenerator.min.getFloat(dummyContext));
 		} else if (randomRange instanceof BinomialDistributionGenerator) {
 			return 0;
 		} else {
 			// Test a 100 values
-			return IntStream.iterate(0, i -> randomRange.getInt(dummy_context)).limit(STATISTICAL_TEST).min().orElse(0);
+			return IntStream.iterate(0, i -> randomRange.getInt(dummyContext)).limit(STATISTICAL_TEST).min().orElse(0);
 		}
 	}
 
-	public static int getMax(NumberProvider randomRange, LootContext dummy_context) {
+	public static int getMax(NumberProvider randomRange, LootContext dummyContext) {
 		if (randomRange instanceof ConstantValue) {
-			return randomRange.getInt(dummy_context);
-		} else if (randomRange instanceof UniformGenerator) {
-			return Mth.floor(((UniformGenerator) randomRange).max.getFloat(dummy_context));
-		} else if (randomRange instanceof BinomialDistributionGenerator) {
-			return ((BinomialDistributionGenerator) randomRange).n.getInt(dummy_context);
+			return randomRange.getInt(dummyContext);
+		} else if (randomRange instanceof UniformGenerator uniformGenerator) {
+			return Mth.floor(uniformGenerator.max.getFloat(dummyContext));
+		} else if (randomRange instanceof BinomialDistributionGenerator binomialDistributionGenerator) {
+			return binomialDistributionGenerator.n.getInt(dummyContext);
 		} else {
 			// Test a 100 values
-			return IntStream.iterate(0, i -> randomRange.getInt(dummy_context)).limit(STATISTICAL_TEST).max().orElse(0);
+			return IntStream.iterate(0, i -> randomRange.getInt(dummyContext)).limit(STATISTICAL_TEST).max().orElse(0);
 		}
 	}
 

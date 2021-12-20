@@ -25,7 +25,9 @@
     "wooden"
   ],
   "material": {
-    "item": "endergetic:poise_planks"
+    "items": [
+      "endergetic:poise_planks"
+    ]
   },
   "requiredTools": {
     "axe": 3

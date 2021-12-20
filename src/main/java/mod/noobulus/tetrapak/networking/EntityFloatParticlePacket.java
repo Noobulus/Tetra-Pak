@@ -39,7 +39,7 @@ public class EntityFloatParticlePacket implements ISimplePacket {
 			if (Minecraft.getInstance().level == null)
 				return;
 			Entity entity = Minecraft.getInstance().level.getEntity(entityId);
-			if (entity != null && entity.level != null) {
+			if (entity != null) {
 				Vec3 pos = entity.position();
 				Vec3 ppos = VecHelper.offsetRandomly(pos, entity.level.random, .5f);
 				entity.level.addParticle(ParticleTypes.END_ROD, ppos.x, pos.y, ppos.z, 0, -.1f, 0);

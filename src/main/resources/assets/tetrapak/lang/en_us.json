@@ -163,7 +163,7 @@
   "tetrapak.tool_type.pickaxe": "Pickaxe",
   "tetrapak.tool_type.shovel": "Shovel",
   "tetrapak.tool_type.cut": "Cutting",
-  "tetrapak.tool_type.hammer": "Hammer",
+  "tetrapak.tool_type.hammer_dig": "Hammer",
   "tetrapak.tool_type.pry": "Pry",
   "create.item_attributes.tetrapak.honeable": "honing available",
   "create.item_attributes.tetrapak.broken": "is broken",

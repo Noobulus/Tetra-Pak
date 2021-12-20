@@ -3,7 +3,7 @@
   "requirement": {
     "item": "tetra:forged_beam"
   },
-  "tool_type": "hammer",
+  "tool_type": "hammer_dig",
   "tool_level": 4,
   "lootTable": "tetra:actions/beam_salvage"
 }

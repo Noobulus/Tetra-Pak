@@ -19,7 +19,9 @@
     "default"
   ],
   "material": {
-    "item": "quark:ravager_hide"
+    "items": [
+      "quark:ravager_hide"
+    ]
   },
   "requiredTools": {
     "cut": 3

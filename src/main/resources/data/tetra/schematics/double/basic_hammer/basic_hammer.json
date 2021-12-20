@@ -15,10 +15,12 @@
   "outcomes": [
     {
       "material": {
-        "item": "create:shadow_steel"
+        "items": [
+          "create:shadow_steel"
+        ]
       },
       "requiredTools": {
-        "hammer": 5
+        "hammer_dig": 5
       },
       "moduleKey": "double/basic_hammer",
       "moduleVariant": "basic_hammer/shadow_steel",

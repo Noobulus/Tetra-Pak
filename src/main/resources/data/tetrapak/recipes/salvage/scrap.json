@@ -3,7 +3,7 @@
   "requirement": {
     "item": "tetra:metal_scrap"
   },
-  "tool_type": "hammer",
+  "tool_type": "hammer_dig",
   "tool_level": 3,
   "lootTable": "tetra:actions/metal_scrap_salvage"
 }

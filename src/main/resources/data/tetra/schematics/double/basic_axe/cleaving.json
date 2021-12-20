@@ -40,7 +40,7 @@
         "count": 1
       },
       "requiredTools": {
-        "hammer": 2
+        "hammer_dig": 2
       },
       "improvements": {
         "tetrapak/cleaving": 1

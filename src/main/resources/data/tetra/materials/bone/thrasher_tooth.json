@@ -19,9 +19,11 @@
     "crude"
   ],
   "material": {
-    "item": "upgrade_aquatic:thrasher_tooth"
+    "items": [
+      "upgrade_aquatic:thrasher_tooth"
+    ]
   },
   "requiredTools": {
-    "hammer": 2
+    "hammer_dig": 2
   }
 }

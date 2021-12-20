@@ -58,9 +58,8 @@ public class ItemHelper {
 		ItemStack thrownItem = ItemHelper.getThrownItemStack(source.getDirectEntity());
 		if (thrownItem != null)
 			return thrownItem;
-		if (!(source.getEntity() instanceof LivingEntity))
+		if (!(source.getEntity() instanceof LivingEntity livingEntity))
 			return ItemStack.EMPTY;
-		LivingEntity user = (LivingEntity) source.getEntity();
-		return user.getMainHandItem();
+		return livingEntity.getMainHandItem();
 	}
 }
