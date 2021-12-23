@@ -111,17 +111,18 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
-    implementation fg.deobf("curse.maven:tetra-289712:3573132")
+    implementation fg.deobf("curse.maven:tetra-289712:3575013")
     implementation fg.deobf("curse.maven:mutil-351914:3573121")
     // implementation fg.deobf("curse.maven:create-328085:3419412")
     // implementation fg.deobf("curse.maven:flywheel-486392:3419392")
     /*
     runtimeOnly fg.deobf("curse.maven:druidcraft-340991:3177267")
     runtimeOnly fg.deobf("curse.maven:openloader-354339:3199872")
-    runtimeOnly fg.deobf("curse.maven:neat-238372:3182258")
-    runtimeOnly fg.deobf("curse.maven:quark-243121:3394265")
-    runtimeOnly fg.deobf("curse.maven:quarkoddities-301051:3088871")
-    runtimeOnly fg.deobf("curse.maven:autoreglib-250363:3326041")
+    runtimeOnly fg.deobf("curse.maven:neat-238372:3182258")*/
+    runtimeOnly fg.deobf("curse.maven:quark-243121:3578106")
+    runtimeOnly fg.deobf("curse.maven:quarkoddities-301051:3575623")
+    runtimeOnly fg.deobf("curse.maven:autoreglib-250363:3575622")
+    /*
     runtimeOnly fg.deobf("curse.maven:eidolon-429625:3157832")
     runtimeOnly fg.deobf("curse.maven:curios-309927:3343065")
     runtimeOnly fg.deobf("curse.maven:abnormals_core-382216:3457851")
