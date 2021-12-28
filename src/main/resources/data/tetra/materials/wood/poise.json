@@ -8,7 +8,7 @@
   "integrityCost": "2",
   "integrityGain": "6",
   "magicCapacity": "90",
-  "toolLevel": "3",
+  "toolLevel": "minecraft:iron",
   "toolEfficiency": "6",
   "effects": {
     "enderReverb": [

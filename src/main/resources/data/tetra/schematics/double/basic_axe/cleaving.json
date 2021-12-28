@@ -40,7 +40,7 @@
         "count": 1
       },
       "requiredTools": {
-        "hammer_dig": 2
+        "hammer_dig": "minecraft:gold"
       },
       "improvements": {
         "tetrapak/cleaving": 1

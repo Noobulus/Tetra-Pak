@@ -8,7 +8,7 @@
   "integrityCost": "2",
   "integrityGain": "7",
   "magicCapacity": "84",
-  "toolLevel": "4",
+  "toolLevel": "minecraft:diamond",
   "toolEfficiency": "8.5",
   "tints": {
     "glyph": "70f0e5",
@@ -24,6 +24,6 @@
     ]
   },
   "requiredTools": {
-    "hammer_dig": 3
+    "hammer_dig": "minecraft:iron"
   }
 }

@@ -8,7 +8,7 @@
   "integrityCost": "2",
   "integrityGain": "2",
   "magicCapacity": "75",
-  "toolLevel": "5",
+  "toolLevel": "minecraft:netherite",
   "toolEfficiency": "28",
   "tints": {
     "glyph": "342e41",
@@ -27,6 +27,6 @@
     "tetrapak/voiding": 1
   },
   "requiredTools": {
-    "hammer_dig": 5
+    "hammer_dig": "minecraft:diamond"
   }
 }

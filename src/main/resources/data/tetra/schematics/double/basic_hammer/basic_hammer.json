@@ -20,7 +20,7 @@
         ]
       },
       "requiredTools": {
-        "hammer_dig": 5
+        "hammer_dig": "minecraft:diamond"
       },
       "moduleKey": "double/basic_hammer",
       "moduleVariant": "basic_hammer/shadow_steel",

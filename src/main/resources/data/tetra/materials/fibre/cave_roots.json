@@ -24,6 +24,6 @@
     ]
   },
   "requiredTools": {
-    "cut": 1
+    "cut": "minecraft:wood"
   }
 }

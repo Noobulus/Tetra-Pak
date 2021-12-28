@@ -27,6 +27,6 @@
     "stabilizing": 10
   },
   "requiredTools": {
-    "cut": 3
+    "cut": "minecraft:iron"
   }
 }

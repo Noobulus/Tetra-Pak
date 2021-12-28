@@ -8,7 +8,7 @@
   "integrityCost": "2",
   "integrityGain": "2",
   "magicCapacity": "75",
-  "toolLevel": "4",
+  "toolLevel": "minecraft:diamond",
   "toolEfficiency": "3",
   "tints": {
     "glyph": "fff0ff",
@@ -28,6 +28,6 @@
     "tetrapak/radiant": 1
   },
   "requiredTools": {
-    "hammer_dig": 5
+    "hammer_dig": "minecraft:diamond"
   }
 }

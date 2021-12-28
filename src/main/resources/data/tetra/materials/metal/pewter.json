@@ -8,7 +8,7 @@
   "integrityCost": "2",
   "integrityGain": "5",
   "magicCapacity": "72",
-  "toolLevel": "3",
+  "toolLevel": "minecraft:iron",
   "toolEfficiency": "6.5",
   "tints": {
     "glyph": "9f9e95",
@@ -22,6 +22,6 @@
     "tag": "forge:ingots/pewter"
   },
   "requiredTools": {
-    "hammer_dig": 2
+    "hammer_dig": "minecraft:gold"
   }
 }
