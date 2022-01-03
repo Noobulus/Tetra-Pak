@@ -62,7 +62,7 @@ public class ToolHelper {
 		if (!(tool.getItem() instanceof ItemModularHandheld item))
 			return;
 		ToolAction.getActions().stream().filter(tool::canPerformAction).forEach(t -> {
-			for (int i = 0; i <= item.getHarvestLevel(tool, t, null, null); i++) {
+			for (int i = 0; i <= item.getHarvestTier(tool, t); i++) {
 				tools.computeIfAbsent(Pair.of(t.name(), i), p -> new ArrayList<>()).add(tool);
 			}
 		});
@@ -108,7 +108,7 @@ public class ToolHelper {
 		if (stack == null || stack.isEmpty())
 			return -1;
 		if (stack.getItem() instanceof ItemModularHandheld handheld) {
-			return handheld.getHarvestLevel(stack, action, null, null);
+			return handheld.getHarvestTier(stack, action);
 		} else if (stack.getItem() instanceof TieredItem tieredItem) {
 			return tieredItem.getTier().getLevel();
 		}
