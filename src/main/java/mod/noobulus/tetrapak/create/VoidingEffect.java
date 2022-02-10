@@ -45,17 +45,13 @@ public class VoidingEffect implements IHoloDescription, ILootModifier<VoidingLoo
 	}
 
 	@SubscribeEvent
-	public void voidingHardBlocksGivesExp(BlockEvent.BreakEvent event) {
+	public void voidingBlocksMultipliesExp(BlockEvent.BreakEvent event) {
 		ItemStack heldItemMainhand = event.getPlayer().getMainHandItem();
 		if (hasEffect(heldItemMainhand)) {
 			int levelFortune = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_FORTUNE, heldItemMainhand);
 			double efficiency = getEffectEfficiency(heldItemMainhand);
 			double modifier = 1 + efficiency * (levelFortune + 2);
-			float hardness = event.getState().getDestroySpeed(event.getWorld(), event.getPos());
-			double hardnessExp = 0;
-			if (hardness > 3.1) // free exp for mining stone is a little bit much
-				hardnessExp = (0.1f * (hardness * (1 + efficiency))); // give exp based on broken block hardness, does not scale with fortune
-			event.setExpToDrop((int) ((event.getExpToDrop() * modifier) + hardnessExp));
+			event.setExpToDrop((int) (event.getExpToDrop() * modifier));
 		}
 	}
 
