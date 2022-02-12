@@ -2,7 +2,7 @@ package mod.noobulus.tetrapak.effects.base;
 
 import mod.noobulus.tetrapak.util.DamageBufferer;
 import mod.noobulus.tetrapak.util.IEventBusListener;
-import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
+import mod.noobulus.tetrapak.util.tetra_definitions.IPercentageHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -17,14 +17,14 @@ import se.mickelus.tetra.effect.ItemEffect;
 
 import javax.annotation.Nullable;
 
-public class ExpBoostEffect implements IHoloDescription, IEventBusListener {
+public class ExpBoostEffect implements IPercentageHoloDescription, IEventBusListener {
 
     @SubscribeEvent(priority = EventPriority.HIGHEST) // always go off first
     public void boostExpFromKills(LivingExperienceDropEvent event) {
         LivingEntity target = event.getEntityLiving();
         DamageSource lastActive = DamageBufferer.getLastActiveDamageSource();
         if (shouldExpBoostAffect(lastActive, target)) {
-            event.setDroppedExperience((int) (event.getDroppedExperience() * (1 + getEffectEfficiency(lastActive)))); // TODO: fix this int cast from making small amounts of exp boost do fuckall
+            event.setDroppedExperience(doubleToIntWithChance(event.getDroppedExperience() * (1 + (getEffectEfficiency(lastActive)) / 100)));
         }
     }
 
@@ -32,7 +32,7 @@ public class ExpBoostEffect implements IHoloDescription, IEventBusListener {
     public void boostExpFromBlocks(BlockEvent.BreakEvent event) {
         ItemStack heldItemMainhand = event.getPlayer().getMainHandItem();
         if (hasEffect(heldItemMainhand)) {
-            event.setExpToDrop((int) (event.getExpToDrop() * (1 + getEffectEfficiency(heldItemMainhand)))); // TODO: fix this int cast from making small amounts of exp boost do fuckall
+            event.setExpToDrop(doubleToIntWithChance(event.getExpToDrop() * (1 + (getEffectEfficiency(heldItemMainhand)) / 100)));
         }
     }
 
@@ -42,19 +42,10 @@ public class ExpBoostEffect implements IHoloDescription, IEventBusListener {
         return hasEffect(source);
     }
 
-    /*@Override
-    @OnlyIn(Dist.CLIENT)
-    public GuiStatBar getStatBar() {
-        final IStatGetter voidingGetter = new StatGetterEffectLevel(getEffect(), 1, 0);
-        final IStatGetter voidingEffGetter = new StatGetterEffectEfficiency(getEffect(), 1);
-        final IStatGetter voidingLootingGetter = new StatGetterEnchantmentLevel(Enchantments.MOB_LOOTING, 1.0D);
-        final IStatGetter voidingFortuneGetter = new StatGetterEnchantmentLevel(Enchantments.BLOCK_FORTUNE, 1.0D);
-        return new GuiStatBar(0, 0, 59, getStatsPath(),
-                0, 1, false, voidingGetter, LabelGetterBasic.integerLabel,
-                (player, itemStack) -> I18n.get(getTooltipPath(),
-                        1 + (voidingEffGetter.getValue(player, itemStack) * (voidingLootingGetter.getValue(player, itemStack) + 2))
-                        , 1 + (voidingEffGetter.getValue(player, itemStack) * (voidingFortuneGetter.getValue(player, itemStack) + 2))));
-    }*/
+    private int doubleToIntWithChance(Double num) {
+        int res = num.intValue();
+        return res + (num - res <= Math.random() ? 1 : 0); // seems like a good way to not truncate decimal exp
+    }
 
     @Override
     public ItemEffect getEffect() {

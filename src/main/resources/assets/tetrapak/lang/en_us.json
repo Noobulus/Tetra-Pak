@@ -119,6 +119,8 @@
   "tetrapak.stats.scorching.tooltip": "This tool will scorch drops, processing them the same way a furnace would. Does not affect unsmeltable items",
   "tetrapak.stats.moonsight": "Moonsight",
   "tetrapak.stats.moonsight.tooltip": "Wearing this belt will allow the wearer to see better under the moonlight",
+  "tetrapak.stats.expboost": "EXP Boost",
+  "tetrapak.stats.expboost.tooltip": "Actions performed with this tool will reward \u00a7e%s\u00a7r more experience.",
   "tetra.variant.double_socket/red_crystal_cluster": "Socket [\u00a7cRed Crystal\u00a7r]",
   "tetra.variant.double_socket/red_crystal_cluster.description": "A gem, fitted onto the side of the tool head. The gem is enchanted and hastens harvesting of red blocks.",
   "tetra.variant.single_socket/red_crystal_cluster": "Socket [\u00a7cRed Crystal\u00a7r]",
