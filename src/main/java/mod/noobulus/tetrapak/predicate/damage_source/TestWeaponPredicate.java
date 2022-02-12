@@ -14,6 +14,6 @@ public class TestWeaponPredicate extends AbstractDamageSourcePredicate {
 	@Override
 	protected Predicate<DamageSource> readInternal(JsonObject data) throws JsonSyntaxException {
 		ItemPredicate itemPredicate = ItemPredicate.fromJson(data);
-		return damageSource -> itemPredicate.matches(ItemHelper.getItemOfDamgeSource(damageSource));
+		return damageSource -> itemPredicate.matches(ItemHelper.getItemOfDamageSource(damageSource));
 	}
 }

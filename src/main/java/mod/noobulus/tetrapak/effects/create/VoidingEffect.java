@@ -1,8 +1,8 @@
 package mod.noobulus.tetrapak.effects.create;
 
 import mod.noobulus.tetrapak.Registry;
+import mod.noobulus.tetrapak.effects.base.ExpBoostEffect;
 import mod.noobulus.tetrapak.loot.modifier.VoidingLootModifier;
-import mod.noobulus.tetrapak.util.DamageBufferer;
 import mod.noobulus.tetrapak.util.IEventBusListener;
 import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ILootModifier;
@@ -10,19 +10,14 @@ import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
-import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import se.mickelus.tetra.effect.ItemEffect;
@@ -34,7 +29,7 @@ import java.util.function.Function;
 
 public class VoidingEffect implements IHoloDescription, ILootModifier<VoidingLootModifier>, IEventBusListener {
 
-	@SubscribeEvent(priority = EventPriority.LOWEST) // pop off after everything else
+	/*@SubscribeEvent(priority = EventPriority.LOWEST) // pop off after everything else
 	public void voidingKillsMultiplyExp(LivingExperienceDropEvent event) {
 		LivingEntity target = event.getEntityLiving();
 		DamageSource lastActive = DamageBufferer.getLastActiveDamageSource();
@@ -55,7 +50,7 @@ public class VoidingEffect implements IHoloDescription, ILootModifier<VoidingLoo
 			double modifier = 1 + efficiency * (levelFortune + 2);
 			event.setExpToDrop((int) (event.getExpToDrop() * modifier));
 		}
-	}
+	}*/ // abstracted to exp boost
 
 	@SubscribeEvent(priority = EventPriority.LOWEST) // this should always go last
 	public void voidingKillsRemoveDrops(LivingDropsEvent event) { // this is dumb, but bosses are built different and don't care about loot modifiers
@@ -81,14 +76,14 @@ public class VoidingEffect implements IHoloDescription, ILootModifier<VoidingLoo
 	@OnlyIn(Dist.CLIENT)
 	public GuiStatBar getStatBar() {
 		final IStatGetter voidingGetter = new StatGetterEffectLevel(getEffect(), 1, 0);
-		final IStatGetter voidingEffGetter = new StatGetterEffectEfficiency(getEffect(), 1);
-		final IStatGetter voidingLootingGetter = new StatGetterEnchantmentLevel(Enchantments.MOB_LOOTING, 1.0D);
-		final IStatGetter voidingFortuneGetter = new StatGetterEnchantmentLevel(Enchantments.BLOCK_FORTUNE, 1.0D);
+		final IStatGetter expBoostGetter = new StatGetterEffectEfficiency(ItemEffect.get("tetrapak:expboost"), 1);
+		//final IStatGetter voidingLootingGetter = new StatGetterEnchantmentLevel(Enchantments.MOB_LOOTING, 1.0D);
+		//final IStatGetter voidingFortuneGetter = new StatGetterEnchantmentLevel(Enchantments.BLOCK_FORTUNE, 1.0D);
 		return new GuiStatBar(0, 0, 59, getStatsPath(),
 			0, 1, false, voidingGetter, LabelGetterBasic.integerLabel,
 			(player, itemStack) -> I18n.get(getTooltipPath(),
-				1 + (voidingEffGetter.getValue(player, itemStack) * (voidingLootingGetter.getValue(player, itemStack) + 2))
-				, 1 + (voidingEffGetter.getValue(player, itemStack) * (voidingFortuneGetter.getValue(player, itemStack) + 2))));
+				1 + (expBoostGetter.getValue(player, itemStack))
+				, 1 + (expBoostGetter.getValue(player, itemStack))));
 	}
 
 	@Override

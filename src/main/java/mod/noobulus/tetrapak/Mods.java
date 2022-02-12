@@ -1,5 +1,6 @@
 package mod.noobulus.tetrapak;
 
+import mod.noobulus.tetrapak.effects.base.ExpBoostEffect;
 import mod.noobulus.tetrapak.effects.create.NullifyingEffect;
 import mod.noobulus.tetrapak.effects.create.StandardTetraPakAttributes;
 import mod.noobulus.tetrapak.effects.create.VoidingEffect;
@@ -37,7 +38,7 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public enum Mods {
-	TETRA("tetra", () -> RegrowthEffect::new, () -> ScorchingEffect::new, () -> StandardTetraPakAttributes::register), // useful effects outside of specific compat
+	TETRA("tetra", () -> RegrowthEffect::new, () -> ScorchingEffect::new, () -> ExpBoostEffect::new, () -> StandardTetraPakAttributes::register), // useful effects outside of specific compat
 	CREATE("create", () -> CollapsingEffect::new, () -> DeforestingEffect::new, () -> UnearthingEffect::new, () -> NullifyingEffect::new, () -> VoidingEffect::new, () -> () -> FloatingEffect.INSTANCE),
 	DRUIDCRAFT("druidcraft", () -> MoonstrikeEffect::new, () -> MoonsightEffect::new),
 	QUARK("quark", () -> CorundumEffect::new),

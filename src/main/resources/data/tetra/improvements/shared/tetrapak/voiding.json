@@ -4,8 +4,11 @@
     "level": 1,
     "effects": {
       "tetrapak:voiding": [
+        1
+      ],
+      "tetrapak:expboost": [
         1,
-        0.25
+        500
       ]
     }
   }

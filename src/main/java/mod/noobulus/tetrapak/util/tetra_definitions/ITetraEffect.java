@@ -12,7 +12,7 @@ import se.mickelus.tetra.items.modular.impl.toolbelt.ToolbeltHelper;
 
 import javax.annotation.Nullable;
 
-import static mod.noobulus.tetrapak.util.ItemHelper.getItemOfDamgeSource;
+import static mod.noobulus.tetrapak.util.ItemHelper.getItemOfDamageSource;
 
 public interface ITetraEffect {
 	static ItemEffect get(String key) {
@@ -41,11 +41,11 @@ public interface ITetraEffect {
 	}
 
 	default double getEffectEfficiency(@Nullable DamageSource source) {
-		return getEffectEfficiency(getItemOfDamgeSource(source));
+		return getEffectEfficiency(getItemOfDamageSource(source));
 	}
 
 	default boolean hasEffect(DamageSource source) {
-		return hasEffect(getItemOfDamgeSource(source));
+		return hasEffect(getItemOfDamageSource(source));
 	}
 
 	default double getEffectEfficiency(@Nullable ItemStack test) {

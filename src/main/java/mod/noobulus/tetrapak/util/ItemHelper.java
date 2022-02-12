@@ -52,7 +52,7 @@ public class ItemHelper {
 			.orElse(stack);
 	}
 
-	public static ItemStack getItemOfDamgeSource(@Nullable DamageSource source) {
+	public static ItemStack getItemOfDamageSource(@Nullable DamageSource source) {
 		if (source == null)
 			return ItemStack.EMPTY;
 		ItemStack thrownItem = ItemHelper.getThrownItemStack(source.getDirectEntity());
