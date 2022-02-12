@@ -1,4 +1,4 @@
-package mod.noobulus.tetrapak.druidcraft;
+package mod.noobulus.tetrapak.effects.druidcraft;
 
 import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;

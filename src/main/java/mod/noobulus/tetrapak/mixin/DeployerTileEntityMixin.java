@@ -2,7 +2,7 @@ package mod.noobulus.tetrapak.mixin;
 
 import com.simibubi.create.content.contraptions.components.deployer.DeployerFakePlayer;
 import com.simibubi.create.content.contraptions.components.deployer.DeployerTileEntity;
-import mod.noobulus.tetrapak.create.recipes.SalvagingRecipe;
+import mod.noobulus.tetrapak.effects.create.recipes.SalvagingRecipe;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;

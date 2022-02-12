@@ -1,4 +1,4 @@
-package mod.noobulus.tetrapak.create;
+package mod.noobulus.tetrapak.effects.create;
 
 import com.simibubi.create.foundation.utility.VecHelper;
 import mod.noobulus.tetrapak.util.IEventBusListener;

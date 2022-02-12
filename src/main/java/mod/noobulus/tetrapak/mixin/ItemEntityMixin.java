@@ -1,7 +1,7 @@
 package mod.noobulus.tetrapak.mixin;
 
 import mod.noobulus.tetrapak.Mods;
-import mod.noobulus.tetrapak.create.refined_radiance.FloatingEffect;
+import mod.noobulus.tetrapak.effects.create.refined_radiance.FloatingEffect;
 import net.minecraft.world.entity.item.ItemEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

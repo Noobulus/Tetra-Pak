@@ -1,4 +1,4 @@
-package mod.noobulus.tetrapak.druidcraft;
+package mod.noobulus.tetrapak.effects.base;
 
 import mod.noobulus.tetrapak.loot.modifier.ScorchingLootModifier;
 import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;

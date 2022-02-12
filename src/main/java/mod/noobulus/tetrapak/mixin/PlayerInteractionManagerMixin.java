@@ -1,7 +1,7 @@
 package mod.noobulus.tetrapak.mixin;
 
 import mod.noobulus.tetrapak.Mods;
-import mod.noobulus.tetrapak.create.refined_radiance.FloatingEffect;
+import mod.noobulus.tetrapak.effects.create.refined_radiance.FloatingEffect;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.ServerPlayerGameMode;

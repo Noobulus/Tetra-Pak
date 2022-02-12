@@ -1,4 +1,4 @@
-package mod.noobulus.tetrapak.eidolon;
+package mod.noobulus.tetrapak.effects.eidolon;
 
 import com.mojang.authlib.GameProfile;
 import mod.noobulus.tetrapak.util.IEventBusListener;

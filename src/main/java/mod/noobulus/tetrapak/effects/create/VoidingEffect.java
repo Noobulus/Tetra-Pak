@@ -1,4 +1,4 @@
-package mod.noobulus.tetrapak.create;
+package mod.noobulus.tetrapak.effects.create;
 
 import mod.noobulus.tetrapak.Registry;
 import mod.noobulus.tetrapak.loot.modifier.VoidingLootModifier;
@@ -23,6 +23,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import se.mickelus.tetra.effect.ItemEffect;
 import se.mickelus.tetra.gui.stats.bar.GuiStatBar;
@@ -33,7 +34,7 @@ import java.util.function.Function;
 
 public class VoidingEffect implements IHoloDescription, ILootModifier<VoidingLootModifier>, IEventBusListener {
 
-	@SubscribeEvent
+	@SubscribeEvent(priority = EventPriority.LOWEST) // pop off after everything else
 	public void voidingKillsMultiplyExp(LivingExperienceDropEvent event) {
 		LivingEntity target = event.getEntityLiving();
 		DamageSource lastActive = DamageBufferer.getLastActiveDamageSource();
@@ -41,6 +42,7 @@ public class VoidingEffect implements IHoloDescription, ILootModifier<VoidingLoo
 			int levelLooting = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.MOB_LOOTING, event.getAttackingPlayer().getMainHandItem());
 			double modifier = 1 + (getEffectEfficiency(lastActive) * (levelLooting + 2));
 			event.setDroppedExperience((int) (event.getDroppedExperience() * modifier));
+			//event.getEntity().captureDrops().
 		}
 	}
 
@@ -55,13 +57,13 @@ public class VoidingEffect implements IHoloDescription, ILootModifier<VoidingLoo
 		}
 	}
 
-	@SubscribeEvent
+	@SubscribeEvent(priority = EventPriority.LOWEST) // this should always go last
 	public void voidingKillsRemoveDrops(LivingDropsEvent event) { // this is dumb, but bosses are built different and don't care about loot modifiers
 		Entity entity = event.getEntity();
 		if (!shouldVoidingAffect(event.getSource(), entity)) {
 			return;
 		}
-		event.getDrops().clear();
+		event.getDrops().clear(); // just to be sure dangit
 		if (entity instanceof WitherBoss) { // funny music disc easter egg
 			ItemEntity drop = new ItemEntity(entity.level, entity.getX(), entity.getY(), entity.getZ(), new ItemStack(Registry.PLAYING_WITH_POWER_DISC.get(), 1));
 			drop.setDefaultPickUpDelay(); // i can tell this is janky because it doesn't work without this line

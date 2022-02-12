@@ -1,4 +1,4 @@
-package mod.noobulus.tetrapak.create.refined_radiance;
+package mod.noobulus.tetrapak.effects.create.refined_radiance;
 
 import com.simibubi.create.foundation.utility.AbstractBlockBreakQueue;
 import com.simibubi.create.foundation.utility.Pair;

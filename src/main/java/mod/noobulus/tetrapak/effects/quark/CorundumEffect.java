@@ -1,4 +1,4 @@
-package mod.noobulus.tetrapak.quark;
+package mod.noobulus.tetrapak.effects.quark;
 
 import mod.noobulus.tetrapak.BuildConfig;
 import mod.noobulus.tetrapak.Config;

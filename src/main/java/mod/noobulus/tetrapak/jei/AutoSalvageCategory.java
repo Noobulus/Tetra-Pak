@@ -14,7 +14,7 @@ import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
 import mezz.jei.api.ingredients.IIngredients;
 import mod.noobulus.tetrapak.BuildConfig;
 import mod.noobulus.tetrapak.TetraPak;
-import mod.noobulus.tetrapak.create.recipes.SalvagingRecipe;
+import mod.noobulus.tetrapak.effects.create.recipes.SalvagingRecipe;
 import mod.noobulus.tetrapak.util.LootLoader;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;

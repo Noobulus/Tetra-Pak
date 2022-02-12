@@ -1,4 +1,4 @@
-package mod.noobulus.tetrapak.create.recipes;
+package mod.noobulus.tetrapak.effects.create.recipes;
 
 import com.google.gson.JsonObject;
 import com.simibubi.create.content.contraptions.components.deployer.DeployerFakePlayer;

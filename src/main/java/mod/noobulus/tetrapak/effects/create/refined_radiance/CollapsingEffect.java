@@ -1,4 +1,4 @@
-package mod.noobulus.tetrapak.create.refined_radiance;
+package mod.noobulus.tetrapak.effects.create.refined_radiance;
 
 import mod.noobulus.tetrapak.util.IEventBusListener;
 import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;

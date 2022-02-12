@@ -1,4 +1,4 @@
-package mod.noobulus.tetrapak.create;
+package mod.noobulus.tetrapak.effects.create;
 
 import com.simibubi.create.content.logistics.item.filter.ItemAttribute;
 import mod.noobulus.tetrapak.BuildConfig;

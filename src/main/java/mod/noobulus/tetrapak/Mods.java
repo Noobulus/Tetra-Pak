@@ -1,19 +1,19 @@
 package mod.noobulus.tetrapak;
 
-import mod.noobulus.tetrapak.create.NullifyingEffect;
-import mod.noobulus.tetrapak.create.StandardTetraPakAttributes;
-import mod.noobulus.tetrapak.create.VoidingEffect;
-import mod.noobulus.tetrapak.create.refined_radiance.CollapsingEffect;
-import mod.noobulus.tetrapak.create.refined_radiance.DeforestingEffect;
-import mod.noobulus.tetrapak.create.refined_radiance.FloatingEffect;
-import mod.noobulus.tetrapak.create.refined_radiance.UnearthingEffect;
-import mod.noobulus.tetrapak.druidcraft.MoonsightEffect;
-import mod.noobulus.tetrapak.druidcraft.MoonstrikeEffect;
-import mod.noobulus.tetrapak.druidcraft.RegrowthEffect;
-import mod.noobulus.tetrapak.druidcraft.ScorchingEffect;
-import mod.noobulus.tetrapak.eidolon.CleavingEffect;
-import mod.noobulus.tetrapak.eidolon.ReapingEffect;
-import mod.noobulus.tetrapak.quark.CorundumEffect;
+import mod.noobulus.tetrapak.effects.create.NullifyingEffect;
+import mod.noobulus.tetrapak.effects.create.StandardTetraPakAttributes;
+import mod.noobulus.tetrapak.effects.create.VoidingEffect;
+import mod.noobulus.tetrapak.effects.create.refined_radiance.CollapsingEffect;
+import mod.noobulus.tetrapak.effects.create.refined_radiance.DeforestingEffect;
+import mod.noobulus.tetrapak.effects.create.refined_radiance.FloatingEffect;
+import mod.noobulus.tetrapak.effects.create.refined_radiance.UnearthingEffect;
+import mod.noobulus.tetrapak.effects.druidcraft.MoonsightEffect;
+import mod.noobulus.tetrapak.effects.druidcraft.MoonstrikeEffect;
+import mod.noobulus.tetrapak.effects.base.RegrowthEffect;
+import mod.noobulus.tetrapak.effects.base.ScorchingEffect;
+import mod.noobulus.tetrapak.effects.eidolon.CleavingEffect;
+import mod.noobulus.tetrapak.effects.eidolon.ReapingEffect;
+import mod.noobulus.tetrapak.effects.quark.CorundumEffect;
 import mod.noobulus.tetrapak.util.IEventBusListener;
 import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ILootModifier;
@@ -37,8 +37,9 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public enum Mods {
-	CREATE("create", () -> CollapsingEffect::new, () -> DeforestingEffect::new, () -> UnearthingEffect::new, () -> NullifyingEffect::new, () -> VoidingEffect::new, () -> () -> FloatingEffect.INSTANCE, () -> StandardTetraPakAttributes::register),
-	DRUIDCRAFT("druidcraft", () -> MoonstrikeEffect::new, () -> MoonsightEffect::new, () -> RegrowthEffect::new, () -> ScorchingEffect::new),
+	TETRA("tetra", () -> RegrowthEffect::new, () -> ScorchingEffect::new, () -> StandardTetraPakAttributes::register), // useful effects outside of specific compat
+	CREATE("create", () -> CollapsingEffect::new, () -> DeforestingEffect::new, () -> UnearthingEffect::new, () -> NullifyingEffect::new, () -> VoidingEffect::new, () -> () -> FloatingEffect.INSTANCE),
+	DRUIDCRAFT("druidcraft", () -> MoonstrikeEffect::new, () -> MoonsightEffect::new),
 	QUARK("quark", () -> CorundumEffect::new),
 	EIDOLON("eidolon", () -> ReapingEffect::new, () -> CleavingEffect::new);
 
