@@ -22,7 +22,7 @@
   "outcomes": [
     {
       "material": {
-        "item": "create:refined_radiance",
+        "items": ["create:refined_radiance"],
         "count": 12
       },
       "requiredTools": {

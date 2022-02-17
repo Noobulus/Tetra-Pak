@@ -1,19 +1,25 @@
 package mod.noobulus.tetrapak.effects.create;
 
 import com.simibubi.create.foundation.utility.VecHelper;
+import mod.noobulus.tetrapak.Mods;
 import mod.noobulus.tetrapak.util.IEventBusListener;
 import mod.noobulus.tetrapak.util.tetra_definitions.IPercentageHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
+import net.mehvahdjukaar.supplementaries.setup.ModRegistry;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import se.mickelus.tetra.effect.ItemEffect;
+import se.mickelus.tetra.items.modular.IModularItem;
+import se.mickelus.tetra.items.modular.impl.toolbelt.ToolbeltHelper;
 
 import java.util.UUID;
 
@@ -52,8 +58,27 @@ public class NullifyingEffect implements IPercentageHoloDescription, IEventBusLi
 			Vec3 basemotion;
 			if (player.level.random.nextFloat() < nullifierLevel / 2f) {
 				basemotion = VecHelper.offsetRandomly(pos, player.level.random, 0.5F);
-				player.level.addParticle(ParticleTypes.END_ROD, basemotion.x, pos.y, basemotion.z, 0.0D, -0.10000000149011612D, 0.0D);
+				if (Mods.SUPPLEMENTARIES.isLoaded && hasBubbler(player)) { // funny bubble effect
+					player.level.addParticle(ModRegistry.SUDS_PARTICLE.get(), basemotion.x, pos.y, basemotion.z, 0.0D, -0.10000000149011612D, 0.0D);
+				} else {
+					player.level.addParticle(ParticleTypes.END_ROD, basemotion.x, pos.y, basemotion.z, 0.0D, -0.10000000149011612D, 0.0D);
+				}
 			}
+		}
+	}
+
+	private static boolean hasBubbler(Player player) {
+		ItemStack itemStack = ToolbeltHelper.findToolbelt(player);
+		return getBubblerLevel(itemStack) > 0;
+	}
+
+	private static int getBubblerLevel(ItemStack itemStack) {
+		if (!itemStack.isEmpty() && itemStack.getItem() instanceof IModularItem) {
+			IModularItem item = (IModularItem)itemStack.getItem();
+			int lvl = item.getEffectLevel(itemStack, ItemEffect.get("tetrapak:bubbling"));
+			return lvl;
+		} else {
+			return 0;
 		}
 	}
 

@@ -1,0 +1,9 @@
+[
+  {
+    "key": "tetrapak/bubbling",
+    "level": 0,
+    "effects": {
+      "tetrapak:bubbling": 1
+    }
+  }
+]

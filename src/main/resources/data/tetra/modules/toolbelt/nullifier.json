@@ -11,6 +11,7 @@
     "_slot2",
     "_slot3"
   ],
+  "improvements": ["tetra:shared/tetrapak/bubbling"],
   "variants": [
     {
       "key": "nullifier/refined_radiance",

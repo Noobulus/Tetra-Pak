@@ -58,7 +58,7 @@ public class UtilBoosterMixin {
 	private static int getBubblerLevel(ItemStack itemStack) {
 		if (!itemStack.isEmpty() && itemStack.getItem() instanceof IModularItem) {
 			IModularItem item = (IModularItem)itemStack.getItem();
-			int lvl = item.getEffectLevel(itemStack, ItemEffect.get("tetrapak:bubbler"));
+			int lvl = item.getEffectLevel(itemStack, ItemEffect.get("tetrapak:bubbling"));
 			return lvl;
 		} else {
 			return 0;
