@@ -46,6 +46,11 @@ repositories {
         name = "tterrag maven"
         url = "https://maven.tterrag.com/"
     }
+    maven {
+        // Maven for Tetra and mutil
+        name = "blamejared maven"
+        url = "https://maven.blamejared.com/"
+    }
 }
 
 version = "${minecraft_version}-${mod_version}"
@@ -111,8 +116,8 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
-    implementation fg.deobf("curse.maven:tetra-289712:3640654")
-    implementation fg.deobf("curse.maven:mutil-351914:3640643")
+    //implementation fg.deobf("curse.maven:tetra-289712:3640654")
+    //implementation fg.deobf("curse.maven:mutil-351914:3640643")
     implementation fg.deobf("curse.maven:harvests-571339:3640648")
     // implementation fg.deobf("curse.maven:create-328085:3419412")
     // implementation fg.deobf("curse.maven:flywheel-486392:3419392")
@@ -142,6 +147,9 @@ dependencies {
 
     implementation fg.deobf("com.jozufozu.flywheel:Flywheel-Forge:${flywheel_version}")
     implementation fg.deobf("com.simibubi.create:Create:${create_version}")
+
+    implementation fg.deobf("se.mickelus.mutil:mutil:${mutil_version}")
+    implementation fg.deobf("se.mickelus.tetra:tetra:${tetra_version}")
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
