@@ -30,7 +30,7 @@
       ]
     ],
     "improvements": {
-      "!tetrapak/cleaving": 1
+      "!tetrapak/cleaving": 0
     }
   },
   "outcomes": [
@@ -43,7 +43,7 @@
         "hammer_dig": "minecraft:gold"
       },
       "improvements": {
-        "tetrapak/cleaving": 1
+        "tetrapak/cleaving": 0
       }
     }
   ]

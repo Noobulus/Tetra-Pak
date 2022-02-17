@@ -24,7 +24,7 @@
     ]
   },
   "improvements": {
-    "tetrapak/voiding": 1
+    "tetrapak/voiding": 0
   },
   "requiredTools": {
     "hammer_dig": "minecraft:diamond"

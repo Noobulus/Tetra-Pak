@@ -1,11 +1,9 @@
 [
   {
     "key": "tetrapak/voiding",
-    "level": 1,
+    "level": 0,
     "effects": {
-      "tetrapak:voiding": [
-        1
-      ],
+      "tetrapak:voiding": 1,
       "tetrapak:expboost": [
         1,
         50

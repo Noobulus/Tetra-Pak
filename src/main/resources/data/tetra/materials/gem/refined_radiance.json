@@ -25,7 +25,7 @@
   },
   "improvements": {
     "arrested": 0,
-    "tetrapak/radiant": 1
+    "tetrapak/radiant": 0
   },
   "requiredTools": {
     "hammer_dig": "minecraft:diamond"

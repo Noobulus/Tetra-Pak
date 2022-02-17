@@ -147,6 +147,16 @@
       "experienceCost": 3,
       "moduleKey": "single/socket",
       "moduleVariant": "single_socket/black_crystal_cluster"
+    },
+    {
+      "material": {
+        "items": [
+          "create:experience_nugget"
+        ]
+      },
+      "experienceCost": 3,
+      "moduleKey": "single/socket",
+      "moduleVariant": "single_socket/experience_nugget"
     }
   ]
 }

@@ -17,7 +17,7 @@
       ]
     },
     "improvements": {
-      "single/head:tetrapak/moonstrike": 1,
+      "single/head:tetrapak/moonstrike": 0,
       "single/head:arrested": 0
     }
   },
@@ -47,7 +47,7 @@
       ]
     },
     "improvements": {
-      "sword/blade:tetrapak/moonstrike": 1,
+      "sword/blade:tetrapak/moonstrike": 0,
       "sword/blade:arrested": 0
     }
   },
@@ -73,8 +73,8 @@
       ]
     },
     "improvements": {
-      "double/head_left:tetrapak/moonstrike": 1,
-      "double/head_right:tetrapak/moonstrike": 1,
+      "double/head_left:tetrapak/moonstrike": 0,
+      "double/head_right:tetrapak/moonstrike": 0,
       "double/head_left:arrested": 0,
       "double/head_right:arrested": 0
     }
@@ -101,8 +101,8 @@
       ]
     },
     "improvements": {
-      "double/head_left:tetrapak/moonstrike": 1,
-      "double/head_right:tetrapak/moonstrike": 1,
+      "double/head_left:tetrapak/moonstrike": 0,
+      "double/head_right:tetrapak/moonstrike": 0,
       "double/head_left:arrested": 0,
       "double/head_right:arrested": 0
     }
@@ -129,8 +129,8 @@
       ]
     },
     "improvements": {
-      "double/head_left:tetrapak/moonstrike": 1,
-      "double/head_right:tetrapak/moonstrike": 1,
+      "double/head_left:tetrapak/moonstrike": 0,
+      "double/head_right:tetrapak/moonstrike": 0,
       "double/head_left:arrested": 0,
       "double/head_right:arrested": 0
     }

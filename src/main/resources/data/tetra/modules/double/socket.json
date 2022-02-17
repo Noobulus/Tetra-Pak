@@ -291,6 +291,30 @@
           "tint": "000000"
         }
       ]
+    },
+    {
+      "key": "double_socket/experience_nugget",
+      "category": "gem",
+      "durability": 5,
+      "integrity": -1,
+      "effects": {
+        "tetrapak:solidifying": 1,
+        "tetrapak:expboost": [
+          1,
+          25
+        ]
+      },
+      "glyph": {
+        "tint": "4e9a3a",
+        "textureX": 80,
+        "textureY": 16
+      },
+      "models": [
+        {
+          "location": "tetra:items/module/double/binding/socket/pristine",
+          "tint": "4e9a3a"
+        }
+      ]
     }
   ]
 }

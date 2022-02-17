@@ -30,7 +30,7 @@
       ]
     ],
     "improvements": {
-      "!tetrapak/reaping": 1
+      "!tetrapak/reaping": 0
     }
   },
   "outcomes": [
@@ -43,7 +43,7 @@
         "hammer_dig": "minecraft:gold"
       },
       "improvements": {
-        "tetrapak/reaping": 1
+        "tetrapak/reaping": 0
       }
     }
   ]

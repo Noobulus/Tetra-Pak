@@ -57,6 +57,16 @@
       "experienceCost": 3,
       "moduleKey": "sword/socket",
       "moduleVariant": "sword_socket/refined_radiance"
+    },
+    {
+      "material": {
+        "items": [
+          "create:experience_nugget"
+        ]
+      },
+      "experienceCost": 3,
+      "moduleKey": "sword/socket",
+      "moduleVariant": "sword_socket/experience_nugget"
     }
   ]
 }

@@ -1,7 +1,9 @@
 package mod.noobulus.tetrapak.effects.base;
 
+import com.simibubi.create.foundation.utility.Debug;
 import mod.noobulus.tetrapak.util.DamageBufferer;
 import mod.noobulus.tetrapak.util.IEventBusListener;
+import mod.noobulus.tetrapak.util.MathHelper;
 import mod.noobulus.tetrapak.util.tetra_definitions.IPercentageHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
 import net.minecraft.world.damagesource.DamageSource;
@@ -24,7 +26,7 @@ public class ExpBoostEffect implements IPercentageHoloDescription, IEventBusList
         LivingEntity target = event.getEntityLiving();
         DamageSource lastActive = DamageBufferer.getLastActiveDamageSource();
         if (shouldExpBoostAffect(lastActive, target)) {
-            event.setDroppedExperience(doubleToIntWithChance(event.getDroppedExperience() * (1 + (getEffectEfficiency(lastActive)) / 100)));
+            event.setDroppedExperience(MathHelper.doubleToIntWithChance(event.getDroppedExperience() * (1 + (getEffectEfficiency(lastActive)) / 100)));
         }
     }
 
@@ -32,7 +34,7 @@ public class ExpBoostEffect implements IPercentageHoloDescription, IEventBusList
     public void boostExpFromBlocks(BlockEvent.BreakEvent event) {
         ItemStack heldItemMainhand = event.getPlayer().getMainHandItem();
         if (hasEffect(heldItemMainhand)) {
-            event.setExpToDrop(doubleToIntWithChance(event.getExpToDrop() * (1 + (getEffectEfficiency(heldItemMainhand)) / 100)));
+            event.setExpToDrop(MathHelper.doubleToIntWithChance(event.getExpToDrop() * (1 + (getEffectEfficiency(heldItemMainhand)) / 100)));
         }
     }
 
@@ -40,11 +42,6 @@ public class ExpBoostEffect implements IPercentageHoloDescription, IEventBusList
         if (target instanceof Player)
             return false;
         return hasEffect(source);
-    }
-
-    private int doubleToIntWithChance(Double num) {
-        int res = num.intValue();
-        return res + (num - res <= Math.random() ? 1 : 0); // seems like a good way to not truncate decimal exp
     }
 
     @Override

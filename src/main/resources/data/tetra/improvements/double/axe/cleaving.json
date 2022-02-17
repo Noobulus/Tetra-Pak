@@ -1,7 +1,7 @@
 [
   {
     "key": "tetrapak/cleaving",
-    "level": 1,
+    "level": 0,
     "effects": {
       "tetrapak:cleaving": 1
     }

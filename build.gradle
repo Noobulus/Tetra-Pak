@@ -116,13 +116,16 @@ dependencies {
     implementation fg.deobf("curse.maven:harvests-571339:3640648")
     // implementation fg.deobf("curse.maven:create-328085:3419412")
     // implementation fg.deobf("curse.maven:flywheel-486392:3419392")
-    /*
-    runtimeOnly fg.deobf("curse.maven:druidcraft-340991:3177267")
-    runtimeOnly fg.deobf("curse.maven:openloader-354339:3199872")
-    runtimeOnly fg.deobf("curse.maven:neat-238372:3182258")*/
-    runtimeOnly fg.deobf("curse.maven:quark-243121:3578106")
+    implementation fg.deobf("curse.maven:supplementaries-412082:3622554")
+    implementation fg.deobf("curse.maven:selene-499980:3604965")
+
+    //runtimeOnly fg.deobf("curse.maven:druidcraft-340991:3177267")
+    runtimeOnly fg.deobf("curse.maven:openloader-354339:3618465")
+    runtimeOnly fg.deobf("curse.maven:neat-238372:3593906")
+    runtimeOnly fg.deobf("curse.maven:quark-243121:3645606")
     runtimeOnly fg.deobf("curse.maven:quarkoddities-301051:3575623")
-    runtimeOnly fg.deobf("curse.maven:autoreglib-250363:3575622")
+    runtimeOnly fg.deobf("curse.maven:autoreglib-250363:3642382")
+    runtimeOnly fg.deobf("curse.maven:farmersdelight-398521:3615366")
     /*
     runtimeOnly fg.deobf("curse.maven:eidolon-429625:3157832")
     runtimeOnly fg.deobf("curse.maven:curios-309927:3343065")

@@ -1,7 +1,7 @@
 [
   {
     "key": "tetrapak/radiant",
-    "level": 1,
+    "level": 0,
     "effects": {
       "tetrapak:deforesting": 1,
       "tetrapak:collapsing": 1
