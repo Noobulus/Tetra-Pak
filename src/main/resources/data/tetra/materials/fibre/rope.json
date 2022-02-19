@@ -1,0 +1,27 @@
+{
+    "key": "rope",
+    "category": "fibre",
+    "primary": "6",
+    "secondary": "3.4",
+    "tertiary": "2",
+    "durability": "240",
+    "integrityCost": "2",
+    "integrityGain": "6",
+    "magicCapacity": "70",
+    "toolLevel": "0",
+    "toolEfficiency": "0",
+    "tints": {
+        "glyph": "55371a",
+        "texture": "55371a"
+    },
+    "textures": [
+        "crude",
+        "default"
+    ],
+    "material": {
+        "tag": "tetrapak:rope"
+    },
+    "requiredTools": {
+        "cut": "minecraft:gold"
+    }
+}
