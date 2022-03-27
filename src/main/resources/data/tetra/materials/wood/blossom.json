@@ -1,0 +1,29 @@
+{
+  "key": "blossom",
+  "category": "wood",
+  "hidden": true,
+  "hiddenOutcomes": true,
+  "primary": 3,
+  "secondary": 1.7,
+  "tertiary": 6,
+  "durability": 59,
+  "integrityCost": 1,
+  "integrityGain": 4,
+  "magicCapacity": 90,
+  "toolLevel": "minecraft:wood",
+  "toolEfficiency": 2,
+  "tints": {
+    "glyph": "4d231a",
+    "texture": "4d231a"
+  },
+  "textures": [
+    "crude",
+    "wooden"
+  ],
+  "material": {
+    "items": ["quark:blossom_planks"]
+  },
+  "requiredTools": {
+    "axe_dig": "minecraft:wood"
+  }
+}

@@ -1,3 +1,16 @@
+Version 0.4.0
+    New Content:
+        Now on 1.18.1!
+        Farmer's Delight material support! Canvas, straw, and rope can all be used for toolmaking
+        Supplementaries support, namely rope as a tool material and a secret belt module
+        Additional support for Quark's scales and woods
+        Create's Experience Nuggets can now be socketed to convert exp to nuggets with a slight boost
+    Improvements and fixes:
+        Reworked Create's Shadow Steel to give a less absurd experience boost
+    Known issues:
+        Refined Radiance's bulk harvesting effects are broken, low priority since Refined Radiance is currently unobtainable
+        JEI actions recipes don't display
+
 Version 0.3.3
     New content:
         Eidolon and Quark support has been completed!
