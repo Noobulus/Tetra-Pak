@@ -1,3 +1,10 @@
+Version 0.4.1
+    Improvements and fixes:
+        Fix an issue with automatic salvaging making players unable to join servers
+        Fix automatic salvaging not showing in JEI correctly
+        Fix mixin crashes when Supplementaries isn't installed
+    Known issues:
+        Refined Radiance bulk harvesting is still broken
 Version 0.4.0
     New Content:
         Now on 1.18.1!
