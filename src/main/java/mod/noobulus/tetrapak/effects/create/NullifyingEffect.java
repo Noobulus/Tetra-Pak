@@ -3,11 +3,11 @@ package mod.noobulus.tetrapak.effects.create;
 import com.simibubi.create.foundation.utility.VecHelper;
 import mod.noobulus.tetrapak.Mods;
 import mod.noobulus.tetrapak.util.IEventBusListener;
+import mod.noobulus.tetrapak.util.classloading.GetSudsParticle;
 import mod.noobulus.tetrapak.util.tetra_definitions.IPercentageHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
-import net.mehvahdjukaar.supplementaries.setup.ModRegistry;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -27,6 +27,7 @@ public class NullifyingEffect implements IPercentageHoloDescription, IEventBusLi
 	public static final AttributeModifier beltGravityModifier = new AttributeModifier(UUID.fromString("678c7388-ba1d-45c8-9f51-d6e4f1c4e3ac"), "Gravity modifier", 0.25 - 1, AttributeModifier.Operation.MULTIPLY_TOTAL);
 	public static final AttributeModifier beltDoubleGravityModifier = new AttributeModifier(UUID.fromString("778c7388-ba1d-45c8-9f51-d6e4f1c4e3ac"), "Gravity modifier", 0.125 - 1, AttributeModifier.Operation.MULTIPLY_TOTAL);
 	public static final AttributeModifier beltGravityModifierSlowfall = new AttributeModifier(UUID.fromString("878c7388-ba1d-45c8-9f51-d6e4f1c4e3ac"), "Gravity modifier", 0.35 - 1, AttributeModifier.Operation.MULTIPLY_TOTAL);
+	private static SimpleParticleType sudsParticle = Mods.SUPPLEMENTARIES.isLoaded ? GetSudsParticle.getSudsParticle() : null;
 
 	private static void updateEffect(boolean active, AttributeInstance attributeInstance, AttributeModifier modifier) {
 		if (active) {
@@ -59,7 +60,7 @@ public class NullifyingEffect implements IPercentageHoloDescription, IEventBusLi
 			if (player.level.random.nextFloat() < nullifierLevel / 2f) {
 				basemotion = VecHelper.offsetRandomly(pos, player.level.random, 0.5F);
 				if (Mods.SUPPLEMENTARIES.isLoaded && hasBubbler(player)) { // funny bubble effect
-					player.level.addParticle(ModRegistry.SUDS_PARTICLE.get(), basemotion.x, pos.y, basemotion.z, 0.0D, -0.10000000149011612D, 0.0D);
+					player.level.addParticle(sudsParticle, basemotion.x, pos.y, basemotion.z, 0.0D, -0.10000000149011612D, 0.0D);
 				} else {
 					player.level.addParticle(ParticleTypes.END_ROD, basemotion.x, pos.y, basemotion.z, 0.0D, -0.10000000149011612D, 0.0D);
 				}

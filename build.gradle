@@ -131,6 +131,7 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:quarkoddities-301051:3575623")
     runtimeOnly fg.deobf("curse.maven:autoreglib-250363:3642382")
     runtimeOnly fg.deobf("curse.maven:farmersdelight-398521:3615366")
+    implementation fg.deobf("curse.maven:xaerosminimap-263420:3663017")
     /*
     runtimeOnly fg.deobf("curse.maven:eidolon-429625:3157832")
     runtimeOnly fg.deobf("curse.maven:curios-309927:3343065")
