@@ -19,6 +19,8 @@
     "ItemFrameMixin",
     "PlayerInteractionManagerMixin",
     "SpawnDropsMixin",
-    "UtilBoosterMixin"
+    "UtilBoosterMixin",
+    "LootPoolAccessorMixin",
+    "LootTableAccessorMixin"
   ]
 }

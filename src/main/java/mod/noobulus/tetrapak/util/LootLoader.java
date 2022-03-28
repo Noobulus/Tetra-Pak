@@ -2,6 +2,8 @@ package mod.noobulus.tetrapak.util;
 
 import mod.noobulus.tetrapak.BuildConfig;
 import mod.noobulus.tetrapak.TetraPak;
+import mod.noobulus.tetrapak.mixin.LootPoolAccessorMixin;
+import mod.noobulus.tetrapak.mixin.LootTableAccessorMixin;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -24,10 +26,10 @@ import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -95,13 +97,11 @@ public class LootLoader {
 	}
 
 	public static List<LootPool> getPools(LootTable table) {
-		// public net.minecraft.loot.LootTable field_186466_c # pools
-		return ObfuscationReflectionHelper.getPrivateValue(LootTable.class, table, "field_186466_c");
+		return ((LootTableAccessorMixin) (Object) table).getPools();
 	}
 
 	public static List<LootPoolEntryContainer> getLootEntries(LootPool pool) {
-		// public net.minecraft.loot.LootPool field_186453_a # lootEntries
-		return ObfuscationReflectionHelper.getPrivateValue(LootPool.class, pool, "field_186453_a");
+		return Arrays.asList(((LootPoolAccessorMixin) (Object) pool).getEntries());
 	}
 
 	public static int getMin(NumberProvider randomRange, LootContext dummyContext) {
