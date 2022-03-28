@@ -40,8 +40,8 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public enum Mods {
-	TETRA("tetra", () -> RegrowthEffect::new, () -> ScorchingEffect::new, () -> ExpBoostEffect::new, () -> StandardTetraPakAttributes::register), // useful effects outside of specific compat
-	CREATE("create", () -> CollapsingEffect::new, () -> DeforestingEffect::new, () -> UnearthingEffect::new, () -> NullifyingEffect::new, () -> VoidingEffect::new, () -> SolidifyingEffect::new, () -> () -> FloatingEffect.INSTANCE),
+	TETRA("tetra", () -> RegrowthEffect::new, () -> ScorchingEffect::new, () -> ExpBoostEffect::new), // useful effects outside of specific compat
+	CREATE("create", () -> CollapsingEffect::new, () -> DeforestingEffect::new, () -> UnearthingEffect::new, () -> NullifyingEffect::new, () -> VoidingEffect::new, () -> SolidifyingEffect::new, () -> () -> FloatingEffect.INSTANCE, () -> StandardTetraPakAttributes::register),
 	DRUIDCRAFT("druidcraft", () -> MoonstrikeEffect::new, () -> MoonsightEffect::new),
 	QUARK("quark", () -> CorundumEffect::new),
 	EIDOLON("eidolon", () -> ReapingEffect::new, () -> CleavingEffect::new),
