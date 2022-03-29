@@ -1,3 +1,6 @@
+Version 0.4.2
+    Improvements and fixes:
+        Fix an issue with the mod crashing during loading if Supplementaries wasn't installed
 Version 0.4.1
     Improvements and fixes:
         Fix an issue with automatic salvaging making players unable to join servers
