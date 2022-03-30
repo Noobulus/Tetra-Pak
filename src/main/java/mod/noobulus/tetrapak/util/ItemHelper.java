@@ -1,6 +1,6 @@
 package mod.noobulus.tetrapak.util;
 
-import mod.noobulus.tetrapak.mixin.AbstractArrowInvokerMixin;
+import mod.noobulus.tetrapak.mixin.invoker.AbstractArrowInvoker;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.damagesource.DamageSource;
@@ -27,10 +27,7 @@ public class ItemHelper {
 	public static ItemStack getThrownItemStack(@Nullable Entity e) {
 		if (!(e instanceof AbstractArrow))
 			return null;
-		Object result = ((AbstractArrowInvokerMixin) (Object) e).callGetPickupItem(); // can't get punked by SRG name changes anymore
-		if (!(result instanceof ItemStack)) // unsure if this is actually necessary but i'll keep it for safety
-			return null;
-		return (ItemStack) result;
+		return ((AbstractArrowInvoker) e).callGetPickupItem();
 	}
 
 	public static ItemStack smelt(ItemStack stack, Level world) { // this is just forge example code switched over to my mappings but we won't talk about that

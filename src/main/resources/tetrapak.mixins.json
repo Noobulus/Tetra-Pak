@@ -20,8 +20,9 @@
     "PlayerInteractionManagerMixin",
     "SpawnDropsMixin",
     "UtilBoosterMixin",
-    "LootPoolAccessorMixin",
-    "LootTableAccessorMixin",
-    "AbstractArrowInvokerMixin"
+    "accessor.LootPoolAccessor",
+    "accessor.LootTableAccessor",
+    "accessor.MinecraftServerAccessor",
+    "invoker.AbstractArrowInvoker"
   ]
 }

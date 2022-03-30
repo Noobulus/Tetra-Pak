@@ -2,8 +2,8 @@ package mod.noobulus.tetrapak.util;
 
 import mod.noobulus.tetrapak.BuildConfig;
 import mod.noobulus.tetrapak.TetraPak;
-import mod.noobulus.tetrapak.mixin.LootPoolAccessorMixin;
-import mod.noobulus.tetrapak.mixin.LootTableAccessorMixin;
+import mod.noobulus.tetrapak.mixin.accessor.LootPoolAccessor;
+import mod.noobulus.tetrapak.mixin.accessor.LootTableAccessor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -97,11 +97,11 @@ public class LootLoader {
 	}
 
 	public static List<LootPool> getPools(LootTable table) {
-		return ((LootTableAccessorMixin) (Object) table).getPools();
+		return ((LootTableAccessor) table).getPools();
 	}
 
 	public static List<LootPoolEntryContainer> getLootEntries(LootPool pool) {
-		return Arrays.asList(((LootPoolAccessorMixin) (Object) pool).getEntries());
+		return Arrays.asList(((LootPoolAccessor) pool).getEntries());
 	}
 
 	public static int getMin(NumberProvider randomRange, LootContext dummyContext) {

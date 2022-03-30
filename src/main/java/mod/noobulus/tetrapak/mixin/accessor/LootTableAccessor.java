@@ -1,4 +1,4 @@
-package mod.noobulus.tetrapak.mixin;
+package mod.noobulus.tetrapak.mixin.accessor;
 
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 import java.util.List;
 
 @Mixin(LootTable.class)
-public interface LootTableAccessorMixin {
+public interface LootTableAccessor {
     @Accessor
     List<LootPool> getPools();
 }

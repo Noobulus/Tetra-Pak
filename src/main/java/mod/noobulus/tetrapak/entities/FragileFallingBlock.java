@@ -61,9 +61,8 @@ public class FragileFallingBlock extends FallingBlockEntity implements IEntityAd
 			setDeltaMovement(getDeltaMovement().add(0.0D, -0.04D, 0.0D));
 
 		move(MoverType.SELF, getDeltaMovement());
-		if (!level.isClientSide && (onGround || (time > 100 && (getY() < 1 || getY() > 256)) || this.time > 600))
+		if (!level.isClientSide && (onGround || (time > 100 && (getY() < -63 || getY() > 320)) || this.time > 600))
 			dropItems();
-
 		setDeltaMovement(getDeltaMovement().scale(0.98D));
 	}
 

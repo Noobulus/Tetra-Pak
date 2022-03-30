@@ -10,13 +10,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FallingBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 import se.mickelus.tetra.effect.ItemEffect;
 
 import javax.annotation.Nullable;
@@ -32,11 +30,11 @@ public class CollapsingEffect implements IHoloDescription, IEventBusListener {
 		if (collapsing || entity.isShiftKeyDown() || !(iWorld instanceof Level world))
 			return;
 		collapsing = true;
-		findDirtCollumn(world, pos).destroyBlocksFancy(world, entity);
+		findDirtColumn(world, pos).destroyBlocksFancy(world, entity);
 		collapsing = false;
 	}
 
-	public static BlockCollection findDirtCollumn(@Nullable BlockGetter world, BlockPos pos) {
+	public static BlockCollection findDirtColumn(@Nullable BlockGetter world, BlockPos pos) {
 		if (world == null)
 			return BlockCollection.EMPTY;
 
@@ -61,9 +59,8 @@ public class CollapsingEffect implements IHoloDescription, IEventBusListener {
 		return Material.DIRT.equals(getBlockMaterial(start)) && (Material.DIRT.equals(getBlockMaterial(test)) || test.getBlock().equals(Blocks.GRASS_BLOCK));
 	}
 
-	@Nullable
 	private static Material getBlockMaterial(BlockState state) {
-		return ObfuscationReflectionHelper.getPrivateValue(BlockBehaviour.class, state.getBlock(), "field_149764_J") instanceof Material mat ? mat : null;
+		return state.getMaterial();
 	}
 
 	@SubscribeEvent

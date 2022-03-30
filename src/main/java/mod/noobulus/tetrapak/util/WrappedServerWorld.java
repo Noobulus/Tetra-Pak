@@ -1,10 +1,10 @@
 package mod.noobulus.tetrapak.util;
 
 
+import mod.noobulus.tetrapak.mixin.accessor.MinecraftServerAccessor;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerChunkCache;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -25,7 +25,6 @@ import net.minecraft.world.level.storage.LevelStorageSource;
 import net.minecraft.world.level.storage.ServerLevelData;
 import net.minecraft.world.ticks.LevelTickAccess;
 import net.minecraft.world.ticks.LevelTicks;
-import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Collections;
@@ -42,7 +41,7 @@ public class WrappedServerWorld extends ServerLevel {
 	}
 
 	private static LevelStorageSource.LevelStorageAccess getLevelSaveFromWorld(Level world) {
-		return ObfuscationReflectionHelper.getPrivateValue(MinecraftServer.class, world.getServer(), "field_71310_m");
+		return ((MinecraftServerAccessor) world.getServer()).getStorageSource();
 	}
 
 	public static Level unwrap(Level world) {
