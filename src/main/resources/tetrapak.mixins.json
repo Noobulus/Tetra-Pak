@@ -21,6 +21,7 @@
     "SpawnDropsMixin",
     "UtilBoosterMixin",
     "LootPoolAccessorMixin",
-    "LootTableAccessorMixin"
+    "LootTableAccessorMixin",
+    "AbstractArrowInvokerMixin"
   ]
 }

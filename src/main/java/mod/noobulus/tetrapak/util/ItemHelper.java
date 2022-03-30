@@ -1,7 +1,7 @@
 package mod.noobulus.tetrapak.util;
 
+import mod.noobulus.tetrapak.mixin.AbstractArrowInvokerMixin;
 import net.minecraft.MethodsReturnNonnullByDefault;
-import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -11,18 +11,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SmeltingRecipe;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 import net.minecraftforge.items.ItemHandlerHelper;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 public class ItemHelper {
-	private static final LazyLoadedValue<Method> arrowStackGetter = new LazyLoadedValue<>(() -> ObfuscationReflectionHelper.findMethod(AbstractArrow.class, "func_184550_j"));
 
 	private ItemHelper() {
 	}
@@ -31,15 +27,8 @@ public class ItemHelper {
 	public static ItemStack getThrownItemStack(@Nullable Entity e) {
 		if (!(e instanceof AbstractArrow))
 			return null;
-		Method lookup = arrowStackGetter.get();
-		lookup.setAccessible(true);
-		Object result;
-		try {
-			result = lookup.invoke(e);
-		} catch (IllegalAccessException | InvocationTargetException ignored) {
-			return null;
-		}
-		if (!(result instanceof ItemStack))
+		Object result = ((AbstractArrowInvokerMixin) (Object) e).callGetPickupItem(); // can't get punked by SRG name changes anymore
+		if (!(result instanceof ItemStack)) // unsure if this is actually necessary but i'll keep it for safety
 			return null;
 		return (ItemStack) result;
 	}
