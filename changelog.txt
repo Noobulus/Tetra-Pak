@@ -1,3 +1,10 @@
+Version 0.4.3
+    Improvements and fixes:
+        Fix an ObfuscationReflectionHelper crash every time an entity was killed with an arrow
+        Partly fix Refined Radiance effects not working correctly
+    Known issues:
+        The falling blocks spawned by Collapsing are not removed from the world clientside until relog
+        Refined Radiance's mass-harvesting effects don't behave correctly in creative
 Version 0.4.2
     Improvements and fixes:
         Fix an issue with the mod crashing during loading if Supplementaries wasn't installed
