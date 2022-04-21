@@ -19,7 +19,7 @@
     "default"
   ],
   "material": {
-    "item": "betterendforge:thallasium_ingot"
+    "tag": "forge:ingots/thallasium"
   },
   "requiredTools": {
     "hammer": 2

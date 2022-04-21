@@ -19,7 +19,7 @@
     "default"
   ],
   "material": {
-    "item": "betterendforge:terminite_ingot"
+    "tag": "forge:ingots/terminite"
   },
   "requiredTools": {
     "hammer": 3

@@ -118,7 +118,7 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:druidcraft-340991:3507029")
     runtimeOnly fg.deobf("curse.maven:openloader-354339:3343809")
     runtimeOnly fg.deobf("curse.maven:neat-238372:3182258")
-    runtimeOnly fg.deobf("curse.maven:quark-243121:3538744")
+    runtimeOnly fg.deobf("curse.maven:quark-243121:3642325")
     runtimeOnly fg.deobf("curse.maven:quarkoddities-301051:3088871")
     runtimeOnly fg.deobf("curse.maven:autoreglib-250363:3326041")
     runtimeOnly fg.deobf("curse.maven:eidolon-429625:3157832")

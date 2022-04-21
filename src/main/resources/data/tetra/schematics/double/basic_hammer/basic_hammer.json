@@ -25,6 +25,36 @@
       "improvements": {
         "tetrapak/voiding": 1
       }
+    },
+    {
+      "material": {
+        "tag": "forge:ingots/thallasium"
+      },
+      "requiredTools": {
+        "hammer": 3
+      },
+      "moduleKey": "double/basic_hammer",
+      "moduleVariant": "basic_hammer/thallasium"
+    },
+    {
+      "material": {
+        "tag": "forge:ingots/terminite"
+      },
+      "requiredTools": {
+        "hammer": 4
+      },
+      "moduleKey": "double/basic_hammer",
+      "moduleVariant": "basic_hammer/terminite"
+    },
+    {
+      "material": {
+        "tag": "forge:ingots/aeternium"
+      },
+      "requiredTools": {
+        "hammer": 5
+      },
+      "moduleKey": "double/basic_hammer",
+      "moduleVariant": "basic_hammer/aeternium"
     }
   ]
 }

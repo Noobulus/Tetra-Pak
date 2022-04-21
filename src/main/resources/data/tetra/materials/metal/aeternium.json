@@ -19,7 +19,7 @@
     "default"
   ],
   "material": {
-    "item": "betterendforge:aeternium_ingot"
+    "tag": "forge:ingots/aeternium"
   },
   "requiredTools": {
     "hammer": 4
