@@ -1,3 +1,14 @@
+Version 0.3.4
+    New content:
+        Support for Endergetic Expansion, BetterEnd, Upgrade Aquatic, and Farmer's Delight
+        Booflo Hide from EE and the metals from BE are now usable to create Tetra tools
+        FD straw, canvas, and rope are now usable to create Tetra tools
+        Upgrade Aquatic thrasher teeth are usable for Tetra tools
+    Improvements and fixes:
+        Slightly rebalance the Eidolon fabric materials
+        The Wither now drops an easter egg music disc when killed with a Shadow Steel tool
+        Several materials have been changed to use material tags instead of hardcoded items
+
 Version 0.3.3
     New content:
         Eidolon and Quark support has been completed!

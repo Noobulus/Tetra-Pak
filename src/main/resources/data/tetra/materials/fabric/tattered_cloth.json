@@ -22,8 +22,7 @@
         "item": "eidolon:tattered_cloth"
     },
     "effects": {
-        "unstable": 30,
-        "enderReverb":[-5,0]
+        "unstable": 30
     },
     "requiredTools": {
         "cut": 1
