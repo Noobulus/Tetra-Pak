@@ -39,6 +39,13 @@
   "tetra.material.terminite.prefix": "Terminite",
   "tetra.material.aeternium": "Aeternium",
   "tetra.material.aeternium.prefix": "Aeternium",
+  "tetra.material.straw": "Straw",
+  "tetra.material.straw.prefix": "Straw",
+  "tetra.variant.basic_string/straw": "Twined Straw",
+  "tetra.material.canvas": "Canvas",
+  "tetra.material.canvas.prefix": "Canvas",
+  "tetra.material.rope": "Rope",
+  "tetra.material.rope.prefix": "Rope",
 
   "tetra.variant.double_socket/rose_quartz": "Socket [\u00a7cRose Quartz\u00a7r]",
   "tetra.variant.double_socket/rose_quartz.description": "A gem, fitted onto the side of the tool head. The gem is enchanted and grants the wielder additional reach",

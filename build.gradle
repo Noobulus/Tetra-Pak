@@ -131,6 +131,7 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:infernal_expansion-395078:3526021")
     runtimeOnly fg.deobf("curse.maven:botania-225643:3608755")
     runtimeOnly fg.deobf("curse.maven:patchouli-306770:3459118")
+    runtimeOnly fg.deobf("curse.maven:farmersdelight-398521:3739919")
 
     // compileOnly fg.deobf("mezz.jei:jei-1.16.5:${jei_version}:api")
     implementation fg.deobf("mezz.jei:jei-1.16.5:${jei_version}")

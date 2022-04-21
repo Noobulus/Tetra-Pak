@@ -1,0 +1,27 @@
+{
+    "key": "straw",
+    "category": "fibre",
+    "primary": "2.6",
+    "secondary": "0.5",
+    "tertiary": "2.2",
+    "durability": "120",
+    "integrityCost": "1",
+    "integrityGain": "2",
+    "magicCapacity": "50",
+    "toolLevel": "0",
+    "toolEfficiency": "0",
+    "tints": {
+        "glyph": "6e4a28",
+        "texture": "6e4a28"
+    },
+    "textures": [
+        "crude",
+        "default"
+    ],
+    "material": {
+        "item": "farmersdelight:straw"
+    },
+    "requiredTools": {
+        "cut": 1
+    }
+}

@@ -1,0 +1,27 @@
+{
+    "key": "canvas",
+    "category": "fabric",
+    "primary": "3.4",
+    "secondary": "2.2",
+    "tertiary": "2.6",
+    "durability": "360",
+    "integrityCost": "1",
+    "integrityGain": "5",
+    "magicCapacity": "70",
+    "toolLevel": "0",
+    "toolEfficiency": "0",
+    "tints": {
+        "glyph": "8c775e",
+        "texture": "8c775e"
+    },
+    "textures": [
+        "crude",
+        "default"
+    ],
+    "material": {
+        "item": "farmersdelight:canvas"
+    },
+    "requiredTools": {
+        "cut": 1
+    }
+}
