@@ -21,7 +21,7 @@ import java.util.Collection;
 public interface CompatJeiRecipe<T extends Recipe<Container>> extends IRecipeCategory<T> {
 
 	default void addRecipes(IRecipeRegistration recipeRegistration, RecipeManager manager) {
-		recipeRegistration.addRecipes(manager.byType(getRecipeType()).values(), getUid());
+		recipeRegistration.addRecipes(manager.byType(getVanillaRecipeType()).values(), getUid());
 	}
 
 	default void addRecipeCatalysts(IRecipeCatalystRegistration recipeCatalystRegistration) {
@@ -36,7 +36,7 @@ public interface CompatJeiRecipe<T extends Recipe<Container>> extends IRecipeCat
 		return new ArrayList<>();
 	}
 
-	RecipeType<T> getRecipeType();
+	RecipeType<T> getVanillaRecipeType();
 
 	@Override
 	default Component getTitle() {

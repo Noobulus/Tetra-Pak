@@ -3,6 +3,7 @@ package mod.noobulus.tetrapak.loot;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
+import mod.noobulus.tetrapak.registries.LootConditions;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
@@ -16,7 +17,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 public class HasBlockEntity implements LootItemCondition {
 	@Override
 	public LootItemConditionType getType() {
-		return LootConditions.HAS_BLOCK_ENTITY.type;
+		return LootConditions.HAS_BLOCK_ENTITY.get();
 	}
 
 	@Override

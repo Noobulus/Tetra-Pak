@@ -7,6 +7,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.NewRegistryEvent;
 import net.minecraftforge.registries.RegistryBuilder;
 
 import javax.annotation.Nullable;
@@ -25,11 +26,11 @@ public abstract class AbstractPredicateManager<T extends AbstractPredicate<?, T>
 	}
 
 	@SubscribeEvent
-	public void onNewRegistry(RegistryEvent.NewRegistry event) {
-		registry = new RegistryBuilder<T>()
-			.setType(registryClass)
-			.setName(TetraPak.asId(registryName))
-			.create();
+	public void onNewRegistry(NewRegistryEvent event) {
+		event.create(new RegistryBuilder<T>()
+						.setType(registryClass)
+						.setName(TetraPak.asId(registryName)),
+				createdRegistry -> this.registry = createdRegistry);
 	}
 
 	@SubscribeEvent

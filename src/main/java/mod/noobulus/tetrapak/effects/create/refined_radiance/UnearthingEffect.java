@@ -12,6 +12,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -43,8 +44,8 @@ public class UnearthingEffect implements IHoloDescription, IEventBusListener {
 		Set<BlockPos> visited = new HashSet<>();
 		List<BlockPos> frontier = new LinkedList<>();
 
-		Block start = world.getBlockState(pos).getBlock();
-		if (!Tags.Blocks.ORES.contains(start))
+		BlockState startState = world.getBlockState(pos);
+		if (!startState.is(Tags.Blocks.ORES))
 			return BlockCollection.EMPTY;
 
 		frontier.add(pos);
@@ -53,7 +54,7 @@ public class UnearthingEffect implements IHoloDescription, IEventBusListener {
 			visited.add(current);
 			for (Direction direction : Direction.values()) {
 				BlockPos offset = current.relative(direction);
-				if (!visited.contains(offset) && start.equals(world.getBlockState(offset).getBlock()))
+				if (!visited.contains(offset) && startState.getBlock().equals(world.getBlockState(offset).getBlock()))
 					frontier.add(offset);
 			}
 			if (visited.size() >= Config.MAX_RADIANT_BLOCKS.get()) return new BlockCollection(visited);

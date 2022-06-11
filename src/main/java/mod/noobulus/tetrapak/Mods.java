@@ -1,6 +1,8 @@
 package mod.noobulus.tetrapak;
 
 import mod.noobulus.tetrapak.effects.base.ExpBoostEffect;
+import mod.noobulus.tetrapak.effects.base.RegrowthEffect;
+import mod.noobulus.tetrapak.effects.base.ScorchingEffect;
 import mod.noobulus.tetrapak.effects.create.NullifyingEffect;
 import mod.noobulus.tetrapak.effects.create.SolidifyingEffect;
 import mod.noobulus.tetrapak.effects.create.StandardTetraPakAttributes;
@@ -11,21 +13,16 @@ import mod.noobulus.tetrapak.effects.create.refined_radiance.FloatingEffect;
 import mod.noobulus.tetrapak.effects.create.refined_radiance.UnearthingEffect;
 import mod.noobulus.tetrapak.effects.druidcraft.MoonsightEffect;
 import mod.noobulus.tetrapak.effects.druidcraft.MoonstrikeEffect;
-import mod.noobulus.tetrapak.effects.base.RegrowthEffect;
-import mod.noobulus.tetrapak.effects.base.ScorchingEffect;
 import mod.noobulus.tetrapak.effects.eidolon.CleavingEffect;
 import mod.noobulus.tetrapak.effects.eidolon.ReapingEffect;
 import mod.noobulus.tetrapak.effects.quark.CorundumEffect;
 import mod.noobulus.tetrapak.effects.supplementaries.BubblingEffect;
 import mod.noobulus.tetrapak.util.IEventBusListener;
 import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
-import mod.noobulus.tetrapak.util.tetra_definitions.ILootModifier;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
@@ -80,14 +77,6 @@ public enum Mods {
 			.filter(IHoloDescription.class::isInstance)
 			.map(IHoloDescription.class::cast)
 			.forEach(IHoloDescription::clientInit);
-	}
-
-	public static void registerLootModifiers(RegistryEvent.Register<GlobalLootModifierSerializer<?>> event) {
-		getLoadedListenersStream()
-			.filter(ILootModifier.class::isInstance)
-			.map(ILootModifier.class::cast)
-			.map(ILootModifier::getModifier)
-			.forEach(event.getRegistry()::register);
 	}
 
 	@SubscribeEvent

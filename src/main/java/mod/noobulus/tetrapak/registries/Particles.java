@@ -19,10 +19,10 @@ import net.minecraftforge.registries.RegistryObject;
 
 @Mod.EventBusSubscriber(modid = BuildConfig.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Particles {
-	public static final DeferredRegister<ParticleType<?>> MOONSTRIKE_PARTICLES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, "tetrapak");
+	public static final DeferredRegister<ParticleType<?>> MOONSTRIKE_PARTICLES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, BuildConfig.MODID);
 	@SuppressWarnings("unused")
 	public static final RegistryObject<SimpleParticleType>
-		MOONSTRIKE_STAGE_0 = MOONSTRIKE_PARTICLES.register("moonstrike_stage_0", () -> new SimpleParticleType(true)),
+			MOONSTRIKE_STAGE_0 = MOONSTRIKE_PARTICLES.register("moonstrike_stage_0", () -> new SimpleParticleType(true)),
 		MOONSTRIKE_STAGE_1 = MOONSTRIKE_PARTICLES.register("moonstrike_stage_1", () -> new SimpleParticleType(true)),
 		MOONSTRIKE_STAGE_2 = MOONSTRIKE_PARTICLES.register("moonstrike_stage_2", () -> new SimpleParticleType(true)),
 		MOONSTRIKE_STAGE_3 = MOONSTRIKE_PARTICLES.register("moonstrike_stage_3", () -> new SimpleParticleType(true));

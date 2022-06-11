@@ -1,10 +1,8 @@
 package mod.noobulus.tetrapak;
 
-import mod.noobulus.tetrapak.loot.LootConditions;
 import mod.noobulus.tetrapak.networking.Packets;
 import mod.noobulus.tetrapak.predicate.PredicateManagers;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -24,12 +22,9 @@ public class TetraPak {
 		Config.loadConfig(Config.COMMON_CONFIG, FMLPaths.CONFIGDIR.get().resolve(BuildConfig.MODID + "-common.toml"));
 		Mods.registerEventListeners();
 		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-		modEventBus.addGenericListener(GlobalLootModifierSerializer.class, Mods::registerLootModifiers);
 		modEventBus.addListener(Mods::clientSetup);
 		modEventBus.addListener((FMLCommonSetupEvent event) -> Packets.registerPackets());
 		PredicateManagers.register();
-		LootConditions.register();
-		Registry.register();
 	}
 
 	public static ResourceLocation asId(String name) {

@@ -7,6 +7,7 @@ import com.simibubi.create.compat.jei.EmptyBackground;
 import com.simibubi.create.compat.jei.category.animations.AnimatedDeployer;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 import mezz.jei.api.MethodsReturnNonnullByDefault;
+import mezz.jei.api.constants.ModIds;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -22,7 +23,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.registries.ForgeRegistries;
 import se.mickelus.tetra.items.modular.IModularItem;
 
@@ -35,6 +35,8 @@ import java.util.stream.Collectors;
 @ParametersAreNonnullByDefault
 public class AutoSalvageCategory implements CompatJeiRecipe<SalvagingRecipe> {
 	public static final ResourceLocation ID = TetraPak.asId("auto_salvage");
+	public static final mezz.jei.api.recipe.RecipeType<SalvagingRecipe> AUTO_SALVAGING =
+			mezz.jei.api.recipe.RecipeType.create(ModIds.MINECRAFT_ID, ID.toString(), SalvagingRecipe.class);
 	private static final ItemStack hammer = makeHammer();
 	private final IDrawable background;
 	private final IDrawable icon;
@@ -116,10 +118,9 @@ public class AutoSalvageCategory implements CompatJeiRecipe<SalvagingRecipe> {
 	}
 
 	@Override
-	public RecipeType<SalvagingRecipe> getRecipeType() {
+	public net.minecraft.world.item.crafting.RecipeType<SalvagingRecipe> getVanillaRecipeType() {
 		return SalvagingRecipe.SalvagingRecipeType.AUTOMATIC_SALVAGING;
 	}
-
 
 	@Override
 	public Collection<ItemStack> getCatalystIcons() {

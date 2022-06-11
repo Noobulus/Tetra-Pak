@@ -8,7 +8,6 @@ import net.minecraftforge.common.loot.LootModifier;
 
 import javax.annotation.Nonnull;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ScorchingLootModifier extends LootModifier {
 	public ScorchingLootModifier(LootItemCondition[] conditionsIn) {
@@ -19,7 +18,7 @@ public class ScorchingLootModifier extends LootModifier {
 	@Override
 	public List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
 		return generatedLoot.stream()
-			.map(stack -> ItemHelper.smelt(stack, context.getLevel()))
-			.collect(Collectors.toList());
+				.map(stack -> ItemHelper.smelt(stack, context.getLevel()))
+				.toList();
 	}
 }
