@@ -21,20 +21,53 @@
   },
   "displayType": "improvement",
   "requirement": {
-    "type": "tetra:modular_item",
-    "improvements": {
-      "!tetrapak/bubbling": 0
-    },
-    "variants": {
-      "nullifier/refined_radiance": "#slot",
-      "booster/iron": "#slot",
-      "booster/netherite": "#slot"
-    }
+    "type": "tetra:and",
+    "requirements": [
+      {
+        "type": "tetra:or",
+        "requirements": [
+          {
+            "type": "tetra:module",
+            "module": "toolbelt/nullifier_slot1"
+          },
+          {
+            "type": "tetra:module",
+            "module": "toolbelt/nullifier_slot2"
+          },
+          {
+            "type": "tetra:module",
+            "module": "toolbelt/nullifier_slot3"
+          },
+          {
+            "type": "tetra:module",
+            "module": "toolbelt/booster_slot1"
+          },
+          {
+            "type": "tetra:module",
+            "module": "toolbelt/booster_slot2"
+          },
+          {
+            "type": "tetra:module",
+            "module": "toolbelt/booster_slot3"
+          }
+        ]
+      },
+      {
+        "type": "tetra:not",
+        "requirement": {
+          "type": "tetra:improvement",
+          "improvement": "tetrapak/bubbling"
+        }
+      }
+    ]
   },
   "outcomes": [
     {
       "material": {
         "items": ["supplementaries:bubble_blower"]
+      },
+      "requiredTools": {
+        "hammer_dig": "minecraft:wood"
       },
       "improvements": {
         "tetrapak/bubbling": 0
