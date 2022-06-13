@@ -20,18 +20,29 @@
     "textureY": 240
   },
   "requirement": {
-    "type": "tetra:modular_item",
-    "modules": [
-      [
-        "double/basic_axe_right"
-      ],
-      [
-        "double/basic_axe_left"
-      ]
-    ],
-    "improvements": {
-      "!tetrapak/cleaving": 0
-    }
+    "type": "tetra:and",
+    "requirements": [
+      {
+        "type": "tetra:or",
+        "requirements": [
+          {
+            "type": "tetra:module",
+            "module": "double/basic_axe_right"
+          },
+          {
+            "type": "tetra:module",
+            "module": "double/basic_axe_left"
+          }
+        ]
+      },
+      {
+        "type": "tetra:not",
+        "requirement": {
+          "type": "tetra:improvement",
+          "improvement": "tetrapak/cleaving"
+        }
+      }
+    ]
   },
   "outcomes": [
     {

@@ -20,18 +20,29 @@
     "textureY": 240
   },
   "requirement": {
-    "type": "tetra:modular_item",
-    "modules": [
-      [
-        "double/sickle_right"
-      ],
-      [
-        "double/sickle_left"
-      ]
-    ],
-    "improvements": {
-      "!tetrapak/reaping": 0
-    }
+    "type": "tetra:and",
+    "requirements": [
+      {
+        "type": "tetra:or",
+        "requirements": [
+          {
+            "type": "tetra:module",
+            "module": "double/sickle_right"
+          },
+          {
+            "type": "tetra:module",
+            "module": "double/sickle_left"
+          }
+        ]
+      },
+      {
+        "type": "tetra:not",
+        "requirement": {
+          "type": "tetra:improvement",
+          "improvement": "tetrapak/reaping"
+        }
+      }
+    ]
   },
   "outcomes": [
     {
