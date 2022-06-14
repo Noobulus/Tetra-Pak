@@ -1,3 +1,9 @@
+Version 0.5.0
+    Improvements and fixes:
+        Now available on 1.18.2!
+    Known issues:
+        The falling blocks spawned by Collapsing are not removed from the world clientside until relog
+        Refined Radiance's mass-harvesting effects don't behave correctly in creative
 Version 0.4.3
     Improvements and fixes:
         Fix an ObfuscationReflectionHelper crash every time an entity is killed with an arrow
