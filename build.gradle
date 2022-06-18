@@ -21,7 +21,7 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: 'idea'
 apply plugin: 'org.spongepowered.mixin'
-apply from: 'https://gist.githubusercontent.com/LordGrimmauld/66f552c0d0bd50763098e92aa22a51df/raw/a4eb350252bdb76a570de110f55b4de19ac92ded/modconfig.gradle'
+apply from: 'https://raw.githubusercontent.com/LordGrimmauld/gitinfo-collect/master/build.gradle'
 
 
 
@@ -198,7 +198,5 @@ buildConfig {
     def gitstage = getGitInfo()
     println("Using git stage ${gitstage}")
     buildConfigField "String", "GITHASH", "\"${gitstage}\""
-
-    version = project.version
     packageName = project.group
 }
