@@ -17,11 +17,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-java@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
         with:
-          java-version: '8'
-          distribution: 'adopt'
+          java-version: '17'
+          distribution: 'temurin'
       - name: Cache Gradle packages
         uses: actions/cache@v2
         with:
@@ -43,3 +43,19 @@ jobs:
         # Remove some files from the Gradle cache, so they aren't cached by GitHub Actions.
         # Restoring these files from a GitHub Actions cache might cause problems for future builds.
         run: rm -f ~/.gradle/caches/modules-2/modules-2.lock & rm -f ~/.gradle/caches/modules-2/gc.properties
+      - name: Upload to dscord
+        env:
+          DISCORD_WEBHOOK: ${{secrets.CI_DISCORD_WEBHOOK}}
+        run: |
+          if [[ -z "$DISCORD_WEBHOOK" ]]; then
+            echo "DISCORD_WEBHOOK env variable not set, skipping upload."
+            exit 0
+          fi
+          for f in build/libs/*.jar; do
+            echo "processing $f"
+            if [[ $f != *-slim.jar ]]; then
+              echo "uploading @$f"
+              curl -H 'Content-Type: multipart/form-data' -X POST -F "file=@$f" $DISCORD_WEBHOOK
+            fi
+          done
+          exit 0
