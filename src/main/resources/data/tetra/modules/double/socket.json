@@ -113,7 +113,7 @@
       ]
     },
     {
-      "key": "double_socket/red_crystal_cluster",
+      "key": "double_socket/red_corundum_cluster",
       "category": "gem",
       "durability": 0,
       "integrity": -1,
@@ -133,7 +133,7 @@
       ]
     },
     {
-      "key": "double_socket/orange_crystal_cluster",
+      "key": "double_socket/orange_corundum_cluster",
       "category": "gem",
       "durability": 0,
       "integrity": -1,
@@ -153,7 +153,7 @@
       ]
     },
     {
-      "key": "double_socket/yellow_crystal_cluster",
+      "key": "double_socket/yellow_corundum_cluster",
       "category": "gem",
       "durability": 0,
       "integrity": -1,
@@ -173,7 +173,7 @@
       ]
     },
     {
-      "key": "double_socket/green_crystal_cluster",
+      "key": "double_socket/green_corundum_cluster",
       "category": "gem",
       "durability": 0,
       "integrity": -1,
@@ -193,7 +193,7 @@
       ]
     },
     {
-      "key": "double_socket/blue_crystal_cluster",
+      "key": "double_socket/blue_corundum_cluster",
       "category": "gem",
       "durability": 0,
       "integrity": -1,
@@ -213,7 +213,7 @@
       ]
     },
     {
-      "key": "double_socket/indigo_crystal_cluster",
+      "key": "double_socket/indigo_corundum_cluster",
       "category": "gem",
       "durability": 0,
       "integrity": -1,
@@ -233,7 +233,7 @@
       ]
     },
     {
-      "key": "double_socket/violet_crystal_cluster",
+      "key": "double_socket/violet_corundum_cluster",
       "category": "gem",
       "durability": 0,
       "integrity": -1,
@@ -253,7 +253,7 @@
       ]
     },
     {
-      "key": "double_socket/white_crystal_cluster",
+      "key": "double_socket/white_corundum_cluster",
       "category": "gem",
       "durability": 0,
       "integrity": -1,
@@ -273,7 +273,7 @@
       ]
     },
     {
-      "key": "double_socket/black_crystal_cluster",
+      "key": "double_socket/black_corundum_cluster",
       "category": "gem",
       "durability": 0,
       "integrity": -1,

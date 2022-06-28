@@ -61,92 +61,92 @@
     {
       "material": {
         "items": [
-          "quark:red_crystal_cluster"
+          "quark:red_corundum_cluster"
         ]
       },
       "experienceCost": 3,
       "moduleKey": "double/socket",
-      "moduleVariant": "double_socket/red_crystal_cluster"
+      "moduleVariant": "double_socket/red_corundum_cluster"
     },
     {
       "material": {
         "items": [
-          "quark:orange_crystal_cluster"
+          "quark:orange_corundum_cluster"
         ]
       },
       "experienceCost": 3,
       "moduleKey": "double/socket",
-      "moduleVariant": "double_socket/orange_crystal_cluster"
+      "moduleVariant": "double_socket/orange_corundum_cluster"
     },
     {
       "material": {
         "items": [
-          "quark:yellow_crystal_cluster"
+          "quark:yellow_corundum_cluster"
         ]
       },
       "experienceCost": 3,
       "moduleKey": "double/socket",
-      "moduleVariant": "double_socket/yellow_crystal_cluster"
+      "moduleVariant": "double_socket/yellow_corundum_cluster"
     },
     {
       "material": {
         "items": [
-          "quark:green_crystal_cluster"
+          "quark:green_corundum_cluster"
         ]
       },
       "experienceCost": 3,
       "moduleKey": "double/socket",
-      "moduleVariant": "double_socket/green_crystal_cluster"
+      "moduleVariant": "double_socket/green_corundum_cluster"
     },
     {
       "material": {
         "items": [
-          "quark:blue_crystal_cluster"
+          "quark:blue_corundum_cluster"
         ]
       },
       "experienceCost": 3,
       "moduleKey": "double/socket",
-      "moduleVariant": "double_socket/blue_crystal_cluster"
+      "moduleVariant": "double_socket/blue_corundum_cluster"
     },
     {
       "material": {
         "items": [
-          "quark:indigo_crystal_cluster"
+          "quark:indigo_corundum_cluster"
         ]
       },
       "experienceCost": 3,
       "moduleKey": "double/socket",
-      "moduleVariant": "double_socket/indigo_crystal_cluster"
+      "moduleVariant": "double_socket/indigo_corundum_cluster"
     },
     {
       "material": {
         "items": [
-          "quark:violet_crystal_cluster"
+          "quark:violet_corundum_cluster"
         ]
       },
       "experienceCost": 3,
       "moduleKey": "double/socket",
-      "moduleVariant": "double_socket/violet_crystal_cluster"
+      "moduleVariant": "double_socket/violet_corundum_cluster"
     },
     {
       "material": {
         "items": [
-          "quark:white_crystal_cluster"
+          "quark:white_corundum_cluster"
         ]
       },
       "experienceCost": 3,
       "moduleKey": "double/socket",
-      "moduleVariant": "double_socket/white_crystal_cluster"
+      "moduleVariant": "double_socket/white_corundum_cluster"
     },
     {
       "material": {
         "items": [
-          "quark:black_crystal_cluster"
+          "quark:black_corundum_cluster"
         ]
       },
       "experienceCost": 3,
       "moduleKey": "double/socket",
-      "moduleVariant": "double_socket/black_crystal_cluster"
+      "moduleVariant": "double_socket/black_corundum_cluster"
     },
     {
       "material": {
