@@ -123,8 +123,6 @@ dependencies {
     // implementation fg.deobf("curse.maven:flywheel-486392:3419392")
     implementation fg.deobf("curse.maven:supplementaries-412082:3826125")
     implementation fg.deobf("curse.maven:selene-499980:3826120")
-    implementation fg.deobf("curse.maven:alexsmobs-426558:3785938")
-    implementation fg.deobf("curse.maven:citadel-331936:3783096")
 
     //runtimeOnly fg.deobf("curse.maven:druidcraft-340991:3177267")
     runtimeOnly fg.deobf("curse.maven:openloader-354339:3697234")
