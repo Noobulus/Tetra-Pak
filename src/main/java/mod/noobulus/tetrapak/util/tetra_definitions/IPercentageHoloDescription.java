@@ -18,6 +18,7 @@ public interface IPercentageHoloDescription extends IHoloDescription {
 		return new TooltipGetterPercentageDecimal(getTooltipPath(), statGetter);
 	}
 
+	@Override
 	default IStatGetter getStatGetter() {
 		return new StatGetterEffectEfficiency(getEffect(), getStatMultiplier(), getStatBase());
 	}

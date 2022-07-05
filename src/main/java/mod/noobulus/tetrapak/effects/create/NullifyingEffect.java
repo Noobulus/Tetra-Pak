@@ -6,9 +6,7 @@ import mod.noobulus.tetrapak.util.IEventBusListener;
 import mod.noobulus.tetrapak.util.classloading.GetSudsParticle;
 import mod.noobulus.tetrapak.util.tetra_definitions.IPercentageHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
-import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -19,6 +17,9 @@ import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import se.mickelus.tetra.effect.ItemEffect;
+import se.mickelus.tetra.gui.stats.getter.IStatGetter;
+import se.mickelus.tetra.gui.stats.getter.StatGetterEffectEfficiency;
+import se.mickelus.tetra.gui.stats.getter.StatGetterEffectLevel;
 import se.mickelus.tetra.items.modular.IModularItem;
 import se.mickelus.tetra.items.modular.impl.toolbelt.ToolbeltHelper;
 
@@ -48,10 +49,11 @@ public class NullifyingEffect implements IPercentageHoloDescription, IEventBusLi
 		updateEffect(nullifierLevel == 1 && !slowfall, gravityAttribute, beltGravityModifier);
 		updateEffect(nullifierLevel == 2 && !slowfall, gravityAttribute, beltDoubleGravityModifier);
 		updateEffect(nullifierLevel > 0 && slowfall, gravityAttribute, beltGravityModifierSlowfall);
-		if (nullifierLevel > 0 && player.getDeltaMovement().y() < 0) // extra check for fall speed to make crits work correctly
-			player.fallDistance = 1;
-		if (nullifierLevel > 0 && player.getDeltaMovement().y() >= 0)
+		if (player.getDeltaMovement().y() < 0) {
+			player.fallDistance = 1;// extra check for fall speed to make crits work correctly
+		} else {
 			player.fallDistance = 0;
+		}
 
 		// spawn end rod particles at player's feet to show that refined radiance-y effects are happening
 		if (player.level.isClientSide) {
@@ -74,10 +76,8 @@ public class NullifyingEffect implements IPercentageHoloDescription, IEventBusLi
 	}
 
 	private static int getBubblerLevel(ItemStack itemStack) {
-		if (!itemStack.isEmpty() && itemStack.getItem() instanceof IModularItem) {
-			IModularItem item = (IModularItem)itemStack.getItem();
-			int lvl = item.getEffectLevel(itemStack, ItemEffect.get("tetrapak:bubbling"));
-			return lvl;
+		if (!itemStack.isEmpty() && itemStack.getItem() instanceof IModularItem item) {
+			return item.getEffectLevel(itemStack, ItemEffect.get("tetrapak:bubbling"));
 		} else {
 			return 0;
 		}
@@ -97,6 +97,11 @@ public class NullifyingEffect implements IPercentageHoloDescription, IEventBusLi
 	@Override
 	public double getStatBase() {
 		return 62.5;
+	}
+
+	@Override
+	public IStatGetter getStatGetter() {
+		return new StatGetterEffectLevel(getEffect(), getStatMultiplier(), getStatBase());
 	}
 
 	@Override

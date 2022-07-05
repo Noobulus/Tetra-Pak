@@ -1,6 +1,5 @@
 package mod.noobulus.tetrapak.effects.base;
 
-import com.simibubi.create.foundation.utility.Debug;
 import mod.noobulus.tetrapak.util.DamageBufferer;
 import mod.noobulus.tetrapak.util.IEventBusListener;
 import mod.noobulus.tetrapak.util.MathHelper;
