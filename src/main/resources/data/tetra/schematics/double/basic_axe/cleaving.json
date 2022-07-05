@@ -47,8 +47,9 @@
   "outcomes": [
     {
       "material": {
-        "item": "eidolon:unholy_symbol",
-        "count": 1
+        "items": [
+          "eidolon:unholy_symbol"
+        ]
       },
       "requiredTools": {
         "hammer_dig": "minecraft:gold"
