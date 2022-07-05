@@ -60,13 +60,22 @@
     },
     {
       "material": {
+        "tag": "tetrapak:corundum_clusters"
+      },
+      "experienceCost": 3,
+      "moduleKey": "single/socket",
+      "moduleVariant": "single_socket/visual_corundum_cluster"
+    },
+    {
+      "material": {
         "items": [
           "quark:red_corundum_cluster"
         ]
       },
       "experienceCost": 3,
       "moduleKey": "single/socket",
-      "moduleVariant": "single_socket/red_corundum_cluster"
+      "moduleVariant": "single_socket/red_corundum_cluster",
+      "hidden": true
     },
     {
       "material": {
@@ -76,7 +85,8 @@
       },
       "experienceCost": 3,
       "moduleKey": "single/socket",
-      "moduleVariant": "single_socket/orange_corundum_cluster"
+      "moduleVariant": "single_socket/orange_corundum_cluster",
+      "hidden": true
     },
     {
       "material": {
@@ -86,7 +96,8 @@
       },
       "experienceCost": 3,
       "moduleKey": "single/socket",
-      "moduleVariant": "single_socket/yellow_corundum_cluster"
+      "moduleVariant": "single_socket/yellow_corundum_cluster",
+      "hidden": true
     },
     {
       "material": {
@@ -96,7 +107,8 @@
       },
       "experienceCost": 3,
       "moduleKey": "single/socket",
-      "moduleVariant": "single_socket/green_corundum_cluster"
+      "moduleVariant": "single_socket/green_corundum_cluster",
+      "hidden": true
     },
     {
       "material": {
@@ -106,7 +118,8 @@
       },
       "experienceCost": 3,
       "moduleKey": "single/socket",
-      "moduleVariant": "single_socket/blue_corundum_cluster"
+      "moduleVariant": "single_socket/blue_corundum_cluster",
+      "hidden": true
     },
     {
       "material": {
@@ -116,7 +129,8 @@
       },
       "experienceCost": 3,
       "moduleKey": "single/socket",
-      "moduleVariant": "single_socket/indigo_corundum_cluster"
+      "moduleVariant": "single_socket/indigo_corundum_cluster",
+      "hidden": true
     },
     {
       "material": {
@@ -126,7 +140,8 @@
       },
       "experienceCost": 3,
       "moduleKey": "single/socket",
-      "moduleVariant": "single_socket/violet_corundum_cluster"
+      "moduleVariant": "single_socket/violet_corundum_cluster",
+      "hidden": true
     },
     {
       "material": {
@@ -136,7 +151,8 @@
       },
       "experienceCost": 3,
       "moduleKey": "single/socket",
-      "moduleVariant": "single_socket/white_corundum_cluster"
+      "moduleVariant": "single_socket/white_corundum_cluster",
+      "hidden": true
     },
     {
       "material": {
@@ -146,7 +162,8 @@
       },
       "experienceCost": 3,
       "moduleKey": "single/socket",
-      "moduleVariant": "single_socket/black_corundum_cluster"
+      "moduleVariant": "single_socket/black_corundum_cluster",
+      "hidden": true
     },
     {
       "material": {

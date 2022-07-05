@@ -113,12 +113,38 @@
       ]
     },
     {
+      "key": "double_socket/visual_corundum_cluster",
+      "category": "gem",
+      "durability": 0,
+      "integrity": -1,
+      "effects": {
+        "tetrapak:rainbow": [
+          10,
+          25
+        ]
+      },
+      "glyph": {
+        "tint": "ffffff",
+        "textureX": 80,
+        "textureY": 16
+      },
+      "models": [
+        {
+          "location": "tetra:items/module/double/binding/socket/pristine",
+          "tint": "ffffff"
+        }
+      ]
+    },
+    {
       "key": "double_socket/red_corundum_cluster",
       "category": "gem",
       "durability": 0,
       "integrity": -1,
       "effects": {
-        "tetrapak:rainbow": 1
+        "tetrapak:rainbow": [
+          1,
+          25
+        ]
       },
       "glyph": {
         "tint": "f0340a",
@@ -138,7 +164,10 @@
       "durability": 0,
       "integrity": -1,
       "effects": {
-        "tetrapak:rainbow": 2
+        "tetrapak:rainbow": [
+          2,
+          25
+        ]
       },
       "glyph": {
         "tint": "f0851a",
@@ -158,7 +187,10 @@
       "durability": 0,
       "integrity": -1,
       "effects": {
-        "tetrapak:rainbow": 3
+        "tetrapak:rainbow": [
+          3,
+          25
+        ]
       },
       "glyph": {
         "tint": "f2db2c",
@@ -178,7 +210,10 @@
       "durability": 0,
       "integrity": -1,
       "effects": {
-        "tetrapak:rainbow": 4
+        "tetrapak:rainbow": [
+          4,
+          25
+        ]
       },
       "glyph": {
         "tint": "3eab0c",
@@ -198,7 +233,10 @@
       "durability": 0,
       "integrity": -1,
       "effects": {
-        "tetrapak:rainbow": 5
+        "tetrapak:rainbow": [
+          5,
+          25
+        ]
       },
       "glyph": {
         "tint": "5ce2fa",
@@ -218,7 +256,10 @@
       "durability": 0,
       "integrity": -1,
       "effects": {
-        "tetrapak:rainbow": 6
+        "tetrapak:rainbow": [
+          6,
+          25
+        ]
       },
       "glyph": {
         "tint": "9247ed",
@@ -238,7 +279,10 @@
       "durability": 0,
       "integrity": -1,
       "effects": {
-        "tetrapak:rainbow": 7
+        "tetrapak:rainbow": [
+          7,
+          25
+        ]
       },
       "glyph": {
         "tint": "f2a2f5",
@@ -258,7 +302,10 @@
       "durability": 0,
       "integrity": -1,
       "effects": {
-        "tetrapak:rainbow": 8
+        "tetrapak:rainbow": [
+          8,
+          25
+        ]
       },
       "glyph": {
         "tint": "ffffff",
@@ -278,7 +325,10 @@
       "durability": 0,
       "integrity": -1,
       "effects": {
-        "tetrapak:rainbow": 9
+        "tetrapak:rainbow": [
+          9,
+          25
+        ]
       },
       "glyph": {
         "tint": "000000",

@@ -16,6 +16,7 @@ public final class CorundumMap {
 	public static final Map<MaterialColor, Integer> COLOR_MAP = new HashMap<>();
 	public static final Map<Integer, ResourceLocation> CRYSTAL_MAP = new HashMap<>();
 	public static final Map<Integer, String> NAME_MAP = new HashMap<>();
+	private static final int VISUAL = 10;
 	private static final int RED = 1;
 	private static final int ORANGE = 2;
 	private static final int YELLOW = 3;
@@ -26,7 +27,7 @@ public final class CorundumMap {
 	private static final int WHITE = 8;
 	private static final int BLACK = 9;
 
-	static {
+	static { //todo: tweak some of these so they match a bit better and are more intuitive (ex. stone)
 		COLOR_MAP.put(NONE, BLACK);
 		COLOR_MAP.put(GRASS, GREEN);
 		COLOR_MAP.put(SAND, YELLOW);
@@ -38,7 +39,7 @@ public final class CorundumMap {
 		COLOR_MAP.put(SNOW, WHITE);
 		COLOR_MAP.put(CLAY, WHITE);
 		COLOR_MAP.put(DIRT, ORANGE);
-		COLOR_MAP.put(STONE, BLACK);
+		COLOR_MAP.put(STONE, WHITE); // figure out how to make this work with black too?
 		COLOR_MAP.put(WATER, BLUE);
 		COLOR_MAP.put(WOOD, ORANGE);
 		COLOR_MAP.put(QUARTZ, WHITE);
@@ -86,6 +87,9 @@ public final class CorundumMap {
 		COLOR_MAP.put(WARPED_STEM, BLUE);
 		COLOR_MAP.put(WARPED_HYPHAE, BLUE);
 		COLOR_MAP.put(WARPED_WART_BLOCK, BLUE);
+		COLOR_MAP.put(DEEPSLATE, BLACK);
+		COLOR_MAP.put(RAW_IRON, WHITE);
+		COLOR_MAP.put(GLOW_LICHEN, GREEN);
 
 		CRYSTAL_MAP.put(RED, asQuarkCrystal("red"));
 		CRYSTAL_MAP.put(ORANGE, asQuarkCrystal("orange"));
@@ -98,6 +102,7 @@ public final class CorundumMap {
 		CRYSTAL_MAP.put(BLACK, asQuarkCrystal("black"));
 
 
+		NAME_MAP.put(VISUAL, "matching");
 		NAME_MAP.put(RED, "red");
 		NAME_MAP.put(ORANGE, "orange");
 		NAME_MAP.put(YELLOW, "yellow");
