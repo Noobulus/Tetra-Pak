@@ -36,7 +36,6 @@ public class CorundumEffect implements IHoloDescription, IEventBusListener {
 		BlockGetter world = event.getEntityLiving().level;
 		boolean matches = CorundumMap.COLOR_MAP.get(world.getBlockState(event.getPos()).getMapColor(world, pos)) == effectLevel;
 		event.setNewSpeed(event.getOriginalSpeed() * (matches ? 1 + efficiency : 1));
-		//event.setNewSpeed((float) (event.getOriginalSpeed() * (matches ? Config.MATCHING_CRYSTAL_FACTOR.get() : Config.NON_MATCHING_CRYSTAL_FACTOR.get())));
 	}
 
 	@Override
