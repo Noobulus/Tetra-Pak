@@ -15,6 +15,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import se.mickelus.tetra.effect.ItemEffect;
 import se.mickelus.tetra.gui.stats.getter.*;
 
+import java.util.Locale;
+
 public class CorundumEffect implements IHoloDescription, IEventBusListener {
 	public CorundumEffect() {
 		CorundumMap.checkMappings();
@@ -42,7 +44,7 @@ public class CorundumEffect implements IHoloDescription, IEventBusListener {
 	public ITooltipGetter getStatTooltipGetter(IStatGetter statGetter) {
 		return (player, itemStack) -> I18n.get(getTooltipPath(),
 			new TranslatableComponent(BuildConfig.MODID + "." + CorundumMap.NAME_MAP.get(
-				(int) statGetter.getValue(player, itemStack))).getString(),
+				(int) statGetter.getValue(player, itemStack))).getString().toLowerCase(),
 				new StatGetterEffectEfficiency(getEffect(), 1).getValue(player, itemStack));
 	}
 
