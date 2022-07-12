@@ -49,7 +49,7 @@ public class CorundumEffect implements IHoloDescription, IEventBusListener {
 	}
 
 	@Override
-	public ILabelGetter getStatLabel() { // todo: work out how to make this capitalize the color in the tooltip
+	public ILabelGetter getStatLabel() {
 		return new LabelGetterBasic("%s", "%s") {
 			@Override
 			public String getLabel(double value, double diffValue, boolean flipped) {
