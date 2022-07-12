@@ -4,6 +4,7 @@ Version 0.5.1
         Create and Quark compat has been rebalanced! Most materials will be stronger on average, with different niches carved out for them
         Unobtainable materials have been hidden so they don't clog up the holosphere UI
     Known issues:
+        JEI compat is broken due to deprecation
         Refined Radiance effects are still bugged, but this is low-priority until they return
 Version 0.5.0
     Improvements and fixes:
