@@ -1,6 +1,8 @@
 {
   "key": "poise",
   "category": "wood",
+  "hidden": true,
+  "hiddenOutcomes": true,
   "primary": "4.5",
   "secondary": "2",
   "tertiary": "12",

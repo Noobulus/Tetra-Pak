@@ -1,6 +1,8 @@
 {
   "key": "thrasher_tooth",
   "category": "bone",
+  "hidden": true,
+  "hiddenOutcomes": true,
   "primary": "6.1",
   "secondary": "3.5",
   "tertiary": "2.2",

@@ -1,6 +1,8 @@
 {
   "key": "booflo_hide",
   "category": "skin",
+  "hidden": true,
+  "hiddenOutcomes": true,
   "primary": "3",
   "secondary": "0.2",
   "tertiary": "5.5",

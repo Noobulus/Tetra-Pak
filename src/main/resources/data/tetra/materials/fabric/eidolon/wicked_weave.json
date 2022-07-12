@@ -1,6 +1,8 @@
 {
   "key": "wicked_weave",
   "category": "fabric",
+  "hidden": true,
+  "hiddenOutcomes": true,
   "primary": "5",
   "secondary": "1.5",
   "tertiary": "5.2",

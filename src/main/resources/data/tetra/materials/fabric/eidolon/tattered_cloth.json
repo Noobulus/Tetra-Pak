@@ -1,6 +1,8 @@
 {
   "key": "tattered_cloth",
   "category": "fabric",
+  "hidden": true,
+  "hiddenOutcomes": true,
   "primary": "0.3",
   "secondary": "0.3",
   "tertiary": "6",

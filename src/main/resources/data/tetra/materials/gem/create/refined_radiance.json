@@ -1,6 +1,8 @@
 {
   "key": "refined_radiance",
   "category": "gem",
+  "hidden": true,
+  "hiddenOutcomes": true,
   "primary": "5.8",
   "secondary": "0.4",
   "tertiary": "0",

@@ -1,6 +1,8 @@
 {
   "key": "shadow_steel",
   "category": "metal",
+  "hidden": true,
+  "hiddenOutcomes": true,
   "primary": "8.5",
   "secondary": "3.0",
   "tertiary": "2.1",
