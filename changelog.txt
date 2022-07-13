@@ -1,3 +1,9 @@
+Version 0.5.2
+    Improvements and fixes:
+        Crops are no longer trampled while not wearing a nullifier
+    Known issues:
+        JEI compat is broken due to deprecation
+        Refined Radiance effects are still bugged, but this is low-priority until they return
 Version 0.5.1
     Improvements and fixes:
         Corundum sockets now appear as a single entry in the holosphere to avoid clutter

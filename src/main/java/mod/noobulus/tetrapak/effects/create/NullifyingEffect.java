@@ -42,13 +42,13 @@ public class NullifyingEffect implements IPercentageHoloDescription, IEventBusLi
 	@Override
 	public void doBeltTick(Player player, int nullifierLevel) {
 		AttributeInstance gravityAttribute = player.getAttribute(ForgeMod.ENTITY_GRAVITY.get());
-		if (nullifierLevel < 0 || gravityAttribute == null)
+		if (nullifierLevel <= 0 || gravityAttribute == null) // this was a bit of a silly thing to miss
 			return;
 
 		boolean slowfall = player.hasEffect(MobEffects.SLOW_FALLING);
 		updateEffect(nullifierLevel == 1 && !slowfall, gravityAttribute, beltGravityModifier);
 		updateEffect(nullifierLevel == 2 && !slowfall, gravityAttribute, beltDoubleGravityModifier);
-		updateEffect(nullifierLevel > 0 && slowfall, gravityAttribute, beltGravityModifierSlowfall);
+		updateEffect(slowfall, gravityAttribute, beltGravityModifierSlowfall);
 		if (player.getDeltaMovement().y() < 0) {
 			player.fallDistance = 1;// extra check for fall speed to make crits work correctly
 		} else {

@@ -1,9 +1,8 @@
 package mod.noobulus.tetrapak.jei;
 
-import mezz.jei.api.MethodsReturnNonnullByDefault;
 import mezz.jei.api.gui.ingredient.ITooltipCallback;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.network.chat.Component;
-
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 import java.util.Map;
