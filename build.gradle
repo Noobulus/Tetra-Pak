@@ -119,18 +119,18 @@ dependencies {
     // implementation fg.deobf("curse.maven:tetra-289712:3640654")
     // implementation fg.deobf("curse.maven:mutil-351914:3640643")
     // implementation fg.deobf("curse.maven:harvests-571339:3640648") borked in dev?
-    implementation fg.deobf("curse.maven:create-328085:3871258")
-    implementation fg.deobf("curse.maven:flywheel-486392:3871082")
+    implementation fg.deobf("curse.maven:create-328085:3934676")
+    implementation fg.deobf("curse.maven:flywheel-486392:3934664")
     implementation fg.deobf("curse.maven:supplementaries-412082:3871187")
     implementation fg.deobf("curse.maven:selene-499980:3842421")
 
     //runtimeOnly fg.deobf("curse.maven:druidcraft-340991:3177267")
     runtimeOnly fg.deobf("curse.maven:openloader-354339:3697234")
     runtimeOnly fg.deobf("curse.maven:neat-238372:3593906")
-    runtimeOnly fg.deobf("curse.maven:quark-243121:3800462")
+    runtimeOnly fg.deobf("curse.maven:quark-243121:3840125")
     runtimeOnly fg.deobf("curse.maven:quarkoddities-301051:3575623")
     runtimeOnly fg.deobf("curse.maven:autoreglib-250363:3642382")
-    runtimeOnly fg.deobf("curse.maven:farmersdelight-398521:3784851")
+    runtimeOnly fg.deobf("curse.maven:farmersdelight-398521:3834150")
     /*
     runtimeOnly fg.deobf("curse.maven:eidolon-429625:3157832")
     runtimeOnly fg.deobf("curse.maven:curios-309927:3343065")
