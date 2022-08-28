@@ -21,6 +21,7 @@ mandatory = true #mandatory
 versionRange = "[39.0.73,)" #mandatory
 ordering = "NONE"
 side = "BOTH"
+
 [[dependencies.tetrapak]]
 modId = "minecraft"
 mandatory = true
@@ -52,7 +53,7 @@ side = "BOTH"
 [[dependencies.tetrapak]]
 modId = "create"
 mandatory = false
-versionRange = "[mc1.16.3_v0.3.1b,)"
+versionRange = "[0.5.0.d,)"
 ordering = "NONE"
 side = "BOTH"
 

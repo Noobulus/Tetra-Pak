@@ -1,7 +1,7 @@
 package mod.noobulus.tetrapak.effects.create;
 
 import com.simibubi.create.AllItems;
-import com.simibubi.create.foundation.utility.Debug;
+import com.simibubi.create.content.curiosities.ExperienceNuggetItem;
 import mod.noobulus.tetrapak.util.DamageBufferer;
 import mod.noobulus.tetrapak.util.IEventBusListener;
 import mod.noobulus.tetrapak.util.MathHelper;
@@ -22,7 +22,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import se.mickelus.tetra.effect.ItemEffect;
 
 import javax.annotation.Nullable;
-import java.util.Collection;
 
 public class SolidifyingEffect implements IHoloDescription, IEventBusListener {
 
@@ -32,14 +31,8 @@ public class SolidifyingEffect implements IHoloDescription, IEventBusListener {
 		DamageSource lastActive = DamageBufferer.getLastActiveDamageSource();
 		if (shouldSolidifyingAffect(lastActive, target)) {
             int chunks = MathHelper.doubleToIntWithChance((event.getDroppedExperience()/3d));
-			Collection<ItemEntity> drops = event.getEntity().captureDrops();
-			if (drops != null) {
-				drops.add(new ItemEntity(target.level, target.position().x, target.position().y, target.position().z,
-						new ItemStack(AllItems.EXP_NUGGET.get(), chunks))); // each nugget is worth 3 exp, so
-			} else {
-				target.level.addFreshEntity(new ItemEntity(target.level, target.position().x, target.position().y, target.position().z,
-						new ItemStack(AllItems.EXP_NUGGET.get(), chunks))); // summon new entity as fallback if drops is null
-			}
+			target.level.addFreshEntity(new ItemEntity(target.level, target.position().x, target.position().y, target.position().z,
+					new ItemStack(AllItems.EXP_NUGGET.get(), chunks))); // maybe just doing this ungoofs apotheosis?
 			event.setDroppedExperience(0); // don't drop any regular experience
 		}
 	}
