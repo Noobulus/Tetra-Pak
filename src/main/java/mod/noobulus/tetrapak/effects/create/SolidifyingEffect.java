@@ -1,7 +1,6 @@
 package mod.noobulus.tetrapak.effects.create;
 
 import com.simibubi.create.AllItems;
-import com.simibubi.create.content.curiosities.ExperienceNuggetItem;
 import mod.noobulus.tetrapak.util.DamageBufferer;
 import mod.noobulus.tetrapak.util.IEventBusListener;
 import mod.noobulus.tetrapak.util.MathHelper;

@@ -1,3 +1,9 @@
+Version 0.5.3
+    Improvements and fixes:
+        Solidifying no longer causes a crash with Create 0.5
+    Known issues:
+        JEI compat isn't working properly
+        Refined Radiance effects don't work properly
 Version 0.5.2
     Improvements and fixes:
         Crops are no longer trampled while not wearing a nullifier
