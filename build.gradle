@@ -57,7 +57,7 @@ version = "${minecraft_version}-${mod_version}"
 group = "mod.noobulus.${modid}" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "${modid}"
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(17) // Mojang ships Java 8 to end users, so your mod should target Java 8.
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
@@ -116,27 +116,27 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
-    // implementation fg.deobf("curse.maven:tetra-289712:3640654")
-    // implementation fg.deobf("curse.maven:mutil-351914:3640643")
+    implementation fg.deobf("curse.maven:tetra-289712:4370833")
+    implementation fg.deobf("curse.maven:mutil-351914:3941314")
     // implementation fg.deobf("curse.maven:harvests-571339:3640648") borked in dev?
     // implementation fg.deobf("curse.maven:create-328085:3934676")
     // implementation fg.deobf("curse.maven:flywheel-486392:3934664")
-    implementation fg.deobf("curse.maven:supplementaries-412082:4065749")
-    implementation fg.deobf("curse.maven:moonlightlib-499980:3842421")
+    implementation fg.deobf("curse.maven:supplementaries-412082:4369183")
+    implementation fg.deobf("curse.maven:moonlightlib-499980:4368442")
 
     //runtimeOnly fg.deobf("curse.maven:druidcraft-340991:3177267")
-    runtimeOnly fg.deobf("curse.maven:openloader-354339:3697234")
-    runtimeOnly fg.deobf("curse.maven:neat-238372:3593906")
-    runtimeOnly fg.deobf("curse.maven:quark-243121:3840125")
+    runtimeOnly fg.deobf("curse.maven:openloader-354339:3943067")
+    runtimeOnly fg.deobf("curse.maven:neat-238372:3878735")
+    runtimeOnly fg.deobf("curse.maven:quark-243121:4366541")
     runtimeOnly fg.deobf("curse.maven:quarkoddities-301051:3575623")
-    runtimeOnly fg.deobf("curse.maven:autoreglib-250363:3642382")
-    runtimeOnly fg.deobf("curse.maven:farmersdelight-398521:3999153")
-    runtimeOnly fg.deobf("curse.maven:thermalexpansion-69163:4101926")
-    runtimeOnly fg.deobf("curse.maven:thermalfoundation-222880:4102233")
-    runtimeOnly fg.deobf("curse.maven:thermalcultivation-271835:4101925")
-    runtimeOnly fg.deobf("curse.maven:thermalinnovation-291737:4101928")
-    runtimeOnly fg.deobf("curse.maven:thermalintegration-626708:4101930")
-    runtimeOnly fg.deobf("curse.maven:cofhcore-69162:4112120")
+    runtimeOnly fg.deobf("curse.maven:autoreglib-250363:4100299")
+    runtimeOnly fg.deobf("curse.maven:farmersdelight-398521:3999157")
+    runtimeOnly fg.deobf("curse.maven:thermalexpansion-69163:4112130")
+    runtimeOnly fg.deobf("curse.maven:thermalfoundation-222880:4112137")
+    runtimeOnly fg.deobf("curse.maven:thermalcultivation-271835:4112131")
+    runtimeOnly fg.deobf("curse.maven:thermalinnovation-291737:4112132")
+    runtimeOnly fg.deobf("curse.maven:thermalintegration-626708:4112133")
+    runtimeOnly fg.deobf("curse.maven:cofhcore-69162:4202944")
     /*
     runtimeOnly fg.deobf("curse.maven:eidolon-429625:3157832")
     runtimeOnly fg.deobf("curse.maven:curios-309927:3343065")
@@ -155,8 +155,8 @@ dependencies {
     implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-${minecraft_version}:${flywheel_version}")
     compileOnly fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
 
-    implementation fg.deobf("se.mickelus.mutil:mutil:${mutil_version}")
-    implementation fg.deobf("se.mickelus.tetra:tetra:${tetra_version}")
+    // implementation fg.deobf("se.mickelus.mutil:mutil:${mutil_version}")
+    // implementation fg.deobf("se.mickelus.tetra:tetra:${tetra_version}")
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
