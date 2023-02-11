@@ -15,7 +15,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
-import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import se.mickelus.tetra.effect.ItemEffect;
@@ -26,7 +26,7 @@ public class SolidifyingEffect implements IHoloDescription, IEventBusListener {
 
 	@SubscribeEvent(priority = EventPriority.LOWEST) // pop off after everything else
 	public void solidifyKillExp(LivingExperienceDropEvent event) {
-		LivingEntity target = event.getEntityLiving();
+		LivingEntity target = event.getEntity();
 		DamageSource lastActive = DamageBufferer.getLastActiveDamageSource();
 		if (shouldSolidifyingAffect(lastActive, target)) {
             int chunks = MathHelper.doubleToIntWithChance((event.getDroppedExperience()/3d));

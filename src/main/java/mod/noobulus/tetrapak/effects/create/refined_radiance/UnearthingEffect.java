@@ -14,7 +14,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.Tags;
-import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import se.mickelus.tetra.effect.ItemEffect;
 import se.mickelus.tetra.gui.stats.getter.IStatGetter;
@@ -65,7 +65,7 @@ public class UnearthingEffect implements IHoloDescription, IEventBusListener {
 	@SubscribeEvent
 	public void unearthWhenBlockBroken(BlockEvent.BreakEvent event) {
 		if (!unearthing && hasEffect(event.getPlayer().getMainHandItem())) {
-			unearth(event.getWorld(), event.getPos(), event.getPlayer());
+			unearth(event.getLevel(), event.getPos(), event.getPlayer());
 		}
 	}
 

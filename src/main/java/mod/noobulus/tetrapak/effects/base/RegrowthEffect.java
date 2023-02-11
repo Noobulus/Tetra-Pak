@@ -25,8 +25,8 @@ import static java.lang.Math.round;
 public class RegrowthEffect implements IHoloDescription, IEventBusListener {
 
 	@SubscribeEvent
-	public void onLivingUpdate(LivingEvent.LivingUpdateEvent event) {
-		LivingEntity entity = event.getEntityLiving();
+	public void onLivingUpdate(LivingEvent.LivingTickEvent event) {
+		LivingEntity entity = event.getEntity();
 		Level world = entity.getCommandSenderWorld();
 		if (!(entity instanceof Player))
 			return;

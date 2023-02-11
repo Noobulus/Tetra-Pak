@@ -8,7 +8,7 @@ import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
+import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -36,7 +36,7 @@ public class Particles {
 
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	@OnlyIn(Dist.CLIENT)
-	public static void registerParticles(ParticleFactoryRegisterEvent event) {
+	public static void registerParticles(RegisterParticleProvidersEvent event) {
 		ParticleEngine manager = Minecraft.getInstance().particleEngine;
 		MOONSTRIKE_PARTICLES.getEntries().stream().map(RegistryObject::get).forEach(sprite -> manager.register(sprite, MoonstrikeStageParticle.Factory::new));
 	}

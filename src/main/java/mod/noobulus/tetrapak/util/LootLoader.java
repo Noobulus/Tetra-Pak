@@ -7,7 +7,6 @@ import mod.noobulus.tetrapak.mixin.accessor.LootTableAccessor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.Item;
@@ -172,7 +171,7 @@ public class LootLoader {
 
 		@Override
 		public Component get() {
-			return new TextComponent(this.toString());
+			return Component.literal(this.toString());
 		}
 
 		public void toBuffer(FriendlyByteBuf buffer) {
