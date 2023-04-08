@@ -44,12 +44,12 @@ public class MoonstrikeEffect implements IPercentageHoloDescription, IEventBusLi
 
 	@SubscribeEvent
 	public void moonstrikeToolsBreakBlocksFaster(PlayerEvent.BreakSpeed event) {
-		ItemStack heldItemMainhand = event.getPlayer().getMainHandItem();
+		ItemStack heldItemMainhand = event.getEntity().getMainHandItem();
 		if (!(heldItemMainhand.getItem() instanceof ModularItem item))
 			return;
 		if (hasEffect(heldItemMainhand)) {
-			Level moonPhaseWorld = event.getPlayer().getCommandSenderWorld();
-			spawnMoonParticles(moonPhaseWorld, Vec3.atLowerCornerOf(event.getPos()));
+			Level moonPhaseWorld = event.getEntity().getCommandSenderWorld();
+			spawnMoonParticles(moonPhaseWorld, Vec3.atLowerCornerOf(event.getPosition().get()));
 			float efficiency = (float) item.getEffectEfficiency(heldItemMainhand, getEffect());
 			event.setNewSpeed(event.getOriginalSpeed() * getMoonFactor(moonPhaseWorld, efficiency));
 		}

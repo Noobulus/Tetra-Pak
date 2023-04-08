@@ -1,6 +1,6 @@
 package mod.noobulus.tetrapak.effects.create.refined_radiance;
 
-import com.simibubi.create.foundation.utility.AbstractBlockBreakQueue;
+/*import com.simibubi.create.foundation.utility.AbstractBlockBreakQueue;
 import com.simibubi.create.foundation.utility.Pair;
 import mod.noobulus.tetrapak.entities.FragileFallingBlock;
 import mod.noobulus.tetrapak.util.BlockHelper;
@@ -70,3 +70,4 @@ public class BlockCollection extends AbstractBlockBreakQueue {
 		destroyBlocks(world, itemStack, playerEntity, (pos, state, stack) -> biConsumer.accept(pos, stack));
 	}
 }
+*/

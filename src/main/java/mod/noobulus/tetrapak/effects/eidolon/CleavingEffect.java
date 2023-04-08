@@ -29,7 +29,7 @@ public class CleavingEffect implements IHoloDescription, IEventBusListener {
 	@SubscribeEvent
 	public void onDeath(LivingDropsEvent event) {
 		if (hasEffect(event.getSource())) {
-			LivingEntity targetEntity = event.getEntityLiving();
+			LivingEntity targetEntity = event.getEntity();
 			int looting = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.MOB_LOOTING, ((LivingEntity) event.getSource().getDirectEntity()).getMainHandItem());
 			ItemStack head = ItemStack.EMPTY;
 			if (targetEntity instanceof WitherSkeleton) head = new ItemStack(Items.WITHER_SKELETON_SKULL);

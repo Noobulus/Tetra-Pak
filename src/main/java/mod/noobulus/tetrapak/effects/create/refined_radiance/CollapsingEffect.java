@@ -3,30 +3,12 @@ package mod.noobulus.tetrapak.effects.create.refined_radiance;
 import mod.noobulus.tetrapak.util.IEventBusListener;
 import mod.noobulus.tetrapak.util.tetra_definitions.IHoloDescription;
 import mod.noobulus.tetrapak.util.tetra_definitions.ITetraEffect;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.FallingBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
-import net.minecraftforge.common.ToolActions;
-import net.minecraftforge.event.level.BlockEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import se.mickelus.tetra.effect.ItemEffect;
-
-import javax.annotation.Nullable;
-import java.util.HashSet;
-import java.util.Set;
-
-import static se.mickelus.tetra.util.ToolActionHelper.isEffectiveOn;
 
 public class CollapsingEffect implements IHoloDescription, IEventBusListener {
 	private static boolean collapsing = false; // required as to not run into "recursions" over forge events on tree cutting
 
-	public static void collapse(LevelAccessor iWorld, BlockPos pos, Player entity) {
+	/*public static void collapse(LevelAccessor iWorld, BlockPos pos, Player entity) {
 		if (collapsing || entity.isShiftKeyDown() || !(iWorld instanceof Level world))
 			return;
 		collapsing = true;
@@ -66,9 +48,9 @@ public class CollapsingEffect implements IHoloDescription, IEventBusListener {
 	@SubscribeEvent
 	public void collapseWhenBlockBroken(BlockEvent.BreakEvent event) {
 		if (!collapsing && hasEffect(event.getPlayer().getMainHandItem())) {
-			collapse(event.getWorld(), event.getPos(), event.getPlayer());
+			collapse(event.getLevel(), event.getPos(), event.getPlayer());
 		}
-	}
+	}*/
 
 	@Override
 	public ItemEffect getEffect() {

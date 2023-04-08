@@ -1,6 +1,6 @@
 package mod.noobulus.tetrapak.registries;
 
-import mod.noobulus.tetrapak.BuildConfig;
+/*import mod.noobulus.tetrapak.BuildConfig;
 import mod.noobulus.tetrapak.entities.FragileFallingBlock;
 import mod.noobulus.tetrapak.entities.FragileFallingBlockRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -44,3 +44,4 @@ public class Entities {
 		EntityRenderers.register(FRAGILE_FALLING_BLOCK.get(), FragileFallingBlockRenderer::new);
 	}
 }
+*/

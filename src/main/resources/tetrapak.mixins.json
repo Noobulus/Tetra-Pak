@@ -11,10 +11,6 @@
   "minVersion": "0.8",
   "mixins": [
     "ContainerMinecartEntityMixin",
-    "DamageSourcePredicateMixin",
-    "DeployerTileEntityMixin",
-    "EntityPredicateMixin",
-    "InWorldProcessingMixin",
     "ItemEntityMixin",
     "ItemFrameMixin",
     "PlayerInteractionManagerMixin",

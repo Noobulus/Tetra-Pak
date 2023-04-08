@@ -1,6 +1,6 @@
 package mod.noobulus.tetrapak.entities;
 
-import mod.noobulus.tetrapak.registries.Entities;
+/*import mod.noobulus.tetrapak.registries.Entities;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -118,3 +118,4 @@ public class FragileFallingBlock extends FallingBlockEntity implements IEntityAd
 		readAdditionalSaveData(additionalData.readNbt());
 	}
 }
+*/

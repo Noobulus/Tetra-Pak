@@ -1,6 +1,6 @@
 package mod.noobulus.tetrapak.util;
 
-import net.minecraft.MethodsReturnNonnullByDefault;
+/*import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -39,3 +39,4 @@ public class DropSimulationWorld extends WrappedServerWorld {
 		return false;
 	}
 }
+*/

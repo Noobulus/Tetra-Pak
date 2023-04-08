@@ -22,7 +22,7 @@ public class ExpBoostEffect implements IPercentageHoloDescription, IEventBusList
 
     @SubscribeEvent(priority = EventPriority.HIGHEST) // always go off first
     public void boostExpFromKills(LivingExperienceDropEvent event) {
-        LivingEntity target = event.getEntityLiving();
+        LivingEntity target = event.getEntity();
         DamageSource lastActive = DamageBufferer.getLastActiveDamageSource();
         if (shouldExpBoostAffect(lastActive, target)) {
             event.setDroppedExperience(MathHelper.doubleToIntWithChance(event.getDroppedExperience() * (1 + (getEffectEfficiency(lastActive)) / 100)));

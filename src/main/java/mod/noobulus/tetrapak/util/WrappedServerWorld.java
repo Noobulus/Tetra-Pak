@@ -1,7 +1,7 @@
 package mod.noobulus.tetrapak.util;
 
 
-import mod.noobulus.tetrapak.mixin.accessor.MinecraftServerAccessor;
+/*import mod.noobulus.tetrapak.mixin.accessor.MinecraftServerAccessor;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -164,3 +164,4 @@ public class WrappedServerWorld extends ServerLevel {
 		return world.getGameRules();
 	}
 }
+*/

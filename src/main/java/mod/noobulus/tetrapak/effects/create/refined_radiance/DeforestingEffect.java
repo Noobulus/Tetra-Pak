@@ -47,7 +47,7 @@ public class DeforestingEffect implements IHoloDescription, IEventBusListener {
 	@SubscribeEvent
 	public void deforestWhenBlockBroken(BlockEvent.BreakEvent event) {
 		if (hasEffect(event.getPlayer().getMainHandItem())) {
-			destroyTree(event.getWorld(), event.getState(), event.getPos(), event.getPlayer());
+			destroyTree(event.getLevel(), event.getState(), event.getPos(), event.getPlayer());
 		}
 	}
 
