@@ -1,6 +1,6 @@
 package mod.noobulus.tetrapak.effects.create.recipes;
 
-import com.google.gson.JsonObject;
+/*import com.google.gson.JsonObject;
 import com.simibubi.create.content.contraptions.components.deployer.DeployerFakePlayer;
 import com.simibubi.create.content.contraptions.components.deployer.DeployerTileEntity;
 import mod.noobulus.tetrapak.BuildConfig;
@@ -234,3 +234,4 @@ public class SalvagingRecipe implements Recipe<Container> {
 		}
 	}
 }
+*/

@@ -1,6 +1,6 @@
 package mod.noobulus.tetrapak.jei;
 
-import mezz.jei.api.gui.ingredient.ITooltipCallback;
+/*import mezz.jei.api.gui.ingredient.ITooltipCallback;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.network.chat.Component;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -23,3 +23,4 @@ public class JeiTooltipEntry<T> implements ITooltipCallback<T> {
 			list.add(toolTipMap.get(t).get());
 	}
 }
+*/

@@ -1,6 +1,6 @@
 package mod.noobulus.tetrapak.jei;
 
-import net.minecraftforge.fml.ModList;
+/*import net.minecraftforge.fml.ModList;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -41,3 +41,4 @@ public enum DynamicJeiCompat {
 		return loadedCategories.stream();
 	}
 }
+*/

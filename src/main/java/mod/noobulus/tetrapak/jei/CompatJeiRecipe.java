@@ -1,6 +1,6 @@
 package mod.noobulus.tetrapak.jei;
 
-import mezz.jei.api.recipe.category.IRecipeCategory;
+/*import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
@@ -43,3 +43,4 @@ public interface CompatJeiRecipe<T extends Recipe<Container>> extends IRecipeCat
 		return new TranslatableComponent(BuildConfig.MODID + ".recipe." + getUid().getPath());
 	}
 }
+*/

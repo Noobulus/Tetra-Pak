@@ -1,6 +1,6 @@
 package mod.noobulus.tetrapak.mixin;
 
-import com.simibubi.create.content.contraptions.components.deployer.DeployerFakePlayer;
+/*import com.simibubi.create.content.contraptions.components.deployer.DeployerFakePlayer;
 import com.simibubi.create.content.contraptions.components.deployer.DeployerTileEntity;
 import mod.noobulus.tetrapak.effects.create.recipes.SalvagingRecipe;
 import net.minecraft.world.item.Item;
@@ -41,3 +41,4 @@ public class DeployerTileEntityMixin {
 		recipe.ifPresent(cir::setReturnValue);
 	}
 }
+*/

@@ -1,6 +1,6 @@
 package mod.noobulus.tetrapak.jei;
 
-import com.mojang.blaze3d.vertex.PoseStack;
+/*import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.compat.jei.DoubleItemIcon;
 import com.simibubi.create.compat.jei.EmptyBackground;
@@ -135,3 +135,4 @@ public class AutoSalvageCategory implements CompatJeiRecipe<SalvagingRecipe> {
 		deployer.draw(matrixStack, getBackground().getWidth() / 2 - 13, 37);
 	}
 }
+*/
