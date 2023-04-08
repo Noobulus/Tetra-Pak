@@ -1,6 +1,6 @@
 package mod.noobulus.tetrapak.jei;
 
-import mezz.jei.api.IModPlugin;
+/*import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
@@ -43,3 +43,4 @@ public class TetraPakJei implements IModPlugin {
 		DynamicJeiCompat.getAllLoadedCategories().forEach(category -> category.addRecipes(registration, manager));
 	}
 }
+*/

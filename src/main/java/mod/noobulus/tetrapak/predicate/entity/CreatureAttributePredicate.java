@@ -1,6 +1,6 @@
 package mod.noobulus.tetrapak.predicate.entity;
 
-import com.google.gson.JsonObject;
+/*import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.Entity;
@@ -31,3 +31,4 @@ public class CreatureAttributePredicate extends AbstractEntityPredicate {
 		return entity -> entity instanceof LivingEntity livingEntity && livingEntity.getMobType().equals(mobType);
 	}
 }
+*/

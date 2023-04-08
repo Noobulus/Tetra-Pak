@@ -1,7 +1,7 @@
 package mod.noobulus.tetrapak;
 
 import mod.noobulus.tetrapak.networking.Packets;
-import mod.noobulus.tetrapak.predicate.PredicateManagers;
+//import mod.noobulus.tetrapak.predicate.PredicateManagers;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -24,7 +24,7 @@ public class TetraPak {
 		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 		modEventBus.addListener(Mods::clientSetup);
 		modEventBus.addListener((FMLCommonSetupEvent event) -> Packets.registerPackets());
-		PredicateManagers.register();
+		//PredicateManagers.register();
 	}
 
 	public static ResourceLocation asId(String name) {

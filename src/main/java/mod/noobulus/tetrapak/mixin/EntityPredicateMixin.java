@@ -1,6 +1,6 @@
 package mod.noobulus.tetrapak.mixin;
 
-import com.google.gson.JsonElement;
+/*import com.google.gson.JsonElement;
 import mod.noobulus.tetrapak.predicate.PredicateManagers;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.server.level.ServerLevel;
@@ -57,3 +57,4 @@ public abstract class EntityPredicateMixin {
 		customPredicates.addAll(list);
 	}
 }
+*/

@@ -1,6 +1,6 @@
 package mod.noobulus.tetrapak.predicate;
 
-import mod.noobulus.tetrapak.predicate.damage_source.AbstractDamageSourcePredicate;
+/*import mod.noobulus.tetrapak.predicate.damage_source.AbstractDamageSourcePredicate;
 import mod.noobulus.tetrapak.predicate.damage_source.TestWeaponPredicate;
 import mod.noobulus.tetrapak.predicate.entity.AbstractEntityPredicate;
 import mod.noobulus.tetrapak.predicate.entity.CreatureAttributePredicate;
@@ -23,3 +23,4 @@ public class PredicateManagers {
 		// classloading
 	}
 }
+*/

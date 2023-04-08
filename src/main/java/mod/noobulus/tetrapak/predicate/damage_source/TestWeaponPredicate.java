@@ -1,6 +1,6 @@
 package mod.noobulus.tetrapak.predicate.damage_source;
 
-import com.google.gson.JsonObject;
+/*import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import mod.noobulus.tetrapak.util.ItemHelper;
 import net.minecraft.advancements.critereon.ItemPredicate;
@@ -17,3 +17,4 @@ public class TestWeaponPredicate extends AbstractDamageSourcePredicate {
 		return damageSource -> itemPredicate.matches(ItemHelper.getItemOfDamageSource(damageSource));
 	}
 }
+*/

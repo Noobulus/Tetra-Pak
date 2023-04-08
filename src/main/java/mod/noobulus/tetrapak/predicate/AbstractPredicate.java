@@ -1,6 +1,6 @@
 package mod.noobulus.tetrapak.predicate;
 
-import com.google.gson.JsonElement;
+/*import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import net.minecraft.util.GsonHelper;
@@ -30,3 +30,4 @@ public abstract class AbstractPredicate<T, R extends AbstractPredicate<T, R>> ex
 
 	protected abstract String getKey();
 }
+*/

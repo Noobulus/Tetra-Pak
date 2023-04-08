@@ -1,6 +1,6 @@
 package mod.noobulus.tetrapak.predicate;
 
-import mod.noobulus.tetrapak.TetraPak;
+/*import mod.noobulus.tetrapak.TetraPak;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -83,3 +83,4 @@ public abstract class AbstractPredicateManager<T extends AbstractPredicate<?, T>
 		}
 	}
 }
+*/
